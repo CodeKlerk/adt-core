@@ -19,6 +19,44 @@ schemes:
   - http
 paths:
   /patients:
+    get: 
+      tags: 
+        - patients
+      summary: get's a list of patients
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: limit
+          in: query
+          description: ID of the object to fetch
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+        - name: offset
+          in: query
+          description: ID of the object to fetch
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Patient"
+        "400":
+          description: Invalid status value
+      security:
+        - adt_auth:
+          - read_patients
     post:
       tags:
         - patient
