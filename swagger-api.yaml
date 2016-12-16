@@ -543,12 +543,80 @@ definitions:
         type: string
       patient_status:
         $ref: "#/definitions/Patient_status"
+
   Patient:
     type: object
     properties:
       id:
         type: integer
         format: int64
+      ccc_number:
+        type: string
+        example: ABC123456
+      first_name:
+        type: string
+        example: John
+      last_name:
+        type: string
+        example: John
+      other_name:
+        type: string
+        example: John
+      phone_number:
+        type: integer
+        format: int64
+      alternate_number:
+        type: integer
+        format: int64
+      physical_address:
+        type: string
+        example: Nairobi West
+      gender:
+        type: string
+        example: male,female
+      birth_date:
+        type: string
+        format: date-time
+      enrollment_date:
+        type: string
+        format: date-time
+      support_group:
+        type: string
+        example: lorem ipsum
+      is_pregnant:
+        type: boolean
+      is_tb:
+        type: boolean
+      is_tb_tested:
+        type: boolean
+      is_smoke:
+        type: boolean
+      is_alchohol:
+        type: boolean
+      is_sms:
+        type: boolean
+      deleted_at:
+        type: string
+      patient_status:
+        $ref: "#/definitions/Patient_status"
+      appointment:
+        $ref: "#/definitions/Appointment"
+      visit: 
+        $ref: "#/definitions/Visit"
+
+      PatientPartner:
+        $ref: "#/definitions/PatientPartner"
+      FamilyPlanning:
+        $ref: "#/definitions/FamilyPlanning"
+      PatientFamilyPlanning:
+        $ref: "#/definitions/PatientFamilyPlanning"
+      PatientDrugAllergy:
+        $ref: "#/definitions/PatientDrugAllergy"
+      PatientDrugAllergy:
+        $ref: "#/definitions/PatientDrugAllergy"
+
+
+
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
 basePath: /BrianPhiri/ADT-CORE/1.0.0
