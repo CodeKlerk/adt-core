@@ -378,7 +378,7 @@ definitions:
       drug: 
         $ref: "#/definitions/Drug"
         
-  patientDrugOther:
+  PatientDrugOther:
     type: object
     properties:
       patient_id:
@@ -603,19 +603,14 @@ definitions:
         $ref: "#/definitions/Appointment"
       visit: 
         $ref: "#/definitions/Visit"
-
-      PatientPartner:
+      patient_partner:
         $ref: "#/definitions/PatientPartner"
-      FamilyPlanning:
-        $ref: "#/definitions/FamilyPlanning"
-      PatientFamilyPlanning:
+      patient_family_planning:
         $ref: "#/definitions/PatientFamilyPlanning"
-      PatientDrugAllergy:
+      patient_drug_allergy:
         $ref: "#/definitions/PatientDrugAllergy"
-      PatientDrugAllergy:
-        $ref: "#/definitions/PatientDrugAllergy"
-
-
+      patient_drug_other:
+        $ref: "#/definitions/PatientDrugOther"
 
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
