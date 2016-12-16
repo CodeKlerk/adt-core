@@ -490,7 +490,7 @@ securityDefinitions:
     in: header
   adt_auth:
     type: oauth2
-    authorizationUrl: http://patientstore.swagger.io/api/oauth/dialog
+    authorizationUrl: http://api.adtcore.io/api/oauth/dialog
     flow: implicit
     scopes:
       create_patients: create patients
@@ -691,15 +691,6 @@ definitions:
         type: string
       patient_status:
         $ref: "#/definitions/Patient_status"
-       
-  Tag:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      name:
-        type: string
   Order:
     type: object
     properties:
