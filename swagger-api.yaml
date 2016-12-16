@@ -13,10 +13,10 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-host: api.adtcore.io
-basePath: /v1
-schemes:
-  - http
+# host: api.adtcore.io
+# basePath: /v1
+# schemes:
+#   - http
 paths:
   /patients:
     get: 
@@ -326,9 +326,37 @@ definitions:
       category_id:
         type: integer
         format: int64
-  
-  
-  
+
+  PatientPartner:
+    type: object
+    properties:
+      partnerId:
+        type: integer
+        format: init64
+      status:
+        type: string
+        example: Single
+    
+  FamilyPlanning:
+    type: object
+    properties:
+      id: 
+        type: integer
+        format: init64
+      name: 
+        type: string
+        example: Vasectomy
+    
+  PatientFamilyPlanning:
+    type: object
+    properties: 
+      patientId:
+        type: integer
+        format: init64
+      family_planning_id:
+        type: integer
+        format: init64
+        $ref : "#/definitions/FamilyPlanning"
   
   Visit:
     type: object
@@ -470,4 +498,11 @@ definitions:
   Patient:
     type: object
     properties:
-      
+      id:
+        type: integer
+        format: int64
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /BrianPhiri/ADT-CORE/1.0.0
+schemes:
+ - https
