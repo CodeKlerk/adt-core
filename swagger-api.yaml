@@ -337,6 +337,56 @@ definitions:
         type: string
         example: Single
     
+  Drug:
+    type: object
+    properties:
+      id: 
+        type: integer
+        format: init64
+      name: 
+        type: string
+      pack_size:
+        type: integer
+        format: init64
+      duration:
+        type: integer
+        format: init64
+      quantity:
+        type: integer
+        format: init64
+      is_arv:
+        type: boolean
+      is_tb:
+        type: boolean
+      is_active:
+        type: boolean
+      unit_id:
+        type: integer
+      dose_id:
+        type: integer
+      generic_id:
+        type: integer
+      supporter_id:
+        type: integer
+        
+  PatientDrugAllergy:
+    type: object
+    properties:
+      patient_id:
+        type: integer
+        format: init64
+      drug: 
+        $ref: "#/definitions/Drug"
+        
+  patientDrugOther:
+    type: object
+    properties:
+      patient_id:
+        type: integer
+        format: init64
+      allergy_name:
+        type: string
+      
   FamilyPlanning:
     type: object
     properties:
@@ -354,8 +404,6 @@ definitions:
         type: integer
         format: init64
       family_planning_id:
-        type: integer
-        format: init64
         $ref : "#/definitions/FamilyPlanning"
   
   Visit:
