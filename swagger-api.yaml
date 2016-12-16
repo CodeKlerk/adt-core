@@ -1,0 +1,618 @@
+swagger: "2.0"
+info:
+  description: |
+    Official & Core API for ADT
+
+    [Learn about Swagger](http://swagger.io) or join the IRC channel `#swagger` on irc.freenode.net.
+
+    For this sample, you can use the api key `special-key` to test the authorization filters
+  version: "1.0.0"
+  title: ADT API
+  termsOfService: http://adtcore.io/terms/
+  contact:
+    name: team@adtcore.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: api.adtcore.io
+basePath: /v1
+schemes:
+  - http
+paths:
+  /patients:
+    post:
+      tags:
+        - patient
+      summary: Add a new patient to the store
+      description: ""
+      operationId: addPatient
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: body
+          description: Patient object that needs to be added to the store
+          required: false
+          schema:
+            $ref: "#/definitions/Patient"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Patient"
+        "405":
+          description: Invalid input
+      security:
+        - adt_auth:
+          - create_patients
+          - read_patients
+    put:
+      tags:
+        - patient
+      summary: Update an existing patient
+      description: ""
+      operationId: updatePatient
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: body
+          description: Patient object that needs to be added to the store
+          required: false
+          schema:
+            $ref: "#/definitions/Patient"
+      responses:
+        "405":
+          description: Validation exception
+        "404":
+          description: Patient not found
+        "400":
+          description: Invalid ID supplied
+      security:
+        - adt_auth:
+          - create_patients
+          - read_patients
+  /patients/findByStatus:
+    get:
+      tags:
+        - patient
+      summary: Finds Patients by status
+      description: Multiple status values can be provided with comma seperated strings
+      operationId: findPatientsByStatus
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: query
+          name: status
+          description: Status values that need to be considered for filter
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Patient"
+        "400":
+          description: Invalid status value
+      security:
+        - adt_auth:
+          - create_patients
+          - read_patients
+  /patients/findByTags:
+    get:
+      tags:
+        - patient
+      summary: Finds Patients by tags
+      description: Muliple tags can be provided with comma seperated strings. Use tag1, tag2, tag3 for testing.
+      operationId: findPatientsByTags
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: query
+          name: tags
+          description: Tags to filter by
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Patient"
+        "400":
+          description: Invalid tag value
+      security:
+        - adt_auth:
+          - create_patients
+          - read_patients
+  /patients/{patientId}:
+    get:
+      tags:
+        - patient
+      summary: Find patient by ID
+      description: Returns a patient when ID < 10.  ID > 10 or nonintegers will simulate API error conditions
+      operationId: getPatientById
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: path
+          name: patientId
+          description: ID of patient that needs to be fetched
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Patient not found
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Patient"
+        "400":
+          description: Invalid ID supplied
+      security:
+        - api_key: []
+        - adt_auth:
+          - create_patients
+          - read_patients
+    post:
+      tags:
+        - patient
+      summary: Updates a patient in the store with form data
+      description: ""
+      operationId: updatePatientWithForm
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: path
+          name: patientId
+          description: ID of patient that needs to be updated
+          required: true
+          type: string
+        - in: formData
+          name: name
+          description: Updated name of the patient
+          required: true
+          type: string
+        - in: formData
+          name: status
+          description: Updated status of the patient
+          required: true
+          type: string
+      responses:
+        "405":
+          description: Invalid input
+      security:
+        - adt_auth:
+          - create_patients
+          - read_patients
+    delete:
+      tags:
+        - patient
+      summary: Deletes a patient
+      description: ""
+      operationId: deletePatient
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: header
+          name: api_key
+          description: ""
+          required: true
+          type: string
+        - in: path
+          name: patientId
+          description: Patient id to delete
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "400":
+          description: Invalid patient value
+      security:
+        - adt_auth:
+          - create_patients
+          - read_patients
+  /stores/order:
+    post:
+      tags:
+        - store
+      summary: Place an order for a patient
+      description: ""
+      operationId: placeOrder
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: body
+          description: order placed for purchasing the patient
+          required: false
+          schema:
+            $ref: "#/definitions/Order"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Order"
+        "400":
+          description: Invalid Order
+  /stores/order/{orderId}:
+    get:
+      tags:
+        - store
+      summary: Find purchase order by ID
+      description: For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
+      operationId: getOrderById
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: path
+          name: orderId
+          description: ID of patient that needs to be fetched
+          required: true
+          type: string
+      responses:
+        "404":
+          description: Order not found
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/Order"
+        "400":
+          description: Invalid ID supplied
+    delete:
+      tags:
+        - store
+      summary: Delete purchase order by ID
+      description: For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+      operationId: deleteOrder
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: path
+          name: orderId
+          description: ID of the order that needs to be deleted
+          required: true
+          type: string
+      responses:
+        "404":
+          description: Order not found
+        "400":
+          description: Invalid ID supplied
+  /users:
+    post:
+      tags:
+        - user
+      summary: Create user
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: body
+          description: Created user object
+          required: false
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        default:
+          description: successful operation
+  /users/createWithArray:
+    post:
+      tags:
+        - user
+      summary: Creates list of users with given input array
+      description: ""
+      operationId: createUsersWithArrayInput
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: body
+          description: List of user object
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/User"
+      responses:
+        default:
+          description: successful operation
+  /users/createWithList:
+    post:
+      tags:
+        - user
+      summary: Creates list of users with given input array
+      description: ""
+      operationId: createUsersWithListInput
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: body
+          description: List of user object
+          required: false
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/User"
+      responses:
+        default:
+          description: successful operation
+  /users/login:
+    get:
+      tags:
+        - user
+      summary: Logs user into the system
+      description: ""
+      operationId: loginUser
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: query
+          name: username
+          description: The user name for login
+          required: false
+          type: string
+        - in: query
+          name: password
+          description: The password for login in clear text
+          required: false
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: string
+        "400":
+          description: Invalid username/password supplied
+  /users/logout:
+    get:
+      tags:
+        - user
+      summary: Logs out current logged in user session
+      description: ""
+      operationId: logoutUser
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        default:
+          description: successful operation
+  /users/{username}:
+    get:
+      tags:
+        - user
+      summary: Get user by user name
+      description: ""
+      operationId: getUserByName
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: path
+          name: username
+          description: The name that needs to be fetched. Use user1 for testing.
+          required: true
+          type: string
+      responses:
+        "404":
+          description: User not found
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/User"
+        "400":
+          description: Invalid username supplied
+    put:
+      tags:
+        - user
+      summary: Updated user
+      description: This can only be done by the logged in user.
+      operationId: updateUser
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: path
+          name: username
+          description: name that need to be deleted
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Updated user object
+          required: false
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        "404":
+          description: User not found
+        "400":
+          description: Invalid user supplied
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      description: This can only be done by the logged in user.
+      operationId: deleteUser
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: path
+          name: username
+          description: The name that needs to be deleted
+          required: true
+          type: string
+      responses:
+        "404":
+          description: User not found
+        "400":
+          description: Invalid username supplied
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+  adt_auth:
+    type: oauth2
+    authorizationUrl: http://patientstore.swagger.io/api/oauth/dialog
+    flow: implicit
+    scopes:
+      create_patients: create patients
+      read_patients: read your patients
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      username:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      userStatus:
+        type: integer
+        format: int32
+        description: User Status
+  Category:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+  Patient:
+    type: object
+    required:
+      - first_name
+      - id
+    properties:
+      id:
+        type: integer
+        format: int64
+      ccc_number:
+        type: string
+        example: ABC123456
+      category:
+        $ref: "#/definitions/Category"
+      first_name:
+        type: string
+        example: John
+      last_name:
+        type: string
+        example: John
+      other_name:
+        type: string
+        example: John
+      phone_number:
+        type: integer
+        format: int64
+      alternate_number:
+        type: integer
+        format: int64
+      physical_address:
+        type: string
+        example: Nairobi West
+      gender:
+        type: string
+        example: male,female
+      birth_date:
+        type: string
+        format: date-time
+      enrollment_date:
+        type: string
+        format: date-time
+      support_group:
+        type: string
+        example: lorem ipsum
+      is_pregnant:
+        type: boolean
+      is_tb:
+        type: boolean
+      is_tb_tested:
+        type: boolean
+      is_smoke:
+        type: boolean
+      is_alchohol:
+        type: boolean
+      is_sms:
+        type: boolean
+      deleted_at:
+        type: string
+      patient_status:
+        type: string
+        description: patient status in the store
+  Tag:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+  Order:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      patientId:
+        type: integer
+        format: int64
+      quantity:
+        type: integer
+        format: int32
+      shipDate:
+        type: string
+        format: date-time
+      status:
+        type: string
+        description: Order Status
+      complete:
+        type: boolean
