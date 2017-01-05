@@ -56,7 +56,7 @@ paths:
           description: Invalid status value
       security:
         - adt_auth:
-          - read_patients
+          - read_patient
     post:
       tags:
         - patients
@@ -87,8 +87,8 @@ paths:
           description: Invalid input
       security:
         - adt_auth:
-          - create_patients
-          - read_patients
+          - create_patient
+          - read_patient
 
   /patients/{patientId}:
     get:
@@ -119,8 +119,8 @@ paths:
       security:
         - api_key: []
         - adt_auth:
-          - create_patients
-          - read_patients
+          - create_patient
+          - read_patient
     put:
       tags:
         - patients
@@ -157,8 +157,8 @@ paths:
           description: Invalid ID supplied
       security:
         - adt_auth:
-          - create_patients
-          - read_patients    
+          - create_patient
+          - read_patient
     delete:
       tags:
         - patients
@@ -187,8 +187,8 @@ paths:
           description: Patient deleted
       security:
         - adt_auth:
-          - create_patients
-          - read_patients
+          - create_patient
+          - read_patient
   /lists/illnesses:
     get:
       tags:
@@ -311,11 +311,11 @@ paths:
           description: Invalid status value
       security:
         - adt_auth:
-          - read_patients
+          - read_service
     post:
       tags:
         - patients
-      summary: Add a new patient to the facility
+      summary: Add a new service to the facility
       description: ""
       operationId: addService
       consumes:
@@ -327,23 +327,23 @@ paths:
       parameters:
         - in: body
           name: body
-          description: Patient object being added to facility
+          description: Service object being added to facility
           required: false
           schema:
-            $ref: "#/definitions/Patient"
+            $ref: "#/definitions/Service"
       responses:
         "201":
-          description: Patient Added Successfully
+          description: Service Added Successfully
           schema:
             type: array
             items:
-              $ref: "#/definitions/Patient"
+              $ref: "#/definitions/Service"
         "405":
           description: Invalid input
       security:
         - adt_auth:
-          - create_patients
-          - read_patients
+          - create_service
+          - read_service
   /services/{serviceId}:
     get:
       tags:
@@ -373,8 +373,8 @@ paths:
       security:
         - api_key: []
         - adt_auth:
-          - create_services
-          - read_services
+          - create_service
+          - read_service
     put:
       tags:
         - services
@@ -411,8 +411,8 @@ paths:
           description: Invalid ID supplied
       security:
         - adt_auth:
-          - create_patients
-          - read_patients    
+          - create_patient
+          - read_patient   
     delete:
       tags:
         - services
@@ -441,8 +441,8 @@ paths:
           description: Patient deleted
       security:
         - adt_auth:
-          - create_patients
-          - read_patients
+          - create_patient
+          - read_patient
 
 securityDefinitions:
   api_key:
@@ -454,13 +454,13 @@ securityDefinitions:
     authorizationUrl: http://api.adtcore.io/api/oauth/dialog
     flow: implicit
     scopes:
-      create_patients: Create patients
-      read_patients: Read your patients
+      create_patient: Create patients
+      read_patient: Read your patients
       read_illnesses: Read Chronic Illnesses
       read_allergies: Read Drug Allergies
       read_patientsources: Read Patient Sources
-      read_services: raed services
-      create_services: create services
+      read_service: raed services
+      create_service: create services
       
 definitions:
   Appointment: 
