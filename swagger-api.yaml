@@ -77,8 +77,8 @@ paths:
           schema:
             $ref: "#/definitions/Patient"
       responses:
-        "200":
-          description: successful operation
+        "201":
+          description: Patient Added Successfully
           schema:
             type: array
             items:
@@ -115,70 +115,6 @@ paths:
           description: Patient not found
         "400":
           description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - create_patients
-          - read_patients
-  /patients/findByStatus:
-    get:
-      tags:
-        - patients
-      summary: Finds Patients by status
-      description: Multiple status values can be provided with comma seperated strings
-      operationId: findPatientsByStatus
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: query
-          name: status
-          description: Status values that need to be considered for filter
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
-      responses:
-        "200":
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Patient"
-        "400":
-          description: Invalid status value
-      security:
-        - adt_auth:
-          - create_patients
-          - read_patients
-  /patients/findByTags:
-    get:
-      tags:
-        - patients
-      summary: Finds Patients by tags
-      description: Muliple tags can be provided with comma seperated strings. Use tag1, tag2, tag3 for testing.
-      operationId: findPatientsByTags
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: query
-          name: tags
-          description: Tags to filter by
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
-      responses:
-        "200":
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Patient"
-        "400":
-          description: Invalid tag value
       security:
         - adt_auth:
           - create_patients
@@ -272,6 +208,8 @@ paths:
       responses:
         "400":
           description: Invalid patient value
+        "204":
+          description: Patient deleted
       security:
         - adt_auth:
           - create_patients
@@ -368,7 +306,6 @@ paths:
       security:
         - adt_auth:
           - read_patientsources
-          
 securityDefinitions:
   api_key:
     type: apiKey
@@ -400,7 +337,6 @@ definitions:
       facility_id: 
         type: integer
         format: init64
-
   Regimen:
     type: object
     properties:
@@ -420,7 +356,6 @@ definitions:
       category_id:
         type: integer
         format: int64
-
   PatientPartner:
     type: object
     properties:
@@ -430,7 +365,6 @@ definitions:
       status:
         type: string
         example: Single
-    
   Drug:
     type: object
     properties:
@@ -473,8 +407,7 @@ definitions:
         type: string
       is_active:
         type: boolean
-        $ref: "#/definitions/Drug"
-
+  
   ChronicIllnesses:
     type: object
     properties:
@@ -485,8 +418,7 @@ definitions:
         type: string
       is_active:
         type: boolean
-        $ref: "#/definitions/ChronicIllnesses"
-
+ 
   PatientSources:
     type: object
     properties:
@@ -497,8 +429,7 @@ definitions:
         type: string
       is_active:
         type: boolean
-        $ref: "#/definitions/PatientSources"
-        
+         
   PatientDrugOther:
     type: object
     properties:
