@@ -59,7 +59,7 @@ paths:
           - read_patients
     post:
       tags:
-        - patient
+        - patients
       summary: Add a new patient to the store
       description: ""
       operationId: addPatient
@@ -77,8 +77,8 @@ paths:
           schema:
             $ref: "#/definitions/Patient"
       responses:
-        "200":
-          description: successful operation
+        "201":
+          description: Patient Added Successfully
           schema:
             type: array
             items:
@@ -91,7 +91,7 @@ paths:
           - read_patients
     put:
       tags:
-        - patient
+        - patients
       summary: Update an existing patient
       description: ""
       operationId: updatePatient
@@ -119,74 +119,10 @@ paths:
         - adt_auth:
           - create_patients
           - read_patients
-  /patients/findByStatus:
-    get:
-      tags:
-        - patient
-      summary: Finds Patients by status
-      description: Multiple status values can be provided with comma seperated strings
-      operationId: findPatientsByStatus
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: query
-          name: status
-          description: Status values that need to be considered for filter
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
-      responses:
-        "200":
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Patient"
-        "400":
-          description: Invalid status value
-      security:
-        - adt_auth:
-          - create_patients
-          - read_patients
-  /patients/findByTags:
-    get:
-      tags:
-        - patient
-      summary: Finds Patients by tags
-      description: Muliple tags can be provided with comma seperated strings. Use tag1, tag2, tag3 for testing.
-      operationId: findPatientsByTags
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: query
-          name: tags
-          description: Tags to filter by
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
-      responses:
-        "200":
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Patient"
-        "400":
-          description: Invalid tag value
-      security:
-        - adt_auth:
-          - create_patients
-          - read_patients
   /patients/{patientId}:
     get:
       tags:
-        - patient
+        - patients
       summary: Find patient by ID
       description: Returns a patient when ID < 10.  ID > 10 or nonintegers will simulate API error conditions
       operationId: getPatientById
@@ -216,7 +152,7 @@ paths:
           - read_patients
     post:
       tags:
-        - patient
+        - patients
       summary: Updates a patient in the store with form data
       description: ""
       operationId: updatePatientWithForm
@@ -250,7 +186,7 @@ paths:
           - read_patients
     delete:
       tags:
-        - patient
+        - patients
       summary: Deletes a patient
       description: ""
       operationId: deletePatient
@@ -272,11 +208,104 @@ paths:
       responses:
         "400":
           description: Invalid patient value
+        "204":
+          description: Patient deleted
       security:
         - adt_auth:
           - create_patients
           - read_patients
-
+  /lists/illnesses:
+    get:
+      tags:
+        - lists
+      summary: Fetch Chronic Illnesses (for select options)
+      description:  Fetch Chronic Illnesses (for select options)
+      operationId: ChronicIllnesses
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: tags
+          description: Tags to filter by
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ChronicIllnesses"
+        "400":
+          description: Invalid tag value
+      security:
+        - adt_auth:
+          - read_illnesses
+  /lists/allergies:
+    get:
+      tags:
+        - lists
+        - Allergies
+      summary: Fetch Drug Allergies  (for select options)
+      description:  Fetch Drug Allergies  (for select options)
+      operationId: DrugAllergies
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: tags
+          description: Tags to filter by
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/PatientDrugAllergy"
+        "400":
+          description: Invalid tag value
+      security:
+        - adt_auth:
+          - read_allergies
+  /lists/patientsources:
+    get:
+      tags:
+        - lists
+        - Allergies
+      summary: Fetch Drug Allergies  (for select options)
+      description:  Fetch Drug Allergies  (for select options)
+      operationId: PatientSources
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: tags
+          description: Tags to filter by
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/PatientSources"
+        "400":
+          description: Invalid tag value
+      security:
+        - adt_auth:
+          - read_patientsources
 securityDefinitions:
   api_key:
     type: apiKey
@@ -287,8 +316,11 @@ securityDefinitions:
     authorizationUrl: http://api.adtcore.io/api/oauth/dialog
     flow: implicit
     scopes:
-      create_patients: create patients
-      read_patients: read your patients
+      create_patients: Create patients
+      read_patients: Read your patients
+      read_illnesses: Read Chronic Illnesses
+      read_allergies: Read Drug Allergies
+      read_patientsources: Read Patient Sources
 definitions:
   Appointment: 
     type: object
@@ -305,8 +337,6 @@ definitions:
       facility_id: 
         type: integer
         format: init64
-  
-      
   Regimen:
     type: object
     properties:
@@ -326,7 +356,6 @@ definitions:
       category_id:
         type: integer
         format: int64
-
   PatientPartner:
     type: object
     properties:
@@ -336,7 +365,6 @@ definitions:
       status:
         type: string
         example: Single
-    
   Drug:
     type: object
     properties:
@@ -372,12 +400,36 @@ definitions:
   PatientDrugAllergy:
     type: object
     properties:
-      patient_id:
+      drug_id:
         type: integer
         format: init64
-      drug: 
-        $ref: "#/definitions/Drug"
-        
+      drugrallergy:
+        type: string
+      is_active:
+        type: boolean
+  
+  ChronicIllnesses:
+    type: object
+    properties:
+      illness_id:
+        type: integer
+        format: init64
+      illness:
+        type: string
+      is_active:
+        type: boolean
+ 
+  PatientSources:
+    type: object
+    properties:
+      source_id:
+        type: integer
+        format: init64
+      source:
+        type: string
+      is_active:
+        type: boolean
+         
   PatientDrugOther:
     type: object
     properties:
@@ -611,9 +663,3 @@ definitions:
         $ref: "#/definitions/PatientDrugAllergy"
       patient_drug_other:
         $ref: "#/definitions/PatientDrugOther"
-
-# Added by API Auto Mocking Plugin
-host: virtserver.swaggerhub.com
-basePath: /BrianPhiri/ADT-CORE/1.0.0
-schemes:
- - https
