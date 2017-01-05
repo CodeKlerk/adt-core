@@ -31,7 +31,7 @@ paths:
       parameters:
         - name: limit
           in: query
-          description: ID of the object to fetch
+          description: Number of patients to fetch
           required: false
           type: array
           items:
@@ -39,7 +39,7 @@ paths:
           collectionFormat: multi
         - name: offset
           in: query
-          description: ID of the object to fetch
+          description: non-negative offset integer for fetching patients
           required: false
           type: array
           items:
@@ -60,7 +60,7 @@ paths:
     post:
       tags:
         - patients
-      summary: Add a new patient to the store
+      summary: Add a new patient to the facility
       description: ""
       operationId: addPatient
       consumes:
@@ -72,7 +72,7 @@ paths:
       parameters:
         - in: body
           name: body
-          description: Patient object that needs to be added to the store
+          description: Patient object being added to facility
           required: false
           schema:
             $ref: "#/definitions/Patient"
@@ -89,42 +89,13 @@ paths:
         - adt_auth:
           - create_patients
           - read_patients
-    put:
-      tags:
-        - patients
-      summary: Update an existing patient
-      description: ""
-      operationId: updatePatient
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: body
-          name: body
-          description: Patient object that needs to be added to the store
-          required: false
-          schema:
-            $ref: "#/definitions/Patient"
-      responses:
-        "405":
-          description: Validation exception
-        "404":
-          description: Patient not found
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - create_patients
-          - read_patients
+
   /patients/{patientId}:
     get:
       tags:
         - patients
-      summary: Find patient by ID
-      description: Returns a patient when ID < 10.  ID > 10 or nonintegers will simulate API error conditions
+      summary: Find patient by patientId
+      description: Returns the patient with the specified patientId
       operationId: getPatientById
       produces:
         - application/json
@@ -150,40 +121,42 @@ paths:
         - adt_auth:
           - create_patients
           - read_patients
-    post:
+    put:
       tags:
         - patients
-      summary: Updates a patient in the store with form data
+      summary: Update an existing patient
       description: ""
-      operationId: updatePatientWithForm
+      operationId: updatePatient
       consumes:
-        - application/x-www-form-urlencoded
+        - application/json
+        - application/xml
       produces:
         - application/json
         - application/xml
       parameters:
+        - in: body
+          name: body
+          description: Patient object that needs to be added to the store
+          required: false
+          schema:
+            $ref: "#/definitions/Patient"
         - in: path
           name: patientId
-          description: ID of patient that needs to be updated
+          description: Patient id to delete
           required: true
-          type: string
-        - in: formData
-          name: name
-          description: Updated name of the patient
-          required: true
-          type: string
-        - in: formData
-          name: status
-          description: Updated status of the patient
-          required: true
-          type: string
+          type: integer
+          format: int64     
       responses:
         "405":
-          description: Invalid input
+          description: Validation exception
+        "404":
+          description: Patient not found
+        "400":
+          description: Invalid ID supplied
       security:
         - adt_auth:
           - create_patients
-          - read_patients
+          - read_patients    
     delete:
       tags:
         - patients
