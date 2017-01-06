@@ -403,7 +403,11 @@ paths:
           description: Patient object that needs to be added to the store
           required: false
           schema:
+<<<<<<< HEAD
             $ref: "#/definitions/PatientRegimen"
+=======
+            $ref: "#/definitions/Patients"
+>>>>>>> a9431678ccfd3cda00212cd305fdd204879309fc
         - in: path
           name: patientId
           description: Patient id to update
