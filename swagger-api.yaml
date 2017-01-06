@@ -222,6 +222,10 @@ paths:
               $ref: "#/definitions/Prophylaxis"
         "400":
           description: Invalid ID supplied
+      security:
+        - adt_auth:
+          - read_patient_prophylaxis
+
     put:
       tags:
         - patients
@@ -240,7 +244,7 @@ paths:
           description: Patient object that needs to be added to the store
           required: false
           schema:
-            $ref: "#/definitions/Patients"
+            $ref: "#/definitions/Prophylaxis"
         - in: path
           name: patientId
           description: Patient id to delete
@@ -262,8 +266,8 @@ paths:
           description: Invalid ID supplied
       security:
         - adt_auth:
-          - create_patient
-          - read_patient 
+          - write_patient_prophylaxis
+          - read_patient_prophylaxis 
     delete:
       tags:
         - patients
@@ -298,8 +302,8 @@ paths:
           description: Prophylaxis has been removed
       security:
         - adt_auth:
-          - create_patient
-          - read_patient
+          - write_patient
+          
   /patients/{patientId}/regimens/{regimenId}:
     get:
       tags:
@@ -333,6 +337,10 @@ paths:
               $ref: "#/definitions/PatientRegimen"
         "400":
           description: Invalid ID supplied
+      security:
+        - adt_auth:
+          - read_patient_regimen
+          
     post:
       tags:
         - patients
@@ -376,8 +384,7 @@ paths:
           description: Invalid input
       security:
         - adt_auth:
-          - create_patient
-          - read_patient
+          - write_patient_regimen
     put:
       tags:
         - patients
@@ -396,7 +403,7 @@ paths:
           description: Patient object that needs to be added to the store
           required: false
           schema:
-            $ref: "#/definitions/Patients"
+            $ref: "#/definitions/PatientRegimen"
         - in: path
           name: patientId
           description: Patient id to update
@@ -419,8 +426,8 @@ paths:
           description: Invalid ID supplied
       security:
         - adt_auth:
-          - create_patient
-          - read_patient   
+          - read_patient_regimen
+          - write_patient_regimen
     delete:
       tags:
         - patients
@@ -456,8 +463,8 @@ paths:
           description: regimens has been removed
       security:
         - adt_auth:
-          - create_patient
-          - read_patient
+          - write_patient_regiment
+          
   /patients/{patientId}/appointments/{appointmentId}:
     get:
       tags:
@@ -492,6 +499,10 @@ paths:
               $ref: "#/definitions/Appointments"
         "400":
           description: Invalid ID supplied
+      security:
+        - adt_auth:
+          - read_patient_appointment 
+          
     post:
       tags:
         - patients
@@ -554,7 +565,7 @@ paths:
           description: Patient object that needs to be added to the store
           required: false
           schema:
-            $ref: "#/definitions/Patients"
+            $ref: "#/definitions/Appointments"
         - in: path
           name: patientId
           description: ID of patient for update
@@ -576,8 +587,8 @@ paths:
           description: Invalid ID supplied
       security:
         - adt_auth:
-          - create_patient
-          - read_patient    
+          - write_patient_appointment
+          - read_patient_appointment   
     delete:
       tags:
         - patients
@@ -612,8 +623,8 @@ paths:
           description: regimens has been removed
       security:
         - adt_auth:
-          - create_patient
-          - read_patient
+          - write_patient_appointment
+
   /patients/{patientId}/visits/{visitId}:
     get:
       tags:
@@ -647,6 +658,10 @@ paths:
               $ref: "#/definitions/Visits"
         "400":
           description: Invalid ID supplied
+      security:
+        - adt_auth:
+          - read_patient_visits
+          
     post:
       tags:
         - patients
@@ -689,8 +704,8 @@ paths:
           description: Invalid input
       security:
         - adt_auth:
-          - create_patient
-          - read_patient
+          - create_patient_visits
+          
     put:
       tags:
         - patients
@@ -731,8 +746,8 @@ paths:
           description: Invalid ID supplied
       security:
         - adt_auth:
-          - create_patient
-          - read_patient    
+          - write_patient_visit
+          - read_patient_visit  
     delete:
       tags:
         - patients
@@ -767,8 +782,8 @@ paths:
           description: Visit has been removed
       security:
         - adt_auth:
-          - create_patient
-          - read_patient
+          - write_patient_visits
+  
   /patients/{patientId}/dependants/{dependantId}:
     get:
       tags:
@@ -802,6 +817,10 @@ paths:
               $ref: "#/definitions/PatientDependants"
         "400":
           description: Invalid ID supplied
+      security:
+        - adt_auth:
+          - read_patient_dependants
+          
     put:
       tags:
         - patients
@@ -843,8 +862,8 @@ paths:
           description: Invalid ID supplied
       security:
         - adt_auth:
-          - create_patient
-          - read_patient
+          - create_patient_dependants
+          - read_patient_dependants
     delete:
       tags:
         - patients
@@ -879,8 +898,7 @@ paths:
           description: Dependants has been removed
       security:
         - adt_auth:
-          - create_patient
-          - read_patient
+          - write_patient_dependant
 
   /patients/{patientId}/allergies/{allergieId}:
     get:
@@ -915,6 +933,9 @@ paths:
               $ref: "#/definitions/PatientDrugAllergy"
         "400":
           description: Invalid ID supplied
+      security:
+        - adt_auth:
+          - read_patient_allergies
     post:
       tags:
         - patients
@@ -957,8 +978,7 @@ paths:
           description: Invalid input
       security:
         - adt_auth:
-          - create_patient
-          - read_patient
+          - create_patient_allergies
     put:
       tags:
         - patients
@@ -999,8 +1019,8 @@ paths:
           description: Invalid ID supplied
       security:
         - adt_auth:
-          - create_patient
-          - read_patient    
+          - write_patient_allergies
+          - read_patient_allergies
     delete:
       tags:
         - patients
@@ -1663,17 +1683,6 @@ definitions:
       name:
         type: string
         
-  PatientProphylaxis:
-    type: object
-    properties:
-      patient_id: 
-        type: integer
-        format: int64
-      prophylaxis_id:
-        type: integer
-        format: int64
-      prophylaxis:
-        $ref : "#/definitions/Prophylaxis"
   PatientRegimen:
     type: object
     properties:
@@ -1720,7 +1729,7 @@ definitions:
         type: integer
         format: int64
       Dependants:
-        $ref : "#/definitions/Patients"
+        $ref : "#/definitions/Dependant"
         
   Service:
     type: object
@@ -1731,3 +1740,8 @@ definitions:
       service_name:
         type: string
         example: ART
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /BrianPhiri/ADT-CORE/1.0.0
+schemes:
+ - https
