@@ -50,14 +50,7 @@ class PatientsApi extends Controller
     {
         $input = Request::all();
 
-        //path params validation
-
-
-        //not path params validation
-        $body = $input['body'];
-
-
-        return response('How about implementing addPatient as a POST method ?');
+        return response($input);
     }
     /**
      * Operation patientsGet
@@ -73,14 +66,14 @@ class PatientsApi extends Controller
 
         //path params validation
 
-
         //not path params validation
-        $limit = $input['limit'];
+        // $limit = $input['limit'];
 
-        $offset = $input['offset'];
-
-
-        return response('How about implementing patientsGet as a GET method ?');
+        // $offset = $input['offset'];
+        $file_path = realpath(__DIR__.'/../../../database/seeds/patient.json');
+        $json = json_decode(file_get_contents($file_path), true);
+        return $json;
+        //return response('How about implementing patientsGet as a GET method ?');
     }
     /**
      * Operation deletePatient
