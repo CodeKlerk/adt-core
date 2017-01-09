@@ -10,6 +10,7 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+$app->group(['prefix' => 'ADT_CORE/v0.1'], function () use ($app) {
 
 $app->get('/', function () use ($app) {
     return $app->version();
@@ -275,3 +276,4 @@ $app->GET('/services/{serviceId}', 'ServicesApi@getServiceById');
  */
 $app->PUT('/services/{serviceId}', 'ServicesApi@updateService');
 
+});
