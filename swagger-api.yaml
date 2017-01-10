@@ -1,1673 +1,1615 @@
+---
 swagger: "2.0"
 info:
-  description: |
-    Official & Core API for ADT
-
-    [ADT](http://adtcore.io)  Main API
-
+  description: "Official & Core API for ADT\n\n[ADT](http://adtcore.io)  Main API\n"
   version: "1.0.0"
-  title: ADT API
-  termsOfService: http://adtcore.io/terms/
-  contact:
-    name: team@adtcore.io
+  title: "ADT API"
+  contact: {}
   license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-# host: api.adtcore.io
-# basePath: /v1
-# schemes:
-#   - http
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+security:
+- adt_auth: []
 paths:
-  /patients:
-    get: 
-      tags: 
-        - patients
-      summary: get's a list of patients
-      description: ""
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: limit
-          in: query
-          description: Number of patients to fetch
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
-        - name: offset
-          in: query
-          description: non-negative offset integer for fetching patients
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
-      responses:
-        "200":
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Patients"
-        "400":
-          description: Invalid status value
-      security:
-        - adt_auth:
-          - read_patient
-    post:
-      tags:
-        - patients
-      summary: Add a new patient to the facility
-      description: ""
-      operationId: addPatient
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: body
-          name: body
-          description: Patient object being added to facility
-          required: false
-          schema:
-            $ref: "#/definitions/Patient"
-      responses:
-        "201":
-          description: Patient Added Successfully
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Patient"
-        "405":
-          description: Invalid input
-      security:
-        - adt_auth:
-          - create_patient
-          - read_patient
-
-  /patients/{patientId}:
-    get:
-      tags:
-        - patients
-      summary: Find patient by patientId
-      description: Returns the patient with the specified patientId
-      operationId: getPatientById
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: path
-          name: patientId
-          description: ID of patient that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "404":
-          description: Patient not found
-        "200":
-          description: successful operation
-          schema:
-            $ref: "#/definitions/Patient"
-        "400":
-          description: Invalid ID supplied
-      security:
-        - api_key: []
-        - adt_auth:
-          - create_patient
-          - read_patient
-    put:
-      tags:
-        - patients
-      summary: Update an existing patient
-      description: ""
-      operationId: updatePatient
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: body
-          name: body
-          description: Patient object that needs to be added to the store
-          required: false
-          schema:
-            $ref: "#/definitions/Patient"
-        - in: path
-          name: patientId
-          description: Patient id to delete
-          required: true
-          type: integer
-          format: int64     
-      responses:
-        "202":
-          description: Update Accepted
-        "405":
-          description: Validation exception
-        "404":
-          description: Patient not found
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - create_patient
-          - read_patient
-    delete:
-      tags:
-        - patients
-      summary: Deletes a patient
-      description: ""
-      operationId: deletePatient
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: header
-          name: api_key
-          description: ""
-          required: true
-          type: string
-        - in: path
-          name: patientId
-          description: Patient id to delete
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "400":
-          description: Invalid patient value
-        "204":
-          description: Patient deleted
-      security:
-        - adt_auth:
-          - create_patient
-          - read_patient
-  /patients/{patientId}/prophylaxis/{prophylaxisId}:
-    get:
-      tags:
-        - patients
-      summary: Fetch the prophylaxis patient is administered
-      description: Fetch prophylaxis
-      operationId: patientProphylaxis
-      produces:
-        - application/json
-      parameters: 
-        - in: path
-          name: patientId
-          description: ID of patient that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: prophylaxisId
-          description: ID of prophylaxis that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "404":
-          description: Patient not found
-        "200":
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Prophylaxis"
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - read_patient_prophylaxis
-
-    put:
-      tags:
-        - patients
-      summary: Update an existing patient prophylaxis
-      description: ""
-      operationId: updatePatientProphylaxis
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: body
-          name: body
-          description: Patient object that needs to be added to the store
-          required: false
-          schema:
-            $ref: "#/definitions/Prophylaxis"
-        - in: path
-          name: patientId
-          description: Patient id to delete
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: prophylaxisId
-          description: Patient id to delete
-          required: true
-          type: integer
-          format: int64      
-      responses:
-        "405":
-          description: Validation exception
-        "404":
-          description: Patient not found
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - write_patient_prophylaxis
-          - read_patient_prophylaxis 
-    delete:
-      tags:
-        - patients
-      summary: Remove a patient of a Prophylaxis
-      description: ""
-      operationId: deletePatientProphylaxis
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: header
-          name: api_key
-          description: ""
-          required: true
-          type: string
-        - in: path
-          name: patientId
-          description: Patient id to delete
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: prophylaxisId
-          description: Patient id to delete
-          required: true
-          type: integer
-          format: int64           
-      responses:
-        "400":
-          description: Invalid patient value
-        "204":
-          description: Prophylaxis has been removed
-      security:
-        - adt_auth:
-          - write_patient
-          
-  /patients/{patientId}/regimens/{regimenId}:
-    get:
-      tags:
-        - patients
-      summary: Fetch the regimens patient is administered
-      description: Fetch regimens
-      operationId: patientregimens
-      produces:
-        - application/json
-      parameters: 
-        - in: path
-          name: patientId
-          description: ID of patient that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: regimenId
-          description: ID of regimen that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "404":
-          description: Patient not found
-        "200":
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/PatientRegimen"
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - read_patient_regimen
-          
-    post:
-      tags:
-        - patients
-      summary: Add a new regimen to a patient
-      description: ""
-      operationId: addPatientRegimen
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: body
-          name: body
-          description: Regimen object has been added to Patient object
-          required: false
-          schema:
-            $ref: "#/definitions/PatientRegimen"
-        - in: path
-          name: patientId
-          description: Patient id to delete
-          required: true
-          type: integer
-          format: int64     
-        - in: path
-          name: regimenId
-          description: Patient id to delete
-          required: true
-          type: integer
-          format: int64 
-          
-      responses:
-        "201":
-          description: Patient regimen Added Successfully
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/PatientRegimen"
-        "405":
-          description: Invalid input
-      security:
-        - adt_auth:
-          - write_patient_regimen
-    put:
-      tags:
-        - patients
-      summary: Update an existing patient regimen
-      description: ""
-      operationId: updatePatientRegimens
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: body
-          name: body
-          description: Patient object that needs to be added to the store
-          required: false
-          schema:
-<<<<<<< HEAD
-            $ref: "#/definitions/PatientRegimen"
-=======
-            $ref: "#/definitions/Patients"
->>>>>>> a9431678ccfd3cda00212cd305fdd204879309fc
-        - in: path
-          name: patientId
-          description: Patient id to update
-          required: true
-          type: integer
-          format: int64     
-        - in: path
-          name: regimenId
-          description: Patient id to update
-          required: true
-          type: integer
-          format: int64  
-          
-      responses:
-        "405":
-          description: Validation exception
-        "404":
-          description: Patient not found
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - read_patient_regimen
-          - write_patient_regimen
-    delete:
-      tags:
-        - patients
-      summary: Remove a patient of a regimen
-      description: ""
-      operationId: deletePatientRegimens
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: header
-          name: api_key
-          description: ""
-          required: true
-          type: string
-        - in: path
-          name: patientId
-          description: Patient id and Regimen id to delete
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: regimenId
-          description: Patient id to delete
-          required: true
-          type: integer
-          format: int64 
-          
-      responses:
-        "400":
-          description: Invalid parameters
-        "204":
-          description: regimens has been removed
-      security:
-        - adt_auth:
-          - write_patient_regiment
-          
-  /patients/{patientId}/appointments/{appointmentId}:
-    get:
-      tags:
-        - patients
-      summary: Fetch the patient's appointments
-      description: Fetch appointments
-      operationId: patientAppointments
-      produces:
-        - application/json
-      parameters: 
-        - in: path
-          name: patientId
-          description: ID's of patient and appointment that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: appointmentId
-          description: ID of appointment that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-          
-      responses:
-        "404":
-          description: Patient or Appointment not found
-        "200":
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Appointments"
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - read_patient_appointment 
-          
-    post:
-      tags:
-        - patients
-      summary: Add a new Appointments to a patient
-      description: ""
-      operationId: addPatientAppointments
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: body
-          name: body
-          description: Appointments object has been added to Patient object
-          required: false
-          schema:
-            $ref: "#/definitions/Appointments"
-        - in: path
-          name: patientId
-          description: ID of patient
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: appointmentId
-          description: ID of appointment 
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "201":
-          description: Patient appointments Added Successfully
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Appointments"
-        "405":
-          description: Invalid input
-      security:
-        - adt_auth:
-          - create_patient
-          - read_patient
-    put:
-      tags:
-        - patients
-      summary: Update an existing patient appointment
-      description: ""
-      operationId: updatePatientAppointments
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: body
-          name: body
-          description: Patient object that needs to be added to the store
-          required: false
-          schema:
-            $ref: "#/definitions/Appointments"
-        - in: path
-          name: patientId
-          description: ID of patient for update
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: appointmentId
-          description: ID of appointment for update
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "405":
-          description: Validation exception
-        "404":
-          description: Patient not found
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - write_patient_appointment
-          - read_patient_appointment   
-    delete:
-      tags:
-        - patients
-      summary: Remove a patient appointment
-      description: ""
-      operationId: deletePatientAppointment
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: header
-          name: api_key
-          description: ""
-          required: true
-          type: string
-        - in: path
-          name: patientId
-          description: ID of patient and appointment that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: appointmentId
-          description: ID of appointment that needs to be deleted
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "400":
-          description: Invalid patient value
-        "204":
-          description: regimens has been removed
-      security:
-        - adt_auth:
-          - write_patient_appointment
-
-  /patients/{patientId}/visits/{visitId}:
-    get:
-      tags:
-        - patients
-      summary: Fetch a patient's visit
-      description: Fetch visits
-      operationId: patientVisits
-      produces:
-        - application/json
-      parameters: 
-        - in: path
-          name: patientId
-          description: ID's of patient and Visits that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: visitId
-          description: ID's of Visits that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "404":
-          description: Patient or Visits not found
-        "200":
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Visits"
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - read_patient_visits
-          
-    post:
-      tags:
-        - patients
-      summary: Add a new Visits to a patient
-      description: ""
-      operationId: addPatientVisits
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: body
-          name: body
-          description: Visits object has been added to Patient object
-          required: false
-          schema:
-            $ref: "#/definitions/Visits"
-        - in: path
-          name: patientId
-          description: ID's of patient
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: visitId
-          description: ID's of Visits
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "201":
-          description: Patient Visit Added Successfully
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/Visits"
-        "405":
-          description: Invalid input
-      security:
-        - adt_auth:
-          - create_patient_visits
-          
-    put:
-      tags:
-        - patients
-      summary: Update an existing patient appointment
-      description: ""
-      operationId: updatePatientVisit
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: body
-          name: body
-          description: Patient object that needs to be added to the store
-          required: false
-          schema:
-            $ref: "#/definitions/Visits"
-        - in: path
-          name: patientId
-          description: Patient id to update
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: visitId
-          description: visit id to update
-          required: true
-          type: integer
-          format: int64        
-      responses:
-        "405":
-          description: Validation exception
-        "404":
-          description: Patient or Visits not found
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - write_patient_visit
-          - read_patient_visit  
-    delete:
-      tags:
-        - patients
-      summary: Remove a patient Visit
-      description: ""
-      operationId: deletePatientVisit
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: header
-          name: api_key
-          description: ""
-          required: true
-          type: string
-        - in: path
-          name: patientId
-          description: ID's of patient and appointment that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: visitId
-          description: ID of appointment that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "400":
-          description: Invalid patient value
-        "204":
-          description: Visit has been removed
-      security:
-        - adt_auth:
-          - write_patient_visits
-  
-  /patients/{patientId}/dependants/{dependantId}:
-    get:
-      tags:
-        - patients
-      summary: Fetch a patient's dependants
-      description: Fetch dependants
-      operationId: patientDependants
-      produces:
-        - application/json
-      parameters: 
-        - in: path
-          name: patientId
-          description: ID's of patient that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: dependantId
-          description: ID of dependants that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "404":
-          description: Patient or dependants not found
-        "200":
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/PatientDependants"
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - read_patient_dependants
-          
-    put:
-      tags:
-        - patients
-      summary: Update an existing patient dependants
-      operationId: updatePatientDependant
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: body
-          name: body
-          description: Patient object that needs to be added to the store
-          required: false
-          schema:
-            $ref: "#/definitions/PatientDependants"
-        - in: path
-          name: patientId
-          description: Patient id to update
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: dependantId
-          description: Dependants id to update
-          required: true
-          type: integer
-          format: int64        
-      responses:
-        "202":
-          description: Update Accepted
-        "405":
-          description: Validation exception
-        "404":
-          description: Patient or Dependants not found
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - create_patient_dependants
-          - read_patient_dependants
-    delete:
-      tags:
-        - patients
-      summary: Remove a patient Dependants
-      description: ""
-      operationId: deletePatientDependants
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: header
-          name: api_key
-          description: ""
-          required: true
-          type: string
-        - in: path
-          name: patientId
-          description: Patient id to update
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: dependantId
-          description: visit id to update
-          required: true
-          type: integer
-          format: int64 
-      responses:
-        "400":
-          description: Invalid patient value
-        "204":
-          description: Dependants has been removed
-      security:
-        - adt_auth:
-          - write_patient_dependant
-
-  /patients/{patientId}/allergies/{allergieId}:
-    get:
-      tags:
-        - patients
-      summary: Fetch a patient's allergies
-      description: Fetch allergies
-      operationId: patientAllergies
-      produces:
-        - application/json
-      parameters: 
-        - in: path
-          name: patientId
-          description: ID's of patient that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: allergieId
-          description: ID of Allergies that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "404":
-          description: Patient or Allergies not found
-        "200":
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/PatientDrugAllergy"
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - read_patient_allergies
-    post:
-      tags:
-        - patients
-      summary: Add a new PatientDrugAllergy to a patient
-      description: ""
-      operationId: addPatientAllergies
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: body
-          name: body
-          description: Allergies object has been added to Patient object
-          required: false
-          schema:
-            $ref: "#/definitions/PatientDrugAllergy"
-        - in: path
-          name: patientId
-          description: ID's of patient
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: allergieId
-          description: ID of Allergies
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "201":
-          description: Patient Allergies Added Successfully
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/PatientDrugAllergy"
-        "405":
-          description: Invalid input
-      security:
-        - adt_auth:
-          - create_patient_allergies
-    put:
-      tags:
-        - patients
-      summary: Update an existing patient Allergies
-      description: ""
-      operationId: updatePatientAllergies
-      consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: body
-          name: body
-          description: Patient object that needs to be added to the store
-          required: false
-          schema:
-            $ref: "#/definitions/PatientDrugAllergy"
-        - in: path
-          name: patientId
-          description: Patient id to update
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: allergieId
-          description: Allergies id to update
-          required: true
-          type: integer
-          format: int64        
-      responses:
-        "405":
-          description: Validation exception
-        "404":
-          description: Patient or Allergies not found
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - write_patient_allergies
-          - read_patient_allergies
-    delete:
-      tags:
-        - patients
-      summary: Remove a patient PatientAllergies
-      description: ""
-      operationId: deletePatientAllergies
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - in: header
-          name: api_key
-          description: ""
-          required: true
-          type: string
-        - in: path
-          name: patientId
-          description: ID's of patient and appointment that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-        - in: path
-          name: allergieId
-          description: ID of appointment that needs to be fetched
-          required: true
-          type: integer
-          format: int64
-      responses:
-        "400":
-          description: Invalid patient value
-        "204":
-          description: Visit has been removed
-      security:
-        - adt_auth:
-          - create_patient
-          - read_patient
-
-  /lists/illnesses:
-    get:
-      tags:
-        - lists
-      summary: Fetch Chronic Illnesses (for select options)
-      description:  Fetch Chronic Illnesses (for select options)
-      operationId: ChronicIllnesses
-      produces:
-        - application/json
-      parameters:
-        - in: query
-          name: tags
-          description: Tags to filter by
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
-      responses:
-        "200":
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: "#/definitions/ChronicIllnesses"
-        "400":
-          description: Invalid tag value
-      security:
-        - adt_auth:
-          - read_illnesses
   /lists/allergies:
     get:
-      tags:
-        - lists
-        - Allergies
-      summary: Fetch Drug Allergies  (for select options)
-      description:  Fetch Drug Allergies  (for select options)
-      operationId: DrugAllergies
+      summary: "Fetch Drug Allergies  (for select options)"
+      description: "Fetch Drug Allergies  (for select options)"
       produces:
-        - application/json
+      - "application/json"
+      - "application/xml"
       parameters:
-        - in: query
-          name: tags
-          description: Tags to filter by
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
+      - name: "tags"
+        in: "query"
+        description: "Tags to filter by"
+        required: false
+        type: "string"
       responses:
-        "200":
-          description: successful operation
+        200:
+          description: "successful operation"
           schema:
-            type: array
+            type: "array"
             items:
               $ref: "#/definitions/PatientDrugAllergy"
-        "400":
-          description: Invalid tag value
-      security:
-        - adt_auth:
-          - read_allergies
+        400:
+          description: "Invalid tag value"
+  /lists/illnesses:
+    get:
+      summary: "Fetch Chronic Illnesses (for select options)"
+      description: "Fetch Chronic Illnesses (for select options)"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tags"
+        in: "query"
+        description: "Tags to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ChronicIllnesses"
+        400:
+          description: "Invalid tag value"
   /lists/patientsources:
     get:
-      tags:
-        - lists
-        - Allergies
-      summary: Fetch Drug Allergies  (for select options)
-      description:  Fetch Drug Allergies  (for select options)
-      operationId: PatientSources
+      summary: "Fetch Drug Allergies  (for select options)"
+      description: "Fetch Drug Allergies  (for select options)"
       produces:
-        - application/json
+      - "application/json"
       parameters:
-        - in: query
-          name: tags
-          description: Tags to filter by
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
+      - name: "tags"
+        in: "query"
+        description: "Tags to filter by"
+        required: false
+        type: "string"
       responses:
-        "200":
-          description: successful operation
+        200:
+          description: "successful operation"
           schema:
-            type: array
+            type: "array"
             items:
               $ref: "#/definitions/PatientSources"
-        "400":
-          description: Invalid tag value
-      security:
-        - adt_auth:
-          - read_patientsources
-  /services:
-    get: 
-      tags: 
-        - services
-      summary: fetches a list of services at a facility
+        400:
+          description: "Invalid tag value"
+  /patients:
+    get:
+      summary: "get's a list of patients"
       description: ""
-      consumes:
-        - application/json
       produces:
-        - application/json
+      - "application/json"
+      - "application/xml"
       parameters:
-        - name: limit
-          in: query
-          description: Number of service to fetch
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
+      - name: "limit"
+        in: "query"
+        description: "Number of patients to fetch"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "non-negative offset integer for fetching patients"
+        required: false
+        type: "string"
       responses:
-        "200":
-          description: successful operation
+        200:
+          description: "successful operation"
           schema:
-            type: array
+            type: "array"
             items:
-              $ref: "#/definitions/Service"
-        "400":
-          description: Invalid status value
-      security:
-        - adt_auth:
-          - read_service
+              $ref: "#/definitions/Patients"
+        400:
+          description: "Invalid status value"
     post:
-      tags:
-        - patients
-      summary: Add a new service to the facility
+      summary: "Add a new patient to the facility"
       description: ""
-      operationId: addService
       consumes:
-        - application/json
-        - application/xml
+      - "application/json"
+      - "application/xml"
       produces:
-        - application/json
-        - application/xml
+      - "application/json"
+      - "application/xml"
       parameters:
-        - in: body
-          name: body
-          description: Service object being added to facility
-          required: false
-          schema:
-            $ref: "#/definitions/Service"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Patient"
       responses:
-        "201":
-          description: Service Added Successfully
+        201:
+          description: "Patient Added Successfully"
           schema:
-            type: array
+            type: "array"
+            items:
+              $ref: "#/definitions/Patient"
+        405:
+          description: "Invalid input"
+  /patients/{patientId}:
+    get:
+      summary: "Find patient by patientId"
+      description: "Returns the patient with the specified patientId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        404:
+          description: "Patient not found"
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Patient"
+        400:
+          description: "Invalid ID supplied"
+    put:
+      summary: "Update an existing patient"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Patient"
+      responses:
+        202:
+          description: "Update Accepted"
+        405:
+          description: "Validation exception"
+        404:
+          description: "Patient not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Deletes a patient"
+      description: ""
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid patient value"
+        204:
+          description: "Patient deleted"
+  /patients/{patientId}/allergies/{allergieId}:
+    get:
+      summary: "Fetch a patient's allergies"
+      description: "Fetch allergies"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "allergieId"
+        in: "path"
+        description: "ID of Allergies that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        404:
+          description: "Patient or Allergies not found"
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PatientDrugAllergy"
+        400:
+          description: "Invalid ID supplied"
+    post:
+      summary: "Add a new PatientDrugAllergy to a patient"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "allergieId"
+        in: "path"
+        description: "ID of Allergies that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/PatientDrugAllergy"
+      responses:
+        201:
+          description: "Patient Allergies Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PatientDrugAllergy"
+        405:
+          description: "Invalid input"
+    put:
+      summary: "Update an existing patient Allergies"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "allergieId"
+        in: "path"
+        description: "ID of Allergies that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/PatientDrugAllergy"
+      responses:
+        405:
+          description: "Validation exception"
+        404:
+          description: "Patient or Allergies not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Remove a patient PatientAllergies"
+      description: ""
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "allergieId"
+        in: "path"
+        description: "ID of Allergies that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid patient value"
+        204:
+          description: "Visit has been removed"
+  /patients/{patientId}/appointments/{appointmentId}:
+    get:
+      summary: "Fetch the patient's appointments"
+      description: "Fetch appointments"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient and appointment that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "appointmentId"
+        in: "path"
+        description: "ID of appointment that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        404:
+          description: "Patient or Appointment not found"
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Appointments"
+        400:
+          description: "Invalid ID supplied"
+    post:
+      summary: "Add a new Appointments to a patient"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient and appointment that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "appointmentId"
+        in: "path"
+        description: "ID of appointment that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Appointments"
+      responses:
+        201:
+          description: "Patient appointments Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Appointments"
+        405:
+          description: "Invalid input"
+    put:
+      summary: "Update an existing patient appointment"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient and appointment that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "appointmentId"
+        in: "path"
+        description: "ID of appointment that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Patients"
+      responses:
+        405:
+          description: "Validation exception"
+        404:
+          description: "Patient not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Remove a patient appointment"
+      description: ""
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient and appointment that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "appointmentId"
+        in: "path"
+        description: "ID of appointment that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid patient value"
+        204:
+          description: "regimens has been removed"
+  /patients/{patientId}/dependants/{dependantId}:
+    get:
+      summary: "Fetch a patient's dependants"
+      description: "Fetch dependants"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "dependantId"
+        in: "path"
+        description: "ID of dependants that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        404:
+          description: "Patient or dependants not found"
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PatientDependants"
+        400:
+          description: "Invalid ID supplied"
+    put:
+      summary: "Update an existing patient dependants"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "dependantId"
+        in: "path"
+        description: "ID of dependants that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/PatientDependants"
+      responses:
+        202:
+          description: "Update Accepted"
+        405:
+          description: "Validation exception"
+        404:
+          description: "Patient or Dependants not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Remove a patient Dependants"
+      description: ""
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "dependantId"
+        in: "path"
+        description: "ID of dependants that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid patient value"
+        204:
+          description: "Dependants has been removed"
+  /patients/{patientId}/prophylaxis/{prophylaxisId}:
+    get:
+      summary: "Fetch the prophylaxis patient is administered"
+      description: "Fetch prophylaxis"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "prophylaxisId"
+        in: "path"
+        description: "ID of prophylaxis that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        404:
+          description: "Patient not found"
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PatientProphylaxis"
+        400:
+          description: "Invalid ID supplied"
+    put:
+      summary: "Update an existing patient prophylaxis"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "prophylaxisId"
+        in: "path"
+        description: "ID of prophylaxis that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Patients"
+      responses:
+        405:
+          description: "Validation exception"
+        404:
+          description: "Patient not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Remove a patient of a Prophylaxis"
+      description: ""
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "prophylaxisId"
+        in: "path"
+        description: "ID of prophylaxis that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid patient value"
+        204:
+          description: "Prophylaxis has been removed"
+  /patients/{patientId}/regimens/{regimenId}:
+    get:
+      summary: "Fetch the regimens patient is administered"
+      description: "Fetch regimens"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "regimenId"
+        in: "path"
+        description: "ID of regimen that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        404:
+          description: "Patient not found"
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PatientRegimen"
+        400:
+          description: "Invalid ID supplied"
+    post:
+      summary: "Add a new regimen to a patient"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "regimenId"
+        in: "path"
+        description: "ID of regimen that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/PatientRegimen"
+      responses:
+        201:
+          description: "Patient regimen Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PatientRegimen"
+        405:
+          description: "Invalid input"
+    put:
+      summary: "Update an existing patient regimen"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "regimenId"
+        in: "path"
+        description: "ID of regimen that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Patients"
+      responses:
+        405:
+          description: "Validation exception"
+        404:
+          description: "Patient not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Remove a patient of a regimen"
+      description: ""
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "regimenId"
+        in: "path"
+        description: "ID of regimen that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid parameters"
+        204:
+          description: "regimens has been removed"
+  /patients/{patientId}/visits/{visitId}:
+    get:
+      summary: "Fetch a patient's visit"
+      description: "Fetch visits"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient and Visits that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "visitId"
+        in: "path"
+        description: "ID's of Visits that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        404:
+          description: "Patient or Visits not found"
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Visits"
+        400:
+          description: "Invalid ID supplied"
+    post:
+      summary: "Add a new Visits to a patient"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient and Visits that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "visitId"
+        in: "path"
+        description: "ID's of Visits that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Visits"
+      responses:
+        201:
+          description: "Patient Visit Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Visits"
+        405:
+          description: "Invalid input"
+    put:
+      summary: "Update an existing patient appointment"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient and Visits that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "visitId"
+        in: "path"
+        description: "ID's of Visits that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Visits"
+      responses:
+        405:
+          description: "Validation exception"
+        404:
+          description: "Patient or Visits not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Remove a patient Visit"
+      description: ""
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient and Visits that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "visitId"
+        in: "path"
+        description: "ID's of Visits that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid patient value"
+        204:
+          description: "Visit has been removed"
+  /services:
+    get:
+      summary: "fetches a list of services at a facility"
+      description: ""
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "Number of service to fetch"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
             items:
               $ref: "#/definitions/Service"
-        "405":
-          description: Invalid input
-      security:
-        - adt_auth:
-          - create_service
-          - read_service
+        400:
+          description: "Invalid status value"
+    post:
+      summary: "Add a new service to the facility"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Service"
+      responses:
+        201:
+          description: "Service Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Service"
+        405:
+          description: "Invalid input"
   /services/{serviceId}:
     get:
-      tags:
-        - services
-      summary: Find service by serviceId
-      description: Returns the service with the specified serviceId
-      operationId: getServiceById
+      summary: "Find service by serviceId"
+      description: "Returns the service with the specified serviceId"
       produces:
-        - application/json
-        - application/xml
+      - "application/json"
+      - "application/xml"
       parameters:
-        - in: path
-          name: serviceId
-          description: ID of service that needs to be fetched
-          required: true
-          type: integer
-          format: int64
+      - name: "serviceId"
+        in: "path"
+        description: "Particular Service at facility specified by the ID"
+        required: true
+        type: "integer"
+        format: "int64"
       responses:
-        "404":
-          description: Patient not found
-        "200":
-          description: successful operation
+        200:
+          description: "successful operation"
           schema:
             $ref: "#/definitions/Patient"
-        "400":
-          description: Invalid ID supplied
-      security:
-        - api_key: []
-        - adt_auth:
-          - create_service
-          - read_service
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Service not found"
     put:
-      tags:
-        - services
-      summary: Update an existing patient
+      summary: "Update an existing service at facility specified by the ID"
       description: ""
-      operationId: updateService
       consumes:
-        - application/json
-        - application/xml
-      produces:
-        - application/json
-        - application/xml
+      - "application/json"
+      - "application/xml"
       parameters:
-        - in: body
-          name: body
-          description: Patient object that needs to be added to the store
-          required: false
+      - name: "serviceId"
+        in: "path"
+        description: "Particular Service at facility specified by the ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Service"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Patient not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes the service at facility specified by the ID"
+      description: ""
+      parameters:
+      - name: "serviceId"
+        in: "path"
+        description: "Particular Service at facility specified by the ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Patient deleted"
+        400:
+          description: "Invalid patient value"
+  /services/{serviceId}/prophylaxis:
+    get:
+      summary: "Fetch Prophylaxis for a service"
+      description: "Returns the service with the specified serviceId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "serviceId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
           schema:
             $ref: "#/definitions/Patient"
-        - in: path
-          name: serviceId
-          description: Patient id to delete
-          required: true
-          type: integer
-          format: int64     
-      responses:
-        "202":
-          description: Update Accepted
-        "405":
-          description: Validation exception
-        "404":
-          description: Patient not found
-        "400":
-          description: Invalid ID supplied
-      security:
-        - adt_auth:
-          - create_patient
-          - read_patient   
-    delete:
-      tags:
-        - services
-      summary: Deletes a Service
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Patient not found"
+    put:
+      summary: "Update an existing patient"
       description: ""
-      operationId: deleteService
-      produces:
-        - application/json
-        - application/xml
+      consumes:
+      - "application/json"
+      - "application/xml"
       parameters:
-        - in: header
-          name: api_key
-          description: ""
-          required: true
-          type: string
-        - in: path
-          name: serviceId
-          description: Patient id to delete
-          required: true
-          type: integer
-          format: int64
+      - name: "serviceId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Patient"
       responses:
-        "400":
-          description: Invalid patient value
-        "204":
-          description: Patient deleted
-      security:
-        - adt_auth:
-          - create_patient
-          - read_patient
-
+        202:
+          description: "Update Accepted"
+        405:
+          description: "Validation exception"
+        404:
+          description: "Patient not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Deletes a Service"
+      description: ""
+      parameters:
+      - name: "serviceId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid patient value"
+        204:
+          description: "Patient deleted"
+  /services/{serviceId}/prophylaxis/{prophylaxisId}:
+    get:
+      summary: "Fetch Prophylaxis for a service"
+      description: "Returns the Prophylaxis specified by prophylaxisId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "serviceId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "prophylaxisId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Patient"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Patient not found"
+    put:
+      summary: "Update an existing patient"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "serviceId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "prophylaxisId"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Patient"
+      responses:
+        202:
+          description: "Update Accepted"
+        405:
+          description: "Validation exception"
+        404:
+          description: "Patient not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Deletes a Service"
+      description: ""
+      parameters:
+      - name: "serviceId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "prophylaxisId"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid patient value"
+        204:
+          description: "Patient deleted"
+  /services/{serviceId}/regimens:
+    get:
+      summary: "Find service by serviceId"
+      description: "Returns the service with the specified serviceId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "serviceId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        404:
+          description: "Patient not found"
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Patient"
+        400:
+          description: "Invalid ID supplied"
+    post:
+      summary: "Add a regimen for a particular service with serviceId"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "serviceId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/PatientRegimen"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Patient not found"
+        405:
+          description: "Validation exception"
+  /services/{serviceId}/regimens/{regimenId}:
+    get:
+      summary: "Find service by serviceId"
+      description: "Returns the service with the specified serviceId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "serviceId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "regimenId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        404:
+          description: "Patient not found"
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Patient"
+        400:
+          description: "Invalid ID supplied"
+    put:
+      summary: "Update a Regimen {regimenId} available for a particular service with\
+        \ serviceId"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "serviceId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "regimenId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/PatientRegimen"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Patient not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes a Particular Regimen {regimenId} available for a particular\
+        \ service with serviceId"
+      description: ""
+      parameters:
+      - name: "serviceId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "regimenId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Patient deleted"
+        400:
+          description: "Invalid patient value"
 securityDefinitions:
-  api_key:
-    type: apiKey
-    name: api_key
-    in: header
   adt_auth:
-    type: oauth2
-    authorizationUrl: http://api.adtcore.io/api/oauth/dialog
-    flow: implicit
+    type: "oauth2"
+    authorizationUrl: "http://api.adtcore.io/api/oauth/dialog"
+    flow: "implicit"
     scopes:
-      create_patient: Create patients
-      read_patient: Read your patients
-      read_illnesses: Read Chronic Illnesses
-      read_allergies: Read Drug Allergies
-      read_patientsources: Read Patient Sources
-      read_service: raed services
-      create_service: create services
-      
+      create_patient: "Create patients"
+      read_patient: "Read your patients"
+      read_illnesses: "Read Chronic Illnesses"
+      read_allergies: "Read Drug Allergies"
+      read_patientsources: "Read Patient Sources"
+      read_service: "raed services"
+      create_service: "create services"
 definitions:
-  Appointment: 
-    type: object
-    properties:
-      id: 
-        type: integer
-        format: init64
-      appointment_date: 
-        type: string
-        example: 2016-10-02
-      is_appointment:
-        type: integer
-        format: init64
-      facility_id: 
-        type: integer
-        format: init64
-  Regimen:
-    type: object
+  Appointment:
+    type: "object"
     properties:
       id:
-        type: integer
-        format: int64
-      code: 
-        type: string
-      name: 
-        type: string
+        type: "integer"
+        format: "int32"
+      appointment_date:
+        type: "string"
+      is_appointment:
+        type: "integer"
+        format: "int32"
+      facility_id:
+        type: "integer"
+        format: "int32"
+  Regimen:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      code:
+        type: "string"
+      name:
+        type: "string"
       is_active:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
       service_id:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
       category_id:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
   PatientPartner:
-    type: object
+    type: "object"
     properties:
       partnerId:
-        type: integer
-        format: init64
+        type: "integer"
+        format: "int32"
       status:
-        type: string
-        example: Single
+        type: "string"
   Drug:
-    type: object
+    type: "object"
     properties:
-      id: 
-        type: integer
-        format: init64
-      name: 
-        type: string
+      id:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
       pack_size:
-        type: integer
-        format: init64
+        type: "integer"
+        format: "int32"
       duration:
-        type: integer
-        format: init64
+        type: "integer"
+        format: "int32"
       quantity:
-        type: integer
-        format: init64
+        type: "integer"
+        format: "int32"
       is_arv:
-        type: boolean
+        type: "boolean"
+        default: false
       is_tb:
-        type: boolean
+        type: "boolean"
+        default: false
       is_active:
-        type: boolean
+        type: "boolean"
+        default: false
       unit_id:
-        type: integer
+        type: "integer"
+        format: "int32"
       dose_id:
-        type: integer
+        type: "integer"
+        format: "int32"
       generic_id:
-        type: integer
+        type: "integer"
+        format: "int32"
       supporter_id:
-        type: integer
-        
+        type: "integer"
+        format: "int32"
   PatientDrugAllergy:
-    type: object
+    type: "object"
     properties:
       drug_id:
-        type: integer
-        format: init64
+        type: "integer"
+        format: "int32"
       drugrallergy:
-        type: string
+        type: "string"
       is_active:
-        type: boolean
-  
+        type: "boolean"
+        default: false
   ChronicIllnesses:
-    type: object
+    type: "object"
     properties:
       illness_id:
-        type: integer
-        format: init64
+        type: "integer"
+        format: "int32"
       illness:
-        type: string
+        type: "string"
       is_active:
-        type: boolean
- 
+        type: "boolean"
+        default: false
   PatientSources:
-    type: object
+    type: "object"
     properties:
       source_id:
-        type: integer
-        format: init64
+        type: "integer"
+        format: "int32"
       source:
-        type: string
+        type: "string"
       is_active:
-        type: boolean
-         
+        type: "boolean"
+        default: false
   PatientDrugOther:
-    type: object
+    type: "object"
     properties:
       patient_id:
-        type: integer
-        format: init64
+        type: "integer"
+        format: "int32"
       allergy_name:
-        type: string
-      
+        type: "string"
   FamilyPlanning:
-    type: object
-    properties:
-      id: 
-        type: integer
-        format: init64
-      name: 
-        type: string
-        example: Vasectomy
-    
-  PatientFamilyPlanning:
-    type: object
-    properties: 
-      patientId:
-        type: integer
-        format: init64
-      family_planning_id:
-        $ref : "#/definitions/FamilyPlanning"
-  
-  Visit:
-    type: object
+    type: "object"
     properties:
       id:
-        type: integer
-        format: init64
-      current_height:
-        type: integer
-        format: init64
-      current_weight:
-        type: integer
-        format: init64
-      visit_date: 
-        type: string
-        example: 2016-10-0
-      appointment_adherence:
-        type: integer
-        format: init64
-      is_active:
-        type: integer
-        format: init64
-      patient_id:
-        type: integer
-        format: init64
-      facility_id:
-        type: integer
-        format: init64
-      user_id: 
-        type: integer
-        format: init64
-      purpose_id: 
-        type: integer
-        format: init64
-      last_regimen_id:
-        type: integer
-        format: init64
-      current_regimen_id:
-        type: integer
-        format: init64
-      change_reason_id:
-        type: integer
-        format: init64
-      non_adherence_reason_id:
-        type: integer
-        format: init64
-      appointment_id:
-        type: integer
-        format: init64
-      regimen: 
-        $ref: "#/definitions/Regimen"
-  
-  Status:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int32"
       name:
-        type: string
-        
-  Patient_status:
-    type: object
+        type: "string"
+  PatientFamilyPlanning:
+    type: "object"
     properties:
-      patient_id: 
-        type: integer
-        format: int64
-      status_id:
-        type: integer
-        format: int64
-      change_date:
-        type: string
-        example: 2016-10-0
-      status:
-        $ref : "#/definitions/Status"
-        
-  Patients:
-    type: object
-    required:
-      - first_name
-      - id
+      patientId:
+        type: "integer"
+        format: "int32"
+      family_planning_id:
+        $ref: "#/definitions/FamilyPlanning"
+  Visit:
+    type: "object"
     properties:
       id:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int32"
+      current_height:
+        type: "integer"
+        format: "int32"
+      current_weight:
+        type: "integer"
+        format: "int32"
+      visit_date:
+        type: "string"
+      appointment_adherence:
+        type: "integer"
+        format: "int32"
+      is_active:
+        type: "integer"
+        format: "int32"
+      patient_id:
+        type: "integer"
+        format: "int32"
+      facility_id:
+        type: "integer"
+        format: "int32"
+      user_id:
+        type: "integer"
+        format: "int32"
+      purpose_id:
+        type: "integer"
+        format: "int32"
+      last_regimen_id:
+        type: "integer"
+        format: "int32"
+      current_regimen_id:
+        type: "integer"
+        format: "int32"
+      change_reason_id:
+        type: "integer"
+        format: "int32"
+      non_adherence_reason_id:
+        type: "integer"
+        format: "int32"
+      appointment_id:
+        type: "integer"
+        format: "int32"
+      regimen:
+        $ref: "#/definitions/Regimen"
+  Status:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+  Patient_status:
+    type: "object"
+    properties:
+      patient_id:
+        type: "integer"
+        format: "int64"
+      status_id:
+        type: "integer"
+        format: "int64"
+      change_date:
+        type: "string"
+      status:
+        $ref: "#/definitions/Status"
+  Patients:
+    type: "object"
+    required:
+    - "first_name"
+    - "id"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
       ccc_number:
-        type: string
-        example: ABC123456
+        type: "string"
       appointment:
         $ref: "#/definitions/Appointment"
-      visit: 
+      visit:
         $ref: "#/definitions/Visit"
       first_name:
-        type: string
-        example: John
+        type: "string"
       last_name:
-        type: string
-        example: John
+        type: "string"
       other_name:
-        type: string
-        example: John
+        type: "string"
       phone_number:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
       alternate_number:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
       physical_address:
-        type: string
-        example: Nairobi West
+        type: "string"
       gender:
-        type: string
-        example: male,female
+        type: "string"
       birth_date:
-        type: string
-        format: date-time
+        type: "string"
       enrollment_date:
-        type: string
-        format: date-time
+        type: "string"
       support_group:
-        type: string
-        example: lorem ipsum
+        type: "string"
       is_pregnant:
-        type: boolean
+        type: "boolean"
+        default: false
       is_tb:
-        type: boolean
+        type: "boolean"
+        default: false
       is_tb_tested:
-        type: boolean
+        type: "boolean"
+        default: false
       is_smoke:
-        type: boolean
+        type: "boolean"
+        default: false
       is_alchohol:
-        type: boolean
+        type: "boolean"
+        default: false
       is_sms:
-        type: boolean
+        type: "boolean"
+        default: false
       deleted_at:
-        type: string
+        type: "string"
       patient_status:
         $ref: "#/definitions/Patient_status"
-
   Patient:
-    type: object
+    type: "object"
     properties:
       id:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
       ccc_number:
-        type: string
-        example: ABC123456
+        type: "string"
       first_name:
-        type: string
-        example: John
+        type: "string"
       last_name:
-        type: string
-        example: John
+        type: "string"
       other_name:
-        type: string
-        example: John
+        type: "string"
       phone_number:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
       alternate_number:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
       physical_address:
-        type: string
-        example: Nairobi West
+        type: "string"
       gender:
-        type: string
-        example: male,female
+        type: "string"
       birth_date:
-        type: string
-        format: date-time
+        type: "string"
       enrollment_date:
-        type: string
-        format: date-time
+        type: "string"
       support_group:
-        type: string
-        example: lorem ipsum
+        type: "string"
       is_pregnant:
-        type: boolean
+        type: "boolean"
+        default: false
       is_tb:
-        type: boolean
+        type: "boolean"
+        default: false
       is_tb_tested:
-        type: boolean
+        type: "boolean"
+        default: false
       is_smoke:
-        type: boolean
+        type: "boolean"
+        default: false
       is_alchohol:
-        type: boolean
+        type: "boolean"
+        default: false
       is_sms:
-        type: boolean
+        type: "boolean"
+        default: false
       deleted_at:
-        type: string
+        type: "string"
       patient_status:
         $ref: "#/definitions/Patient_status"
       appointment:
         $ref: "#/definitions/Appointment"
-      visit: 
+      visit:
         $ref: "#/definitions/Visit"
       patient_partner:
         $ref: "#/definitions/PatientPartner"
@@ -1677,75 +1619,74 @@ definitions:
         $ref: "#/definitions/PatientDrugAllergy"
       patient_drug_other:
         $ref: "#/definitions/PatientDrugOther"
-
   Prophylaxis:
-    type: object
+    type: "object"
     properties:
       id:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
       name:
-        type: string
-        
+        type: "string"
+  PatientProphylaxis:
+    type: "object"
+    properties:
+      patient_id:
+        type: "integer"
+        format: "int64"
+      prophylaxis_id:
+        type: "integer"
+        format: "int64"
+      prophylaxis:
+        $ref: "#/definitions/Prophylaxis"
   PatientRegimen:
-    type: object
+    type: "object"
     properties:
-      patient_id: 
-        type: integer
-        format: int64
+      patient_id:
+        type: "integer"
+        format: "int64"
       regimen_id:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
       regimen:
-        $ref : "#/definitions/Regimen"
-    
+        $ref: "#/definitions/Regimen"
   Appointments:
-    type: object
+    type: "object"
     properties:
-      patient_id: 
-        type: integer
-        format: int64
+      patient_id:
+        type: "integer"
+        format: "int64"
       Appointment_id:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
       Appointments:
-        $ref : "#/definitions/Appointment"
-
+        $ref: "#/definitions/Appointment"
   Visits:
-    type: object
+    type: "object"
     properties:
-      patient_id: 
-        type: integer
-        format: int64
+      patient_id:
+        type: "integer"
+        format: "int64"
       Visit_id:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
       Visit:
-        $ref : "#/definitions/Visits"
-      
+        $ref: "#/definitions/Visits"
   PatientDependants:
-    type: object
+    type: "object"
     properties:
-      patient_id: 
-        type: integer
-        format: int64
+      patient_id:
+        type: "integer"
+        format: "int64"
       Dependant_id:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
       Dependants:
-        $ref : "#/definitions/Dependant"
-        
+        $ref: "#/definitions/Patients"
   Service:
-    type: object
+    type: "object"
     properties:
       id:
-        type: integer
-        format: int64
+        type: "integer"
+        format: "int64"
       service_name:
-        type: string
-        example: ART
-# Added by API Auto Mocking Plugin
-host: virtserver.swaggerhub.com
-basePath: /BrianPhiri/ADT-CORE/1.0.0
-schemes:
- - https
+        type: "string"
