@@ -54,8 +54,11 @@ class ListsApi extends Controller
 
 
         //not path params validation
-        $tags = $input['tags'];
+        // $tags = $input['tags'];
 
+        $file_path = realpath(__DIR__.'/../../../database/seeds/allergies.json');
+        $json = json_decode(file_get_contents($file_path), true);
+        return $json;
 
         return response('How about implementing drugAllergies as a GET method ?');
     }
@@ -75,8 +78,11 @@ class ListsApi extends Controller
 
 
         //not path params validation
-        $tags = $input['tags'];
+        //$tags = $input['tags'];
 
+        $file_path = realpath(__DIR__.'/../../../database/seeds/illnesses.json');
+        $json = json_decode(file_get_contents($file_path), true);
+        return $json;
 
         return response('How about implementing chronicIllnesses as a GET method ?');
     }
