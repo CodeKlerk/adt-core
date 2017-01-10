@@ -54,8 +54,11 @@ class ServicesApi extends Controller
 
 
         //not path params validation
-        $limit = $input['limit'];
+        //$limit = $input['limit'];
 
+        $file_path = realpath(__DIR__.'/../../../database/seeds/service.json');
+        $json = json_decode(file_get_contents($file_path), true);
+        return $json;
 
         return response('How about implementing servicesGet as a GET method ?');
     }
