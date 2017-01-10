@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "ccc_number": "ABC123456",
+        "first_name": "John",
+        "last_name": "John",
+        "other_name": "John",
+        "phone_number": 0,
+        "alternate_number": 0,
+        "physical_address": "Nairobi West",
+        "gender": "male,female",
+        "birth_date": "2015-07-20T15:49:04-07:00",
+        "enrollment_date": "2015-07-20T15:49:04-07:00",
+        "support_group": "lorem ipsum",
+        "is_pregnant": true,
+        "is_tb": true,
+        "is_tb_tested": true,
+        "is_smoke": true,
+        "is_alchohol": true,
+        "is_sms": true,
+        "deleted_at": "string",
+        "patient_status": {
+            "patient_id": 0,
+            "status_id": 0,
+            "change_date": "2016-10-0",
+            "status": {
+                "id": 0,
+                "name": "string"
+            }
+        }
+    },
+        {
+        "id": 3333373,
+        "ccc_number": "DEF123123",
+        "first_name": "Peter",
+        "last_name": "Brown",
+        "other_name": "John",
+        "phone_number": 0,
+        "alternate_number": 0,
+        "physical_address": "Kawangware",
+        "gender": "male",
+        "birth_date": "2015-07-20T15:49:04-07:00",
+        "enrollment_date": "2015-07-20T15:49:04-07:00",
+        "support_group": "lorem ipsum",
+        "is_pregnant": false,
+        "is_tb": 0,
+        "is_tb_tested": 1,
+        "is_smoke": 0,
+        "is_alchohol": 1,
+        "is_sms": 0,
+        "deleted_at": "string",
+        "patient_status": {
+            "patient_id": 0,
+            "status_id": 0,
+            "change_date": "2016-10-0",
+            "status": {
+                "id": 0,
+                "name": "string"
+            }
+        }
+    },
+        {
+        "id": 3333333,
+        "ccc_number": "GHI2223456",
+        "first_name": "Mary",
+        "last_name": "Doe",
+        "other_name": "",
+        "phone_number": 0,
+        "alternate_number": 0,
+        "physical_address": "Nairobi West",
+        "gender": "female",
+        "birth_date": "2015-07-20T15:49:04-07:00",
+        "enrollment_date": "2015-07-20T15:49:04-07:00",
+        "support_group": "lorem ipsum",
+        "is_pregnant": 1,
+        "is_tb": 0,
+        "is_tb_tested": 0,
+        "is_smoke": 0,
+        "is_alchohol": 0,
+        "is_sms": 0,
+        "deleted_at": "string",
+        "patient_status": {
+            "patient_id": 0,
+            "status_id": 0,
+            "change_date": "2016-10-0",
+            "status": {
+                "id": 0,
+                "name": "string"
+            }
+        }
+    }
+]

@@ -1,0 +1,22 @@
+[
+    {
+        "illness_id": 1,
+        "illness": "Diabetes"
+    },
+    {
+        "illness_id": 2,
+        "illness": "Hypertension"
+    },
+    {
+        "illness_id": 3,
+        "illness": "Obesity"
+    },
+    {
+        "illness_id": 4,
+        "illness": "Cancer"
+    },
+    {
+        "illness_id": 5,
+        "illness": "Cryptococcal Meningitis"
+    }
+]
