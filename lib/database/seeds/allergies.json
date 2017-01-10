@@ -1,0 +1,22 @@
+[
+    {
+        "drug_id": 1,
+        "drugrallergy": "ABACAVIR (ABC) Liquid 20MG/ML (240ml)"
+    },
+    {
+        "drug_id": 2,
+        "drugrallergy": "ABACAVIR (ABC)300MG TABS"
+    },
+    {
+        "drug_id": 3,
+        "drugrallergy": "AMPHOTERICIN B 50MG INJ"
+    },
+    {
+        "drug_id": 4,
+        "drugrallergy": "COTRIMOXAZOLE 480MG Tabs"
+    },
+    {
+        "drug_id": 5,
+        "drugrallergy": "COTRIMOXAZOLE 960MG Tabs (100s)"
+    }
+]
