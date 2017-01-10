@@ -51,6 +51,7 @@ $app->GET('/lists/illnesses', 'ListsApi@chronicIllnesses');
  * Output-Formats: [application/json]
  */
 $app->GET('/lists/patientsources', 'ListsApi@patientSources');
+$app->GET('/lists/whostage', 'ListsApi@whoStage');
 /**
  * POST addPatient
  * Summary: Add a new patient to the facility

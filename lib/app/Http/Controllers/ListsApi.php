@@ -107,4 +107,11 @@ class ListsApi extends Controller
 
         return response('How about implementing patientSources as a GET method ?');
     }
+
+    public function whoStage()
+    {
+        $file_path = realpath(__DIR__.'/../../../database/seeds/whostage.json');
+        $json = json_decode(file_get_contents($file_path), true);
+        return $json;
+    }
 }
