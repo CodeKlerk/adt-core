@@ -11,6 +11,168 @@ info:
 security:
 - adt_auth: []
 paths:
+  /drugs:
+    get:
+      summary: "fetches a list of services at a facility"
+      description: ""
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "Number of service to fetch"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Drug"
+        400:
+          description: "Invalid status value"
+      security:
+        - adt_auth:
+          - read_drug
+    post:
+      summary: "Add a new service to the facility"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Service"
+      responses:
+        201:
+          description: "Service Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Service"
+        405:
+          description: "Invalid input"
+      security:
+        - adt_auth:
+          - create_drug
+          - read_drug
+  /drugs/{drugId}:
+    get:
+      summary: "Find drug by drugId"
+      description: "Returns the drug with the specified drugId"
+      parameters:
+      - name: "drugId"
+        in: "path"
+        description: "Particular Service at facility specified by the ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Drug"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Service not found"
+    put:
+      summary: "Update an existing drug specified by the drugId"
+      description: ""
+      parameters:
+      - name: "drugId"
+        in: "path"
+        description: "Particular Service at facility specified by the ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Drug"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Patient not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes the drug specified by drugId"
+      description: ""
+      parameters:
+      - name: "drugId"
+        in: "path"
+        description: "Particular Service at facility specified by the ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Patient deleted"
+        400:
+          description: "Invalid patient value"
+  /drugs/{drugId}/dose:
+    get:
+      summary: "Find drug dose for drugId"
+      description: "Returns the dose for the drug  with the specified drugId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "drugId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/DrugDose"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Patient not found"
+    post:
+      summary: "Add a dose for a particular drug with drugId"
+      description: ""
+      consumes:
+      - "application/json"
+      parameters:
+      - name: "drugId"
+        in: "path"
+        description: "ID of service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/DrugDose"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Patient not found"
+        405:
+          description: "Validation exception"
   /lists/allergies:
     get:
       summary: "Fetch Drug Allergies  (for select options)"
@@ -33,6 +195,9 @@ paths:
               $ref: "#/definitions/PatientDrugAllergy"
         400:
           description: "Invalid tag value"
+      security:
+        - adt_auth:
+          - read_allergies
   /lists/illnesses:
     get:
       summary: "Fetch Chronic Illnesses (for select options)"
@@ -54,6 +219,9 @@ paths:
               $ref: "#/definitions/ChronicIllnesses"
         400:
           description: "Invalid tag value"
+      security:
+        - adt_auth:
+          - read_illnesses
   /lists/patientsources:
     get:
       summary: "Fetch Drug Allergies  (for select options)"
@@ -75,6 +243,9 @@ paths:
               $ref: "#/definitions/PatientSources"
         400:
           description: "Invalid tag value"
+      security:
+        - adt_auth:
+          - read_patientsources          
   /patients:
     get:
       summary: "get's a list of patients"
@@ -102,6 +273,9 @@ paths:
               $ref: "#/definitions/Patients"
         400:
           description: "Invalid status value"
+      security:
+        - adt_auth:
+          - read_patient
     post:
       summary: "Add a new patient to the facility"
       description: ""
@@ -126,6 +300,9 @@ paths:
               $ref: "#/definitions/Patient"
         405:
           description: "Invalid input"
+      security:
+        - adt_auth:
+          - create_patient
   /patients/{patientId}:
     get:
       summary: "Find patient by patientId"
@@ -149,6 +326,9 @@ paths:
             $ref: "#/definitions/Patient"
         400:
           description: "Invalid ID supplied"
+      security:
+        - adt_auth:
+          - read_patient
     put:
       summary: "Update an existing patient"
       description: ""
@@ -176,6 +356,9 @@ paths:
           description: "Patient not found"
         400:
           description: "Invalid ID supplied"
+      security:
+        - adt_auth:
+          - create_patient      
     delete:
       summary: "Deletes a patient"
       description: ""
@@ -196,6 +379,9 @@ paths:
           description: "Invalid patient value"
         204:
           description: "Patient deleted"
+      security:
+        - adt_auth:
+          - create_patient      
   /patients/{patientId}/allergies/{allergieId}:
     get:
       summary: "Fetch a patient's allergies"
@@ -890,6 +1076,9 @@ paths:
               $ref: "#/definitions/Service"
         400:
           description: "Invalid status value"
+      security:
+        - adt_auth:
+          - read_service      
     post:
       summary: "Add a new service to the facility"
       description: ""
@@ -914,6 +1103,10 @@ paths:
               $ref: "#/definitions/Service"
         405:
           description: "Invalid input"
+      security:
+        - adt_auth:
+          - create_service
+          - read_service          
   /services/{serviceId}:
     get:
       summary: "Find service by serviceId"
@@ -937,6 +1130,9 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "Service not found"
+      security:
+        - adt_auth:
+          - read_service
     put:
       summary: "Update an existing service at facility specified by the ID"
       description: ""
@@ -964,6 +1160,10 @@ paths:
           description: "Patient not found"
         405:
           description: "Validation exception"
+      security:
+        - adt_auth:
+          - create_service
+          - read_service
     delete:
       summary: "Deletes the service at facility specified by the ID"
       description: ""
@@ -984,6 +1184,10 @@ paths:
           description: "Patient deleted"
         400:
           description: "Invalid patient value"
+      security:
+        - adt_auth:
+          - create_service
+          - read_service
   /services/{serviceId}/prophylaxis:
     get:
       summary: "Fetch Prophylaxis for a service"
@@ -1060,7 +1264,6 @@ paths:
       description: "Returns the Prophylaxis specified by prophylaxisId"
       produces:
       - "application/json"
-      - "application/xml"
       parameters:
       - name: "serviceId"
         in: "path"
@@ -1076,17 +1279,16 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Patient"
+            $ref: "#/definitions/PatientProphylaxis"
         400:
           description: "Invalid ID supplied"
         404:
           description: "Patient not found"
     put:
-      summary: "Update an existing patient"
+      summary: "Update the Prophylaxis specified by prophylaxisId"
       description: ""
       consumes:
       - "application/json"
-      - "application/xml"
       parameters:
       - name: "serviceId"
         in: "path"
@@ -1102,18 +1304,18 @@ paths:
         name: "body"
         required: false
         schema:
-          $ref: "#/definitions/Patient"
+          $ref: "#/definitions/PatientProphylaxis"
       responses:
         202:
           description: "Update Accepted"
-        405:
-          description: "Validation exception"
-        404:
-          description: "Patient not found"
         400:
           description: "Invalid ID supplied"
+        404:
+          description: "Patient not found"
+        405:
+          description: "Validation exception"
     delete:
-      summary: "Deletes a Service"
+      summary: "Deletes the Prophylaxis specified by prophylaxisId"
       description: ""
       parameters:
       - name: "serviceId"
@@ -1132,10 +1334,10 @@ paths:
         required: true
         type: "string"
       responses:
-        400:
-          description: "Invalid patient value"
         204:
           description: "Patient deleted"
+        400:
+          description: "Invalid patient value"
   /services/{serviceId}/regimens:
     get:
       summary: "Find service by serviceId"
@@ -1276,6 +1478,114 @@ paths:
           description: "Patient deleted"
         400:
           description: "Invalid patient value"
+  /users:
+    get:
+      summary: "fetches a list of users at a facility"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "Number of service to fetch"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/user"
+        400:
+          description: "Invalid status value"
+    post:
+      summary: "Add a new user to the facility"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/user"
+      responses:
+        201:
+          description: "Service Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Service"
+        405:
+          description: "Invalid input"
+  /users/{usersId}:
+    get:
+      summary: "Find drug by drugId"
+      description: "Returns the drug with the specified drugId"
+      parameters:
+      - name: "usersId"
+        in: "path"
+        description: "Particular Service at facility specified by the ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Drug"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Service not found"
+    put:
+      summary: "Update an existing drug specified by the drugId"
+      description: ""
+      parameters:
+      - name: "usersId"
+        in: "path"
+        description: "Particular Service at facility specified by the ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Drug"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Patient not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes the drug specified by drugId"
+      description: ""
+      parameters:
+      - name: "usersId"
+        in: "path"
+        description: "Particular Service at facility specified by the ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Patient deleted"
+        400:
+          description: "Invalid patient value"
 securityDefinitions:
   adt_auth:
     type: "oauth2"
@@ -1289,6 +1599,8 @@ securityDefinitions:
       read_patientsources: "Read Patient Sources"
       read_service: "raed services"
       create_service: "create services"
+      create_drug: "create drugs"
+      read_drug: "read drugs"
 definitions:
   Appointment:
     type: "object"
@@ -1638,6 +1950,19 @@ definitions:
         format: "int64"
       prophylaxis:
         $ref: "#/definitions/Prophylaxis"
+  DrugDose:
+    type: "object"
+    required:
+    - "name"
+    - "quantity"
+    properties:
+      name:
+        type: "string"
+      quantity:
+        type: "integer"
+        format: "int32"
+      frequency:
+        type: "string"
   PatientRegimen:
     type: "object"
     properties:
@@ -1649,6 +1974,37 @@ definitions:
         format: "int64"
       regimen:
         $ref: "#/definitions/Regimen"
+  user:
+    type: "object"
+    required:
+    - "access_level"
+    - "email"
+    - "facility_id"
+    - "name"
+    - "password"
+    - "phone_number"
+    properties:
+      name:
+        type: "string"
+        description: "sample user"
+      email:
+        type: "string"
+        description: "email@example.com"
+      phone_number:
+        type: "integer"
+        format: "int32"
+        description: "0799330044"
+      password:
+        type: "string"
+        description: "53cr3th@$h"
+      access_level:
+        type: "integer"
+        format: "int32"
+        description: "1"
+      facility_id:
+        type: "integer"
+        format: "int32"
+        description: "12003"
   Appointments:
     type: "object"
     properties:
