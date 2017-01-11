@@ -114,4 +114,11 @@ class ListsApi extends Controller
         $json = json_decode(file_get_contents($file_path), true);
         return $json;
     }
+
+    public function prophylaxis()
+    {
+        $file_path = realpath(__DIR__.'/../../../database/seeds/prophylaxis.json');
+        $json = json_decode(file_get_contents($file_path), true);
+        return $json;
+    }
 }
