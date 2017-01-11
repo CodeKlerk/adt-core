@@ -121,4 +121,17 @@ class ListsApi extends Controller
         $json = json_decode(file_get_contents($file_path), true);
         return $json;
     }
+    public function pep()
+    {
+        $file_path = realpath(__DIR__.'/../../../database/seeds/pep.json');
+        $json = json_decode(file_get_contents($file_path), true);
+        return $json;
+    }
+    public function regimen()
+    {
+        $file_path = realpath(__DIR__.'/../../../database/seeds/regimen.json');
+        $json = json_decode(file_get_contents($file_path), true);
+        return $json;
+    }
+
 }

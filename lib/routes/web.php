@@ -53,6 +53,8 @@ $app->GET('/lists/illnesses', 'ListsApi@chronicIllnesses');
 $app->GET('/lists/patientsources', 'ListsApi@patientSources');
 $app->GET('/lists/whostage', 'ListsApi@whoStage');
 $app->GET('/lists/prophylaxis', 'ListsApi@prophylaxis');
+$app->GET('/lists/regimen', 'ListsApi@regimen');
+$app->GET('/lists/pep', 'ListsApi@pep');
 /**
  * POST addPatient
  * Summary: Add a new patient to the facility
