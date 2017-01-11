@@ -102,8 +102,11 @@ class ListsApi extends Controller
 
 
         //not path params validation
-        $tags = $input['tags'];
+        //$tags = $input['tags'];
 
+        $file_path = realpath(__DIR__.'/../../../database/seeds/sources.json');
+        $json = json_decode(file_get_contents($file_path), true);
+        return $json;
 
         return response('How about implementing patientSources as a GET method ?');
     }
