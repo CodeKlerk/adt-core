@@ -10,7 +10,7 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$app->group(['prefix' => 'ADT_CORE/v0.1'], function () use ($app) {
+$app->group(['prefix' => 'ADT_CORE/v0.1', 'middleware' => 'cors'], function () use ($app) {
 
 $app->get('/', function () use ($app) {
     return $app->version();
