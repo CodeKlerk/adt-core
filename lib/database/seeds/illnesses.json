@@ -1,22 +1,22 @@
 [
     {
-        "illness_id": 1,
-        "illness": "Diabetes"
+        "id": 1,
+        "name": "Diabetes"
     },
     {
-        "illness_id": 2,
-        "illness": "Hypertension"
+        "id": 2,
+        "name": "Hypertension"
     },
     {
-        "illness_id": 3,
-        "illness": "Obesity"
+        "id": 3,
+        "name": "Obesity"
     },
     {
-        "illness_id": 4,
-        "illness": "Cancer"
+        "id": 4,
+        "name": "Cancer"
     },
     {
-        "illness_id": 5,
-        "illness": "Cryptococcal Meningitis"
+        "id": 5,
+        "name": "Cryptococcal Meningitis"
     }
 ]
