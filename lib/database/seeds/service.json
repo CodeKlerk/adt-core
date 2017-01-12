@@ -1,22 +1,22 @@
 [
     {
         "id": 1,
-        "service_name": "ART"
+        "name": "ART"
     },
     {
         "id": 2,
-        "service_name": "PEP"
+        "name": "PEP"
     },
     {
         "id": 3,
-        "service_name": "PMTCT"
+        "name": "PMTCT"
     },
     {
         "id": 4,
-        "service_name": "OI Only"
+        "name": "OI Only"
     },
     {
         "id": 5,
-        "service_name": "PLO"
+        "name": "PLO"
     }   
 ]

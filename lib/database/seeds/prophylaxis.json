@@ -1,0 +1,22 @@
+[
+    {
+        "id" : 1,
+        "name" : "cotrimoxazole"
+    },
+    {
+        "id" : 2,
+        "name" : "Dapsone"
+    },
+    {
+        "id" : 3,
+        "name" : "Isoniazid"
+    },
+    {
+        "id" : 4,
+        "name" : "Fluconazole"
+    },
+    {
+        "id" : 5,
+        "name" : "Brian"
+    }
+]
