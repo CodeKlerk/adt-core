@@ -280,4 +280,54 @@ $app->GET('/services/{serviceId}', 'ServicesApi@getServiceById');
  */
 $app->PUT('/services/{serviceId}', 'ServicesApi@updateService');
 
+/**
+ * GET drugsGet
+ * Summary: fetches a list of services at a facility
+ * Notes: 
+
+ */
+$app->GET('/drugs', 'DefaultApi@drugsGet');
+/**
+ * POST drugsPost
+ * Summary: Add a new service to the facility
+ * Notes: 
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->POST('/drugs', 'DefaultApi@drugsPost');
+/**
+ * DELETE drugsDrugIdDelete
+ * Summary: Deletes the drug specified by drugId
+ * Notes: 
+
+ */
+$app->DELETE('/drugs/{drugId}', 'DefaultApi@drugsDrugIdDelete');
+/**
+ * GET drugsDrugIdGet
+ * Summary: Find drug by drugId
+ * Notes: Returns the drug with the specified drugId
+
+ */
+$app->GET('/drugs/{drugId}', 'DefaultApi@drugsDrugIdGet');
+/**
+ * PUT drugsDrugIdPut
+ * Summary: Update an existing drug specified by the drugId
+ * Notes: 
+
+ */
+$app->PUT('/drugs/{drugId}', 'DefaultApi@drugsDrugIdPut');
+/**
+ * GET drugsDrugIdDoseGet
+ * Summary: Find drug dose for drugId
+ * Notes: Returns the dose for the drug  with the specified drugId
+ * Output-Formats: [application/json]
+ */
+$app->GET('/drugs/{drugId}/dose', 'DefaultApi@drugsDrugIdDoseGet');
+/**
+ * POST drugsDrugIdDosePost
+ * Summary: Add a dose for a particular drug with drugId
+ * Notes: 
+
+ */
+$app->POST('/drugs/{drugId}/dose', 'DefaultApi@drugsDrugIdDosePost');
+
 });
