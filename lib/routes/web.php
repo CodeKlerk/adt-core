@@ -330,4 +330,41 @@ $app->GET('/drugs/{drugId}/dose', 'DrugsApi@drugsDrugIdDoseGet');
  */
 $app->POST('/drugs/{drugId}/dose', 'DrugsApi@drugsDrugIdDosePost');
 
+/**
+ * GET usersGet
+ * Summary: fetches a list of users at a facility
+ * Notes: 
+ * Output-Formats: [application/json]
+ */
+$app->GET('/users', 'DefaultApi@usersGet');
+/**
+ * POST usersPost
+ * Summary: Add a new user to the facility
+ * Notes: 
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->POST('/users', 'DefaultApi@usersPost');
+/**
+ * DELETE usersUsersIdDelete
+ * Summary: Deletes the drug specified by drugId
+ * Notes: 
+
+ */
+$app->DELETE('/users/{usersId}', 'DefaultApi@usersUsersIdDelete');
+/**
+ * GET usersUsersIdGet
+ * Summary: Find drug by drugId
+ * Notes: Returns the drug with the specified drugId
+
+ */
+$app->GET('/users/{usersId}', 'DefaultApi@usersUsersIdGet');
+/**
+ * PUT usersUsersIdPut
+ * Summary: Update an existing drug specified by the drugId
+ * Notes: 
+
+ */
+$app->PUT('/users/{usersId}', 'DefaultApi@usersUsersIdPut');
+
+
 });
