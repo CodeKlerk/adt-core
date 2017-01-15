@@ -28,6 +28,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
+use App\Models\ListsModels\Allergies;
+use App\Models\ListsModels\Appointmet;
+use App\Models\ListsModels\Dependanat;
+use App\Models\ListsModels\Prophylaxis;
+use App\Models\ListsModels\Regimen;
+use App\Models\ListsModels\WhoStage;
+use App\Models\ListsModels\Illnesses;
+use App\Models\ListsModels\Sources;
+use App\Models\ListsModels\Pepreason;
 
 class ListsApi extends Controller
 {
@@ -48,19 +57,8 @@ class ListsApi extends Controller
      */
     public function drugAllergies()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        // $tags = $input['tags'];
-
-        $file_path = realpath(__DIR__.'/../../../database/seeds/allergies.json');
-        $json = json_decode(file_get_contents($file_path), true);
-        return $json;
-
-        return response('How about implementing drugAllergies as a GET method ?');
+        $response = Allergies::all();
+        return response()->json($response, 200);
     }
     /**
      * Operation chronicIllnesses
@@ -72,19 +70,8 @@ class ListsApi extends Controller
      */
     public function chronicIllnesses()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        //$tags = $input['tags'];
-
-        $file_path = realpath(__DIR__.'/../../../database/seeds/illnesses.json');
-        $json = json_decode(file_get_contents($file_path), true);
-        return $json;
-
-        return response('How about implementing chronicIllnesses as a GET method ?');
+        $response = Illnesses::all();
+        return response()->json($response, 200);
     }
     /**
      * Operation patientSources
@@ -96,45 +83,30 @@ class ListsApi extends Controller
      */
     public function patientSources()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        //$tags = $input['tags'];
-
-        $file_path = realpath(__DIR__.'/../../../database/seeds/sources.json');
-        $json = json_decode(file_get_contents($file_path), true);
-        return $json;
-
-        return response('How about implementing patientSources as a GET method ?');
+        $response = Sources::all();
+        return response()->json($response, 200);
     }
 
     public function whoStage()
     {
-        $file_path = realpath(__DIR__.'/../../../database/seeds/whostage.json');
-        $json = json_decode(file_get_contents($file_path), true);
-        return $json;
+        $response = WhoStage::all();
+        return response()->json($response, 200);
     }
 
     public function prophylaxis()
     {
-        $file_path = realpath(__DIR__.'/../../../database/seeds/prophylaxis.json');
-        $json = json_decode(file_get_contents($file_path), true);
-        return $json;
+        $response = Prophylaxis::all();
+        return response()->json($response, 200);
     }
     public function pep()
     {
-        $file_path = realpath(__DIR__.'/../../../database/seeds/pep.json');
-        $json = json_decode(file_get_contents($file_path), true);
-        return $json;
+       $response = Pepreason::all();
+       return response()->json($response, 200);
     }
     public function regimen()
     {
-        $file_path = realpath(__DIR__.'/../../../database/seeds/regimen.json');
-        $json = json_decode(file_get_contents($file_path), true);
-        return $json;
+        $response = Regimen::all();
+        return response()->json($response, 200);
     }
 
 }
