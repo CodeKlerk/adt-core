@@ -31,5 +31,4 @@ class CORS {
             $response->header($key, $value);
         return $response;
     }
-
 }

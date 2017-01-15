@@ -28,6 +28,13 @@ $app->withFacades();
 $app->withEloquent();
 
 /*
+| 
+| Loading external Tinker for testing model's responses'
+|
+*/
+$app->register(Vluzrmos\Tinker\TinkerServiceProvider::class);
+
+/*
 |--------------------------------------------------------------------------
 | Register Container Bindings
 |--------------------------------------------------------------------------

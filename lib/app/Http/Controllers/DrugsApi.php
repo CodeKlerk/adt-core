@@ -28,7 +28,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
-
+use App\Models\DrugModels\Drug;
 class DrugsApi extends Controller
 {
     /**
@@ -48,16 +48,8 @@ class DrugsApi extends Controller
      */
     public function drugsGet()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $limit = $input['limit'];
-
-
-        return response('How about implementing drugsGet as a GET method ?');
+        $response = Drug::get();
+        return response()->json($response, 200);
     }
     /**
      * Operation drugsPost
@@ -180,3 +172,4 @@ class DrugsApi extends Controller
 
         return response('How about implementing drugsDrugIdDosePost as a POST method ?');
     }
+}
