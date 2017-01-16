@@ -16,6 +16,8 @@ $app->get('/', function () use ($app) {
     return $app->version();
 });
 
+$app->GET('/lists/services', 'ServicesApi@GetServices');
+
 /**
  * GET drugAllergies
  * Summary: Fetch Drug Allergies  (for select options)
