@@ -173,7 +173,7 @@ paths:
           description: "Patient not found"
         405:
           description: "Validation exception"
-  /lists/allergies:
+  /lists/services:
     get:
       summary: "Fetch Drug Allergies  (for select options)"
       description: "Fetch Drug Allergies  (for select options)"
@@ -192,60 +192,12 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/PatientDrugAllergy"
+              $ref: "#/definitions/Services"
         400:
           description: "Invalid tag value"
       security:
         - adt_auth:
           - read_allergies
-  /lists/illnesses:
-    get:
-      summary: "Fetch Chronic Illnesses (for select options)"
-      description: "Fetch Chronic Illnesses (for select options)"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "tags"
-        in: "query"
-        description: "Tags to filter by"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/ChronicIllnesses"
-        400:
-          description: "Invalid tag value"
-      security:
-        - adt_auth:
-          - read_illnesses
-  /lists/patientsources:
-    get:
-      summary: "Fetch Drug Allergies  (for select options)"
-      description: "Fetch Drug Allergies  (for select options)"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "tags"
-        in: "query"
-        description: "Tags to filter by"
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/PatientSources"
-        400:
-          description: "Invalid tag value"
-      security:
-        - adt_auth:
-          - read_patientsources          
   /patients:
     get:
       summary: "get's a list of patients"
@@ -1211,12 +1163,11 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "Patient not found"
-    put:
-      summary: "Update an existing patient"
+    post:
+      summary: "add Prophylaxis to service  specified by serviceId"
       description: ""
       consumes:
       - "application/json"
-      - "application/xml"
       parameters:
       - name: "serviceId"
         in: "path"
@@ -1228,36 +1179,16 @@ paths:
         name: "body"
         required: false
         schema:
-          $ref: "#/definitions/Patient"
+          $ref: "#/definitions/PatientProphylaxis"
       responses:
         202:
           description: "Update Accepted"
-        405:
-          description: "Validation exception"
-        404:
-          description: "Patient not found"
         400:
           description: "Invalid ID supplied"
-    delete:
-      summary: "Deletes a Service"
-      description: ""
-      parameters:
-      - name: "serviceId"
-        in: "path"
-        description: "ID of service that needs to be fetched"
-        required: true
-        type: "integer"
-        format: "int64"
-      - name: "api_key"
-        in: "header"
-        description: ""
-        required: true
-        type: "string"
-      responses:
-        400:
-          description: "Invalid patient value"
-        204:
-          description: "Patient deleted"
+        404:
+          description: "Patient not found"
+        405:
+          description: "Validation exception"
   /services/{serviceId}/prophylaxis/{prophylaxisId}:
     get:
       summary: "Fetch Prophylaxis for a service"
@@ -2045,4 +1976,43 @@ definitions:
         type: "integer"
         format: "int64"
       service_name:
+        type: "string"
+      service_type:
+        type: "string"
+  Services:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      service_name:
+        type: "string"
+      service_type:
+        type: "string"
+      start_regimen:
+        type: "array"
+        $ref: "#/definitions/Regimen"
+      who_stage:
+        type: "array"
+        $ref: "#/definitions/WhoStage"
+      prophylaxis:
+        type: "array"
+        $ref: "#/definitions/Prophylaxis"
+      pep_reason:
+        $ref: "#/definitions/PepReason"
+  WhoStage:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+  PepReason:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
         type: "string"

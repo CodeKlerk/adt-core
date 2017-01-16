@@ -46,7 +46,7 @@ class ServicesApi extends Controller
      *
      * @return Http response
      */
-    public function servicesGet()
+    public function GetServices()
     {
         $input = Request::all();
 
@@ -56,7 +56,7 @@ class ServicesApi extends Controller
         //not path params validation
         //$limit = $input['limit'];
 
-        $file_path = realpath(__DIR__.'/../../../database/seeds/service.json');
+        $file_path = realpath(__DIR__.'/../../../database/seeds/patient_services.json');
         $json = json_decode(file_get_contents($file_path), true);
         return $json;
 
