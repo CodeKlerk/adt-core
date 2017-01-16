@@ -62,15 +62,8 @@ class DrugsApi extends Controller
     public function drugsPost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $body = $input['body'];
-
-
-        return response('How about implementing drugsPost as a POST method ?');
+        Drug::create($input);
+        return response($input);
     }
     /**
      * Operation drugsDrugIdDelete
