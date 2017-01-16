@@ -55,6 +55,8 @@ $app->GET('/lists/whostage', 'ListsApi@whoStage');
 $app->GET('/lists/prophylaxis', 'ListsApi@prophylaxis');
 $app->GET('/lists/regimen', 'ListsApi@regimen');
 $app->GET('/lists/pep', 'ListsApi@pep');
+$app->GET('/lists/sub_county', 'ListsApi@sub_county');
+$app->GET('/lists/familyplanning', 'ListsApi@familyplanning');
 /**
  * POST addPatient
  * Summary: Add a new patient to the facility

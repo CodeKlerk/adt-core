@@ -37,6 +37,8 @@ use App\Models\ListsModels\WhoStage;
 use App\Models\ListsModels\Illnesses;
 use App\Models\ListsModels\Sources;
 use App\Models\ListsModels\Pepreason;
+use App\Models\ListsModels\Sub_county;
+use App\Models\ListsModels\Familyplanning;
 
 class ListsApi extends Controller
 {
@@ -106,6 +108,16 @@ class ListsApi extends Controller
     public function regimen()
     {
         $response = Regimen::all();
+        return response()->json($response, 200);
+    }
+    public function sub_county()
+    {
+        $response = Sub_county::all();
+        return response()->json($response, 200);
+    }
+    public function familyplanning()
+    {
+        $response = Familyplanning::all();
         return response()->json($response, 200);
     }
 
