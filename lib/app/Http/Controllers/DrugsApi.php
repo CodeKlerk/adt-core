@@ -103,14 +103,8 @@ class DrugsApi extends Controller
      */
     public function drugsDrugIdGet($drug_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing drugsDrugIdGet as a GET method ?');
+        $response = Drug::findOrFail($drug_id);
+        return response()->json($response, 200);
     }
     /**
      * Operation drugsDrugIdPut
