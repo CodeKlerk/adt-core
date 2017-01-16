@@ -28,6 +28,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
+use App\Models\PatientModels\Patient;
 
 class PatientsApi extends Controller
 {
@@ -49,7 +50,7 @@ class PatientsApi extends Controller
     public function addPatient()
     {
         $input = Request::all();
-
+        Patient::create($input);
         return response($input);
     }
     /**
@@ -62,18 +63,8 @@ class PatientsApi extends Controller
      */
     public function patientsGet()
     {
-        $input = Request::all();
-
-        //path params validation
-
-        //not path params validation
-        // $limit = $input['limit'];
-
-        // $offset = $input['offset'];
-        $file_path = realpath(__DIR__.'/../../../database/seeds/patient.json');
-        $json = json_decode(file_get_contents($file_path), true);
-        return $json;
-        //return response('How about implementing patientsGet as a GET method ?');
+        $response = Patient::all();
+        return response()->json($response, 200);
     }
     /**
      * Operation deletePatient
@@ -106,14 +97,8 @@ class PatientsApi extends Controller
      */
     public function getPatientById($patient_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing getPatientById as a GET method ?');
+        $response = Patient::findOrFail($patient_id);
+        return response()->json($response, 200);
     }
     /**
      * Operation updatePatient

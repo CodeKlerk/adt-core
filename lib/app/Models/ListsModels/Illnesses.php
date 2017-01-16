@@ -4,7 +4,7 @@ namespace App\Models\ListsModels;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Prophylaxis extends Model
+class Illnesses extends Model
 {
-    protected $table = 'tbl_prophylaxis';
+    protected $table = 'tbl_illness';
 }

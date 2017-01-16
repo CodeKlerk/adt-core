@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Models\ListsModels;
+namespace App\Models\DrugModels;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Allergies extends Model
+class Drug extends Model
 {
     protected $table = 'tbl_drug';
+    
 }

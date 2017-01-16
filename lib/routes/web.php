@@ -51,10 +51,12 @@ $app->GET('/lists/illnesses', 'ListsApi@chronicIllnesses');
  * Output-Formats: [application/json]
  */
 $app->GET('/lists/patientsources', 'ListsApi@patientSources');
-$app->GET('/lists/whostage', 'ListsApi@whoStage');
+$app->GET('/lists/whostage', 'ListsApi@whoStage'); 
 $app->GET('/lists/prophylaxis', 'ListsApi@prophylaxis');
 $app->GET('/lists/regimen', 'ListsApi@regimen');
 $app->GET('/lists/pep', 'ListsApi@pep');
+$app->GET('/lists/sub_county', 'ListsApi@sub_county');
+$app->GET('/lists/familyplanning', 'ListsApi@familyplanning');
 /**
  * POST addPatient
  * Summary: Add a new patient to the facility
@@ -279,5 +281,92 @@ $app->GET('/services/{serviceId}', 'ServicesApi@getServiceById');
  * Output-Formats: [application/json, application/xml]
  */
 $app->PUT('/services/{serviceId}', 'ServicesApi@updateService');
+
+/**
+ * GET drugsGet
+ * Summary: fetches a list of services at a facility
+ * Notes: 
+
+ */
+$app->GET('/drugs', 'DrugsApi@drugsGet');
+/**
+ * POST drugsPost
+ * Summary: Add a new service to the facility
+ * Notes: 
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->POST('/drugs', 'DrugsApi@drugsPost');
+/**
+ * DELETE drugsDrugIdDelete
+ * Summary: Deletes the drug specified by drugId
+ * Notes: 
+
+ */
+$app->DELETE('/drugs/{drugId}', 'DrugsApi@drugsDrugIdDelete');
+/**
+ * GET drugsDrugIdGet
+ * Summary: Find drug by drugId
+ * Notes: Returns the drug with the specified drugId
+
+ */
+$app->GET('/drugs/{drugId}', 'DrugsApi@drugsDrugIdGet');
+/**
+ * PUT drugsDrugIdPut
+ * Summary: Update an existing drug specified by the drugId
+ * Notes: 
+
+ */
+$app->PUT('/drugs/{drugId}', 'DrugsApi@drugsDrugIdPut');
+/**
+ * GET drugsDrugIdDoseGet
+ * Summary: Find drug dose for drugId
+ * Notes: Returns the dose for the drug  with the specified drugId
+ * Output-Formats: [application/json]
+ */
+$app->GET('/drugs/{drugId}/dose', 'DrugsApi@drugsDrugIdDoseGet');
+/**
+ * POST drugsDrugIdDosePost
+ * Summary: Add a dose for a particular drug with drugId
+ * Notes: 
+
+ */
+$app->POST('/drugs/{drugId}/dose', 'DrugsApi@drugsDrugIdDosePost');
+
+/**
+ * GET usersGet
+ * Summary: fetches a list of users at a facility
+ * Notes: 
+ * Output-Formats: [application/json]
+ */
+$app->GET('/users', 'DefaultApi@usersGet');
+/**
+ * POST usersPost
+ * Summary: Add a new user to the facility
+ * Notes: 
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->POST('/users', 'DefaultApi@usersPost');
+/**
+ * DELETE usersUsersIdDelete
+ * Summary: Deletes the drug specified by drugId
+ * Notes: 
+
+ */
+$app->DELETE('/users/{usersId}', 'DefaultApi@usersUsersIdDelete');
+/**
+ * GET usersUsersIdGet
+ * Summary: Find drug by drugId
+ * Notes: Returns the drug with the specified drugId
+
+ */
+$app->GET('/users/{usersId}', 'DefaultApi@usersUsersIdGet');
+/**
+ * PUT usersUsersIdPut
+ * Summary: Update an existing drug specified by the drugId
+ * Notes: 
+
+ */
+$app->PUT('/users/{usersId}', 'DefaultApi@usersUsersIdPut');
+
 
 });
