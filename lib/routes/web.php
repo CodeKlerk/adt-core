@@ -16,49 +16,14 @@ $app->get('/', function () use ($app) {
     return $app->version();
 });
 
-$app->GET('/lists/services', 'ServicesApi@GetServices');
+/**
+ * GET listsServicesGet
+ * Summary: Fetch Drug Allergies  (for select options)
+ * Notes: Fetch Drug Allergies  (for select options)
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/services', 'listsServicesApi@listsServicesGet');
 
-/**
- * GET drugAllergies
- * Summary: Fetch Drug Allergies  (for select options)
- * Notes: Fetch Drug Allergies  (for select options)
- * Output-Formats: [application/json]
- */
-$app->GET('/lists/allergies', 'AllergiesApi@drugAllergies');
-/**
- * GET patientSources
- * Summary: Fetch Drug Allergies  (for select options)
- * Notes: Fetch Drug Allergies  (for select options)
- * Output-Formats: [application/json]
- */
-$app->GET('/lists/patientsources', 'AllergiesApi@patientSources');
-/**
- * GET drugAllergies
- * Summary: Fetch Drug Allergies  (for select options)
- * Notes: Fetch Drug Allergies  (for select options)
- * Output-Formats: [application/json]
- */
-$app->GET('/lists/allergies', 'ListsApi@drugAllergies');
-/**
- * GET chronicIllnesses
- * Summary: Fetch Chronic Illnesses (for select options)
- * Notes: Fetch Chronic Illnesses (for select options)
- * Output-Formats: [application/json]
- */
-$app->GET('/lists/illnesses', 'ListsApi@chronicIllnesses');
-/**
- * GET patientSources
- * Summary: Fetch Drug Allergies  (for select options)
- * Notes: Fetch Drug Allergies  (for select options)
- * Output-Formats: [application/json]
- */
-$app->GET('/lists/patientsources', 'ListsApi@patientSources');
-$app->GET('/lists/whostage', 'ListsApi@whoStage'); 
-$app->GET('/lists/prophylaxis', 'ListsApi@prophylaxis');
-$app->GET('/lists/regimen', 'ListsApi@regimen');
-$app->GET('/lists/pep', 'ListsApi@pep');
-$app->GET('/lists/sub_county', 'ListsApi@sub_county');
-$app->GET('/lists/familyplanning', 'ListsApi@familyplanning');
 /**
  * POST addPatient
  * Summary: Add a new patient to the facility
