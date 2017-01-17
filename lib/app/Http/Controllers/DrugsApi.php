@@ -62,15 +62,8 @@ class DrugsApi extends Controller
     public function drugsPost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $body = $input['body'];
-
-
-        return response('How about implementing drugsPost as a POST method ?');
+        Drug::create($input);
+        return response($input);
     }
     /**
      * Operation drugsDrugIdDelete
@@ -103,14 +96,8 @@ class DrugsApi extends Controller
      */
     public function drugsDrugIdGet($drug_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing drugsDrugIdGet as a GET method ?');
+        $response = Drug::findOrFail($drug_id);
+        return response()->json($response, 200);
     }
     /**
      * Operation drugsDrugIdPut
@@ -123,14 +110,23 @@ class DrugsApi extends Controller
      */
     public function drugsDrugIdPut($drug_id)
     {
+        $drug = Drug::findOrFail($drug_id);
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing drugsDrugIdPut as a PUT method ?');
+        $drug->name = $input['name'];
+        $drug->pack_size = $input['pack_size'];
+        $drug->duration = $input['duration'];
+        $drug->quantity = $input['quantity'];
+        $drug->is_arv = $input['is_arv'];
+        $drug->is_tb = $input['is_tb'];
+        $drug->unit_id = $input['unit_id'];
+        $drug->dose_id = $input['dose_id'];
+        $drug->generic_id = $input['generic_id'];
+        $drug->supporter_id = $input['supporter_id'];
+        if($drug->save()){
+            return response()->json(['msg' => 'updated']);
+        }else{
+            return response('Failed');
+        }
     }
     /**
      * Operation drugsDrugIdDoseGet
