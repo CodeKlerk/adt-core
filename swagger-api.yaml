@@ -1569,11 +1569,13 @@ definitions:
   PatientPartner:
     type: "object"
     properties:
-      partnerId:
+      partner_id:
         type: "integer"
-        format: "int32"
-      status:
-        type: "string"
+        $ref: "#/definitions/Patient"
+      patient_id:
+        type: "integer"
+        $ref: "#/definitions/Patient"
+
   Drug:
     type: "object"
     properties:
@@ -1683,6 +1685,7 @@ definitions:
         format: "int32"
       visit_date:
         type: "string"
+        format: "date"
       appointment_adherence:
         type: "integer"
         format: "int32"
@@ -1737,6 +1740,7 @@ definitions:
         format: "int64"
       change_date:
         type: "string"
+        format: "date"
       status:
         $ref: "#/definitions/Status"
   Patients:
@@ -1772,8 +1776,10 @@ definitions:
         type: "string"
       birth_date:
         type: "string"
+        format: "date"
       enrollment_date:
         type: "string"
+        format: "date"
       support_group:
         type: "string"
       is_pregnant:
@@ -1824,8 +1830,10 @@ definitions:
         type: "string"
       birth_date:
         type: "string"
+        format: "date"
       enrollment_date:
         type: "string"
+        format: "date"
       support_group:
         type: "string"
       is_pregnant:
@@ -2097,9 +2105,11 @@ definitions:
       code:
         type: "string"
       period_begin:
-        type: "date"
+        type: "string"
+        format: "date"
       period_end:
-        type: "date"
+        type: "string"
+        format: "date"
       comments:
         type: "string"
       reports_expected:
@@ -2153,7 +2163,8 @@ definitions:
         type: "integer"
         format: "int64"
       expiry_date:
-        type: "date"
+        type: "string"
+        format: "date"
       out_of_stock:
         type: "integer"
         format: "int64"
@@ -2231,9 +2242,11 @@ definitions:
       comments:
         type: "string"
       period_begin:
-        type: "date"
+        type: "string"
+        format: "date"
       period_end:
-        type: "date"
+        type: "string"
+        format: "date"
       reports_expected:
         type: "integer"
         format: "int64"
@@ -2241,7 +2254,7 @@ definitions:
         type: "integer"
         format: "int64"
 
-  PatientTb:
+  Patient Tb:
     type: "object"
     properties:
       patient_id:
@@ -2251,9 +2264,11 @@ definitions:
       phase:
         type: "string"
       start_date: 
-        type: "date"
+        type: "string"
+        format: "date"
       end_date: 
-        type: "date"
+        type: "string"
+        format: "date"
 
   Purpose:
     type: "object"
@@ -2271,7 +2286,8 @@ definitions:
         type: "integer"
         format: "int64"
       transaction_time:
-        type: "date"
+        type: "string"
+        format: "date"
       transaction_detail:
         type: "string"
       ref_number:
@@ -2292,7 +2308,8 @@ definitions:
       batch_number:
         type: "string"
       expiry_date: 
-        type: "date"
+        type: "string"
+        format: "date"
       quantity_in:
         type: "integer"
         format: "int64"
@@ -2309,9 +2326,11 @@ definitions:
         type: "integer"
         format: "int64"
       unit_cost:
-        type: "double"
+        type: "number"
+        format: "double"
       total_cost:
-        type: "double"
+        type: "number"
+        format: "double"
       comment: 
         type: "string"
       drug_id:
@@ -2360,4 +2379,5 @@ definitions:
       status_id:
         $ref: "#/definitions/Status"
       change_date:
-        type: "date"
+        type: "string"
+        format: "date"
