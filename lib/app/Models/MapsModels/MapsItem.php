@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Illnesses extends Model
+class MapsItem extends Model
 {
-    protected $table = 'tbl_illness';
+    //
 }
