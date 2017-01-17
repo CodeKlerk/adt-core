@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cdrr_log extends Model
+class CdrrItem extends Model
 {
-    protected $table = 'tbl_cdrr_log';
+    protected $table = 'tbl_cdrr_item';
 }
