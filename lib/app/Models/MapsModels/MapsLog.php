@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class MapsLog extends Model
 {
-    //
+    protected $table = 'tbl_maps_log';
 }
