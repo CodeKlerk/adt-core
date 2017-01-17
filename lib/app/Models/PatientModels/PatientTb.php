@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PatientAppointment extends Model
+class PatientTb extends Model
 {
-
+    protected $table = 'tbl_patient_tb';
 }
