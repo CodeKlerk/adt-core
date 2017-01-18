@@ -28,7 +28,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
+
 use App\Models\PatientModels\Patient;
+use App\Models\PatientModels\PatientFamilyPlanning;
+use App\Models\PatientModels\PatientDependants;
+use App\Models\PatientModels\PatientDrugAllergyOther;
+use App\Models\PatientModels\PatientAllergies;
+use App\Models\PatientModels\PatientDrugOther;
+use App\Models\PatientModels\PatientIllness;
+use App\Models\PatientModels\PatientPartner;
+use App\Models\PatientModels\PatientProphylaxis;
+use App\Models\PatientModels\PatientRegimens;
+use App\Models\PatientModels\PatientStatus;
+use App\Models\PatientModels\PatientTb;
 
 class PatientsApi extends Controller
 {
@@ -39,20 +51,6 @@ class PatientsApi extends Controller
     {
     }
 
-    /**
-     * Operation addPatient
-     *
-     * Add a new patient to the facility.
-     *
-     *
-     * @return Http response
-     */
-    public function addPatient()
-    {
-        $input = Request::all();
-        Patient::create($input);
-        return response($input);
-    }
     /**
      * Operation patientsGet
      *
@@ -66,26 +64,7 @@ class PatientsApi extends Controller
         $response = Patient::all();
         return response()->json($response, 200);
     }
-    /**
-     * Operation deletePatient
-     *
-     * Deletes a patient.
-     *
-     * @param int $patient_id Patient id to delete (required)
-     *
-     * @return Http response
-     */
-    public function deletePatient($patient_id)
-    {
-        $input = Request::all();
 
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing deletePatient as a DELETE method ?');
-    }
     /**
      * Operation getPatientById
      *
@@ -100,6 +79,31 @@ class PatientsApi extends Controller
         $response = Patient::findOrFail($patient_id);
         return response()->json($response, 200);
     }
+
+    /**
+     * Operation addPatient
+     *
+     * Add a new patient to the facility.
+     *
+     *
+     * @return Http response
+     */
+    public function addPatient()
+    {
+        $input = Request::all();
+        $patient = Patient::create($input);
+        //if patient has been created
+        if($patient){
+            // get created patients's id and merge it to the request array
+            $temp['patient_id'] = $patient->id; 
+            $data = $request->all();  
+
+            $a = array_merge($data, $temp);
+            // $this->multi_model_insert([''])
+        }
+        return response($input);
+    }
+
     /**
      * Operation updatePatient
      *
@@ -120,6 +124,44 @@ class PatientsApi extends Controller
 
         return response('How about implementing updatePatient as a PUT method ?');
     }
+
+    /**
+     * Operation deletePatient
+     *
+     * Deletes a patient.
+     *
+     * @param int $patient_id Patient id to delete (required)
+     *
+     * @return Http response
+     */
+    public function deletePatient($patient_id)
+    {
+        $patient = Products::find($patient_id);
+        $patient->delete();
+        return response()->json(['msg' => 'Deleted Patient from facility']);
+    }
+
+    /**
+     * Operation patientAllergies
+     *
+     * Fetch a patient's allergies.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     * @param int $allergie_id ID of Allergies that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientAllergies($patient_id, $allergie_id)
+    {
+        $response = PatientAllergies::where('patient_id',  $patient_id)->where('drug_id',  $allergie_id)->get();
+        if(!$response){  
+            return response('cant find patient nor allergies');
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+
     /**
      * Operation addPatientAllergies
      *
@@ -130,59 +172,18 @@ class PatientsApi extends Controller
      *
      * @return Http response
      */
-    public function addPatientAllergies($patient_id, $allergie_id)
+    public function addPatientAllergies()
     {
         $input = Request::all();
+        $save = PatientAllergies::create($input);
+        if($save){
+            return response()->json(['msg'=> 'Allergies added to patient', 'response'=> $input]);
+        }else{
+            return response()->json(['msg'=> 'There seems to have been a problem']);
+        }
 
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing addPatientAllergies as a POST method ?');
     }
-    /**
-     * Operation deletePatientAllergies
-     *
-     * Remove a patient PatientAllergies.
-     *
-     * @param int $patient_id ID&#39;s of patient and appointment that needs to be fetched (required)
-     * @param int $allergie_id ID of appointment that needs to be fetched (required)
-     *
-     * @return Http response
-     */
-    public function deletePatientAllergies($patient_id, $allergie_id)
-    {
-        $input = Request::all();
 
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing deletePatientAllergies as a DELETE method ?');
-    }
-    /**
-     * Operation patientAllergies
-     *
-     * Fetch a patient's allergies.
-     *
-     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
-     * @param int $allergie_id ID of Allergies that needs to be fetched (required)
-     *
-     * @return Http response
-     */
-    public function patientAllergies($patient_id, $allergie_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing patientAllergies as a GET method ?');
-    }
     /**
      * Operation updatePatientAllergies
      *
@@ -197,55 +198,40 @@ class PatientsApi extends Controller
     {
         $input = Request::all();
 
-        //path params validation
+        $patientAllergy = PatientAllergies::where('patient_id', $patient_id)
+                                            ->where('drug_id', $allergie_id)
+                                            ->update(['drug_id' => $input['drug_id']]);
+        if($patientAllergy){
+            return response()->json(['msg' => 'Updated allergy']);
+        }else{
+            return response("there seems to have been a problem while updating");
+        }
 
-
-        //not path params validation
-
-        return response('How about implementing updatePatientAllergies as a PUT method ?');
     }
+
     /**
-     * Operation addPatientAppointments
+     * Operation deletePatientAllergies
      *
-     * Add a new Appointments to a patient.
+     * Remove a patient PatientAllergies.
      *
-     * @param int $patient_id ID of patient (required)
-     * @param int $appointment_id ID of appointment (required)
+     * @param int $patient_id ID&#39;s of patient and appointment that needs to be fetched (required)
+     * @param int $allergie_id ID of appointment that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function addPatientAppointments($patient_id, $appointment_id)
+    public function deletePatientAllergies($patient_id, $allergie_id)
     {
-        $input = Request::all();
+        $patientAllergy = PatientAllergies::where('patient_id', $patient_id)
+                                            ->where('drug_id', $allergie_id)
+                                            ->delete();
+        if($patientAllergy){
+            return response()->json(['msg' => 'Saftly deleted the patient allergy record']);
+        }else{
+            return response('there seems to have been a problem while delteting');
+        }
 
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing addPatientAppointments as a POST method ?');
     }
-    /**
-     * Operation deletePatientAppointment
-     *
-     * Remove a patient appointment.
-     *
-     * @param int $patient_id ID of patient and appointment that needs to be fetched (required)
-     * @param int $appointment_id ID of appointment that needs to be deleted (required)
-     *
-     * @return Http response
-     */
-    public function deletePatientAppointment($patient_id, $appointment_id)
-    {
-        $input = Request::all();
 
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing deletePatientAppointment as a DELETE method ?');
-    }
     /**
      * Operation patientAppointments
      *
@@ -267,6 +253,29 @@ class PatientsApi extends Controller
 
         return response('How about implementing patientAppointments as a GET method ?');
     }
+
+    /**
+     * Operation addPatientAppointments
+     *
+     * Add a new Appointments to a patient.
+     *
+     * @param int $patient_id ID of patient (required)
+     * @param int $appointment_id ID of appointment (required)
+     *
+     * @return Http response
+     */
+    public function addPatientAppointments($patient_id, $appointment_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing addPatientAppointments as a POST method ?');
+    }
+
     /**
      * Operation updatePatientAppointments
      *
@@ -288,17 +297,18 @@ class PatientsApi extends Controller
 
         return response('How about implementing updatePatientAppointments as a PUT method ?');
     }
+
     /**
-     * Operation deletePatientDependants
+     * Operation deletePatientAppointment
      *
-     * Remove a patient Dependants.
+     * Remove a patient appointment.
      *
-     * @param int $patient_id Patient id to update (required)
-     * @param int $dependant_id visit id to update (required)
+     * @param int $patient_id ID of patient and appointment that needs to be fetched (required)
+     * @param int $appointment_id ID of appointment that needs to be deleted (required)
      *
      * @return Http response
      */
-    public function deletePatientDependants($patient_id, $dependant_id)
+    public function deletePatientAppointment($patient_id, $appointment_id)
     {
         $input = Request::all();
 
@@ -307,19 +317,20 @@ class PatientsApi extends Controller
 
         //not path params validation
 
-        return response('How about implementing deletePatientDependants as a DELETE method ?');
+        return response('How about implementing deletePatientAppointment as a DELETE method ?');
     }
+
     /**
-     * Operation patientDependants
+     * Operation patientregimens
      *
-     * Fetch a patient's dependants.
+     * Fetch the regimens patient is administered.
      *
-     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
-     * @param int $dependant_id ID of dependants that needs to be fetched (required)
+     * @param int $patient_id ID of patient that needs to be fetched (required)
+     * @param int $regimen_id ID of regimen that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function patientDependants($patient_id, $dependant_id)
+    public function patientregimens($patient_id, $regimen_id)
     {
         $input = Request::all();
 
@@ -328,40 +339,20 @@ class PatientsApi extends Controller
 
         //not path params validation
 
-        return response('How about implementing patientDependants as a GET method ?');
+        return response('How about implementing patientregimens as a GET method ?');
     }
-    /**
-     * Operation updatePatientDependant
-     *
-     * Update an existing patient dependants.
-     *
-     * @param int $patient_id Patient id to update (required)
-     * @param int $dependant_id Dependants id to update (required)
-     *
-     * @return Http response
-     */
-    public function updatePatientDependant($patient_id, $dependant_id)
-    {
-        $input = Request::all();
 
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing updatePatientDependant as a PUT method ?');
-    }
-    /**
-     * Operation deletePatientProphylaxis
+        /**
+     * Operation addPatientRegimen
      *
-     * Remove a patient of a Prophylaxis.
+     * Add a new regimen to a patient.
      *
      * @param int $patient_id Patient id to delete (required)
-     * @param int $prophylaxis_id Patient id to delete (required)
+     * @param int $regimen_id Patient id to delete (required)
      *
      * @return Http response
      */
-    public function deletePatientProphylaxis($patient_id, $prophylaxis_id)
+    public function addPatientRegimen($patient_id, $regimen_id)
     {
         $input = Request::all();
 
@@ -370,8 +361,54 @@ class PatientsApi extends Controller
 
         //not path params validation
 
-        return response('How about implementing deletePatientProphylaxis as a DELETE method ?');
+        return response('How about implementing addPatientRegimen as a POST method ?');
     }
+    /**
+     * Operation deletePatientRegimens
+     *
+     * Remove a patient of a regimen.
+     *
+     * @param int $patient_id Patient id and Regimen id to delete (required)
+     * @param int $regimen_id Patient id to delete (required)
+     *
+     * @return Http response
+     */
+    public function deletePatientRegimens($patient_id, $regimen_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing deletePatientRegimens as a DELETE method ?');
+    }
+
+    /**
+     * Operation updatePatientRegimens
+     *
+     * Update an existing patient regimen.
+     *
+     * @param int $patient_id Patient id to update (required)
+     * @param int $regimen_id Patient id to update (required)
+     *
+     * @return Http response
+     */
+    public function updatePatientRegimens($patient_id, $regimen_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing updatePatientRegimens as a PUT method ?');
+    }
+
+
+
     /**
      * Operation patientProphylaxis
      *
@@ -414,17 +451,18 @@ class PatientsApi extends Controller
 
         return response('How about implementing updatePatientProphylaxis as a PUT method ?');
     }
+
     /**
-     * Operation addPatientRegimen
+     * Operation deletePatientProphylaxis
      *
-     * Add a new regimen to a patient.
+     * Remove a patient of a Prophylaxis.
      *
      * @param int $patient_id Patient id to delete (required)
-     * @param int $regimen_id Patient id to delete (required)
+     * @param int $prophylaxis_id Patient id to delete (required)
      *
      * @return Http response
      */
-    public function addPatientRegimen($patient_id, $regimen_id)
+    public function deletePatientProphylaxis($patient_id, $prophylaxis_id)
     {
         $input = Request::all();
 
@@ -433,19 +471,20 @@ class PatientsApi extends Controller
 
         //not path params validation
 
-        return response('How about implementing addPatientRegimen as a POST method ?');
+        return response('How about implementing deletePatientProphylaxis as a DELETE method ?');
     }
-    /**
-     * Operation deletePatientRegimens
+
+        /**
+     * Operation patientVisits
      *
-     * Remove a patient of a regimen.
+     * Fetch a patient's visit.
      *
-     * @param int $patient_id Patient id and Regimen id to delete (required)
-     * @param int $regimen_id Patient id to delete (required)
+     * @param int $patient_id ID&#39;s of patient and Visits that needs to be fetched (required)
+     * @param int $visit_id ID&#39;s of Visits that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function deletePatientRegimens($patient_id, $regimen_id)
+    public function patientVisits($patient_id, $visit_id)
     {
         $input = Request::all();
 
@@ -454,40 +493,19 @@ class PatientsApi extends Controller
 
         //not path params validation
 
-        return response('How about implementing deletePatientRegimens as a DELETE method ?');
+        return response('How about implementing patientVisits as a GET method ?');
     }
     /**
-     * Operation patientregimens
+     * Operation updatePatientVisit
      *
-     * Fetch the regimens patient is administered.
-     *
-     * @param int $patient_id ID of patient that needs to be fetched (required)
-     * @param int $regimen_id ID of regimen that needs to be fetched (required)
-     *
-     * @return Http response
-     */
-    public function patientregimens($patient_id, $regimen_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing patientregimens as a GET method ?');
-    }
-    /**
-     * Operation updatePatientRegimens
-     *
-     * Update an existing patient regimen.
+     * Update an existing patient appointment.
      *
      * @param int $patient_id Patient id to update (required)
-     * @param int $regimen_id Patient id to update (required)
+     * @param int $visit_id visit id to update (required)
      *
      * @return Http response
      */
-    public function updatePatientRegimens($patient_id, $regimen_id)
+    public function updatePatientVisit($patient_id, $visit_id)
     {
         $input = Request::all();
 
@@ -496,8 +514,9 @@ class PatientsApi extends Controller
 
         //not path params validation
 
-        return response('How about implementing updatePatientRegimens as a PUT method ?');
+        return response('How about implementing updatePatientVisit as a PUT method ?');
     }
+
     /**
      * Operation addPatientVisits
      *
@@ -539,48 +558,6 @@ class PatientsApi extends Controller
         //not path params validation
 
         return response('How about implementing deletePatientVisit as a DELETE method ?');
-    }
-    /**
-     * Operation patientVisits
-     *
-     * Fetch a patient's visit.
-     *
-     * @param int $patient_id ID&#39;s of patient and Visits that needs to be fetched (required)
-     * @param int $visit_id ID&#39;s of Visits that needs to be fetched (required)
-     *
-     * @return Http response
-     */
-    public function patientVisits($patient_id, $visit_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing patientVisits as a GET method ?');
-    }
-    /**
-     * Operation updatePatientVisit
-     *
-     * Update an existing patient appointment.
-     *
-     * @param int $patient_id Patient id to update (required)
-     * @param int $visit_id visit id to update (required)
-     *
-     * @return Http response
-     */
-    public function updatePatientVisit($patient_id, $visit_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing updatePatientVisit as a PUT method ?');
     }
     /**
      * Operation addService

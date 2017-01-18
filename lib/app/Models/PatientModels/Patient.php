@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Patient extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'tbl_patient';
+    protected $dates = ['deleted_at'];
     protected $fillable = ['ccc_number', 'first_name', 'last_name',
      'other_name', 'phone_number', 'alternate_number', 'physical_address', 
      'gender', 'birth_date', 'enrollment_date', 'support_group', 'is_pregnant', 'is_tb', 'is_tb_tested', 
