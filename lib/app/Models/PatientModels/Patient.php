@@ -3,6 +3,7 @@
 namespace App\Models\PatientModels;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Patient extends Model
 {

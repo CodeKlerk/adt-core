@@ -28,6 +28,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
+use App\Http\Requests;
 
 use App\Models\PatientModels\Patient;
 use App\Models\PatientModels\PatientFamilyPlanning;
@@ -41,6 +42,9 @@ use App\Models\PatientModels\PatientProphylaxis;
 use App\Models\PatientModels\PatientRegimens;
 use App\Models\PatientModels\PatientStatus;
 use App\Models\PatientModels\PatientTb;
+
+// 
+use App\Events\CreatePatientEvent;
 
 class PatientsApi extends Controller
 {
@@ -88,20 +92,22 @@ class PatientsApi extends Controller
      *
      * @return Http response
      */
-    public function addPatient()
+    public function addPatient(Request $request)
     {
-        $input = Request::all();
-        $patient = Patient::create($input);
-        //if patient has been created
-        if($patient){
-            // get created patients's id and merge it to the request array
-            $temp['patient_id'] = $patient->id; 
-            $data = $request->all();  
+        $input = $request::all();
+        // $patient = Patient::create($input);
+        // //if patient has been created
+        // if($patient){
+        //     // get created patients's id and merge it to the request array
+        //     $temp['patient_id'] = $patient->id; 
+        //     $data = $request->all();  
 
-            $a = array_merge($data, $temp);
-            // $this->multi_model_insert([''])
-        }
-        return response($input);
+        //     $a = array_merge($data, $temp);
+        //     // $this->multi_model_insert([''])
+        // }
+        // return response($input);
+        
+         event(new CreatePatientEvent($input));
     }
 
     /**
@@ -244,14 +250,7 @@ class PatientsApi extends Controller
      */
     public function patientAppointments($patient_id, $appointment_id)
     {
-        $input = Request::all();
 
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing patientAppointments as a GET method ?');
     }
 
     /**
