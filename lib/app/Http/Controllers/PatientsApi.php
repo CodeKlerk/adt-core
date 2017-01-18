@@ -43,6 +43,7 @@ use App\Models\PatientModels\PatientRegimens;
 use App\Models\PatientModels\PatientStatus;
 use App\Models\PatientModels\PatientTb;
 
+use App\Models\VisitModels\Appointment;
 // 
 use App\Events\CreatePatientEvent;
 
@@ -243,7 +244,10 @@ class PatientsApi extends Controller
      */
     public function patientAppointments($patient_id, $appointment_id)
     {
-
+        $response = Appointment::where('patient_id', $patient_id)
+                                ->where('id', $appointment_id)
+                                ->first();
+        return response()->json($response, 200);
     }
 
     /**
@@ -256,16 +260,15 @@ class PatientsApi extends Controller
      *
      * @return Http response
      */
-    public function addPatientAppointments($patient_id, $appointment_id)
+    public function addPatientAppointments($patient_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing addPatientAppointments as a POST method ?');
+        $appointment = Appointment::create($input);
+        if($appointment){
+            return response()->json(['msg'=> 'Added appointment']);
+        }else{
+            return response("Seems like something went while adding the appointment1");
+        }
     }
 
     /**
@@ -281,13 +284,18 @@ class PatientsApi extends Controller
     public function updatePatientAppointments($patient_id, $appointment_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing updatePatientAppointments as a PUT method ?');
+        $patientAppointment = Appointment::where('patient_id', $patient_id)
+                                            ->where('id', $appointment_id)
+                                            ->update([
+                                                'appointment_date' => $input['appointment_date'],
+                                                'is_appointment' => $input['is_appointment'],
+                                                'facility_id' => $input['facility_id']
+                                            ]);
+        if($patientAppointment){
+            return response()->json(['msg'=> 'updated patient appointment'], 200);
+        }else{
+            return response('It seems like something went wrong while trying to update');
+        }
     }
 
     /**
@@ -302,14 +310,9 @@ class PatientsApi extends Controller
      */
     public function deletePatientAppointment($patient_id, $appointment_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing deletePatientAppointment as a DELETE method ?');
+        $patientAppointment = Appointment::where('patient_id', $patient_id)
+                                            ->where('id', $appointment_id)
+                                            ->delete();
     }
 
     /**

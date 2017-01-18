@@ -93,7 +93,7 @@ $app->PUT('/patients/{patientId}/allergies/{allergieId}', 'PatientsApi@updatePat
  * Notes: 
  * Output-Formats: [application/json, application/xml]
  */
-$app->POST('/patients/{patientId}/appointments/{appointmentId}', 'PatientsApi@addPatientAppointments');
+$app->POST('/patients/{patientId}/appointments/', 'PatientsApi@addPatientAppointments');
 /**
  * DELETE deletePatientAppointment
  * Summary: Remove a patient appointment
