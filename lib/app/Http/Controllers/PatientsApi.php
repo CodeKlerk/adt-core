@@ -81,7 +81,12 @@ class PatientsApi extends Controller
     public function getPatientById($patient_id)
     {
         $response = Patient::findOrFail($patient_id);
+        $response->load('service','facility', 'supporter', 'source', 'who_stage', 'patient_prophylaxis', 'patient_tb', 'patient_drug_other',
+                        'patient_status', 'patient_drug_allergy', 'drug_allergy_other', 'patient_dependant', 'patient_family_planning', 'patient_partner');
         return response()->json($response, 200);
+
+        $patients = Patient::with('service','facility.county_sub.county', 'supporter', 'who_stage', 'source','patient_partner','patient_dependant','patient_prophylaxis', 'patient_tb', 'patient_drug_other',
+         'drug_allergy.drug', 'drug_allergy_other', 'patient_drug_allergy.drug','patient_family_planning')->get();
     }
 
     /**
@@ -95,19 +100,7 @@ class PatientsApi extends Controller
     public function addPatient(Request $request)
     {
         $input = $request::all();
-        // $patient = Patient::create($input);
-        // //if patient has been created
-        // if($patient){
-        //     // get created patients's id and merge it to the request array
-        //     $temp['patient_id'] = $patient->id; 
-        //     $data = $request->all();  
-
-        //     $a = array_merge($data, $temp);
-        //     // $this->multi_model_insert([''])
-        // }
-        // return response($input);
-        
-         event(new CreatePatientEvent($input));
+        event(new CreatePatientEvent($input));
     }
 
     /**
