@@ -22,7 +22,7 @@ $app->get('/', function () use ($app) {
  * Notes: Fetch Drug Allergies  (for select options)
  * Output-Formats: [application/json, application/xml]
  */
-$app->GET('/lists/services', 'listsServicesApi@listsServicesGet');
+$app->GET('/lists/services', 'ListsServicesApi@listsServicesGet');
 
 /**
  * POST addPatient
@@ -93,7 +93,7 @@ $app->PUT('/patients/{patientId}/allergies/{allergieId}', 'PatientsApi@updatePat
  * Notes: 
  * Output-Formats: [application/json, application/xml]
  */
-$app->POST('/patients/{patientId}/appointments/', 'PatientsApi@addPatientAppointments');
+$app->POST('/patients/{patientId}/appointments/{appointmentId}', 'PatientsApi@addPatientAppointments');
 /**
  * DELETE deletePatientAppointment
  * Summary: Remove a patient appointment

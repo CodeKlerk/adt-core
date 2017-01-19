@@ -4,6 +4,9 @@ namespace App\Events;
 
 use App\Models\PatientModels\Patient;
 use App\Models\PatientModels\PatientIllness;
+use App\Models\PatientModels\PatientAllergies;
+use App\Models\PatientModels\PatientProphylaxis;
+use App\Models\PatientModels\PatientFamilyPlanning;
 class CreatePatientEvent extends Event
 {
 
@@ -18,8 +21,8 @@ class CreatePatientEvent extends Event
     {
         $this->patient = $input;
         // $this->ilnesses = $input['illnesses'];
-        // $this->handle();
-        $this->test();
+        $this->handle();
+        // $this->test();
     }
     public function handle(){
         $created_patient = Patient::create($this->patient);
@@ -28,11 +31,46 @@ class CreatePatientEvent extends Event
             $merged_request_and_new_id = array_merge($this->patient, $new_patient_id);
             $this->multi_model_insert(['PatientDrugAllergyOther', 'PatientDrugOther', 'PatientStatus', 'PatientTb'], $merged_request_and_new_id);
             
+
             // Looping through illness
-            $illnesses = $input['illnesses'];
+            $illnesses = $this->patient['illnesses'];
+
             foreach($illnesses as $illness){
-               //code to loop 
+               $pi = new PatientIllness;
+               $pi->patient_id = $new_patient_id['patient_id'];
+               $pi->illness_id = $illness;
+               $pi->save(); 
             }
+
+            // Looping through drug allergies
+            $drug_allergies = $this->patient['allergies'];
+
+            foreach($drug_allergies as $allergy){
+                $da = new PatientAllergies;
+                $da->patient_id = $new_patient_id['patient_id'];
+                $da->drug_id = $allergy;
+                $da->save();
+            }
+
+            // Looping through prophylaxis
+            $prophylaxis = $this->patient['prophylaxis'];
+
+            foreach($prophylaxis as $proph){
+                $da = new PatientProphylaxis;
+                $da->patient_id = $new_patient_id['patient_id'];
+                $da->prophylaxis_id = $proph;
+                $da->save();
+            }
+            // Looping through family planning
+            $family_plans = $this->patient['family_planning'];
+
+            foreach($family_plans as $family_plan){
+                $pfp = new PatientFamilyPlanning;
+                $pfp->patient_id = $new_patient_id['patient_id'];
+                $pfp->family_planning_id = $family_plan;
+                $pfp->save();
+            }
+
         }
     }
 
@@ -44,9 +82,4 @@ class CreatePatientEvent extends Event
         }
     }
 
-    public function test(){
-        foreach($this->patient['illnesses'] as $illness){
-               dd($illness);
-        }
-    }
 }

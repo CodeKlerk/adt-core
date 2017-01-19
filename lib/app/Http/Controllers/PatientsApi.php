@@ -197,7 +197,6 @@ class PatientsApi extends Controller
     public function updatePatientAllergies($patient_id, $allergie_id)
     {
         $input = Request::all();
-
         $patientAllergy = PatientAllergies::where('patient_id', $patient_id)
                                             ->where('drug_id', $allergie_id)
                                             ->update(['drug_id' => $input['drug_id']]);
@@ -359,6 +358,27 @@ class PatientsApi extends Controller
         return response('How about implementing addPatientRegimen as a POST method ?');
     }
     /**
+     * Operation updatePatientRegimens
+     *
+     * Update an existing patient regimen.
+     *
+     * @param int $patient_id Patient id to update (required)
+     * @param int $regimen_id Patient id to update (required)
+     *
+     * @return Http response
+     */
+    public function updatePatientRegimens($patient_id, $regimen_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing updatePatientRegimens as a PUT method ?');
+    }
+    /**
      * Operation deletePatientRegimens
      *
      * Remove a patient of a regimen.
@@ -380,29 +400,6 @@ class PatientsApi extends Controller
         return response('How about implementing deletePatientRegimens as a DELETE method ?');
     }
 
-    /**
-     * Operation updatePatientRegimens
-     *
-     * Update an existing patient regimen.
-     *
-     * @param int $patient_id Patient id to update (required)
-     * @param int $regimen_id Patient id to update (required)
-     *
-     * @return Http response
-     */
-    public function updatePatientRegimens($patient_id, $regimen_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing updatePatientRegimens as a PUT method ?');
-    }
-
-
 
     /**
      * Operation patientProphylaxis
@@ -416,14 +413,10 @@ class PatientsApi extends Controller
      */
     public function patientProphylaxis($patient_id, $prophylaxis_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing patientProphylaxis as a GET method ?');
+        $patientProphylaxis = PatientProphylaxis::where('patient_id', $patient_id)
+                                            ->where('prophylaxis_id', $prophylaxis_id)
+                                            ->first();
+        return response()-json($patientProphylaxis, 200);
     }
     /**
      * Operation updatePatientProphylaxis
@@ -438,13 +431,14 @@ class PatientsApi extends Controller
     public function updatePatientProphylaxis($patient_id, $prophylaxis_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing updatePatientProphylaxis as a PUT method ?');
+        $patientProphylaxis = PatientProphylaxis::where('patient_id', $patient_id)
+                                            ->where('prophylaxis_id', $prophylaxis_id)
+                                            ->update(['prophylaxis_id' => $input['prophylaxis_id']]);
+        if($patientProphylaxis){
+            return response()->json(['msg' => 'Updated the patient prophylaxis']);
+        }else{
+            return response('seemes like something went wrong');
+        }
     }
 
     /**
@@ -459,14 +453,14 @@ class PatientsApi extends Controller
      */
     public function deletePatientProphylaxis($patient_id, $prophylaxis_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing deletePatientProphylaxis as a DELETE method ?');
+        $patientProphylaxis = PatientProphylaxis::where('patient_id', $patient_id)
+                                            ->where('prophylaxis_id', $prophylaxis_id)
+                                            ->delete();
+        if($patientProphylaxis){
+            return response()->json(['msg' => 'Deleted pateint']);
+        }else{
+            return response('Something seems to have gone wrong while trying to delete this object');
+        }
     }
 
         /**
@@ -490,27 +484,6 @@ class PatientsApi extends Controller
 
         return response('How about implementing patientVisits as a GET method ?');
     }
-    /**
-     * Operation updatePatientVisit
-     *
-     * Update an existing patient appointment.
-     *
-     * @param int $patient_id Patient id to update (required)
-     * @param int $visit_id visit id to update (required)
-     *
-     * @return Http response
-     */
-    public function updatePatientVisit($patient_id, $visit_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing updatePatientVisit as a PUT method ?');
-    }
 
     /**
      * Operation addPatientVisits
@@ -533,6 +506,29 @@ class PatientsApi extends Controller
 
         return response('How about implementing addPatientVisits as a POST method ?');
     }
+
+    /**
+     * Operation updatePatientVisit
+     *
+     * Update an existing patient appointment.
+     *
+     * @param int $patient_id Patient id to update (required)
+     * @param int $visit_id visit id to update (required)
+     *
+     * @return Http response
+     */
+    public function updatePatientVisit($patient_id, $visit_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing updatePatientVisit as a PUT method ?');
+    }
+
     /**
      * Operation deletePatientVisit
      *
