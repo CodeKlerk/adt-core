@@ -116,13 +116,7 @@ class PatientsApi extends Controller
     public function updatePatient($patient_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing updatePatient as a PUT method ?');
+        event(new updatePatientEvent($input, $patient_id));
     }
 
     /**

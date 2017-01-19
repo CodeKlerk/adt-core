@@ -20,9 +20,7 @@ class CreatePatientEvent extends Event
     public function __construct($input)
     {
         $this->patient = $input;
-        // $this->ilnesses = $input['illnesses'];
         $this->handle();
-        // $this->test();
     }
     public function handle(){
         $created_patient = Patient::create($this->patient);
