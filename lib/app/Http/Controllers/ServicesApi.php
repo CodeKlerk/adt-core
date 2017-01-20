@@ -46,7 +46,7 @@ class ServicesApi extends Controller
      *
      * @return Http response
      */
-    public function GetServices()
+    public function servicesGet()
     {
         $input = Request::all();
 
@@ -54,24 +54,42 @@ class ServicesApi extends Controller
 
 
         //not path params validation
-        //$limit = $input['limit'];
+        $limit = $input['limit'];
 
-        $file_path = realpath(__DIR__.'/../../../database/seeds/patient_services.json');
-        $json = json_decode(file_get_contents($file_path), true);
-        return $json;
 
         return response('How about implementing servicesGet as a GET method ?');
     }
     /**
-     * Operation deleteService
+     * Operation servicesPost
      *
-     * Deletes a Service.
+     * Add a new service to the facility.
      *
-     * @param int $service_id Patient id to delete (required)
      *
      * @return Http response
      */
-    public function deleteService($service_id)
+    public function servicesPost()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $body = $input['body'];
+
+
+        return response('How about implementing servicesPost as a POST method ?');
+    }
+    /**
+     * Operation servicesServiceIdDelete
+     *
+     * Deletes the service at facility specified by the ID.
+     *
+     * @param int $service_id Particular Service at facility specified by the ID (required)
+     *
+     * @return Http response
+     */
+    public function servicesServiceIdDelete($service_id)
     {
         $input = Request::all();
 
@@ -80,10 +98,153 @@ class ServicesApi extends Controller
 
         //not path params validation
 
-        return response('How about implementing deleteService as a DELETE method ?');
+        return response('How about implementing servicesServiceIdDelete as a DELETE method ?');
     }
     /**
-     * Operation getServiceById
+     * Operation servicesServiceIdGet
+     *
+     * Find service by serviceId.
+     *
+     * @param int $service_id Particular Service at facility specified by the ID (required)
+     *
+     * @return Http response
+     */
+    public function servicesByIdGet($service_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing servicesServiceIdGet as a GET method ?');
+    }
+    /**
+     * Operation servicesServiceIdPut
+     *
+     * Update an existing service at facility specified by the ID.
+     *
+     * @param int $service_id Particular Service at facility specified by the ID (required)
+     *
+     * @return Http response
+     */
+    public function servicesPut($service_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing servicesServiceIdPut as a PUT method ?');
+    }
+    /**
+     * Operation servicesServiceIdProphylaxisGet
+     *
+     * Fetch Prophylaxis for a service.
+     *
+     * @param int $service_id ID of service that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function servicesProphylaxisGet($service_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing servicesServiceIdProphylaxisGet as a GET method ?');
+    }
+    /**
+     * Operation servicesServiceIdProphylaxisPost
+     *
+     * add Prophylaxis to service  specified by serviceId.
+     *
+     * @param int $service_id ID of service that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function servicesProphylaxisPost($service_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing servicesServiceIdProphylaxisPost as a POST method ?');
+    }
+    /**
+     * Operation servicesServiceIdProphylaxisProphylaxisIdDelete
+     *
+     * Deletes the Prophylaxis specified by prophylaxisId.
+     *
+     * @param int $service_id ID of service that needs to be fetched (required)
+     * @param string $prophylaxis_id  (required)
+     *
+     * @return Http response
+     */
+    public function servicesProphylaxisDelete($service_id, $prophylaxis_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing servicesServiceIdProphylaxisProphylaxisIdDelete as a DELETE method ?');
+    }
+    /**
+     * Operation servicesServiceIdProphylaxisProphylaxisIdGet
+     *
+     * Fetch Prophylaxis for a service.
+     *
+     * @param int $service_id ID of service that needs to be fetched (required)
+     * @param string $prophylaxis_id  (required)
+     *
+     * @return Http response
+     */
+    public function servicesProphylaxisGet($service_id, $prophylaxis_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing servicesServiceIdProphylaxisProphylaxisIdGet as a GET method ?');
+    }
+    /**
+     * Operation servicesServiceIdProphylaxisProphylaxisIdPut
+     *
+     * Update the Prophylaxis specified by prophylaxisId.
+     *
+     * @param int $service_id ID of service that needs to be fetched (required)
+     * @param string $prophylaxis_id  (required)
+     *
+     * @return Http response
+     */
+    public function servicesProphylaxisPut($service_id, $prophylaxis_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing servicesServiceIdProphylaxisProphylaxisIdPut as a PUT method ?');
+    }
+    /**
+     * Operation servicesServiceIdRegimensGet
      *
      * Find service by serviceId.
      *
@@ -91,7 +252,7 @@ class ServicesApi extends Controller
      *
      * @return Http response
      */
-    public function getServiceById($service_id)
+    public function servicesRegimensGet($service_id)
     {
         $input = Request::all();
 
@@ -100,18 +261,18 @@ class ServicesApi extends Controller
 
         //not path params validation
 
-        return response('How about implementing getServiceById as a GET method ?');
+        return response('How about implementing servicesServiceIdRegimensGet as a GET method ?');
     }
     /**
-     * Operation updateService
+     * Operation servicesServiceIdRegimensPost
      *
-     * Update an existing patient.
+     * Add a regimen for a particular service with serviceId.
      *
-     * @param int $service_id Patient id to delete (required)
+     * @param int $service_id ID of service that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function updateService($service_id)
+    public function servicesRegimensPost($service_id)
     {
         $input = Request::all();
 
@@ -120,6 +281,69 @@ class ServicesApi extends Controller
 
         //not path params validation
 
-        return response('How about implementing updateService as a PUT method ?');
+        return response('How about implementing servicesServiceIdRegimensPost as a POST method ?');
+    }
+    /**
+     * Operation servicesServiceIdRegimensRegimenIdDelete
+     *
+     * Deletes a Particular Regimen {regimenId} available for a particular service with serviceId.
+     *
+     * @param int $service_id ID of service that needs to be fetched (required)
+     * @param int $regimen_id ID of service that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function servicesRegimensDelete($service_id, $regimen_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing servicesServiceIdRegimensRegimenIdDelete as a DELETE method ?');
+    }
+    /**
+     * Operation servicesServiceIdRegimensRegimenIdGet
+     *
+     * Find service by serviceId.
+     *
+     * @param int $service_id ID of service that needs to be fetched (required)
+     * @param int $regimen_id ID of service that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function servicesRegimensGet($service_id, $regimen_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing servicesServiceIdRegimensRegimenIdGet as a GET method ?');
+    }
+    /**
+     * Operation servicesServiceIdRegimensRegimenIdPut
+     *
+     * Update a Regimen {regimenId} available for a particular service with serviceId.
+     *
+     * @param int $service_id ID of service that needs to be fetched (required)
+     * @param int $regimen_id ID of service that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function servicesRegimensPut($service_id, $regimen_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing servicesServiceIdRegimensRegimenIdPut as a PUT method ?');
     }
 }
