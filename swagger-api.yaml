@@ -405,6 +405,124 @@ paths:
           description: "Invalid patient value"
         204:
           description: "Category deleted"
+  /lists/allergies:
+    get:
+      summary: "Fetch Regimen allergies (for select options)"
+      description: "Fetch List of all allergies for regimens (for select options)"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Allergy"
+        400:
+          description: "Invalid name value"
+    post:
+      summary: "create a Category"
+      description: "create a Category"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        201:
+          description: "Allergy Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Allergy"
+        405:
+          description: "Invalid input"
+  /lists/allergies/{allergyId}:
+    get:
+      summary: "Fetch Allergy specified by allergyId"
+      description: "Fetch Allergy specified by allergyId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      - name: "allergyId"
+        in: "path"
+        description: "ID of Service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Allergy"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing Category"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "allergyId"
+        in: "path"
+        description: "ID of Allergy that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Allergy"
+      responses:
+        202:
+          description: "Update Accepted"
+        405:
+          description: "Validation exception"
+        404:
+          description: "Allergy not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Deletes a Allergy specified by serviceId"
+      description: ""
+      parameters:
+      - name: "allergyId"
+        in: "path"
+        description: "ID of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid patient value"
+        204:
+          description: "Allergy deleted"
   /patients:
     get:
       summary: "get's a list of patients"
