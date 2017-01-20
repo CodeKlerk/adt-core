@@ -10,7 +10,7 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$app->group(['prefix' => 'ADT_CORE/v0.1', 'middleware' => 'cors'], function () use ($app) {
+$app->group(['prefix' => 'ADT_CORE/v0.1'], function () use ($app) {
 
 $app->get('/', function () use ($app) {
     return $app->version();
@@ -334,6 +334,13 @@ $app->GET('/users/{usersId}', 'DefaultApi@usersUsersIdGet');
 
  */
 $app->PUT('/users/{usersId}', 'DefaultApi@usersUsersIdPut');
+/**
+ * GET listsAllergiesGet
+ * Summary: Fetch Allergy specified by allergyId
+ * Notes: Fetch all Allergy 
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/allergies', 'ListsApi@listsAllergiesGet');
 
 /**
  * GET listsAllergiesAllergyIdGet
@@ -341,7 +348,7 @@ $app->PUT('/users/{usersId}', 'DefaultApi@usersUsersIdPut');
  * Notes: Fetch Allergy specified by allergyId
  * Output-Formats: [application/json, application/xml]
  */
-$app->GET('/lists/allergies/{allergyId}', 'ListsApi@listsAllergiesGet');
+$app->GET('/lists/allergies/{allergyId}', 'ListsApi@listsAllergiesByIdGet');
 /**
  * POST listsAllergiesPost
  * Summary: create a Category
@@ -412,7 +419,7 @@ $app->GET('/lists/counties', 'ListsApi@listsCountiesGet');
  * Notes: Fetch County specified by countyId
  * Output-Formats: [application/json, application/xml]
  */
-$app->GET('/lists/counties/{countyId}', 'ListsApi@listsCountiesGet');
+$app->GET('/lists/counties/{countyId}', 'ListsApi@listsCountiesGet'); 
 
 /**
  * POST listsCountiesPost
@@ -580,5 +587,14 @@ $app->PUT('/lists/services/{serviceId}', 'ListsApi@listsServicesPut');
 
  */
 $app->DELETE('/lists/services/{serviceId}', 'ListsApi@listsServicesDelete');
+
+    // ///////////////////////
+    // temp routes         //
+    // //////////////////////
+
+$app->GET('/lists/patientsources', 'ListsApi@patientSources');
+$app->GET('/lists/whostage', 'ListsApi@whoStage'); 
+$app->GET('/lists/prophylaxis', 'ListsApi@prophylaxis');
+$app->GET('/lists/pep', 'ListsApi@pep');
 
 });

@@ -1,4 +1,4 @@
-    <?php
+<?php
 
 /**
  * ADT API
@@ -29,6 +29,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
 
+use App\Models\ListsModels\Allergies; 
+use App\Models\ListsModels\Appointmet;
+use App\Models\ListsModels\Category;
+use App\Models\ListsModels\County;
+use App\Models\ListsModels\Dependanat; 
+use App\Models\ListsModels\Prophylaxis; 
+use App\Models\ListsModels\Regimen; 
+use App\Models\ListsModels\WhoStage; 
+use App\Models\ListsModels\Illnesses; 
+use App\Models\ListsModels\Sources; 
+use App\Models\ListsModels\Pepreason; 
+use App\Models\ListsModels\Familyplanning;
+use App\Models\ListsModels\Services;
+use App\Models\ListsModels\Sub_county;
+
 class ListsApi extends Controller
 {
     /**
@@ -37,6 +52,11 @@ class ListsApi extends Controller
     public function __construct()
     {
     }
+
+    // ///////////////////////
+    // Allergies            //
+    // //////////////////////
+
 
     /**
      * Operation listsAllergiesGet
@@ -48,16 +68,8 @@ class ListsApi extends Controller
      */
     public function listsAllergiesGet()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsAllergiesGet as a GET method ?');
+        $response = Allergies::all(); 
+         return response()->json($response, 200); 
     }
 
     /**
@@ -157,16 +169,8 @@ class ListsApi extends Controller
      */
     public function listsCategoriesGet()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsCategoriesGet as a GET method ?');
+        $response = Category::all();
+        return response()->json($response, 200);
     }
     /**
      * Operation listsCategoriesCategoryIdGet
@@ -263,16 +267,8 @@ class ListsApi extends Controller
      */
     public function listsCountiesGet()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsCountiesGet as a GET method ?');
+        $response = County::all();
+        return response()->json($response, 200);
     }
     /**
      * Operation listsCountiesCountyIdGet
@@ -360,7 +356,20 @@ class ListsApi extends Controller
     // ///////////////////////
     //CountiesSubcounties  //
     // //////////////////////
-
+    /**
+     * Operation listsCountiesCountyIdSubcountiesGet
+     *
+     * Fetch counties (for select options).
+     *
+     * @param int $county_id ID of County that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsCountiesSubcountiesGet($county_id)
+    {
+        $response = Sub_county::all();
+        return response()->json($response, 200);
+    }
     /**
      * Operation listsCountiesCountyIdSubcountiesSubcountyIdGet
      *
@@ -382,26 +391,7 @@ class ListsApi extends Controller
 
         return response('How about implementing listsCountiesCountyIdSubcountiesSubcountyIdGet as a GET method ?');
     }
-    /**
-     * Operation listsCountiesCountyIdSubcountiesGet
-     *
-     * Fetch counties (for select options).
-     *
-     * @param int $county_id ID of County that needs to be fetched (required)
-     *
-     * @return Http response
-     */
-    public function listsCountiesSubcountiesByIdGet($county_id)
-    {
-        $input = Request::all();
 
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsCountiesCountyIdSubcountiesGet as a GET method ?');
-    }
     /**
      * Operation listsCountiesCountyIdSubcountiesPost
      *
@@ -479,16 +469,8 @@ class ListsApi extends Controller
      */
     public function listsFamilyplanningGet()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsFamilyplanningGet as a GET method ?');
+        $response = Familyplanning::all();
+        return response()->json($response, 200);
     }
     /**
      * Operation listsFamilyplanningFamilyplanningIdGet
@@ -574,7 +556,7 @@ class ListsApi extends Controller
 
 
     // ///////////////////////
-    //  Ineesses            //
+    //  Illnesses           //
     // //////////////////////
 
     /**
@@ -587,16 +569,8 @@ class ListsApi extends Controller
      */
     public function listsIllnessesGet()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsIllnessesGet as a GET method ?');
+        $response = Illnesses::all();
+        return response()->json($response, 200);
     }
     /**
      * Operation listsIllnessesIllnessIdGet
@@ -695,16 +669,8 @@ class ListsApi extends Controller
      */
     public function listsServicesGet()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsServicesGet as a GET method ?');
+        $response = Services::with('regimen')->get();
+        return response()->json($response,200);
     }
     /**
      * Operation listsServicesServiceIdGet
@@ -788,4 +754,28 @@ class ListsApi extends Controller
         return response('How about implementing listsServicesServiceIdDelete as a DELETE method ?');
     }
 
+
+    // ///////////////////////
+    // Temp functions      //
+    // //////////////////////
+    public function prophylaxis()
+    {
+        $response = Prophylaxis::all();
+        return response()->json($response, 200);
+    }
+    public function pep()
+    {
+       $response = Pepreason::all();
+       return response()->json($response, 200);
+    }
+    public function whoStage()
+    {
+        $response = WhoStage::all();
+        return response()->json($response, 200);
+    }
+    public function patientSources()
+    {
+        $response = Sources::all();
+        return response()->json($response, 200);
+    }
 }
