@@ -10,6 +10,7 @@ info:
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 security:
 - adt_auth: []
+- ADT Core oAuth: []
 paths:
   /drugs:
     get:
@@ -168,9 +169,6 @@ paths:
           description: "Validation exception"
   /lists/allergies:
     get:
-      tags:
-        - lists
-        - allergies
       summary: "Fetch Regimen allergies (for select options)"
       description: "Fetch List of all allergies for regimens (for select options)"
       produces:
@@ -896,6 +894,426 @@ paths:
           description: "FamilyPlanning item value"
         204:
           description: "FamilyPlanning item deleted"
+  /lists/pepreasons:
+    get:
+      summary: "Fetch list of Pep Reasons"
+      description: "Fetch list of Pep Reasons"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PepReason"
+        400:
+          description: "Invalid name value"
+    post:
+      summary: "Add an illness"
+      description: "Add a Pep Reason"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/PepReason"
+      responses:
+        201:
+          description: "Pep reason Added Successfully"
+          schema:
+            type: "string"
+        405:
+          description: "Invalid input"
+  /lists/pepreasons/{pepreasonId}:
+    get:
+      summary: "Fetch a pepreason specified by pepreasonId"
+      description: "Fetch a pepreason specified by pepreasonId"
+      parameters:
+      - name: "pepreasonId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/PepReason"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing pep reason specified by pepreasonId"
+      description: ""
+      parameters:
+      - name: "pepreasonId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/PepReason"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "pep reason not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes a pep reason specified by pepreasonId"
+      description: ""
+      parameters:
+      - name: "pepreasonId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "pep reason deleted"
+        400:
+          description: "bad pepreason value"
+  /lists/prophylaxis:
+    get:
+      summary: "Fetch list of prophylaxis"
+      description: "Fetch list of prophylaxis "
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Prophylaxis"
+        400:
+          description: "Invalid prophylaxis format"
+    post:
+      summary: "Add a Prophylaxis"
+      description: "Add a Prophylaxis"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Prophylaxis"
+      responses:
+        201:
+          description: "Prophylaxis Added Successfully"
+          schema:
+            type: "string"
+        405:
+          description: "Invalid input"
+  /lists/prophylaxis/{prophylaxis}:
+    get:
+      summary: "Fetch a prophylaxis specified by prophylaxisId"
+      description: "Fetch a prophylaxis specified by prophylaxisId"
+      parameters:
+      - name: "prophylaxis"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Prophylaxis"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing prophylaxis specified by prophylaxisId"
+      description: ""
+      parameters:
+      - name: "prophylaxis"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Prophylaxis"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "prophylaxis not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes a prophylaxis item specified by prophylaxisId"
+      description: ""
+      parameters:
+      - name: "prophylaxis"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "prophylaxis item deleted"
+        400:
+          description: "bad prophylaxis value"
+  /lists/purposes:
+    get:
+      summary: "Fetch list of Illnessess(for select options)"
+      description: "List of Illnessess(for select options)"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ChronicIllnesses"
+        400:
+          description: "Invalid name value"
+    post:
+      summary: "Add a purpose"
+      description: "Add a purpose"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Purpose"
+      responses:
+        201:
+          description: "Purpose Added Successfully"
+          schema:
+            type: "string"
+        405:
+          description: "Invalid input"
+  /lists/purposes/{purposeId}:
+    get:
+      summary: "Fetch a purpose by purposeId"
+      description: "Fetch a purpose specified by purposeId"
+      parameters:
+      - name: "purposeId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Purpose"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing purposespecified by purposeId"
+      description: ""
+      parameters:
+      - name: "purposeId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Purpose"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "purpose not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes a purpose specified by purposeId"
+      description: "Deletes a purpose specified by purposeId"
+      parameters:
+      - name: "purposeId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "FamilyPlanning item deleted"
+        400:
+          description: "Bad Purpose value"
+  /lists/regimens:
+    get:
+      summary: "Fetch list of regimens"
+      description: "Fetch list of regimens  (for select options)"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Regimen"
+        400:
+          description: "Invalid name value"
+    post:
+      summary: "Add a regimen"
+      description: "Add a regimen"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Regimen"
+      responses:
+        201:
+          description: "Illness Added Successfully"
+          schema:
+            type: "string"
+        405:
+          description: "Invalid input"
+  /lists/regimens/{regimenId}:
+    get:
+      summary: "Fetch a regimen specified by regimenId"
+      description: "Fetch a regimen specified by regimenId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "regimenId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Regimen"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing regimen specified by regimenId"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "regimenId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Regimen"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "regimen not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes a regimen specified by regimenId"
+      description: ""
+      parameters:
+      - name: "regimenId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "regimen deleted"
+        400:
+          description: "bad regimen value"
   /lists/services:
     get:
       summary: "Fetch Drug Allergies  (for select options)"
@@ -1014,6 +1432,312 @@ paths:
           description: "Invalid patient value"
         204:
           description: "Patient deleted"
+  /lists/sources:
+    get:
+      summary: "Fetch list of Patient Sources(for select options)"
+      description: "Fetch list of Patient Sources(for select options)"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PatientSources"
+        400:
+          description: "Invalid name value"
+    post:
+      summary: "Add a Source"
+      description: "Add a Patient Source"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/PatientSources"
+      responses:
+        201:
+          description: "Patient Source Added Successfully"
+          schema:
+            type: "string"
+        405:
+          description: "Invalid input"
+  /lists/sources/{sourceId}:
+    get:
+      summary: "Fetch a source specified by sourceId"
+      description: "Fetch a source specified by sourceId"
+      parameters:
+      - name: "sourceId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/PatientSources"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing source specified by sourceId"
+      description: "Update an existing source specified by sourceId"
+      parameters:
+      - name: "sourceId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/PatientSources"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "source not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes a Source item specified by sourceId"
+      description: ""
+      parameters:
+      - name: "sourceId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Source item deleted"
+        400:
+          description: "Bad Source value"
+  /lists/status:
+    get:
+      summary: "Fetch list of Illnessess(for select options)"
+      description: "List of Illnessess(for select options)"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ChronicIllnesses"
+        400:
+          description: "Invalid name value"
+    post:
+      summary: "Add an illness"
+      description: "Add an illness"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/ChronicIllnesses"
+      responses:
+        201:
+          description: "Illness Added Successfully"
+          schema:
+            type: "string"
+        405:
+          description: "Invalid input"
+  /lists/status/{statusId}:
+    get:
+      summary: "Fetch a status specified by statusId"
+      description: "Fetch a status specified by statusId"
+      parameters:
+      - name: "statusId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/PatientStatus"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing status specified by statusId"
+      description: ""
+      parameters:
+      - name: "statusId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/PatientStatus"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "status not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes a Patient status specified by statusId"
+      description: ""
+      parameters:
+      - name: "statusId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Status deleted"
+        400:
+          description: "Bad Status value"
+  /lists/whostage:
+    get:
+      summary: "Fetch List of WHO Stages (for select options)"
+      description: "List of WHO Stages (for select options)"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/WhoStage"
+        400:
+          description: "Invalid name value"
+    post:
+      summary: "Add a WHO Stage"
+      description: "Add a WHO Stage"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/WhoStage"
+      responses:
+        201:
+          description: "WHO stage Added Successfully"
+          schema:
+            type: "string"
+        405:
+          description: "Invalid input"
+  /lists/whostage/{whostageId}:
+    get:
+      summary: "Fetch a WHO stage specified by whostageId"
+      description: "Fetch a WHO stage specified by whostageId"
+      parameters:
+      - name: "whostageId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int32"
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/WhoStage"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing Illness specified by whostageId"
+      description: ""
+      parameters:
+      - name: "whostageId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int32"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/WhoStage"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "WHO stage not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes a WHO stage item specified by whostageId"
+      description: ""
+      parameters:
+      - name: "whostageId"
+        in: "path"
+        description: "ID of FamilyPlanning item"
+        required: true
+        type: "integer"
+        format: "int32"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "WHO Stage deleted"
+        400:
+          description: "Bad WHO STAGE item value"
   /patients:
     get:
       summary: "get's a list of patients"
@@ -2276,6 +3000,9 @@ securityDefinitions:
       create_service: "create services"
       create_drug: "create drugs"
       read_drug: "read drugs"
+  ADT Core oAuth:
+    type: "oauth2"
+    scopes: {}
 definitions:
   Facility:
     type: "object"
