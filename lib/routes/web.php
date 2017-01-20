@@ -341,7 +341,7 @@ $app->PUT('/users/{usersId}', 'DefaultApi@usersUsersIdPut');
  * Notes: Fetch Allergy specified by allergyId
  * Output-Formats: [application/json, application/xml]
  */
-$app->GET('/lists/allergies/{allergyId}', 'ListsApi@listsAllergiesAllergyIdGet');
+$app->GET('/lists/allergies/{allergyId}', 'ListsApi@listsAllergiesGet');
 /**
  * POST listsAllergiesPost
  * Summary: create a Category
@@ -355,13 +355,13 @@ $app->POST('/lists/allergies', 'ListsApi@listsAllergiesPost');
  * Summary: Update an existing Category
  * Notes: 
  */
-$app->PUT('/lists/allergies/{allergyId}', 'ListsApi@listsAllergiesAllergyIdPut');
+$app->PUT('/lists/allergies/{allergyId}', 'ListsApi@listsAllergiesPut');
 /**
  * DELETE listsAllergiesAllergyIdDelete
  * Summary: Deletes a Allergy specified by serviceId
  * Notes: 
  */
-$app->DELETE('/lists/allergies/{allergyId}', 'ListsApi@listsAllergiesAllergyIdDelete');
+$app->DELETE('/lists/allergies/{allergyId}', 'ListsApi@listsAllergiesDelete');
 
 /**
  * GET listsCategoriesGet
@@ -376,7 +376,7 @@ $app->GET('/lists/categories', 'ListsApi@listsCategoriesGet');
  * Notes: Fetch Category specified by categoryId
  * Output-Formats: [application/json, application/xml]
  */
-$app->GET('/lists/categories/{categoryId}', 'ListsApi@listsCategoriesCategoryIdGet');
+$app->GET('/lists/categories/{categoryId}', 'ListsApi@listsCategoriesGet');
 
 /**
  * POST listsCategoriesPost
@@ -396,7 +396,7 @@ $app->PUT('/lists/categories/{categoryId}', 'ListsApi@listsCategoriesCategoryIdP
  * Summary: Deletes a Category specified by serviceId
  * Notes: 
  */
-$app->DELETE('/lists/categories/{categoryId}', 'ListsApi@listsCategoriesCategoryIdDelete');
+$app->DELETE('/lists/categories/{categoryId}', 'ListsApi@listsCategoriesDelete');
 
 
 /**
@@ -412,7 +412,7 @@ $app->GET('/lists/counties', 'ListsApi@listsCountiesGet');
  * Notes: Fetch County specified by countyId
  * Output-Formats: [application/json, application/xml]
  */
-$app->GET('/lists/counties/{countyId}', 'ListsApi@listsCountiesCountyIdGet');
+$app->GET('/lists/counties/{countyId}', 'ListsApi@listsCountiesGet');
 
 /**
  * POST listsCountiesPost
@@ -427,13 +427,13 @@ $app->POST('/lists/counties', 'ListsApi@listsCountiesPost');
  * Summary: Update an existing County
  * Notes: 
  */
-$app->PUT('/lists/counties/{countyId}', 'ListsApi@listsCountiesCountyIdPut');
+$app->PUT('/lists/counties/{countyId}', 'ListsApi@listsCountiesPut');
 /**
  * DELETE listsCountiesCountyIdDelete
  * Summary: Deletes a County specified by countyId
  * Notes: 
  */
-$app->DELETE('/lists/counties/{countyId}', 'ListsApi@listsCountiesCountyIdDelete');
+$app->DELETE('/lists/counties/{countyId}', 'ListsApi@listsCountiesDelete');
 
 /**
  * GET listsCountiesCountyIdSubcountiesGet
@@ -441,14 +441,14 @@ $app->DELETE('/lists/counties/{countyId}', 'ListsApi@listsCountiesCountyIdDelete
  * Notes: Fetch List of all counties for regimens (for select options)
  * Output-Formats: [application/json, application/xml]
  */
-$app->GET('/lists/counties/{countyId}/Subcounties', 'ListsApi@listsCountiesCountyIdSubcountiesGet');
+$app->GET('/lists/counties/{countyId}/Subcounties', 'ListsApi@listsCountiesSubcountiesGet');
 /**
  * GET listsCountiesCountyIdSubcountiesSubcountyIdGet
  * Summary: Fetch County specified by countyId
  * Notes: Fetch subCounty specified by subcountyId within County (countyId)
  * Output-Formats: [application/json, application/xml]
  */
-$app->GET('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'ListsApi@listsCountiesCountyIdSubcountiesSubcountyIdGet');
+$app->GET('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'ListsApi@listsCountiesSubcountiesGet');
 /**
  * POST listsCountiesCountyIdSubcountiesPost
  * Summary: create a Category
@@ -456,19 +456,19 @@ $app->GET('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'ListsApi@list
  * Output-Formats: [application/json, application/xml]
  */
  
-$app->POST('/lists/counties/{countyId}/Subcounties', 'ListsApi@listsCountiesCountyIdSubcountiesPost');
+$app->POST('/lists/counties/{countyId}/Subcounties', 'ListsApi@listsCountiesSubcountiesPost');
 /**
  * PUT listsCountiesCountyIdSubcountiesSubcountyIdPut
  * Summary: Update an existing SubCounty for a county (countyId)
  * Notes: 
  */
-$app->PUT('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'ListsApi@listsCountiesCountyIdSubcountiesSubcountyIdPut');
+$app->PUT('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'ListsApi@listsCountiesSubcountiesPut');
 /**
  * DELETE listsCountiesCountyIdSubcountiesSubcountyIdDelete
  * Summary: Deletes a SubCounty specified by subcountyId in a County specified by countyId
  * Notes: 
  */
-$app->DELETE('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'ListsApi@listsCountiesCountyIdSubcountiesSubcountyIdDelete');
+$app->DELETE('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'ListsApi@listsCountiesSubcountiesDelete');
 
 
 /**
@@ -484,7 +484,7 @@ $app->GET('/lists/familyplanning', 'ListsApi@listsFamilyplanningGet');
  * Notes: Fetch a FamilyPlanning item specified by familyplanningId
  * Output-Formats: [application/json, application/xml]
  */
-$app->GET('/lists/familyplanning/{familyplanningId}', 'ListsApi@listsFamilyplanningFamilyplanningIdGet');
+$app->GET('/lists/familyplanning/{familyplanningId}', 'ListsApi@listsFamilyplanningGet');
 /**
  * POST listsFamilyplanningPost
  * Summary: create a FamilyPlanning item
@@ -498,14 +498,14 @@ $app->POST('/lists/familyplanning', 'ListsApi@listsFamilyplanningPost');
  * Notes: 
 
  */
-$app->PUT('/lists/familyplanning/{familyplanningId}', 'ListsApi@listsFamilyplanningFamilyplanningIdPut');
+$app->PUT('/lists/familyplanning/{familyplanningId}', 'ListsApi@listsFamilyplanningPut');
 /**
  * DELETE listsFamilyplanningFamilyplanningIdDelete
  * Summary: Deletes a FamilyPlanning item specified by familyplanningId
  * Notes: 
 
  */
-$app->DELETE('/lists/familyplanning/{familyplanningId}', 'ListsApi@listsFamilyplanningFamilyplanningIdDelete');
+$app->DELETE('/lists/familyplanning/{familyplanningId}', 'ListsApi@listsFamilyplanningDelete');
 
 
 /**
@@ -521,7 +521,7 @@ $app->GET('/lists/illnesses', 'ListsApi@listsIllnessesGet');
  * Notes: Fetch a Illness specified by illnessId
  * Output-Formats: [application/json]
  */
-$app->GET('/lists/illnesses/{illnessId}', 'ListsApi@listsIllnessesIllnessIdGet');
+$app->GET('/lists/illnesses/{illnessId}', 'ListsApi@listsIllnessesGet');
 /**
  * POST listsIllnessesPost
  * Summary: Add an illness
@@ -535,14 +535,14 @@ $app->POST('/lists/illnesses', 'ListsApi@listsIllnessesPost');
  * Notes: 
 
  */
-$app->PUT('/lists/illnesses/{illnessId}', 'ListsApi@listsIllnessesIllnessIdPut');
+$app->PUT('/lists/illnesses/{illnessId}', 'ListsApi@listsIllnessesPut');
 /**
  * DELETE listsIllnessesIllnessIdDelete
  * Summary: Deletes a FamilyPlanning item specified by familyplanningId
  * Notes: 
 
  */
-$app->DELETE('/lists/illnesses/{illnessId}', 'ListsApi@listsIllnessesIllnessIdDelete');
+$app->DELETE('/lists/illnesses/{illnessId}', 'ListsApi@listsIllnessesDelete');
 
 
 /**
@@ -558,7 +558,7 @@ $app->GET('/lists/services', 'ListsApi@listsServicesGet');
  * Notes: Fetch Service specified by serviceId
  * Output-Formats: [application/json, application/xml]
  */
-$app->GET('/lists/services/{serviceId}', 'ListsApi@listsServicesServiceIdGet');
+$app->GET('/lists/services/{serviceId}', 'ListsApi@listsServicesGet');
 /**
  * POST listsServicesPost
  * Summary: create a service
@@ -572,13 +572,13 @@ $app->POST('/lists/services', 'ListsApi@listsServicesPost');
  * Notes: 
 
  */
-$app->PUT('/lists/services/{serviceId}', 'ListsApi@listsServicesServiceIdPut');
+$app->PUT('/lists/services/{serviceId}', 'ListsApi@listsServicesPut');
 /**
  * DELETE listsServicesServiceIdDelete
  * Summary: Deletes a service specified by serviceId
  * Notes: 
 
  */
-$app->DELETE('/lists/services/{serviceId}', 'ListsApi@listsServicesServiceIdDelete');
+$app->DELETE('/lists/services/{serviceId}', 'ListsApi@listsServicesDelete');
 
 });
