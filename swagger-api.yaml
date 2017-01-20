@@ -169,6 +169,124 @@ paths:
           description: "Patient not found"
         405:
           description: "Validation exception"
+  /lists/counties:
+    get:
+      summary: "Fetch Regimen counties (for select options)"
+      description: "Fetch List of all counties for regimens (for select options)"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/County"
+        400:
+          description: "Invalid name value"
+    post:
+      summary: "create a Category"
+      description: "create a Category"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        201:
+          description: "County Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/County"
+        405:
+          description: "Invalid input"
+  /lists/counties/{countyId}:
+    get:
+      summary: "Fetch County specified by countyId"
+      description: "Fetch County specified by countyId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      - name: "countyId"
+        in: "path"
+        description: "ID of Service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/County"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing Category"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "countyId"
+        in: "path"
+        description: "ID of County that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/County"
+      responses:
+        202:
+          description: "Update Accepted"
+        405:
+          description: "Validation exception"
+        404:
+          description: "County not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Deletes a County specified by serviceId"
+      description: ""
+      parameters:
+      - name: "countyId"
+        in: "path"
+        description: "ID of county that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid patient value"
+        204:
+          description: "County deleted"
   /lists/services:
     get:
       summary: "Fetch Drug Allergies  (for select options)"
@@ -273,7 +391,7 @@ paths:
       parameters:
       - name: "serviceId"
         in: "path"
-        description: "ID of patient that needs to be fetched"
+        description: "ID of service that needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -391,7 +509,7 @@ paths:
       parameters:
       - name: "categoryId"
         in: "path"
-        description: "ID of patient that needs to be fetched"
+        description: "ID of category"
         required: true
         type: "integer"
         format: "int64"
@@ -424,7 +542,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Allergy"
+              $ref: "#/definitions/PatientDrugAllergy"
         400:
           description: "Invalid name value"
     post:
@@ -445,7 +563,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Allergy"
+              $ref: "#/definitions/PatientDrugAllergy"
         405:
           description: "Invalid input"
   /lists/allergies/{allergyId}:
@@ -473,7 +591,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Allergy"
+              $ref: "#/definitions/PatientDrugAllergy"
         400:
           description: "Invalid name value"
     put:
@@ -493,7 +611,7 @@ paths:
         name: "body"
         required: false
         schema:
-          $ref: "#/definitions/Allergy"
+          $ref: "#/definitions/PatientDrugAllergy"
       responses:
         202:
           description: "Update Accepted"
@@ -509,7 +627,7 @@ paths:
       parameters:
       - name: "allergyId"
         in: "path"
-        description: "ID of patient that needs to be fetched"
+        description: "ID of allergy"
         required: true
         type: "integer"
         format: "int64"
@@ -520,7 +638,7 @@ paths:
         type: "string"
       responses:
         400:
-          description: "Invalid patient value"
+          description: "Invalid allergy value"
         204:
           description: "Allergy deleted"
   /patients:
