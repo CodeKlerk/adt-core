@@ -57,7 +57,6 @@ class ListsApi extends Controller
     // Allergies            //
     // //////////////////////
 
-
     /**
      * Operation listsAllergiesGet
      *
@@ -776,6 +775,11 @@ class ListsApi extends Controller
     public function patientSources()
     {
         $response = Sources::all();
+        return response()->json($response, 200);
+    }
+
+    public function sub_county(){
+        $response = Sub_county::all();
         return response()->json($response, 200);
     }
 }

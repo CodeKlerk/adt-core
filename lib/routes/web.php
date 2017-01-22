@@ -10,11 +10,14 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$app->group(['prefix' => 'ADT_CORE/v0.1'], function () use ($app) {
+$app->group(['prefix' => 'ADT_CORE/v0.1' ], function () use ($app) {
 
 $app->get('/', function () use ($app) {
     return $app->version();
 });
+
+$app->POST('/testpost', 'TestController@post_test');
+
 
 /**
  * GET listsServicesGet
@@ -596,5 +599,6 @@ $app->GET('/lists/patientsources', 'ListsApi@patientSources');
 $app->GET('/lists/whostage', 'ListsApi@whoStage'); 
 $app->GET('/lists/prophylaxis', 'ListsApi@prophylaxis');
 $app->GET('/lists/pep', 'ListsApi@pep');
+$app->GET('/lists/sub_county', 'ListsApi@sub_county');
 
 });
