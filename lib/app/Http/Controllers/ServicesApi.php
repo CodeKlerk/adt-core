@@ -211,7 +211,7 @@ class ServicesApi extends Controller
      *
      * @return Http response
      */
-    public function servicesProphylaxisGet($service_id, $prophylaxis_id)
+    public function servicesProphylaxisGetById($service_id, $prophylaxis_id)
     {
         $input = Request::all();
 
