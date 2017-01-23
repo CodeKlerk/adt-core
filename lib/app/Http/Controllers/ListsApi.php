@@ -80,16 +80,10 @@ class ListsApi extends Controller
      *
      * @return Http response
      */
-    public function listsAllergiesIdGet($allergy_id)
+    public function listsAllergiesByIdGet($allergy_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsAllergiesAllergyIdGet as a GET method ?');
+        $response = Allergies::findOrFail($allergy_id);
+        return response()->json($response, 200);
     }
     /**
      * Operation listsAllergiesPost
@@ -101,16 +95,13 @@ class ListsApi extends Controller
      */
     public function listsAllergiesPost()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsAllergiesPost as a POST method ?');
+        // $input = Request::all();
+        // $created_allergy = Allergies::create($input);
+        // if($created_allergy){
+        //     return response()->json(['msg' => 'Allergy add'],200);
+        // }else{
+        //     return response('Oops, seems like something went wrong');
+        // }
     }
     /**
      * Operation listsAllergiesAllergyIdPut
@@ -123,14 +114,9 @@ class ListsApi extends Controller
      */
     public function listsAllergiesPut($allergy_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsAllergiesAllergyIdPut as a PUT method ?');
+        // $input = Request::all();
+        // $allergy = Allergies::findOrFail($allergy_id)
+        //         ->update(['']);
     }
 
     /**
@@ -180,16 +166,10 @@ class ListsApi extends Controller
      *
      * @return Http response
      */
-    public function listsCategoriesIdGet($category_id)
+    public function listsCategoriesByIdGet($category_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsCategoriesCategoryIdGet as a GET method ?');
+        $category = Category::findOrFail($category_id);
+        return response()->json($category, 200);
     }
     /**
      * Operation listsCategoriesPost
@@ -202,16 +182,14 @@ class ListsApi extends Controller
     public function listsCategoriesPost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsCategoriesPost as a POST method ?');
+        $new_catgory = Category::create($input);
+        if($new_catgory){
+            return response()->json(['msg' => 'Created Category'], 200);
+        }else{
+            return response('Oops, seems like something went wrong while trying to create a category');
+        }
     }
+
     /**
      * Operation listsCategoriesCategoryIdPut
      *
@@ -224,13 +202,13 @@ class ListsApi extends Controller
     public function listsCategoriesPut($category_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsCategoriesCategoryIdPut as a PUT method ?');
+        $category = Category::findOrFail($category_id);
+        $category->update(['name' => $input['name']]);
+        if($category->save()){
+            return response()->json(['msg' => 'Updated Category'], 200);
+        }else{
+            return response('Oops, seems like something went wrong while trying to update a category');
+        }
     }
     /**
      * Operation listsCategoriesCategoryIdDelete
@@ -243,14 +221,8 @@ class ListsApi extends Controller
      */
     public function listsCategoriesDelete($category_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsCategoriesCategoryIdDelete as a DELETE method ?');
+        Category::destroy($category_id);
+        return response()->json(['msg' => 'deleted Category'], 200);
     }
 
     // ///////////////////////
@@ -482,14 +454,8 @@ class ListsApi extends Controller
      */
     public function listsFamilyplanningByIdGet($familyplanning_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsFamilyplanningFamilyplanningIdGet as a GET method ?');
+        $response = FamilyPlanning::findOrFail();
+        return response()->json($response, 200);
     }
     /**
      * Operation listsFamilyplanningPost
@@ -502,15 +468,12 @@ class ListsApi extends Controller
     public function listsFamilyplanningPost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsFamilyplanningPost as a POST method ?');
+        $new_familyPlan = FamilyPlanning::create($input);
+        if($new_familyPlan){
+            return response()->json(['msg' => 'Created a new Family plan']);
+        }else{
+            return response('Oops, seems like something went wrong while trying to create a new family plan');
+        }
     }
     /**
      * Operation listsFamilyplanningFamilyplanningIdPut
@@ -524,13 +487,13 @@ class ListsApi extends Controller
     public function listsFamilyplanningPut($familyplanning_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsFamilyplanningFamilyplanningIdPut as a PUT method ?');
+        $family_plan = FamilyPlanning::findOrFail($familyplanning_id);
+        $family_plan->update(['name' => $input['name']]);
+        if($family_plan->save()){
+            return response()->json(['msg' => 'Updated family plan'], 200);
+        }else{
+            return response('Oops, seems like something went wrong while trying to update a plan');
+        }
     }
     /**
      * Operation listsFamilyplanningFamilyplanningIdDelete
@@ -543,14 +506,8 @@ class ListsApi extends Controller
      */
     public function listsFamilyplanningDelete($familyplanning_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsFamilyplanningFamilyplanningIdDelete as a DELETE method ?');
+        FamilyPlanning::destroy($familyplanning_id);
+        return response()->json(['msg' => 'deleted family plan'], 200);
     }
 
 
@@ -582,14 +539,8 @@ class ListsApi extends Controller
      */
     public function listsIllnessesByIdGet($illness_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsIllnessesIllnessIdGet as a GET method ?');
+        $response = Illnesses::findOrFail($illness_id);
+        return response()->json($response, 200);
     }
     /**
      * Operation listsIllnessesPost
@@ -602,15 +553,12 @@ class ListsApi extends Controller
     public function listsIllnessesPost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $body = $input['body'];
-
-
-        return response('How about implementing listsIllnessesPost as a POST method ?');
+        $new_illness = Illnesses::create($input);
+        if($new_illness){
+            return response()->json(['msg' => 'Created new illness'],200);
+        }else{
+            return response('Oops, it seems like something went wrong while trying to create a new illness');
+        }
     }
     /**
      * Operation listsIllnessesIllnessIdPut
@@ -624,13 +572,13 @@ class ListsApi extends Controller
     public function listsIllnessesPut($illness_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsIllnessesIllnessIdPut as a PUT method ?');
+        $illness = Illnesses::findOrFail($illness_id);
+        $illness->update(['name' => $input['name']]);
+        if($illness->save()){
+            return response()->json(['msg' => 'Updated Illness'], 200);
+        }else{
+            return response('Oops, it seems like something went wrong while trying to update the illness');
+        }
     }
     /**
      * Operation listsIllnessesIllnessIdDelete
@@ -643,14 +591,8 @@ class ListsApi extends Controller
      */
     public function listsIllnessesDelete($illness_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsIllnessesIllnessIdDelete as a DELETE method ?');
+        Illnesses::destroy($illness_id);
+        return response()->json(['msg' => 'Deleted illness']);
     }
 
 
@@ -682,14 +624,8 @@ class ListsApi extends Controller
      */
     public function listsServicesByIdGet($service_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsServicesServiceIdGet as a GET method ?');
+        $response = Services::findOrFail($service_id);
+        return response()->json($response,200);
     }
     /**
      * Operation listsServicesPost
@@ -702,15 +638,12 @@ class ListsApi extends Controller
     public function listsServicesPost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsServicesPost as a POST method ?');
+        $new_serivce = Services::create($input);
+        if($new_serivce){
+            return response()->json(['msg'=> 'Created a new service'],200);
+        }else{
+            return response('Oops, seems like something went wrong while trying to create a new service');
+        }
     }
     /**
      * Operation listsServicesServiceIdPut
@@ -721,16 +654,16 @@ class ListsApi extends Controller
      *
      * @return Http response
      */
-    public function listsServicesServiceIdPut($service_id)
+    public function listsServicesPut($service_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsServicesServiceIdPut as a PUT method ?');
+        $service = Services::findOrFail($service_id);
+        $service->update(['name' => $input['name']]);
+        if($service->save()){
+            return response()->json(['msg' => 'Updated service']);
+        }else{
+            return response('Oops, it seems like somthing went wrong while trying to update the servie');
+        }
     }
     /**
      * Operation listsServicesServiceIdDelete
@@ -743,14 +676,12 @@ class ListsApi extends Controller
      */
     public function listsServicesDelete($service_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsServicesServiceIdDelete as a DELETE method ?');
+        $serive = Services::destroy($service_id);
+        if($serive){
+            return response()->json(['msg' => 'Deleted the servie']);
+        }else{
+            return response('Oops, seems like something went wrong while deleting the service');
+        }
     }
 
 
