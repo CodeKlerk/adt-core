@@ -386,7 +386,7 @@ $app->GET('/lists/categories', 'ListsApi@listsCategoriesGet');
  * Notes: Fetch Category specified by categoryId
  * Output-Formats: [application/json, application/xml]
  */
-$app->GET('/lists/categories/{categoryId}', 'ListsApi@listsCategoriesGet');
+$app->GET('/lists/categories/{categoryId}', 'ListsApi@listsCategoriesByIdGet');
 
 /**
  * POST listsCategoriesPost
@@ -400,7 +400,7 @@ $app->POST('/lists/categories', 'ListsApi@listsCategoriesPost');
  * Summary: Update an existing Category
  * Notes: 
  */
-$app->PUT('/lists/categories/{categoryId}', 'ListsApi@listsCategoriesCategoryIdPut');
+$app->PUT('/lists/categories/{categoryId}', 'ListsApi@listsCategoriesPut');
 /**
  * DELETE listsCategoriesCategoryIdDelete
  * Summary: Deletes a Category specified by serviceId
@@ -531,7 +531,7 @@ $app->GET('/lists/illnesses', 'ListsApi@listsIllnessesGet');
  * Notes: Fetch a Illness specified by illnessId
  * Output-Formats: [application/json]
  */
-$app->GET('/lists/illnesses/{illnessId}', 'ListsApi@listsIllnessesGet');
+$app->GET('/lists/illnesses/{illnessId}', 'ListsApi@listsIllnessesByIdGet');
 /**
  * POST listsIllnessesPost
  * Summary: Add an illness
@@ -568,7 +568,7 @@ $app->GET('/lists/services', 'ListsApi@listsServicesGet');
  * Notes: Fetch Service specified by serviceId
  * Output-Formats: [application/json, application/xml]
  */
-$app->GET('/lists/services/{serviceId}', 'ListsApi@listsServicesGet');
+$app->GET('/lists/services/{serviceId}', 'ListsApi@listsServicesByIdGet');
 /**
  * POST listsServicesPost
  * Summary: create a service
