@@ -41,7 +41,7 @@ class UpdatePatientEvent extends Event
             'is_tb' => $this->patient['is_tb'],
             'is_tb_tested' => $this->patient['is_tb_tested'],
             'is_smoke' => $this->patient['is_smoke'],
-            'is_alchohol' => $this->patient['is_alchohol'],
+            'is_alcohol' => $this->patient['is_alcohol'],
             'is_sms' => $this->patient['is_sms'],
             'service_id' => $this->patient['service_id'],
             'facility_id' => $this->patient['facility_id'],

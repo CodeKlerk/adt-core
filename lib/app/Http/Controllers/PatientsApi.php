@@ -29,6 +29,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests;
+use Illuminate\Pagination\Paginator;
 
 use App\Models\PatientModels\Patient;
 use App\Models\PatientModels\PatientFamilyPlanning;
@@ -46,6 +47,7 @@ use App\Models\PatientModels\PatientTb;
 use App\Models\VisitModels\Appointment;
 // 
 use App\Events\CreatePatientEvent;
+use App\Events\UpdatePatientEvent;
 
 class PatientsApi extends Controller
 {
@@ -66,7 +68,7 @@ class PatientsApi extends Controller
      */
     public function patientsGet()
     {
-        $response = Patient::all();
+        $response = Patient::paginate(10);
         return response()->json($response, 200);
     }
 
