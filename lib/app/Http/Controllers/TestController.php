@@ -16,7 +16,12 @@ class TestController extends Controller
     public function post_test()
     {
         $input = Request::all();
-        return response()->json($input);
+        if(!array_key_exists('illnesses', $input)){
+            return response('can not read the illnesses');
+        }else{
+            return response('Illnesses are present');
+        }
+        // return response()->json($input, 200);
     }
     
 }
