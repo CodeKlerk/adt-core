@@ -29,46 +29,58 @@ class CreatePatientEvent extends Event
             $merged_request_and_new_id = array_merge($this->patient, $new_patient_id);
             $this->multi_model_insert(['PatientDrugAllergyOther', 'PatientDrugOther', 'PatientStatus', 'PatientTb'], $merged_request_and_new_id);
             
+            //check if illnesses exists in the array
+            if(array_key_exists('illnesses', $this->patient)){
+                // Looping through illness
+                $illnesses = $this->patient['illnesses'];
 
-            // Looping through illness
-            $illnesses = $this->patient['illnesses'];
-
-            foreach($illnesses as $illness){
-               $pi = new PatientIllness;
-               $pi->patient_id = $new_patient_id['patient_id'];
-               $pi->illness_id = $illness;
-               $pi->save(); 
+                foreach($illnesses as $illness){
+                $pi = new PatientIllness;
+                $pi->patient_id = $new_patient_id['patient_id'];
+                $pi->illness_id = $illness;
+                $pi->save(); 
+                }
             }
 
-            // Looping through drug allergies
-            $drug_allergies = $this->patient['allergies'];
+            //check if allergies exists in the array
+            if(array_key_exists('allergies', $this->patient)){
+                // Looping through drug allergies
+                $drug_allergies = $this->patient['allergies'];
 
-            foreach($drug_allergies as $allergy){
-                $da = new PatientAllergies;
-                $da->patient_id = $new_patient_id['patient_id'];
-                $da->drug_id = $allergy;
-                $da->save();
+                foreach($drug_allergies as $allergy){
+                    $da = new PatientAllergies;
+                    $da->patient_id = $new_patient_id['patient_id'];
+                    $da->drug_id = $allergy;
+                    $da->save();
+                }
             }
 
-            // Looping through prophylaxis
-            $prophylaxis = $this->patient['prophylaxis'];
+            //check if prophylaxis exists in the array
+            if(array_key_exists('prophylaxis', $this->patient)){
 
-            foreach($prophylaxis as $proph){
-                $da = new PatientProphylaxis;
-                $da->patient_id = $new_patient_id['patient_id'];
-                $da->prophylaxis_id = $proph;
-                $da->save();
-            }
-            // Looping through family planning
-            $family_plans = $this->patient['family_planning'];
+                // Looping through prophylaxis
+                $prophylaxis = $this->patient['prophylaxis'];
 
-            foreach($family_plans as $family_plan){
-                $pfp = new PatientFamilyPlanning;
-                $pfp->patient_id = $new_patient_id['patient_id'];
-                $pfp->family_planning_id = $family_plan;
-                $pfp->save();
+                foreach($prophylaxis as $proph){
+                    $da = new PatientProphylaxis;
+                    $da->patient_id = $new_patient_id['patient_id'];
+                    $da->prophylaxis_id = $proph;
+                    $da->save();
+                }
             }
 
+            //check if family_planning exists in the array
+            if(array_key_exists('family_planning', $this->patient)){
+                // Looping through family planning
+                $family_plans = $this->patient['family_planning'];
+
+                foreach($family_plans as $family_plan){
+                    $pfp = new PatientFamilyPlanning;
+                    $pfp->patient_id = $new_patient_id['patient_id'];
+                    $pfp->family_planning_id = $family_plan;
+                    $pfp->save();
+                }
+            }
         }
     }
 
