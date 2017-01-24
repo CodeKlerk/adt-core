@@ -2599,6 +2599,124 @@ paths:
           description: "Invalid parameters"
         204:
           description: "regimens has been removed"
+  /lists/purpose:
+    get:
+      summary: "Fetch Purpose list  (for select options)"
+      description: "Fetch Purpose list (for select options)"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Purpose"
+        400:
+          description: "Invalid name value"
+    post:
+      summary: "create a Purpose"
+      description: "create a Purpose"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        201:
+          description: "Purpose Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Purpose"
+        405:
+          description: "Invalid input"
+  /lists/purpose/{purposeId}:
+    get:
+      summary: "Fetch Purpose specified by purposeId"
+      description: "Fetch Purpose specified by purposeId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "purposeId"
+        in: "path"
+        description: "ID of Purpose that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Purpose"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing Purpose"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "purposeId"
+        in: "path"
+        description: "ID of Purpose that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Purpose"
+      responses:
+        202:
+          description: "Update Accepted"
+        405:
+          description: "Validation exception"
+        404:
+          description: "Purpose not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Deletes a Purpose specified by purposeId"
+      description: ""
+      parameters:
+      - name: "purposeId"
+        in: "path"
+        description: "ID of Purpose that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid Purpose value"
+        204:
+          description: "Purpose deleted"
   /patients/{patientId}/visits:
     get:
       summary: "Fetch a patient's visit"
