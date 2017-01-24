@@ -2,15 +2,14 @@
 
 namespace App\Models\ListsModels;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
 
-class Familyplanning extends Model
+class Category extends Model
 {
     use SoftDeletes;
-
-    protected $table = 'tbl_family_planning';
+    
+    protected $table = 'tbl_category';
     protected $fillable = ['name'];
     protected $dates = ['deleted_at'];
-
 }
