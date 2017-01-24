@@ -402,7 +402,7 @@ paths:
         type: "string"
       responses:
         400:
-          description: "Invalid patient value"
+          description: "Invalid category value"
         204:
           description: "Category deleted"
   /lists/counties:
@@ -523,6 +523,7 @@ paths:
           description: "Invalid patient value"
         204:
           description: "County deleted"
+
   /lists/counties/{countyId}/Subcounties:
     get:
       summary: "Fetch counties (for select options)"
@@ -672,6 +673,30 @@ paths:
           description: "Invalid SubCounty value"
         204:
           description: "SubCounty deleted"
+
+  /lists/Subcounties:
+    get:
+      summary: "Fetch Sub counties (for select options)"
+      description: "Fetch List of all subcounties for regimens (for select options)"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/SubCounty"
+        400:
+          description: "Invalid name value"
+
   /lists/familyplanning:
     get:
       summary: "Fetch list of Family Planning (for select options)"
@@ -957,6 +982,7 @@ paths:
         in: "query"
         description: "name to filter by"
         required: false
+<<<<<<< HEAD
         type: "string"
       responses:
         200:
@@ -965,6 +991,51 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Services"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing Service"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "serviceId"
+        in: "path"
+        description: "ID of Service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Service"
+      responses:
+        202:
+          description: "Update Accepted"
+        405:
+          description: "Validation exception"
+        404:
+          description: "Service not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Deletes a service specified by serviceId"
+      description: ""
+      parameters:
+      - name: "serviceId"
+        in: "path"
+        description: "ID of Service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
         400:
           description: "Invalid name value"
     put:
@@ -1089,6 +1160,52 @@ paths:
         400:
           description: "Invalid ID supplied"
   /patients/{patientId}/allergies/{allergieId}:
+    put:
+      summary: "Update an existing patient "
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Patient"
+      responses:
+        405:
+          description: "Validation exception"
+        404:
+          description: "Patient not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Remove a patient"
+      description: ""
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid patient value"
+        204:
+          description: "Patient has been removed"    
+  /patients/{patientId}/allergies:
     get:
       summary: "Fetch a patient's allergies"
       description: "Fetch allergies"
@@ -1099,12 +1216,6 @@ paths:
       - name: "patientId"
         in: "path"
         description: "ID's of patient that needs to be fetched"
-        required: true
-        type: "integer"
-        format: "int64"
-      - name: "allergieId"
-        in: "path"
-        description: "ID of Allergies that needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -1135,12 +1246,6 @@ paths:
         required: true
         type: "integer"
         format: "int64"
-      - name: "allergieId"
-        in: "path"
-        description: "ID of Allergies that needs to be fetched"
-        required: true
-        type: "integer"
-        format: "int64"
       - in: "body"
         name: "body"
         required: false
@@ -1155,6 +1260,37 @@ paths:
               $ref: "#/definitions/PatientDrugAllergy"
         405:
           description: "Invalid input"
+  /patients/{patientId}/allergies/{allergieId}:
+    get:
+      summary: "Fetch a patient's allergies"
+      description: "Fetch allergies"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "allergieId"
+        in: "path"
+        description: "ID of Allergies that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        404:
+          description: "Patient or Allergies not found"
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PatientDrugAllergy"
+        400:
+          description: "Invalid ID supplied"
     put:
       summary: "Update an existing patient Allergies"
       description: ""
@@ -1209,9 +1345,65 @@ paths:
         type: "string"
       responses:
         400:
-          description: "Invalid patient value"
+          description: "Invalid value"
         204:
           description: "Visit has been removed"
+  /patients/{patientId}/appointments:
+    get:
+      summary: "Fetch the patient's appointments"
+      description: "Fetch appointments"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient and appointment that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        404:
+          description: "Patient or Appointment not found"
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Appointments"
+        400:
+          description: "Invalid ID supplied"
+    post:
+      summary: "Add a new Appointments to a patient"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient and appointment that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Appointments"
+      responses:
+        201:
+          description: "Patient appointments Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Appointments"
+        405:
+          description: "Invalid input"
+
   /patients/{patientId}/appointments/{appointmentId}:
     get:
       summary: "Fetch the patient's appointments"
@@ -1637,6 +1829,61 @@ paths:
           description: "Invalid parameters"
         204:
           description: "regimens has been removed"
+  /patients/{patientId}/visits:
+    get:
+      summary: "Fetch a patient's visit"
+      description: "Fetch visits"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient and Visits that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        404:
+          description: "Patient or Visits not found"
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Visits"
+        400:
+          description: "Invalid ID supplied"
+    post:
+      summary: "Add a new Visits to a patient"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "patientId"
+        in: "path"
+        description: "ID's of patient and Visits that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Visits"
+      responses:
+        201:
+          description: "Patient Visit Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Visits"
+        405:
+          description: "Invalid input"
   /patients/{patientId}/visits/{visitId}:
     get:
       summary: "Fetch a patient's visit"
@@ -1668,42 +1915,6 @@ paths:
               $ref: "#/definitions/Visits"
         400:
           description: "Invalid ID supplied"
-    post:
-      summary: "Add a new Visits to a patient"
-      description: ""
-      consumes:
-      - "application/json"
-      - "application/xml"
-      produces:
-      - "application/json"
-      - "application/xml"
-      parameters:
-      - name: "patientId"
-        in: "path"
-        description: "ID's of patient and Visits that needs to be fetched"
-        required: true
-        type: "integer"
-        format: "int64"
-      - name: "visitId"
-        in: "path"
-        description: "ID's of Visits that needs to be fetched"
-        required: true
-        type: "integer"
-        format: "int64"
-      - in: "body"
-        name: "body"
-        required: false
-        schema:
-          $ref: "#/definitions/Visits"
-      responses:
-        201:
-          description: "Patient Visit Added Successfully"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Visits"
-        405:
-          description: "Invalid input"
     put:
       summary: "Update an existing patient appointment"
       description: ""
@@ -2501,8 +2712,37 @@ definitions:
       appointment_id:
         type: "integer"
         format: "int32"
-      regimen:
-        $ref: "#/definitions/Regimen"
+      VisitItems:
+        $ref: "#/definitions/VisitItem"
+  VisitItem:
+    type: "object"
+    properties:
+      duration:
+        type: "integer"
+        format: "int32"
+      expected_pill_count:
+        type: "integer"
+        format: "int32"
+      actual_pill_count:
+        type: "integer"
+        format: "int32"
+      missed_pill_count:
+        type: "integer"
+        format: "int32"
+      comment:
+        type: "string"
+      visit_id:
+        type: "integer"
+        format: "int32"
+      stock_id:
+        type: "integer"
+        format: "int32"
+      dose_id:
+        type: "integer"
+        format: "int32"
+      indication_id:
+        type: "integer"
+        format: "int32"
   Status:
     type: "object"
     properties:
