@@ -982,7 +982,6 @@ paths:
         in: "query"
         description: "name to filter by"
         required: false
-<<<<<<< HEAD
         type: "string"
       responses:
         200:
