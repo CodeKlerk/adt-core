@@ -1538,7 +1538,7 @@ paths:
           description: "Invalid patient value"
         204:
           description: "Patient deleted"
-  /lists/nonaAdherencereason:
+  /lists/nonaadherencereason:
     get:
       summary: "Fetch Non-Adherence Reasons  (for select options)"
       description: "Fetch Non-Adherence Reasons  (for select options)"
@@ -1656,6 +1656,242 @@ paths:
           description: "Invalid Non-Adherence Reason value"
         204:
           description: "Non-Adherence Reason deleted"
+  /lists/pepreason:
+    get:
+      summary: "Fetch PEP Reasons  (for select options)"
+      description: "Fetch PEP Reasons  (for select options)"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PepReason"
+        400:
+          description: "Invalid name value"
+    post:
+      summary: "create a PEP Reason"
+      description: "create a PEP Reason"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        201:
+          description: "PEP Reason Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PepReason"
+        405:
+          description: "Invalid input"
+  /lists/pepreason/{pepreasonId}:
+    get:
+      summary: "Fetch PEP Reason specified by pepreasonId"
+      description: "Fetch PEP Reason specified by pepreasonId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "pepreasonId"
+        in: "path"
+        description: "ID of PEP Reason that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PepReason"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing PEP Reason"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "pepreasonId"
+        in: "path"
+        description: "ID of PEP Reason that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/PepReason"
+      responses:
+        202:
+          description: "Update Accepted"
+        405:
+          description: "Validation exception"
+        404:
+          description: "PEP Reason not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Deletes a PEP Reason specified by pepreasonId"
+      description: ""
+      parameters:
+      - name: "pepreasonId"
+        in: "path"
+        description: "ID of PEP Reason that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid PEP Reason value"
+        204:
+          description: "PEP Reason deleted"
+  /lists/prophylaxis:
+    get:
+      summary: "Fetch Prophylaxis  (for select options)"
+      description: "Fetch Prophylaxis  (for select options)"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Prophylaxis"
+        400:
+          description: "Invalid name value"
+    post:
+      summary: "create a Prophylaxis"
+      description: "create a Prophylaxis"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        201:
+          description: "Prophylaxis Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Prophylaxis"
+        405:
+          description: "Invalid input"
+  /lists/prophylaxis/{prophylaxisId}:
+    get:
+      summary: "Fetch Prophylaxis specified by prophylaxisId"
+      description: "Fetch Prophylaxis specified by prophylaxisId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "prophylaxisId"
+        in: "path"
+        description: "ID of Prophylaxis that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Prophylaxis"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing Prophylaxis"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "prophylaxisId"
+        in: "path"
+        description: "ID of Prophylaxis that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Prophylaxis"
+      responses:
+        202:
+          description: "Update Accepted"
+        405:
+          description: "Validation exception"
+        404:
+          description: "Prophylaxis not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Deletes a Prophylaxis specified by prophylaxisId"
+      description: ""
+      parameters:
+      - name: "prophylaxisId"
+        in: "path"
+        description: "ID of Prophylaxis that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid Prophylaxis value"
+        204:
+          description: "Prophylaxis deleted"          
   /patients:
     get:
       summary: "get's a list of patients"
