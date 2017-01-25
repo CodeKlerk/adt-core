@@ -95,6 +95,12 @@ $api->version('v1', function ($api) {
         $api->post('/drugs/{drugId}/dose', 'App\Http\Controllers\DrugsApi@drugsDrugIdDosepost');
 
         /*
+        *   Facility routes
+        */
+        $api->get('/facility', 'App\Http\Controllers\FacilityApi@facilityget');
+        $api->get('/facility/{facilityId}', 'App\Http\Controllers\FacilityApi@facilityByIdget');
+
+        /*
         *   List routes
         */
         // allergies
@@ -150,6 +156,7 @@ $api->version('v1', function ($api) {
         $api->get('/lists/prophylaxis', 'App\Http\Controllers\ListsApi@prophylaxis');
         $api->get('/lists/pep', 'App\Http\Controllers\ListsApi@pep');
         $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
+
     });
 
 });
