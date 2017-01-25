@@ -23,5 +23,15 @@ class FacilityApi extends Controller
         $response = Facilities::findOrFail($facility_id);
         return response()->json($response, 200);
     }
+
+    public function facilitypost(){
+        $input = Request::all();
+        $new_facility = Facilities::create($input);
+        if($new_facility){
+            $this->response->created();
+        }else{
+            return $this->response->errorBadRequest();
+        }
+    }
     
 }

@@ -99,6 +99,7 @@ $api->version('v1', function ($api) {
         */
         $api->get('/facility', 'App\Http\Controllers\FacilityApi@facilityget');
         $api->get('/facility/{facilityId}', 'App\Http\Controllers\FacilityApi@facilityByIdget');
+        $api->post('facility', 'App\Http\Controllers\FacilityApi@facilitypost');
 
         /*
         *   List routes
