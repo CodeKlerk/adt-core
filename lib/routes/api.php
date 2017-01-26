@@ -152,7 +152,7 @@ $api->version('v1', function ($api) {
         $api->get('/lists/changereason', 'App\Http\Controllers\ListsApi@listsChangereasonget');
         $api->POST('/lists/changereason', 'App\Http\Controllers\ListsApi@listsChangereasonpost');
 
-        $api->get('/lists/changereason/{changereasonId}', 'App\Http\Controllers\listsChangereasonByIdget');
+        $api->get('/lists/changereason/{changereasonId}', 'App\Http\Controllers\ListsApi@listsChangereasonByIdget');
         $api->put('/lists/changereason/{changereasonId}', 'App\Http\Controllers\ListsApi@listsChangereasonput');
         $api->delete('/lists/changereason/{changereasonId}', 'App\Http\Controllers\ListsApi@listsChangereasondelete');
         // generic
@@ -215,10 +215,10 @@ $api->version('v1', function ($api) {
         /*
         *   Temp routes
         */
-        $api->get('/lists/patientsources', 'App\Http\Controllers\ListsApi@patientSources');
-        $api->get('/lists/whostage', 'App\Http\Controllers\ListsApi@whoStage'); 
-        $api->get('/lists/prophylaxis', 'App\Http\Controllers\ListsApi@prophylaxis');
-        $api->get('/lists/pep', 'App\Http\Controllers\ListsApi@pep');
-        $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
+        // $api->get('/lists/patientsources', 'App\Http\Controllers\ListsApi@patientSources');
+        // $api->get('/lists/whostage', 'App\Http\Controllers\ListsApi@whoStage'); 
+        // $api->get('/lists/prophylaxis', 'App\Http\Controllers\ListsApi@prophylaxis');
+        // $api->get('/lists/pep', 'App\Http\Controllers\ListsApi@pep');
+        // $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
     });
 });

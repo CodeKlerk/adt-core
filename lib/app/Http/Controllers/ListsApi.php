@@ -28,6 +28,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
+use Dingo\Api\Routing\Helpers;
 
 use App\Models\ListsModels\Allergies; 
 use App\Models\ListsModels\Appointmet;
@@ -43,9 +44,11 @@ use App\Models\ListsModels\Pepreason;
 use App\Models\ListsModels\Familyplanning;
 use App\Models\ListsModels\Services;
 use App\Models\ListsModels\Sub_county;
+use App\Models\ListsModels\ChangeReason;
 
 class ListsApi extends Controller
 {
+    use Helpers;
     /**
      * Constructor
      */
@@ -562,16 +565,8 @@ class ListsApi extends Controller
      */
     public function listsChangereasonget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsChangereasonGet as a GET method ?');
+        $response = ChangeReason::all();
+        return response()->json($response, 200);
     }
     /**
      * Operation listsChangereasonChangereasonIdGet
@@ -584,14 +579,12 @@ class ListsApi extends Controller
      */
     public function listsChangereasonByIdget($changereason_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsChangereasonChangereasonIdGet as a GET method ?');
+        $response = ChangeReason::findOrFail($changereason_id);
+        if($response){
+            return response()->json($response, 200);
+        }else{
+            return $this->response->errorNotFound();
+        }
     }
     /**
      * Operation listsChangereasonPost
@@ -604,15 +597,12 @@ class ListsApi extends Controller
     public function listsChangereasonpost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsChangereasonPost as a POST method ?');
+        $new_reason = ChangeReason::create($input);
+        if($new_reason){
+            return $this->response->created();
+        }else{
+            return $this->response->errorBadRequest(); 
+        }
     }
 
     /**
@@ -627,13 +617,13 @@ class ListsApi extends Controller
     public function listsChangereasonput($changereason_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsChangereasonChangereasonIdPut as a PUT method ?');
+        $reason = ChangeReason::findOrFail($changereason_id);
+        $reason->update([ 'name' => $input['name'] ]);
+        if($reason->save()){
+            return response()->json(['msg' => 'Updated change']);
+        }else{
+            return response('Oops, seems like something went wrong while trying to update reason');
+        }
     }
     /**
      * Operation listsChangereasonChangereasonIdDelete
@@ -646,14 +636,10 @@ class ListsApi extends Controller
      */
     public function listsChangereasondelete($changereason_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsChangereasonChangereasonIdDelete as a DELETE method ?');
+        $deleted_change = ChangeReason::destroy($changereason_id);
+        if($deleted_change){
+            return response()->json(['msg'=>'deleted reason']);
+        }
     }
 
     // ///////////////////////////
@@ -1510,7 +1496,7 @@ class ListsApi extends Controller
 
         return response('How about implementing listsWhostageWhostageIdDelete as a DELETE method ?');
     }
-    
+
 
     // ///////////////////////
     // Temp functions      //
