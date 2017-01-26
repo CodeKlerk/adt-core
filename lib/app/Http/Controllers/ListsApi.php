@@ -85,60 +85,7 @@ class ListsApi extends Controller
         $response = Allergies::findOrFail($allergy_id);
         return response()->json($response, 200);
     }
-    /**
-     * Operation listsAllergiesPost
-     *
-     * create a Category.
-     *
-     *
-     * @return Http response
-     */
-    public function listsAllergiesPost()
-    {
-        // $input = Request::all();
-        // $created_allergy = Allergies::create($input);
-        // if($created_allergy){
-        //     return response()->json(['msg' => 'Allergy add'],200);
-        // }else{
-        //     return response('Oops, seems like something went wrong');
-        // }
-    }
-    /**
-     * Operation listsAllergiesAllergyIdPut
-     *
-     * Update an existing Category.
-     *
-     * @param int $allergy_id ID of allergy (required)
-     *
-     * @return Http response
-     */
-    public function listsAllergiesPut($allergy_id)
-    {
-        // $input = Request::all();
-        // $allergy = Allergies::findOrFail($allergy_id)
-        //         ->update(['']);
-    }
 
-    /**
-     * Operation listsAllergiesAllergyIdDelete
-     *
-     * Deletes a Allergy specified by serviceId.
-     *
-     * @param int $allergy_id ID of allergy (required)
-     *
-     * @return Http response
-     */
-    public function listsAllergiesDelete($allergy_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsAllergiesAllergyIdDelete as a DELETE method ?');
-    }
 
     // ///////////////////////
     // Categories          //
@@ -262,48 +209,6 @@ class ListsApi extends Controller
         return response('How about implementing listsCountiesCountyIdGet as a GET method ?');
     }
     /**
-     * Operation listsCountiesPost
-     *
-     * create a Category.
-     *
-     *
-     * @return Http response
-     */
-    public function listsCountiesPost()
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsCountiesPost as a POST method ?');
-    }
-
-    /**
-     * Operation listsCountiesCountyIdPut
-     *
-     * Update an existing County.
-     *
-     * @param int $county_id ID of county that needs to be fetched (required)
-     *
-     * @return Http response
-     */
-    public function listsCountiesPut($county_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsCountiesCountyIdPut as a PUT method ?');
-    }
-    /**
      * Operation listsCountiesCountyIdDelete
      *
      * Deletes a County specified by countyId.
@@ -363,47 +268,6 @@ class ListsApi extends Controller
         return response('How about implementing listsCountiesCountyIdSubcountiesSubcountyIdGet as a GET method ?');
     }
 
-    /**
-     * Operation listsCountiesCountyIdSubcountiesPost
-     *
-     * create a Category.
-     *
-     * @param int $county_id ID of County that needs to be fetched (required)
-     *
-     * @return Http response
-     */
-    public function listsCountiesSubcountiesPost($county_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsCountiesCountyIdSubcountiesPost as a POST method ?');
-    }
-    /**
-     * Operation listsCountiesCountyIdSubcountiesSubcountyIdPut
-     *
-     * Update an existing SubCounty for a county (countyId).
-     *
-     * @param int $county_id ID of county (required)
-     * @param int $subcounty_id ID of subcounty (required)
-     *
-     * @return Http response
-     */
-    public function listsCountiesSubcountiesPut($county_id, $subcounty_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsCountiesCountyIdSubcountiesSubcountyIdPut as a PUT method ?');
-    }
     /**
      * Operation listsCountiesCountyIdSubcountiesSubcountyIdDelete
      *
@@ -683,6 +547,115 @@ class ListsApi extends Controller
             return response('Oops, seems like something went wrong while deleting the service');
         }
     }
+
+    // ///////////////////////////
+    // Changereasons functions //
+    // /////////////////////////
+
+    /**
+     * Operation listsChangereasonGet
+     *
+     * Fetch Change Reasons (for select options).
+     *
+     *
+     * @return Http response
+     */
+    public function listsChangereasonget()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsChangereasonGet as a GET method ?');
+    }
+    /**
+     * Operation listsChangereasonChangereasonIdGet
+     *
+     * Fetch Change Reason specified by changereasonId.
+     *
+     * @param int $changereason_id ID of Change Reason that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsChangereasonByIdget($changereason_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsChangereasonChangereasonIdGet as a GET method ?');
+    }
+    /**
+     * Operation listsChangereasonPost
+     *
+     * create a Change Reason.
+     *
+     *
+     * @return Http response
+     */
+    public function listsChangereasonpost()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsChangereasonPost as a POST method ?');
+    }
+
+    /**
+     * Operation listsChangereasonChangereasonIdPut
+     *
+     * Update an existing Change Reason.
+     *
+     * @param int $changereason_id ID of Change Reason that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsChangereasonput($changereason_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsChangereasonChangereasonIdPut as a PUT method ?');
+    }
+    /**
+     * Operation listsChangereasonChangereasonIdDelete
+     *
+     * Deletes a Change Reason specified by changereasonId.
+     *
+     * @param int $changereason_id ID of Change Reason that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsChangereasondelete($changereason_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsChangereasonChangereasonIdDelete as a DELETE method ?');
+    }
+
 
 
     // ///////////////////////

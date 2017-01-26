@@ -120,7 +120,7 @@ $api->version('v1', function ($api) {
         $api->delete('/lists/categories/{categoryId}', 'App\Http\Controllers\ListsApi@listsCategoriesdelete');
 
         // counties
-        $api->get('/lists/counties', 'App\Http\Controllers\ListsApi@listsCountiesget');
+       ]]]]] $api->get('/lists/counties', 'App\Http\Controllers\ListsApi@listsCountiesget');
         $api->get('/lists/counties/{countyId}', 'App\Http\Controllers\ListsApi@listsCountiesget'); 
         // SubCounties
 
@@ -148,6 +148,15 @@ $api->version('v1', function ($api) {
         $api->get('/lists/services/{serviceId}', 'App\Http\Controllers\ListsApi@listsServicesByIdget');
         $api->put('/lists/services/{serviceId}', 'App\Http\Controllers\ListsApi@listsServicesput');
         $api->delete('/lists/services/{serviceId}', 'App\Http\Controllers\ListsApi@listsServicesdelete');
+        // change reason
+        $api->get('/lists/changereason', 'App\Http\Controllers\ListsApi@listsChangereasonget');
+        $api->POST('/lists/changereason', 'App\Http\Controllers\ListsApi@listsChangereasonpost');
+
+        $api->get('/lists/changereason/{changereasonId}', 'App\Http\Controllers\listsChangereasonByIdget');
+        $api->put('/lists/changereason/{changereasonId}', 'App\Http\Controllers\ListsApi@listsChangereasonput');
+        $api->delete('/lists/changereason/{changereasonId}', 'App\Http\Controllers\ListsApi@listsChangereasondelete');
+
+
 
         /*
         *   Temp routes
@@ -157,7 +166,5 @@ $api->version('v1', function ($api) {
         $api->get('/lists/prophylaxis', 'App\Http\Controllers\ListsApi@prophylaxis');
         $api->get('/lists/pep', 'App\Http\Controllers\ListsApi@pep');
         $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
-
     });
-
 });
