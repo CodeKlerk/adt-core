@@ -21,7 +21,7 @@ class FacilityApi extends Controller
     }
     public function facilityByIdget($facility_id){
         $response = Facilities::findOrFail($facility_id);
-        $response->load('subcounty', 'supporter', 'county');
+        $response->load('subcounty', 'supporter', 'county', 'type');
         return response()->json($response, 200);
     }
 
@@ -53,7 +53,9 @@ class FacilityApi extends Controller
                 'weekend_max' => $input['weekend_max'],
                 'county_id' => $input['county_id'],
                 'county_sub_id' => $input['county_sub_id'],
-                'supporter_id' => $input['supporter_id']
+                'supporter_id' => $input['supporter_id'],
+                'facility_type_id' => $input['facility_type_id'],
+                'is_sms' => $input['is_sms']
             ]);
             if($facility->save()){
                 return response()->json(['msg'=> 'updated facility']);
