@@ -1244,6 +1244,7 @@ class ListsApi extends Controller
             return response()->json(['msg' => 'Deleted Purpose']);
         }
     }
+
     // /////////////////////////////
     // Whostage functions        //
     // ///////////////////////////
@@ -1257,16 +1258,8 @@ class ListsApi extends Controller
      */
     public function listsWhostageget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsWhostageGet as a GET method ?');
+        $response = WhoStage::all();
+        return response()->json($response,200);
     }
     /**
      * Operation listsWhostageWhostageIdGet
@@ -1279,14 +1272,8 @@ class ListsApi extends Controller
      */
     public function listsWhostageByIdget($whostage_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsWhostageWhostageIdGet as a GET method ?');
+        $who = whostage::findOrFail($whostage_id);
+        return response()->json($who,200);
     }
     /**
      * Operation listsWhostagePost
@@ -1299,15 +1286,12 @@ class ListsApi extends Controller
     public function listsWhostagepost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsWhostagePost as a POST method ?');
+        $new_who = whostage::create($input);
+        if($new_who){
+            return response()->json(['msg' => 'Added a new who stage']);
+        }else{
+            return response('Oops, it seems like there was a problem adding the whostage');
+        }
     }
     /**
      * Operation listsWhostageWhostageIdPut
@@ -1321,13 +1305,13 @@ class ListsApi extends Controller
     public function listsWhostageput($whostage_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsWhostageWhostageIdPut as a PUT method ?');
+        $who = whostage::findOrFail($whostage_id);
+        $who->update(['name' => $input['name']]);
+        if($who->save()){
+            return response()->json(['msg' => 'Update who stage']);
+        }else{
+            return response('Oops, it seems like there was a problem updating the whostage');
+        }
     }
     /**
      * Operation listsWhostageWhostageIdDelete
@@ -1340,14 +1324,10 @@ class ListsApi extends Controller
      */
     public function listsWhostagedelete($whostage_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsWhostageWhostageIdDelete as a DELETE method ?');
+        $deleted_who = whostage::destroy($whostage_id);
+        if($deleted_who){
+            return response()->json(['msg' => 'Deleted who stage']);
+        }
     }
 
 
