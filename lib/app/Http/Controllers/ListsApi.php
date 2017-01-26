@@ -914,16 +914,8 @@ class ListsApi extends Controller
      */
     public function listsPatientsourcesget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsPatientsourcesGet as a GET method ?');
+        $response = Sources::all(); 
+        return response()->json($response, 200);
     }
     /**
      * Operation listsPatientsourcesPatientsourcesIdGet
@@ -936,14 +928,8 @@ class ListsApi extends Controller
      */
     public function listsPatientsourcesByIdget($patientsources_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsPatientsourcesPatientsourcesIdGet as a GET method ?');
+        $source = Sources::findOrFail($patientsources_id);
+        return response()->json($source,200);
     }
     /**
      * Operation listsPatientsourcesPost
@@ -956,15 +942,12 @@ class ListsApi extends Controller
     public function listsPatientsourcespost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsPatientsourcesPost as a POST method ?');
+        $new_source = Sources::create($input);
+        if($new_source){
+            return response()->json(['msg' => 'Added a new patient source']);
+        }else{
+            return response('Oops, seems like something went wrong while trying to add a new source');
+        }
     }
     /**
      * Operation listsPatientsourcesPatientsourcesIdPut
@@ -978,13 +961,13 @@ class ListsApi extends Controller
     public function listsPatientsourcesput($patientsources_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsPatientsourcesPatientsourcesIdPut as a PUT method ?');
+        $source = Sources::findOrFail($patientsources_id);
+        $source->update(['name' => $input['name']]);
+        if($source->save()){
+            return response()->json(['msg' => 'Update patient source']);
+        }else{
+            return response('Oops, seems like something went wrong while trying to update the source');
+        }
     }
     /**
      * Operation listsPatientsourcesPatientsourcesIdDelete
@@ -997,14 +980,10 @@ class ListsApi extends Controller
      */
     public function listsPatientsourcesdelete($patientsources_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsPatientsourcesPatientsourcesIdDelete as a DELETE method ?');
+        $deleted_source = Sources::destroy($patientsources_id);
+        if($deleted_source){
+            return response()->json(['msg' => 'Deleted patient source']);
+        }
     }
 
     // /////////////////////////////
