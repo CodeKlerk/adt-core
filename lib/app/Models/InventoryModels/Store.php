@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model
+class Store extends Model
 {
-    protected $table = 'tbl_service';
+    protected $table = 'tbl_store';
 }

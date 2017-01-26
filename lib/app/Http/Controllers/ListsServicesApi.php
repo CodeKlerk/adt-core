@@ -41,7 +41,7 @@ use App\Models\ListsModels\Sub_county;
 use App\Models\ListsModels\Familyplanning;
 use App\Models\ListsModels\Services;
 
-class LisitServicesApi extends Controller
+class ListsServicesApi extends Controller
 {
     /**
      * Constructor
@@ -60,6 +60,10 @@ class LisitServicesApi extends Controller
      */
       public function listsServicesGet()
       {
-          return response("Add Get for the services");
+        // $services = Services::get();
+        // $services->load('regimen');
+        // $whostage = WhoStage::get();
+        // $Prophylaxis 
+        // return response()->json(['serives' => $services, 'whostage' => $whostage, 'prophylaxis' => ]);
       }      
 }

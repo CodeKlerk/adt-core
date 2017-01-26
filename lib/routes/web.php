@@ -10,11 +10,14 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$app->group(['prefix' => 'ADT_CORE/v0.1', 'middleware' => 'cors'], function () use ($app) {
+$app->group(['prefix' => 'ADT_CORE/v0.1' ], function () use ($app) {
 
 $app->get('/', function () use ($app) {
     return $app->version();
 });
+
+$app->POST('/testpost', 'TestController@post_test');
+
 
 /**
  * GET listsServicesGet
@@ -22,7 +25,7 @@ $app->get('/', function () use ($app) {
  * Notes: Fetch Drug Allergies  (for select options)
  * Output-Formats: [application/json, application/xml]
  */
-$app->GET('/lists/services', 'listsServicesApi@listsServicesGet');
+$app->GET('/lists/services', 'ListsServicesApi@listsServicesGet');
 
 /**
  * POST addPatient
@@ -334,6 +337,268 @@ $app->GET('/users/{usersId}', 'DefaultApi@usersUsersIdGet');
 
  */
 $app->PUT('/users/{usersId}', 'DefaultApi@usersUsersIdPut');
+/**
+ * GET listsAllergiesGet
+ * Summary: Fetch Allergy specified by allergyId
+ * Notes: Fetch all Allergy 
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/allergies', 'ListsApi@listsAllergiesGet');
 
+/**
+ * GET listsAllergiesAllergyIdGet
+ * Summary: Fetch Allergy specified by allergyId
+ * Notes: Fetch Allergy specified by allergyId
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/allergies/{allergyId}', 'ListsApi@listsAllergiesByIdGet');
+/**
+ * POST listsAllergiesPost
+ * Summary: create a Category
+ * Notes: create a Category
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->POST('/lists/allergies', 'ListsApi@listsAllergiesPost');
+
+/**
+ * PUT listsAllergiesAllergyIdPut
+ * Summary: Update an existing Category
+ * Notes: 
+ */
+$app->PUT('/lists/allergies/{allergyId}', 'ListsApi@listsAllergiesPut');
+/**
+ * DELETE listsAllergiesAllergyIdDelete
+ * Summary: Deletes a Allergy specified by serviceId
+ * Notes: 
+ */
+$app->DELETE('/lists/allergies/{allergyId}', 'ListsApi@listsAllergiesDelete');
+
+/**
+ * GET listsCategoriesGet
+ * Summary: Fetch Regimen Categories (for select options)
+ * Notes: Fetch List of all categories for regimens (for select options)
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/categories', 'ListsApi@listsCategoriesGet');
+/**
+ * GET listsCategoriesCategoryIdGet
+ * Summary: Fetch Category specified by categoryId
+ * Notes: Fetch Category specified by categoryId
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/categories/{categoryId}', 'ListsApi@listsCategoriesByIdGet');
+
+/**
+ * POST listsCategoriesPost
+ * Summary: create a Category
+ * Notes: create a Category
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->POST('/lists/categories', 'ListsApi@listsCategoriesPost');
+/**
+ * PUT listsCategoriesCategoryIdPut
+ * Summary: Update an existing Category
+ * Notes: 
+ */
+$app->PUT('/lists/categories/{categoryId}', 'ListsApi@listsCategoriesPut');
+/**
+ * DELETE listsCategoriesCategoryIdDelete
+ * Summary: Deletes a Category specified by serviceId
+ * Notes: 
+ */
+$app->DELETE('/lists/categories/{categoryId}', 'ListsApi@listsCategoriesDelete');
+
+
+/**
+ * GET listsCountiesGet
+ * Summary: Fetch counties (for select options)
+ * Notes: Fetch List of all counties for regimens (for select options)
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/counties', 'ListsApi@listsCountiesGet');
+/**
+ * GET listsCountiesCountyIdGet
+ * Summary: Fetch County specified by countyId
+ * Notes: Fetch County specified by countyId
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/counties/{countyId}', 'ListsApi@listsCountiesGet'); 
+
+/**
+ * POST listsCountiesPost
+ * Summary: create a Category
+ * Notes: create a Category
+ * Output-Formats: [application/json, application/xml]
+ */
+
+$app->POST('/lists/counties', 'ListsApi@listsCountiesPost');
+/**
+ * PUT listsCountiesCountyIdPut
+ * Summary: Update an existing County
+ * Notes: 
+ */
+$app->PUT('/lists/counties/{countyId}', 'ListsApi@listsCountiesPut');
+/**
+ * DELETE listsCountiesCountyIdDelete
+ * Summary: Deletes a County specified by countyId
+ * Notes: 
+ */
+$app->DELETE('/lists/counties/{countyId}', 'ListsApi@listsCountiesDelete');
+
+/**
+ * GET listsCountiesCountyIdSubcountiesGet
+ * Summary: Fetch counties (for select options)
+ * Notes: Fetch List of all counties for regimens (for select options)
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/counties/{countyId}/Subcounties', 'ListsApi@listsCountiesSubcountiesGet');
+/**
+ * GET listsCountiesCountyIdSubcountiesSubcountyIdGet
+ * Summary: Fetch County specified by countyId
+ * Notes: Fetch subCounty specified by subcountyId within County (countyId)
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'ListsApi@listsCountiesSubcountiesGet');
+/**
+ * POST listsCountiesCountyIdSubcountiesPost
+ * Summary: create a Category
+ * Notes: create a Category
+ * Output-Formats: [application/json, application/xml]
+ */
+ 
+$app->POST('/lists/counties/{countyId}/Subcounties', 'ListsApi@listsCountiesSubcountiesPost');
+/**
+ * PUT listsCountiesCountyIdSubcountiesSubcountyIdPut
+ * Summary: Update an existing SubCounty for a county (countyId)
+ * Notes: 
+ */
+$app->PUT('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'ListsApi@listsCountiesSubcountiesPut');
+/**
+ * DELETE listsCountiesCountyIdSubcountiesSubcountyIdDelete
+ * Summary: Deletes a SubCounty specified by subcountyId in a County specified by countyId
+ * Notes: 
+ */
+$app->DELETE('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'ListsApi@listsCountiesSubcountiesDelete');
+
+
+/**
+ * GET listsFamilyplanningGet
+ * Summary: Fetch list of Family Planning (for select options)
+ * Notes: List of Family planning  items(for select options)
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/familyplanning', 'ListsApi@listsFamilyplanningGet');
+/**
+ * GET listsFamilyplanningFamilyplanningIdGet
+ * Summary: Fetch a FamilyPlanning item specified by familyplanningId
+ * Notes: Fetch a FamilyPlanning item specified by familyplanningId
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/familyplanning/{familyplanningId}', 'ListsApi@listsFamilyplanningGet');
+/**
+ * POST listsFamilyplanningPost
+ * Summary: create a FamilyPlanning item
+ * Notes: create a FamilyPlanning item
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->POST('/lists/familyplanning', 'ListsApi@listsFamilyplanningPost');
+/**
+ * PUT listsFamilyplanningFamilyplanningIdPut
+ * Summary: Update an existing FamilyPlanning item
+ * Notes: 
+
+ */
+$app->PUT('/lists/familyplanning/{familyplanningId}', 'ListsApi@listsFamilyplanningPut');
+/**
+ * DELETE listsFamilyplanningFamilyplanningIdDelete
+ * Summary: Deletes a FamilyPlanning item specified by familyplanningId
+ * Notes: 
+
+ */
+$app->DELETE('/lists/familyplanning/{familyplanningId}', 'ListsApi@listsFamilyplanningDelete');
+
+
+/**
+ * GET listsIllnessesGet
+ * Summary: Fetch list of Illnessess(for select options)
+ * Notes: List of Illnessess(for select options)
+
+ */
+$app->GET('/lists/illnesses', 'ListsApi@listsIllnessesGet');
+/**
+ * GET listsIllnessesIllnessIdGet
+ * Summary: Fetch a Illness specified by illnessId
+ * Notes: Fetch a Illness specified by illnessId
+ * Output-Formats: [application/json]
+ */
+$app->GET('/lists/illnesses/{illnessId}', 'ListsApi@listsIllnessesByIdGet');
+/**
+ * POST listsIllnessesPost
+ * Summary: Add an illness
+ * Notes: Add an illness
+
+ */
+$app->POST('/lists/illnesses', 'ListsApi@listsIllnessesPost');
+/**
+ * PUT listsIllnessesIllnessIdPut
+ * Summary: Update an existing Illness specified by illnessId
+ * Notes: 
+
+ */
+$app->PUT('/lists/illnesses/{illnessId}', 'ListsApi@listsIllnessesPut');
+/**
+ * DELETE listsIllnessesIllnessIdDelete
+ * Summary: Deletes a FamilyPlanning item specified by familyplanningId
+ * Notes: 
+
+ */
+$app->DELETE('/lists/illnesses/{illnessId}', 'ListsApi@listsIllnessesDelete');
+
+
+/**
+ * GET listsServicesGet
+ * Summary: Fetch Drug Allergies  (for select options)
+ * Notes: Fetch Drug Allergies  (for select options)
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/services', 'ListsApi@listsServicesGet');
+/**
+ * GET listsServicesServiceIdGet
+ * Summary: Fetch Service specified by serviceId
+ * Notes: Fetch Service specified by serviceId
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->GET('/lists/services/{serviceId}', 'ListsApi@listsServicesByIdGet');
+/**
+ * POST listsServicesPost
+ * Summary: create a service
+ * Notes: create a service
+ * Output-Formats: [application/json, application/xml]
+ */
+$app->POST('/lists/services', 'ListsApi@listsServicesPost');
+/**
+ * PUT listsServicesServiceIdPut
+ * Summary: Update an existing Service
+ * Notes: 
+
+ */
+$app->PUT('/lists/services/{serviceId}', 'ListsApi@listsServicesPut');
+/**
+ * DELETE listsServicesServiceIdDelete
+ * Summary: Deletes a service specified by serviceId
+ * Notes: 
+
+ */
+$app->DELETE('/lists/services/{serviceId}', 'ListsApi@listsServicesDelete');
+
+    // ///////////////////////
+    // temp routes         //
+    // //////////////////////
+
+$app->GET('/lists/patientsources', 'ListsApi@patientSources');
+$app->GET('/lists/whostage', 'ListsApi@whoStage'); 
+$app->GET('/lists/prophylaxis', 'ListsApi@prophylaxis');
+$app->GET('/lists/pep', 'ListsApi@pep');
+$app->GET('/lists/sub_county', 'ListsApi@sub_county');
 
 });

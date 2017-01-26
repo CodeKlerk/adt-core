@@ -4441,8 +4441,8 @@ definitions:
         type: "integer"
         format: "int32"
       appointment_id:
-      type: "integer"
-      format: ""   int32 
+        type: "integer"
+        format: "int32"    
   DispenseItems:
     type: "object"
     properties:
