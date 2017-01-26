@@ -987,7 +987,7 @@ class ListsApi extends Controller
     }
 
     // /////////////////////////////
-    // Pepreason functions       //
+    // Pepreason functions       // 
     // ///////////////////////////
 
     /**
@@ -1000,16 +1000,8 @@ class ListsApi extends Controller
      */
     public function listsPepreasonget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsPepreasonGet as a GET method ?');
+        $response = Pepreason::all();
+        return response()->json($response,200);
     }
     /**
      * Operation listsPepreasonPepreasonIdGet
@@ -1022,14 +1014,8 @@ class ListsApi extends Controller
      */
     public function listsPepreasonByIdget($pepreason_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsPepreasonPepreasonIdGet as a GET method ?');
+        $pep = Pepreason::findOrFail($pepreason_id);
+        return response()->json($pep,200);
     }
 
     /**
@@ -1043,15 +1029,12 @@ class ListsApi extends Controller
     public function listsPepreasonpost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsPepreasonPost as a POST method ?');
+        $new_pepreaosn = Pepreason::create($input);
+        if($new_pepreaosn){
+            return response()->json(['msg' => 'Added a new pep reason']);
+        }else{
+            return response('Oops, it seems like there was a problem adding the pep reason');
+        }
     }
     /**
      * Operation listsPepreasonPepreasonIdPut
@@ -1065,13 +1048,13 @@ class ListsApi extends Controller
     public function listsPepreasonput($pepreason_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsPepreasonPepreasonIdPut as a PUT method ?');
+        $pep = Pepreason::findOrFail($pepreason_id);
+        $pep->update(['name' => $input['name']]);
+        if($pep->save()){
+            return response()->json(['msg' => 'Update pep reason']);            
+        }else{
+            return response('Oops, it seems like there was a problem updating the pep reason');
+        }
     }
     /**
      * Operation listsPepreasonPepreasonIdDelete
@@ -1084,14 +1067,10 @@ class ListsApi extends Controller
      */
     public function listsPepreasondelete($pepreason_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsPepreasonPepreasonIdDelete as a DELETE method ?');
+        $deleted_pepreason = Pepreason::destroy($pepreason_id);
+        if($deleted_pepreason){
+            return response()->json(['msg' => 'Deleted pep reason']);
+        }
     }
 
     // /////////////////////////////
