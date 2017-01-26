@@ -1334,26 +1334,6 @@ class ListsApi extends Controller
     // ///////////////////////
     // Temp functions      //
     // //////////////////////
-    public function prophylaxis()
-    {
-        $response = Prophylaxis::all();
-        return response()->json($response, 200);
-    }
-    public function pep()
-    {
-       $response = Pepreason::all();
-       return response()->json($response, 200);
-    }
-    public function whoStage()
-    {
-        $response = WhoStage::all();
-        return response()->json($response, 200);
-    }
-    public function patientSources()
-    {
-        $response = Sources::all();
-        return response()->json($response, 200);
-    }
 
     public function sub_county(){
         $response = Sub_county::all();

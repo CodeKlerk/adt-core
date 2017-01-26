@@ -215,10 +215,7 @@ $api->version('v1', function ($api) {
         /*
         *   Temp routes
         */
-        // $api->get('/lists/patientsources', 'App\Http\Controllers\ListsApi@patientSources');
-        // $api->get('/lists/whostage', 'App\Http\Controllers\ListsApi@whoStage'); 
-        // $api->get('/lists/prophylaxis', 'App\Http\Controllers\ListsApi@prophylaxis');
-        // $api->get('/lists/pep', 'App\Http\Controllers\ListsApi@pep');
-        // $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
+
+        $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
     });
 });
