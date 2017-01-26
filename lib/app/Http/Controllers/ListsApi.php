@@ -869,7 +869,115 @@ class ListsApi extends Controller
 
         return response('How about implementing listsInstructionInstructionIdDelete as a DELETE method ?');
     }
-        
+
+    // /////////////////////////////
+    // Nonaadherence functions   //
+    // ///////////////////////////
+    
+    /**
+     * Operation listsNonaadherencereasonGet
+     *
+     * Fetch Non-Adherence Reasons  (for select options).
+     *
+     *
+     * @return Http response
+     */
+    public function listsNonaadherencereasonget()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsNonaadherencereasonGet as a GET method ?');
+    }
+
+    /**
+     * Operation listsNonadherenceNonadherenceIdGet
+     *
+     * Fetch Non-Adherence Reason specified by nonadherenceId.
+     *
+     * @param int $nonadherence_id ID of Non-Adherence Reason that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsNonadherencebyIdget($nonadherence_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsNonadherenceNonadherenceIdGet as a GET method ?');
+    }
+    /**
+     * Operation listsNonaadherencereasonPost
+     *
+     * create a Non-Adherence Reason.
+     *
+     *
+     * @return Http response
+     */
+    public function listsNonaadherencereasonpost()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsNonaadherencereasonPost as a POST method ?');
+    }
+    /**
+     * Operation listsNonadherenceNonadherenceIdPut
+     *
+     * Update an existing Non-Adherence Reason.
+     *
+     * @param int $nonadherence_id ID of Non-Adherence Reason that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsNonadherenceput($nonadherence_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsNonadherenceNonadherenceIdPut as a PUT method ?');
+    }
+    /**
+     * Operation listsNonadherenceNonadherenceIdDelete
+     *
+     * Deletes a Non-Adherence Reason specified by nonadherenceId.
+     *
+     * @param int $nonadherence_id ID of Non-Adherence Reason that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsNonadherencedelete($nonadherence_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsNonadherenceNonadherenceIdDelete as a DELETE method ?');
+    }
+
 
     // ///////////////////////
     // Temp functions      //

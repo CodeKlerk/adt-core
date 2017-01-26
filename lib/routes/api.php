@@ -169,6 +169,13 @@ $api->version('v1', function ($api) {
         $api->get('/lists/instruction/{instructionId}', 'App\Http\Controllers\ListsApi@listsInstructionByIdget');
         $api->put('/lists/instruction/{instructionId}', 'App\Http\Controllers\ListsApi@listsInstructionput');
         $api->delete('/lists/instruction/{instructionId}', 'App\Http\Controllers\ListsApi@listsInstructiondelete');
+        // Non-aadherence reason
+        $api->get('/lists/nonaadherencereason', 'App\Http\Controllers\ListsApi@listsNonaadherencereasonget');
+        $api->post('/lists/nonaadherencereason', 'App\Http\Controllers\ListsApi@listsNonaadherencereasonpost');
+
+        $api->get('/lists/nonadherence/{nonadherenceId}', 'App\Http\Controllers\ListsApi@listsNonadherencebyIdget');
+        $api->put('/lists/nonadherence/{nonadherenceId}', 'App\Http\Controllers\ListsApi@listsNonadherenceput');
+        $api->delete('/lists/nonadherence/{nonadherenceId}', 'App\Http\Controllers\ListsApi@listsNonadherencedelete');
 
 
         /*
