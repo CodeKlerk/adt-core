@@ -1193,6 +1193,219 @@ class ListsApi extends Controller
         return response('How about implementing listsPepreasonPepreasonIdDelete as a DELETE method ?');
     }
 
+    // /////////////////////////////
+    // Prophylaxis functions     //
+    // ///////////////////////////
+
+    /**
+     * Operation listsProphylaxisGet
+     *
+     * Fetch Prophylaxis  (for select options).
+     *
+     *
+     * @return Http response
+     */
+    public function listsProphylaxisget()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsProphylaxisGet as a GET method ?');
+    }
+    /**
+     * Operation listsProphylaxisProphylaxisIdGet
+     *
+     * Fetch Prophylaxis specified by prophylaxisId.
+     *
+     * @param int $prophylaxis_id ID of Prophylaxis that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsProphylaxisByIdget($prophylaxis_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsProphylaxisProphylaxisIdGet as a GET method ?');
+    }
+    /**
+     * Operation listsProphylaxisPost
+     *
+     * create a Prophylaxis.
+     *
+     *
+     * @return Http response
+     */
+    public function listsProphylaxispost()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsProphylaxisPost as a POST method ?');
+    }
+    /**
+     * Operation listsProphylaxisProphylaxisIdPut
+     *
+     * Update an existing Prophylaxis.
+     *
+     * @param int $prophylaxis_id ID of Prophylaxis that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsProphylaxisput($prophylaxis_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsProphylaxisProphylaxisIdPut as a PUT method ?');
+    }
+    /**
+     * Operation listsProphylaxisProphylaxisIdDelete
+     *
+     * Deletes a Prophylaxis specified by prophylaxisId.
+     *
+     * @param int $prophylaxis_id ID of Prophylaxis that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsProphylaxisdelete($prophylaxis_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsProphylaxisProphylaxisIdDelete as a DELETE method ?');
+    }
+
+    // /////////////////////////////
+    // Purpose functions         //
+    // ///////////////////////////
+    /**
+     * Operation listsPurposeGet
+     *
+     * Fetch Purpose list  (for select options).
+     *
+     *
+     * @return Http response
+     */
+    public function listsPurposeget()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsPurposeGet as a GET method ?');
+    }
+    /**
+     * Operation listsPurposePurposeIdGet
+     *
+     * Fetch Purpose specified by purposeId.
+     *
+     * @param int $purpose_id ID of Purpose that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsPurposeByIdget($purpose_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsPurposePurposeIdGet as a GET method ?');
+    }
+    /**
+     * Operation listsPurposePost
+     *
+     * create a Purpose.
+     *
+     *
+     * @return Http response
+     */
+    public function listsPurposepost()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsPurposePost as a POST method ?');
+    }
+    /**
+     * Operation listsPurposePurposeIdPut
+     *
+     * Update an existing Purpose.
+     *
+     * @param int $purpose_id ID of Purpose that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsPurposeput($purpose_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsPurposePurposeIdPut as a PUT method ?');
+    }
+    /**
+     * Operation listsPurposePurposeIdDelete
+     *
+     * Deletes a Purpose specified by purposeId.
+     *
+     * @param int $purpose_id ID of Purpose that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsPurposedelete($purpose_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsPurposePurposeIdDelete as a DELETE method ?');
+    }
+
 
 
     // ///////////////////////

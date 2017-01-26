@@ -190,6 +190,20 @@ $api->version('v1', function ($api) {
         $api->get('/lists/pepreason/{pepreasonId}', 'App\Http\Controllers\ListsApi@listsPepreasonByIdget');
         $api->put('/lists/pepreason/{pepreasonId}', 'App\Http\Controllers\ListsApi@listsPepreasonput');
         $api->delete('/lists/pepreason/{pepreasonId}', 'App\Http\Controllers\ListsApi@listsPepreasondelete');
+        // Prophylaxis
+        $api->get('/lists/prophylaxis', 'App\Http\Controllers\ListsApi@listsProphylaxisget');
+        $api->post('/lists/prophylaxis', 'App\Http\Controllers\ListsApi@listsProphylaxispost');
+
+        $api->get('/lists/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\ListsApi@listsProphylaxisByIdget');
+        $api->put('/lists/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\ListsApi@listsProphylaxisput');
+        $api->delete('/lists/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\ListsApi@listsProphylaxisdelete');
+        // purpose
+        $api->get('/lists/purpose', 'App\Http\Controllers\ListsApi@listsPurposeget');
+        $api->post('/lists/purpose', 'App\Http\Controllers\ListsApi@listsPurposepost');
+
+        $api->get('/lists/purpose/{purposeId}', 'App\Http\Controllers\ListsApi@listsPurposeByIdget');
+        $api->put('/lists/purpose/{purposeId}', 'App\Http\Controllers\ListsApi@listsPurposeput');
+        $api->delete('/lists/purpose/{purposeId}', 'App\Http\Controllers\ListsApi@listsPurposedelete');
 
 
         /*
