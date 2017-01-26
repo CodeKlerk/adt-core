@@ -48,6 +48,7 @@ use App\Models\ListsModels\ChangeReason;
 use App\Models\ListsModels\Generic;
 use App\Models\ListsModels\Instruction;
 use App\Models\ListsModels\NonAdherenceReason;
+use App\Models\ListsModels\Purpose;
 
 class ListsApi extends Controller
 {
@@ -1172,16 +1173,8 @@ class ListsApi extends Controller
      */
     public function listsPurposeget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsPurposeGet as a GET method ?');
+        $response = Purpose::all();
+        return response()->json($response,200);
     }
     /**
      * Operation listsPurposePurposeIdGet
@@ -1194,14 +1187,8 @@ class ListsApi extends Controller
      */
     public function listsPurposeByIdget($purpose_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsPurposePurposeIdGet as a GET method ?');
+        $purpose = Purpose::findOrFail($purpose_id);
+        return response()->json($purpose,200);
     }
     /**
      * Operation listsPurposePost
@@ -1214,15 +1201,12 @@ class ListsApi extends Controller
     public function listsPurposepost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsPurposePost as a POST method ?');
+        $new_purpose = Purpose::create($input);
+        if($new_purpose){
+            return response()->json(['msg' => 'Added a new Purpose']);
+        }else{
+            return response('Oops, it seems like there was a problem adding the Purpose');
+        }
     }
     /**
      * Operation listsPurposePurposeIdPut
@@ -1236,13 +1220,13 @@ class ListsApi extends Controller
     public function listsPurposeput($purpose_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsPurposePurposeIdPut as a PUT method ?');
+        $purpose = Purpose::findOrFail($purpose_id);
+        $purpose->update(['name' => $input['name']]);
+        if($purpose->save()){
+            return response()->json(['msg' => 'Update Purpose']);
+        }else{
+            return response('Oops, it seems like there was a problem updating the Purpose');
+        }
     }
     /**
      * Operation listsPurposePurposeIdDelete
@@ -1255,14 +1239,10 @@ class ListsApi extends Controller
      */
     public function listsPurposedelete($purpose_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsPurposePurposeIdDelete as a DELETE method ?');
+        $deleted_purpose = Purpose::destroy($purpose_id);
+        if($deleted_purpose){
+            return response()->json(['msg' => 'Deleted Purpose']);
+        }
     }
     // /////////////////////////////
     // Whostage functions        //
