@@ -873,7 +873,7 @@ class ListsApi extends Controller
     // /////////////////////////////
     // Nonaadherence functions   //
     // ///////////////////////////
-    
+
     /**
      * Operation listsNonaadherencereasonGet
      *
@@ -978,6 +978,222 @@ class ListsApi extends Controller
         return response('How about implementing listsNonadherenceNonadherenceIdDelete as a DELETE method ?');
     }
 
+    // /////////////////////////////
+    // Sources functions         //
+    // ///////////////////////////
+
+    /**
+     * Operation listsPatientsourcesGet
+     *
+     * Fetch Sources list  (for select options).
+     *
+     *
+     * @return Http response
+     */
+    public function listsPatientsourcesget()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsPatientsourcesGet as a GET method ?');
+    }
+    /**
+     * Operation listsPatientsourcesPatientsourcesIdGet
+     *
+     * Fetch Source specified by patientsourcesId.
+     *
+     * @param int $patientsources_id ID of Source that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsPatientsourcesByIdget($patientsources_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsPatientsourcesPatientsourcesIdGet as a GET method ?');
+    }
+    /**
+     * Operation listsPatientsourcesPost
+     *
+     * create a Source.
+     *
+     *
+     * @return Http response
+     */
+    public function listsPatientsourcespost()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsPatientsourcesPost as a POST method ?');
+    }
+    /**
+     * Operation listsPatientsourcesPatientsourcesIdPut
+     *
+     * Update an existing Source.
+     *
+     * @param int $patientsources_id ID of Source that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsPatientsourcesput($patientsources_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsPatientsourcesPatientsourcesIdPut as a PUT method ?');
+    }
+    /**
+     * Operation listsPatientsourcesPatientsourcesIdDelete
+     *
+     * Deletes a Source specified by patientsourcesId.
+     *
+     * @param int $patientsources_id ID of Source that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsPatientsourcesdelete($patientsources_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsPatientsourcesPatientsourcesIdDelete as a DELETE method ?');
+    }
+
+    // /////////////////////////////
+    // Pepreason functions         //
+    // ///////////////////////////
+
+    /**
+     * Operation listsPepreasonGet
+     *
+     * Fetch PEP Reasons  (for select options).
+     *
+     *
+     * @return Http response
+     */
+    public function listsPepreasonget()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsPepreasonGet as a GET method ?');
+    }
+    /**
+     * Operation listsPepreasonPepreasonIdGet
+     *
+     * Fetch PEP Reason specified by pepreasonId.
+     *
+     * @param int $pepreason_id ID of PEP Reason that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsPepreasonByIdget($pepreason_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsPepreasonPepreasonIdGet as a GET method ?');
+    }
+
+    /**
+     * Operation listsPepreasonPost
+     *
+     * create a PEP Reason.
+     *
+     *
+     * @return Http response
+     */
+    public function listsPepreasonpost()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsPepreasonPost as a POST method ?');
+    }
+    /**
+     * Operation listsPepreasonPepreasonIdPut
+     *
+     * Update an existing PEP Reason.
+     *
+     * @param int $pepreason_id ID of PEP Reason that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsPepreasonput($pepreason_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsPepreasonPepreasonIdPut as a PUT method ?');
+    }
+    /**
+     * Operation listsPepreasonPepreasonIdDelete
+     *
+     * Deletes a PEP Reason specified by pepreasonId.
+     *
+     * @param int $pepreason_id ID of PEP Reason that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsPepreasondelete($pepreason_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsPepreasonPepreasonIdDelete as a DELETE method ?');
+    }
+
+    
 
     // ///////////////////////
     // Temp functions      //

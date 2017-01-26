@@ -183,7 +183,13 @@ $api->version('v1', function ($api) {
         $api->get('/lists/patientsources/{patientsourcesId}', 'App\Http\Controllers\ListsApi@listsPatientsourcesByIdget');
         $api->put('/lists/patientsources/{patientsourcesId}', 'App\Http\Controllers\ListsApi@listsPatientsourcesput');
         $api->delete('/lists/patientsources/{patientsourcesId}', 'App\Http\Controllers\ListsApi@listsPatientsourcesdelete');
+        // pepreason
+        $api->get('/lists/pepreason', 'App\Http\Controllers\ListsApi@listsPepreasonget');
+        $api->post('/lists/pepreason', 'App\Http\Controllers\ListsApi@listsPepreasonpost');
 
+        $api->get('/lists/pepreason/{pepreasonId}', 'App\Http\Controllers\ListsApi@listsPepreasonByIdget');
+        $api->put('/lists/pepreason/{pepreasonId}', 'App\Http\Controllers\ListsApi@listsPepreasonput');
+        $api->delete('/lists/pepreason/{pepreasonId}', 'App\Http\Controllers\ListsApi@listsPepreasondelete');
 
 
         /*
