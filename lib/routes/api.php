@@ -176,6 +176,14 @@ $api->version('v1', function ($api) {
         $api->get('/lists/nonadherence/{nonadherenceId}', 'App\Http\Controllers\ListsApi@listsNonadherencebyIdget');
         $api->put('/lists/nonadherence/{nonadherenceId}', 'App\Http\Controllers\ListsApi@listsNonadherenceput');
         $api->delete('/lists/nonadherence/{nonadherenceId}', 'App\Http\Controllers\ListsApi@listsNonadherencedelete');
+        // patientsources
+        $api->get('/lists/patientsources', 'App\Http\Controllers\ListsApi@listsPatientsourcesget');
+        $api->post('/lists/patientsources', 'App\Http\Controllers\ListsApi@listsPatientsourcespost');
+
+        $api->get('/lists/patientsources/{patientsourcesId}', 'App\Http\Controllers\ListsApi@listsPatientsourcesByIdget');
+        $api->put('/lists/patientsources/{patientsourcesId}', 'App\Http\Controllers\ListsApi@listsPatientsourcesput');
+        $api->delete('/lists/patientsources/{patientsourcesId}', 'App\Http\Controllers\ListsApi@listsPatientsourcesdelete');
+
 
 
         /*
