@@ -120,7 +120,7 @@ $api->version('v1', function ($api) {
         $api->delete('/lists/categories/{categoryId}', 'App\Http\Controllers\ListsApi@listsCategoriesdelete');
 
         // counties
-       ]]]]] $api->get('/lists/counties', 'App\Http\Controllers\ListsApi@listsCountiesget');
+       $api->get('/lists/counties', 'App\Http\Controllers\ListsApi@listsCountiesget');
         $api->get('/lists/counties/{countyId}', 'App\Http\Controllers\ListsApi@listsCountiesget'); 
         // SubCounties
 
