@@ -656,6 +656,113 @@ class ListsApi extends Controller
         return response('How about implementing listsChangereasonChangereasonIdDelete as a DELETE method ?');
     }
 
+    // ///////////////////////////
+    // Generic functions       //
+    // /////////////////////////
+
+    /**
+     * Operation listsGenericGet
+     *
+     * Fetch list of Generic items(for select options).
+     *
+     *
+     * @return Http response
+     */
+    public function listsGenericget()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsGenericGet as a GET method ?');
+    }
+    /**
+     * Operation listsGenericGenericIdGet
+     *
+     * Fetch a Generic item specified by genericId.
+     *
+     * @param int $generic_id ID of Generic item (required)
+     *
+     * @return Http response
+     */
+    public function listsGenericgenericByIdget($generic_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsGenericGenericIdGet as a GET method ?');
+    }
+    /**
+     * Operation listsGenericPost
+     *
+     * Add an generic item.
+     *
+     *
+     * @return Http response
+     */
+    public function listsgenericpost()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $body = $input['body'];
+
+
+        return response('How about implementing listsGenericPost as a POST method ?');
+    }
+    /**
+     * Operation listsGenericGenericIdPut
+     *
+     * Update an existing Generic item specified by genericId.
+     *
+     * @param int $generic_id ID of Generic item (required)
+     *
+     * @return Http response
+     */
+    public function listsgenericGenericput($generic_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsGenericGenericIdPut as a PUT method ?');
+    }
+    /**
+     * Operation listsGenericGenericIdDelete
+     *
+     * Deletes a Generic item specified by genericId.
+     *
+     * @param int $generic_id ID of Generic item (required)
+     *
+     * @return Http response
+     */
+    public function listsGenericdelete($generic_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsGenericGenericIdDelete as a DELETE method ?');
+    }
+
 
 
     // ///////////////////////

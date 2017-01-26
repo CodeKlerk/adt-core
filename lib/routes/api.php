@@ -155,7 +155,13 @@ $api->version('v1', function ($api) {
         $api->get('/lists/changereason/{changereasonId}', 'App\Http\Controllers\listsChangereasonByIdget');
         $api->put('/lists/changereason/{changereasonId}', 'App\Http\Controllers\ListsApi@listsChangereasonput');
         $api->delete('/lists/changereason/{changereasonId}', 'App\Http\Controllers\ListsApi@listsChangereasondelete');
+        // generic
+        $api->get('/lists/generic', 'App\Http\Controllers\ListsApi@listsGenericget');
+        $api->post('/lists/generic', 'App\Http\Controllers\ListsApi@listsgenericpost');
 
+        $api->get('/lists/generic/{genericId}', 'App\Http\Controllers\ListsApi@listsGenericgenericByIdget');
+        $api->put('/lists/generic/{genericId}', 'App\Http\Controllers\ListsApi@listsgenericGenericput');
+        $api->delete('/lists/generic/{genericId}', 'App\Http\Controllers\ListsApi@listsGenericdelete');
 
 
         /*
