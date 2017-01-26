@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Models\FacilityModels\Facilities;
 
 class TestController extends Controller
 {
@@ -11,6 +13,7 @@ class TestController extends Controller
      */
     public function __construct()
     {
+        // $this->middleware('api.auth');
     }
 
     public function post_test()
@@ -22,6 +25,12 @@ class TestController extends Controller
             return response('Illnesses are present');
         }
         // return response()->json($input, 200);
+    }
+
+    public function get_test()
+    {
+        $response = Facilities::all();
+        return response()->json($response, 200);
     }
     
 }

@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Http\Response;
-use Illuminate\Http\Request;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +13,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-    	/** @var \Illuminate\Http\Request $request */
+        //
     }
 }
