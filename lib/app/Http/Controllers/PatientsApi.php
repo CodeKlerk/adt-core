@@ -50,8 +50,8 @@ use App\Events\CreatePatientEvent;
 use App\Events\UpdatePatientEvent;
 
 class PatientsApi extends Controller
-{
-    /**
+    {
+        /**
      * Constructor
      */
     public function __construct()
@@ -88,8 +88,6 @@ class PatientsApi extends Controller
                         'patient_status', 'patient_drug_allergy', 'drug_allergy_other', 'patient_dependant', 'patient_family_planning', 'patient_partner');
         return response()->json($response, 200);
 
-        $patients = Patient::with('service','facility.county_sub.county', 'supporter', 'who_stage', 'source','patient_partner','patient_dependant','patient_prophylaxis', 'patient_tb', 'patient_drug_other',
-         'drug_allergy.drug', 'drug_allergy_other', 'patient_drug_allergy.drug','patient_family_planning')->get();
     }
 
     /**

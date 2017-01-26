@@ -21,6 +21,7 @@ class FacilityApi extends Controller
     }
     public function facilityByIdget($facility_id){
         $response = Facilities::findOrFail($facility_id);
+        $response->load('subcounty', 'supporter', 'county');
         return response()->json($response, 200);
     }
 
