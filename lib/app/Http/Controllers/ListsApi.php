@@ -1405,8 +1405,112 @@ class ListsApi extends Controller
 
         return response('How about implementing listsPurposePurposeIdDelete as a DELETE method ?');
     }
+    // /////////////////////////////
+    // Whostage functions        //
+    // ///////////////////////////
+    /**
+     * Operation listsWhostageGet
+     *
+     * Fetch Drug Allergies  (for select options).
+     *
+     *
+     * @return Http response
+     */
+    public function listsWhostageget()
+    {
+        $input = Request::all();
+
+        //path params validation
 
 
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsWhostageGet as a GET method ?');
+    }
+    /**
+     * Operation listsWhostageWhostageIdGet
+     *
+     * Fetch a list of WHO stages specified by whostageId.
+     *
+     * @param int $whostage_id ID of Service that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsWhostageByIdget($whostage_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsWhostageWhostageIdGet as a GET method ?');
+    }
+    /**
+     * Operation listsWhostagePost
+     *
+     * create a service.
+     *
+     *
+     * @return Http response
+     */
+    public function listsWhostagepost()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsWhostagePost as a POST method ?');
+    }
+    /**
+     * Operation listsWhostageWhostageIdPut
+     *
+     * Update an existing Who Stage.
+     *
+     * @param int $whostage_id ID of Service that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsWhostageput($whostage_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsWhostageWhostageIdPut as a PUT method ?');
+    }
+    /**
+     * Operation listsWhostageWhostageIdDelete
+     *
+     * Deletes a service specified by whostageId.
+     *
+     * @param int $whostage_id ID of Service that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsWhostagedelete($whostage_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsWhostageWhostageIdDelete as a DELETE method ?');
+    }
+    
 
     // ///////////////////////
     // Temp functions      //

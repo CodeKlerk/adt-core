@@ -204,7 +204,13 @@ $api->version('v1', function ($api) {
         $api->get('/lists/purpose/{purposeId}', 'App\Http\Controllers\ListsApi@listsPurposeByIdget');
         $api->put('/lists/purpose/{purposeId}', 'App\Http\Controllers\ListsApi@listsPurposeput');
         $api->delete('/lists/purpose/{purposeId}', 'App\Http\Controllers\ListsApi@listsPurposedelete');
+        // whostage
+        $api->get('/lists/whostage', 'App\Http\Controllers\ListsApi@listsWhostageget');
+        $api->post('/lists/whostage', 'App\Http\Controllers\ListsApi@listsWhostagepost');
 
+        $api->get('/lists/whostage/{whostageId}', 'App\Http\Controllers\ListsApi@listsWhostageByIdget');
+        $api->put('/lists/whostage/{whostageId}', 'App\Http\Controllers\ListsApi@listsWhostageput');
+        $api->delete('/lists/whostage/{whostageId}', 'App\Http\Controllers\ListsApi@listsWhostagedelete');
 
         /*
         *   Temp routes
