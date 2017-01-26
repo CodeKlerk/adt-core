@@ -1086,7 +1086,7 @@ class ListsApi extends Controller
     }
 
     // /////////////////////////////
-    // Pepreason functions         //
+    // Pepreason functions       //
     // ///////////////////////////
 
     /**
@@ -1193,7 +1193,7 @@ class ListsApi extends Controller
         return response('How about implementing listsPepreasonPepreasonIdDelete as a DELETE method ?');
     }
 
-    
+
 
     // ///////////////////////
     // Temp functions      //
