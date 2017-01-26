@@ -47,6 +47,7 @@ use App\Models\ListsModels\Sub_county;
 use App\Models\ListsModels\ChangeReason;
 use App\Models\ListsModels\Generic;
 use App\Models\ListsModels\Instruction;
+use App\Models\ListsModels\NonAdherenceReason;
 
 class ListsApi extends Controller
 {
@@ -727,7 +728,7 @@ class ListsApi extends Controller
     }
 
     // /////////////////////////////
-    // Drug instruction functions//  ////////////////////////////////////////////////////////////////////
+    // Drug instruction functions// 
     // ///////////////////////////
 
     /**
@@ -808,7 +809,7 @@ class ListsApi extends Controller
     {
         $deleted_instruction = Instruction::destroy($instruction_id);
         if($deleted_instruction){
-            return response()->json(['msg' => 'Deleted instruction']); /////////////////////////////
+            return response()->json(['msg' => 'Deleted instruction']);
         }
     }
 
@@ -826,16 +827,8 @@ class ListsApi extends Controller
      */
     public function listsNonaadherencereasonget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsNonaadherencereasonGet as a GET method ?');
+        $response = NonAdherenceReason::all();
+        return response()->json($response,200);
     }
 
     /**
@@ -849,14 +842,8 @@ class ListsApi extends Controller
      */
     public function listsNonadherencebyIdget($nonadherence_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsNonadherenceNonadherenceIdGet as a GET method ?');
+        $reason = NonAdherenceReason::findOrFail($nonadherence_id);
+        return response()->json($reason,200);
     }
     /**
      * Operation listsNonaadherencereasonPost
@@ -869,15 +856,12 @@ class ListsApi extends Controller
     public function listsNonaadherencereasonpost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsNonaadherencereasonPost as a POST method ?');
+        $new_reason = NonAdherenceReason::create($input);
+        if($new_reason){
+            return response()->json(['msg' => 'Created new NonAdherence Reason']);
+        }else{
+            return response('Oops, seems like something went wrong while trying to create a new NonAdherence Reason');
+        }
     }
     /**
      * Operation listsNonadherenceNonadherenceIdPut
@@ -891,13 +875,13 @@ class ListsApi extends Controller
     public function listsNonadherenceput($nonadherence_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsNonadherenceNonadherenceIdPut as a PUT method ?');
+        $reason = NonAdherenceReason::findOrFail($nonadherence_id);
+        $reason->update(['name'=>$input['name']]);
+        if($reason->save()){
+            return response()->json(['msg' => 'Updated NonAdherence Reason']);
+        }else{
+            return response('Oops, seems like something went wrong while trying to update the NonAdherence Reason');
+        }
     }
     /**
      * Operation listsNonadherenceNonadherenceIdDelete
@@ -910,14 +894,10 @@ class ListsApi extends Controller
      */
     public function listsNonadherencedelete($nonadherence_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsNonadherenceNonadherenceIdDelete as a DELETE method ?');
+        $deleted_nonAdherenceReason = NonAdherenceReason::destroy($nonadherence_id);
+        if($deleted_nonAdherenceReason){
+            return response()->json(['msg' => 'Deleted NonAdherenceReason']);
+        }
     }
 
     // /////////////////////////////
