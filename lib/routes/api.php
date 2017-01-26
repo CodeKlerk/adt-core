@@ -162,6 +162,13 @@ $api->version('v1', function ($api) {
         $api->get('/lists/generic/{genericId}', 'App\Http\Controllers\ListsApi@listsGenericgenericByIdget');
         $api->put('/lists/generic/{genericId}', 'App\Http\Controllers\ListsApi@listsgenericGenericput');
         $api->delete('/lists/generic/{genericId}', 'App\Http\Controllers\ListsApi@listsGenericdelete');
+        // instruction
+        $api->get('/lists/instruction', 'App\Http\Controllers\ListsApi@listsInstructionget');
+        $api->post('/lists/instruction', 'App\Http\Controllers\ListsApi@listsInstructionpost');
+
+        $api->get('/lists/instruction/{instructionId}', 'App\Http\Controllers\ListsApi@listsInstructionByIdget');
+        $api->put('/lists/instruction/{instructionId}', 'App\Http\Controllers\ListsApi@listsInstructionput');
+        $api->delete('/lists/instruction/{instructionId}', 'App\Http\Controllers\ListsApi@listsInstructiondelete');
 
 
         /*

@@ -763,7 +763,113 @@ class ListsApi extends Controller
         return response('How about implementing listsGenericGenericIdDelete as a DELETE method ?');
     }
 
+    // /////////////////////////////
+    // Drug instruction functions//
+    // ///////////////////////////
 
+    /**
+     * Operation listsInstructionGet
+     *
+     * Fetch list ofInstructionsIllnessess(for select options).
+     *
+     *
+     * @return Http response
+     */
+    public function listsInstructionget()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsInstructionGet as a GET method ?');
+    }
+    /**
+     * Operation listsInstructionInstructionIdGet
+     *
+     * Fetch a Instruction specified by instructionId.
+     *
+     * @param int $instruction_id ID of Instruction item (required)
+     *
+     * @return Http response
+     */
+    public function listsInstructionByIdget($instruction_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsInstructionInstructionIdGet as a GET method ?');
+    }
+    /**
+     * Operation listsInstructionPost
+     *
+     * Add an illness.
+     *
+     *
+     * @return Http response
+     */
+    public function listsInstructionpost()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $body = $input['body'];
+
+
+        return response('How about implementing listsInstructionPost as a POST method ?');
+    }
+    /**
+     * Operation listsInstructionInstructionIdPut
+     *
+     * Update an existing Illness specified by instructionId.
+     *
+     * @param int $instruction_id ID of Instruction item (required)
+     *
+     * @return Http response
+     */
+    public function listsInstructionput($instruction_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsInstructionInstructionIdPut as a PUT method ?');
+    }
+    /**
+     * Operation listsInstructionInstructionIdDelete
+     *
+     * Deletes a Instruction item specified by instructionId.
+     *
+     * @param int $instruction_id ID of Instruction item (required)
+     *
+     * @return Http response
+     */
+    public function listsInstructiondelete($instruction_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsInstructionInstructionIdDelete as a DELETE method ?');
+    }
+        
 
     // ///////////////////////
     // Temp functions      //
