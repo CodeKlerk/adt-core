@@ -1087,16 +1087,8 @@ class ListsApi extends Controller
      */
     public function listsProphylaxisget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsProphylaxisGet as a GET method ?');
+        $response = Prophylaxis::all();
+        return response()->json($response,200);
     }
     /**
      * Operation listsProphylaxisProphylaxisIdGet
@@ -1109,14 +1101,8 @@ class ListsApi extends Controller
      */
     public function listsProphylaxisByIdget($prophylaxis_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsProphylaxisProphylaxisIdGet as a GET method ?');
+        $prophylaxis = Prophylaxis::findOrFail($prophylaxis_id);
+        return response()->json($prophylaxis,200);
     }
     /**
      * Operation listsProphylaxisPost
@@ -1129,15 +1115,12 @@ class ListsApi extends Controller
     public function listsProphylaxispost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsProphylaxisPost as a POST method ?');
+        $new_prophylaxis = Prophylaxis::create($input);
+        if($new_prophylaxis){
+            return response()->json(['msg' => 'Added a new Prophylaxis']);
+        }else{
+            return response('Oops, it seems like there was a problem adding the Prophylaxis');
+        }
     }
     /**
      * Operation listsProphylaxisProphylaxisIdPut
@@ -1151,13 +1134,13 @@ class ListsApi extends Controller
     public function listsProphylaxisput($prophylaxis_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsProphylaxisProphylaxisIdPut as a PUT method ?');
+        $prophylaxis = Prophylaxis::findOrFail($prophylaxis_id);
+        $prophylaxis->update(['name' => $input['name']]);
+        if($prophylaxis->save()){
+            return response()->json(['msg' => 'Updated Prophylaxis']);
+        }else{
+            return response('Oops, it seems like there was a problem updating the Prophylaxis');
+        }
     }
     /**
      * Operation listsProphylaxisProphylaxisIdDelete
@@ -1170,14 +1153,10 @@ class ListsApi extends Controller
      */
     public function listsProphylaxisdelete($prophylaxis_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsProphylaxisProphylaxisIdDelete as a DELETE method ?');
+        $deleted_prophylaxis = Prophylaxis::destroy($prophylaxis_id);
+        if($deleted_prophylaxis){
+            return response()->json(['msg' => 'Deleted Prophylaxis']);
+        }
     }
 
     // /////////////////////////////
