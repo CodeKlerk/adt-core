@@ -45,6 +45,7 @@ use App\Models\ListsModels\Familyplanning;
 use App\Models\ListsModels\Services;
 use App\Models\ListsModels\Sub_county;
 use App\Models\ListsModels\ChangeReason;
+use App\Models\ListsModels\Generic;
 
 class ListsApi extends Controller
 {
@@ -580,11 +581,8 @@ class ListsApi extends Controller
     public function listsChangereasonByIdget($changereason_id)
     {
         $response = ChangeReason::findOrFail($changereason_id);
-        if($response){
-            return response()->json($response, 200);
-        }else{
-            return $this->response->errorNotFound();
-        }
+        return response()->json($response, 200);
+
     }
     /**
      * Operation listsChangereasonPost
@@ -604,7 +602,6 @@ class ListsApi extends Controller
             return $this->response->errorBadRequest(); 
         }
     }
-
     /**
      * Operation listsChangereasonChangereasonIdPut
      *
@@ -643,7 +640,7 @@ class ListsApi extends Controller
     }
 
     // ///////////////////////////
-    // Generic functions       //
+    // Generic functions       // 
     // /////////////////////////
 
     /**
@@ -656,16 +653,8 @@ class ListsApi extends Controller
      */
     public function listsGenericget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsGenericGet as a GET method ?');
+        $response = Generic::all();
+        return response()->json($response,200);
     }
     /**
      * Operation listsGenericGenericIdGet
@@ -678,14 +667,8 @@ class ListsApi extends Controller
      */
     public function listsGenericgenericByIdget($generic_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsGenericGenericIdGet as a GET method ?');
+        $generic = Generic::findOrFail($generic_id);
+        return response()->json($generic,200);
     }
     /**
      * Operation listsGenericPost
@@ -698,15 +681,12 @@ class ListsApi extends Controller
     public function listsgenericpost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $body = $input['body'];
-
-
-        return response('How about implementing listsGenericPost as a POST method ?');
+        $new_generic = Generic::create($input);
+        if($new_generic){
+            return response()->json(['msg' => 'Created new generic']);
+        }else{
+            return response('Oops, seemes like something went wrong while trying to create a new generic');
+        }
     }
     /**
      * Operation listsGenericGenericIdPut
@@ -720,13 +700,13 @@ class ListsApi extends Controller
     public function listsgenericGenericput($generic_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsGenericGenericIdPut as a PUT method ?');
+        $generic = Generic::findOrFail($generic_id);
+        $generic->update(['name' => $input['name']]);
+        if($generic->save()){
+            return response()->json(['msg' => 'Updated generic']);
+        }else{
+            return response('Oops, seems like there was a problem updating the generic');
+        }
     }
     /**
      * Operation listsGenericGenericIdDelete
@@ -739,14 +719,10 @@ class ListsApi extends Controller
      */
     public function listsGenericdelete($generic_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsGenericGenericIdDelete as a DELETE method ?');
+        $deleted_generic = Generic::destroy($generic_id);
+        if($deleted_generic){
+            return response()->json(['msg' => 'Deleted generic']);
+        }
     }
 
     // /////////////////////////////
