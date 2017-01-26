@@ -46,6 +46,7 @@ use App\Models\ListsModels\Services;
 use App\Models\ListsModels\Sub_county;
 use App\Models\ListsModels\ChangeReason;
 use App\Models\ListsModels\Generic;
+use App\Models\ListsModels\Instruction;
 
 class ListsApi extends Controller
 {
@@ -726,7 +727,7 @@ class ListsApi extends Controller
     }
 
     // /////////////////////////////
-    // Drug instruction functions//
+    // Drug instruction functions//  ////////////////////////////////////////////////////////////////////
     // ///////////////////////////
 
     /**
@@ -739,16 +740,8 @@ class ListsApi extends Controller
      */
     public function listsInstructionget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsInstructionGet as a GET method ?');
+        $response = Instruction::all();
+        return response()->json($response,200);
     }
     /**
      * Operation listsInstructionInstructionIdGet
@@ -761,14 +754,8 @@ class ListsApi extends Controller
      */
     public function listsInstructionByIdget($instruction_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsInstructionInstructionIdGet as a GET method ?');
+        $instruction = Instruction::findOrFail($instruction_id);
+        return response()->json($instruction,200);
     }
     /**
      * Operation listsInstructionPost
@@ -781,15 +768,12 @@ class ListsApi extends Controller
     public function listsInstructionpost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $body = $input['body'];
-
-
-        return response('How about implementing listsInstructionPost as a POST method ?');
+        $new_instruction = Instruction::create($input);
+        if($new_instruction){
+            return response()->json(['msg' => 'Wrote new instruction']);
+        }else{
+            return response('Oops, seems like something went wrong while trying to create a new instruction');
+        }
     }
     /**
      * Operation listsInstructionInstructionIdPut
@@ -803,13 +787,13 @@ class ListsApi extends Controller
     public function listsInstructionput($instruction_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsInstructionInstructionIdPut as a PUT method ?');
+        $instruction = Instruction::findOrFail($instruction_id);
+        $instruction->update(['name' => $input['name']]);
+        if($instruction->save()){
+            return response()->json(['msg'=> 'Updated Instruction']);
+        }else{
+            return response('Oops, seems like something went wrong while trying to update instruction');
+        }
     }
     /**
      * Operation listsInstructionInstructionIdDelete
@@ -822,14 +806,10 @@ class ListsApi extends Controller
      */
     public function listsInstructiondelete($instruction_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsInstructionInstructionIdDelete as a DELETE method ?');
+        $deleted_instruction = Instruction::destroy($instruction_id);
+        if($deleted_instruction){
+            return response()->json(['msg' => 'Deleted instruction']); /////////////////////////////
+        }
     }
 
     // /////////////////////////////
