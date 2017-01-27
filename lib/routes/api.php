@@ -81,7 +81,13 @@ $api->version('v1', function ($api) {
         $api->post('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@addPatientVisits');
         $api->put('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@updatePatientVisit');
         $api->delete('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@deletePatientVisit');
-
+        
+        /*
+        *   Dispense routes
+        */
+        // $api->get('/patients/dispense', 'App\Http\Controllers\DispenseApi@dispenseDrugs'); // different route in doc
+        // $api->post('/patients/dispense', 'App\Http\Controllers\DispenseApi@dispensePost'); // different route in doc
+        
         /*
         *   Drugs routes
         */
@@ -215,7 +221,7 @@ $api->version('v1', function ($api) {
         /*
         *   Temp routes
         */
-
+        $api->get('/lists/type', 'App\Http\Controllers\ListsApi@type');
         $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
     });
 });

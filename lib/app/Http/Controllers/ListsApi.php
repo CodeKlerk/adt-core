@@ -50,6 +50,9 @@ use App\Models\ListsModels\Instruction;
 use App\Models\ListsModels\NonAdherenceReason;
 use App\Models\ListsModels\Purpose;
 
+// tmp 
+use App\Models\FacilityModels\FacilityTypes;
+
 class ListsApi extends Controller
 {
     use Helpers;
@@ -1337,6 +1340,11 @@ class ListsApi extends Controller
 
     public function sub_county(){
         $response = Sub_county::all();
+        return response()->json($response, 200);
+    }
+
+    public function type(){
+        $response = FacilityTypes::all();
         return response()->json($response, 200);
     }
 }
