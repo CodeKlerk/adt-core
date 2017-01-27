@@ -217,6 +217,13 @@ $api->version('v1', function ($api) {
         $api->get('/lists/whostage/{whostageId}', 'App\Http\Controllers\ListsApi@listsWhostageByIdget');
         $api->put('/lists/whostage/{whostageId}', 'App\Http\Controllers\ListsApi@listsWhostageput');
         $api->delete('/lists/whostage/{whostageId}', 'App\Http\Controllers\ListsApi@listsWhostagedelete');
+        // supporter // do
+        $api->get('/lists/supporter', 'App\Http\Controllers\ListsApi@listsSupporterget');
+        $api->post('/lists/supporter', 'App\Http\Controllers\ListsApi@listsSupporterpost');
+
+        $api->get('/lists/supporter/{supporterId}', 'App\Http\Controllers\ListsApi@listsSupporterByIdget');
+        $api->put('/lists/supporter/{supporterId}', 'App\Http\Controllers\ListsApi@listsSupporterput');
+        $api->delete('/lists/supporter/{supporterId}', 'App\Http\Controllers\ListsApi@listsSupporterdelete');
 
         /*
         *   Temp routes
