@@ -21,7 +21,7 @@ class Patient extends Model
     }
 
     public function facility(){
-        return $this->belongsTo('App\Models\Facility', 'facility_id');
+        return $this->belongsTo('App\Models\FacilityModels\Facilities', 'facility_id');
     }
 
     public function supporter(){
