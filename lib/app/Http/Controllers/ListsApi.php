@@ -49,6 +49,7 @@ use App\Models\ListsModels\Generic;
 use App\Models\ListsModels\Instruction;
 use App\Models\ListsModels\NonAdherenceReason;
 use App\Models\ListsModels\Purpose;
+use App\Models\ListsModels\Supporter;
 
 // tmp 
 use App\Models\FacilityModels\FacilityTypes;
@@ -240,8 +241,8 @@ class ListsApi extends Controller
     }
 
     // ///////////////////////
-    //CountiesSubcounties  //
-    // //////////////////////
+    // CountiesSubcounties //
+    // /////////////////////
     /**
      * Operation listsCountiesCountyIdSubcountiesGet
      *
@@ -301,8 +302,8 @@ class ListsApi extends Controller
     }
 
     // ///////////////////////
-    //Family planning      //
-    // //////////////////////
+    // Family planning     //
+    // /////////////////////
 
     /**
      * Operation listslGet
@@ -386,8 +387,8 @@ class ListsApi extends Controller
 
 
     // ///////////////////////
-    //  Illnesses           //
-    // //////////////////////
+    //  Illnesses          //
+    // /////////////////////
 
     /**
      * Operation listsIllnessesGet
@@ -919,7 +920,7 @@ class ListsApi extends Controller
     public function listsPatientsourcesget()
     {
         $response = Sources::all(); 
-        return response()->json($response, 200);
+        return response()->json([ 'data' => $response], 200);
     }
     /**
      * Operation listsPatientsourcesPatientsourcesIdGet
@@ -1334,11 +1335,95 @@ class ListsApi extends Controller
     }
 
 // supsup
+    // /////////////////////////////
+    // Supporter functions       // ///////////////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////
 
+    /**
+     * Operation listsWhostageGet
+     *
+     * Fetch Supporter  (for select options).
+     *
+     *
+     * @return Http response
+     */
+    public function listsSupporterget()
+    {
+        $response = Supporter::all();
+        return response()->json($response,200);
+    }
+    /**
+     * Operation listssupporterByIdGet
+     *
+     * Fetch a list of Supporter specified by whostageId.
+     *
+     * @param int $supporter_id ID of Supporter that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsSupporterByIdget($supporter_id)
+    {
+        $supporter = Supporter::findOrFail($supporter_id);
+        return response()->json($supporter,200);
+    }
+    /**
+     * Operation listssupporterPost
+     *
+     * create a Supporter.
+     *
+     *
+     * @return Http response
+     */
+    public function listsSupporterpost()
+    {
+        $input = Request::all();
+        $new_supporter = Supporter::create($input);
+        if($new_supporter){
+            return response()->json(['msg' => 'Added a new supporter']);
+        }else{
+            return response('Oops, it seems like there was a problem adding the supporter');
+        }
+    }
+    /**
+     * Operation listsSupporterPut
+     *
+     * Update an existing Supporter.
+     *
+     * @param int $supporter_id ID of Supporter that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsSupporterput($supporter_id)
+    {
+        $input = Request::all();
+        $supporter = Supporter::findOrFail($supporter_id);
+        $supporter->update(['name' => $input['name']]);
+        if($supporter->save()){
+            return response()->json(['msg' => 'Update Supporter']);
+        }else{
+            return response('Oops, it seems like there was a problem updating the Supporter');
+        }
+    }
+    /**
+     * Operation listsSupporterDelete
+     *
+     * Deletes a Supporter specified by SupporterId.
+     *
+     * @param int $supporter_id ID of Service that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsSupporterdelete($supporter_id)
+    {
+        $deleted_supporter = Supporter::destroy($supporter_id);
+        if($deleted_supporter){
+            return response()->json(['msg' => 'Deleted supporter']);
+        }
+    }
 
     // ///////////////////////
     // Temp functions      //
-    // //////////////////////
+    // /////////////////////
 
     public function sub_county(){
         $response = Sub_county::all();
