@@ -1340,7 +1340,7 @@ class ListsApi extends Controller
     // ///////////////////////////
 
     /**
-     * Operation listsWhostageGet
+     * Operation listssupporterGet
      *
      * Fetch Supporter  (for select options).
      *

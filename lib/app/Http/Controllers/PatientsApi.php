@@ -130,7 +130,7 @@ class PatientsApi extends Controller
      */
     public function deletePatient($patient_id)
     {
-        $patient = Products::find($patient_id);
+        $patient = Patient::find($patient_id);
         $patient->delete();
         return response()->json(['msg' => 'Deleted Patient from facility']);
     }
