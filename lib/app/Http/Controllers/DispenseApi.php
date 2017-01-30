@@ -43,7 +43,7 @@ class DispenseApi extends Controller
     }
 
     public function dispensepost($patient_id){
-        $input = Request::all(); patient
+        $input = Request::all();
         event(new DispensePatientEvent($input, $patient_id));
     }
 
