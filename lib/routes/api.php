@@ -85,8 +85,8 @@ $api->version('v1', function ($api) {
         /*
         *   Dispense routes
         */
-        // $api->get('/patients/dispense', 'App\Http\Controllers\DispenseApi@dispenseDrugs'); // different route in doc
-        // $api->post('/patients/dispense', 'App\Http\Controllers\DispenseApi@dispensePost'); // different route in doc
+        // $api->get('/patients/{patientId}/dispense', 'App\Http\Controllers\DispenseApi@dispenseDrugs'); // different route in doc
+        $api->post('/patients/{patientId}/dispense', 'App\Http\Controllers\DispenseApi@dispensepost'); // different route in doc
         
         /*
         *   Drugs routes

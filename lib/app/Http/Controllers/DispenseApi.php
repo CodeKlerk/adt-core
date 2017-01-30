@@ -29,8 +29,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
 use App\Models\DrugModels\Drug;
-use App\Models\
-class DrugsApi extends Controller
+
+// Event
+use App\Events\DispensePatientEvent;
+
+class DispenseApi extends Controller
 {
     /**
      * Constructor
@@ -39,8 +42,9 @@ class DrugsApi extends Controller
     {
     }
 
-    public function dispenseDrugs(){
-
+    public function dispensepost($patient_id){
+        $input = Request::all(); patient
+        event(new DispensePatientEvent($input, $patient_id));
     }
 
 }
