@@ -81,7 +81,13 @@ $api->version('v1', function ($api) {
         $api->post('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@addPatientVisits');
         $api->put('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@updatePatientVisit');
         $api->delete('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@deletePatientVisit');
-
+        
+        /*
+        *   Dispense routes
+        */
+        // $api->get('/patients/{patientId}/dispense', 'App\Http\Controllers\DispenseApi@dispenseDrugs'); // different route in doc
+        $api->post('/patients/{patientId}/dispense', 'App\Http\Controllers\DispenseApi@dispensepost'); // different route in doc
+        
         /*
         *   Drugs routes
         */
@@ -100,7 +106,7 @@ $api->version('v1', function ($api) {
         $api->get('/facility', 'App\Http\Controllers\FacilityApi@facilityget');
         $api->get('/facility/{facilityId}', 'App\Http\Controllers\FacilityApi@facilityByIdget');
         $api->post('facility', 'App\Http\Controllers\FacilityApi@facilitypost');
-
+        $api->put('/facility/{facilityId}', 'App\Http\Controllers\FacilityApi@facilityput');
         /*
         *   List routes
         */
@@ -148,16 +154,81 @@ $api->version('v1', function ($api) {
         $api->get('/lists/services/{serviceId}', 'App\Http\Controllers\ListsApi@listsServicesByIdget');
         $api->put('/lists/services/{serviceId}', 'App\Http\Controllers\ListsApi@listsServicesput');
         $api->delete('/lists/services/{serviceId}', 'App\Http\Controllers\ListsApi@listsServicesdelete');
+        // change reason
+        $api->get('/lists/changereason', 'App\Http\Controllers\ListsApi@listsChangereasonget');
+        $api->POST('/lists/changereason', 'App\Http\Controllers\ListsApi@listsChangereasonpost');
+
+        $api->get('/lists/changereason/{changereasonId}', 'App\Http\Controllers\ListsApi@listsChangereasonByIdget');
+        $api->put('/lists/changereason/{changereasonId}', 'App\Http\Controllers\ListsApi@listsChangereasonput');
+        $api->delete('/lists/changereason/{changereasonId}', 'App\Http\Controllers\ListsApi@listsChangereasondelete');
+        // generic
+        $api->get('/lists/generic', 'App\Http\Controllers\ListsApi@listsGenericget');
+        $api->post('/lists/generic', 'App\Http\Controllers\ListsApi@listsgenericpost');
+
+        $api->get('/lists/generic/{genericId}', 'App\Http\Controllers\ListsApi@listsGenericgenericByIdget');
+        $api->put('/lists/generic/{genericId}', 'App\Http\Controllers\ListsApi@listsgenericGenericput');
+        $api->delete('/lists/generic/{genericId}', 'App\Http\Controllers\ListsApi@listsGenericdelete');
+        // instruction
+        $api->get('/lists/instruction', 'App\Http\Controllers\ListsApi@listsInstructionget');
+        $api->post('/lists/instruction', 'App\Http\Controllers\ListsApi@listsInstructionpost');
+
+        $api->get('/lists/instruction/{instructionId}', 'App\Http\Controllers\ListsApi@listsInstructionByIdget');
+        $api->put('/lists/instruction/{instructionId}', 'App\Http\Controllers\ListsApi@listsInstructionput');
+        $api->delete('/lists/instruction/{instructionId}', 'App\Http\Controllers\ListsApi@listsInstructiondelete');
+        // Non-aadherence reason
+        $api->get('/lists/nonaadherencereason', 'App\Http\Controllers\ListsApi@listsNonaadherencereasonget');
+        $api->post('/lists/nonaadherencereason', 'App\Http\Controllers\ListsApi@listsNonaadherencereasonpost');
+
+        $api->get('/lists/nonaadherencereason/{nonadherenceId}', 'App\Http\Controllers\ListsApi@listsNonadherencebyIdget');
+        $api->put('/lists/nonaadherencereason/{nonadherenceId}', 'App\Http\Controllers\ListsApi@listsNonadherenceput');
+        $api->delete('/lists/nonaadherencereason/{nonadherenceId}', 'App\Http\Controllers\ListsApi@listsNonadherencedelete');
+        // patientsources
+        $api->get('/lists/patientsources', 'App\Http\Controllers\ListsApi@listsPatientsourcesget');
+        $api->post('/lists/patientsources', 'App\Http\Controllers\ListsApi@listsPatientsourcespost');
+
+        $api->get('/lists/patientsources/{patientsourcesId}', 'App\Http\Controllers\ListsApi@listsPatientsourcesByIdget');
+        $api->put('/lists/patientsources/{patientsourcesId}', 'App\Http\Controllers\ListsApi@listsPatientsourcesput');
+        $api->delete('/lists/patientsources/{patientsourcesId}', 'App\Http\Controllers\ListsApi@listsPatientsourcesdelete');
+        // pepreason
+        $api->get('/lists/pepreason', 'App\Http\Controllers\ListsApi@listsPepreasonget');
+        $api->post('/lists/pepreason', 'App\Http\Controllers\ListsApi@listsPepreasonpost');
+
+        $api->get('/lists/pepreason/{pepreasonId}', 'App\Http\Controllers\ListsApi@listsPepreasonByIdget');
+        $api->put('/lists/pepreason/{pepreasonId}', 'App\Http\Controllers\ListsApi@listsPepreasonput');
+        $api->delete('/lists/pepreason/{pepreasonId}', 'App\Http\Controllers\ListsApi@listsPepreasondelete');
+        // Prophylaxis
+        $api->get('/lists/prophylaxis', 'App\Http\Controllers\ListsApi@listsProphylaxisget');
+        $api->post('/lists/prophylaxis', 'App\Http\Controllers\ListsApi@listsProphylaxispost');
+
+        $api->get('/lists/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\ListsApi@listsProphylaxisByIdget');
+        $api->put('/lists/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\ListsApi@listsProphylaxisput');
+        $api->delete('/lists/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\ListsApi@listsProphylaxisdelete');
+        // purpose
+        $api->get('/lists/purpose', 'App\Http\Controllers\ListsApi@listsPurposeget');
+        $api->post('/lists/purpose', 'App\Http\Controllers\ListsApi@listsPurposepost');
+
+        $api->get('/lists/purpose/{purposeId}', 'App\Http\Controllers\ListsApi@listsPurposeByIdget');
+        $api->put('/lists/purpose/{purposeId}', 'App\Http\Controllers\ListsApi@listsPurposeput');
+        $api->delete('/lists/purpose/{purposeId}', 'App\Http\Controllers\ListsApi@listsPurposedelete');
+        // whostage
+        $api->get('/lists/whostage', 'App\Http\Controllers\ListsApi@listsWhostageget');
+        $api->post('/lists/whostage', 'App\Http\Controllers\ListsApi@listsWhostagepost');
+
+        $api->get('/lists/whostage/{whostageId}', 'App\Http\Controllers\ListsApi@listsWhostageByIdget');
+        $api->put('/lists/whostage/{whostageId}', 'App\Http\Controllers\ListsApi@listsWhostageput');
+        $api->delete('/lists/whostage/{whostageId}', 'App\Http\Controllers\ListsApi@listsWhostagedelete');
+        // supporter // do
+        $api->get('/lists/supporter', 'App\Http\Controllers\ListsApi@listsSupporterget');
+        $api->post('/lists/supporter', 'App\Http\Controllers\ListsApi@listsSupporterpost');
+
+        $api->get('/lists/supporter/{supporterId}', 'App\Http\Controllers\ListsApi@listsSupporterByIdget');
+        $api->put('/lists/supporter/{supporterId}', 'App\Http\Controllers\ListsApi@listsSupporterput');
+        $api->delete('/lists/supporter/{supporterId}', 'App\Http\Controllers\ListsApi@listsSupporterdelete');
 
         /*
         *   Temp routes
         */
-        $api->get('/lists/patientsources', 'App\Http\Controllers\ListsApi@patientSources');
-        $api->get('/lists/whostage', 'App\Http\Controllers\ListsApi@whoStage'); 
-        $api->get('/lists/prophylaxis', 'App\Http\Controllers\ListsApi@prophylaxis');
-        $api->get('/lists/pep', 'App\Http\Controllers\ListsApi@pep');
+        $api->get('/lists/type', 'App\Http\Controllers\ListsApi@type');
         $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
-
     });
-
 });

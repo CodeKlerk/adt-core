@@ -12,7 +12,8 @@ class Services extends Model
     protected $table = 'tbl_service';
     protected $fillable = ['name'];
     protected $dates = ['deleted_at'];
+
     public function regimen(){
-        return $this->hasMany('App\Models\ListsModels\Regimen', 'service_id');
+        return $this->hasMany('App\Models\RegimenModels\Regimen', 'service_id');
     }
 }

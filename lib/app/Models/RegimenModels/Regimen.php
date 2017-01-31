@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\ListsModels;
+namespace App\Models\RegimenModels;
 
 use Illuminate\Database\Eloquent\Model;
 
