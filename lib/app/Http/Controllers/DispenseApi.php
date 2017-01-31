@@ -30,6 +30,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Request;
 use App\Models\DrugModels\Drug;
 
+// 
+use App\Models\VisitModels\Appointment;
+use App\Models\VisitModels\Visit;
+use App\Models\VisitModels\VisitItem;
 // Event
 use App\Events\DispensePatientEvent;
 
@@ -44,7 +48,9 @@ class DispenseApi extends Controller
 
     public function dispensepost($patient_id){
         $input = Request::all();
-        event(new DispensePatientEvent($input, $patient_id));
+        $patient['patient_id'] = $patient_id;
+        $visit_information = array_merge($input, $patient);
+        event(new DispensePatientEvent($visit_information));
     }
 
 }

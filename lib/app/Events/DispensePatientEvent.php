@@ -9,36 +9,35 @@ use App\Models\VisitModels\VisitItem;
 class DispensePatientEvent extends Event
 {
 
-    protected $data;
-    protected $patient;
+    protected $visit_information;
     /**
      * Create a new event instance.
      *
      * @return void
      */
 
-    public function __construct($request, $patient)
+    public function __construct($request)
     {
-        $this->patient = $patient;
-        $patient_id['patient_id'] = $patient;
-        $this->data = array_merge($request, $patient_id);
+        $this->visit_information = $request;
         $this->handle();
     }
-    public function handle(){
-        $visit_update = Visit::create($this->data);
+    public function handle(){        
+    
+        $visit_update = Visit::create($this->visit_information);
         if($visit_update){
-            $make_appointment = Appointment::create($this->data);
+            $make_appointment = Appointment::create($this->visit_information);
             //check if drugs exists in the array
-            if(array_key_exists('drug', $this->data)){
+            if(array_key_exists('drugs', $this->visit_information)){
                 // Looping through drug
-                $id['patient_id'] = $this->patient;
-                $drug = $this->data['drugs'];
+                $new_visit_id['visit_id'] = $visit_update->id;
+                $drugs = $this->visit_information['drugs'];
+
                 foreach($drugs as $drug){
                     // add patient_id to drug
-                    $visit_item = array_merge($drug, $id);
+                    $visit_item = array_merge($drug, $new_visit_id);
                     // add visit item
                     VisitItem::create($visit_item);
-                } 
+                }
             }
         }
     }
