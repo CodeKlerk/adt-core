@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\FacilityModels\Facilities;
+use App\Models\InventoryModels\StockItem;
 
 class TestController extends Controller
 {
@@ -29,7 +30,7 @@ class TestController extends Controller
 
     public function get_test()
     {
-        $response = Facilities::all();
+        $response = StockItem::with('drug')->get();
         return response()->json($response, 200);
     }
     

@@ -39,7 +39,7 @@ $api->version('v1', function ($api) {
             'uses' => 'App\Http\Controllers\Auth\AuthController@deleteInvalidate',
             'as' => 'api.auth.invalidate'
         ]);
-        $api->get('brian', function(){ return "brian"; });
+        $api->get('test', 'App\Http\Controllers\TestController@get_test');
         // 
         /*
         *   Patient routes
@@ -92,10 +92,10 @@ $api->version('v1', function ($api) {
         *   Drugs routes
         */
         $api->get('/drugs', 'App\Http\Controllers\DrugsApi@drugsget');
-        $api->get('/drugs/{drugId}', 'App\Http\Controllers\DrugsApi@drugsDrugIdget');
+        $api->get('/drugs/{drugId}', 'App\Http\Controllers\DrugsApi@drugsByIdget');
         $api->post('/drugs', 'App\Http\Controllers\DrugsApi@drugspost');
-        $api->put('/drugs/{drugId}', 'App\Http\Controllers\DrugsApi@drugsDrugIdput');
-        $api->delete('/drugs/{drugId}', 'App\Http\Controllers\DrugsApi@drugsDrugIddelete');
+        $api->put('/drugs/{drugId}', 'App\Http\Controllers\DrugsApi@drugsput');
+        $api->delete('/drugs/{drugId}', 'App\Http\Controllers\DrugsApi@drugsdelete');
         // drug dose
         $api->get('/drugs/{drugId}/dose', 'App\Http\Controllers\DrugsApi@drugsDrugIdDoseget');
         $api->post('/drugs/{drugId}/dose', 'App\Http\Controllers\DrugsApi@drugsDrugIdDosepost');

@@ -46,44 +46,10 @@ class DrugsApi extends Controller
      *
      * @return Http response
      */
-    public function drugsGet()
+    public function drugsget()
     {
-        $response = Drug::get();
+        $response = Drug::with('generic')->get();
         return response()->json($response, 200);
-    }
-    /**
-     * Operation drugsPost
-     *
-     * Add a new service to the facility.
-     *
-     *
-     * @return Http response
-     */
-    public function drugsPost()
-    {
-        $input = Request::all();
-        Drug::create($input);
-        return response($input);
-    }
-    /**
-     * Operation drugsDrugIdDelete
-     *
-     * Deletes the drug specified by drugId.
-     *
-     * @param int $drug_id Particular Service at facility specified by the ID (required)
-     *
-     * @return Http response
-     */
-    public function drugsDrugIdDelete($drug_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing drugsDrugIdDelete as a DELETE method ?');
     }
     /**
      * Operation drugsDrugIdGet
@@ -94,10 +60,24 @@ class DrugsApi extends Controller
      *
      * @return Http response
      */
-    public function drugsDrugIdGet($drug_id)
+    public function drugsByIdget($drug_id)
     {
         $response = Drug::findOrFail($drug_id);
         return response()->json($response, 200);
+    }
+    /**
+     * Operation drugsPost
+     *
+     * Add a new service to the facility.
+     *
+     *
+     * @return Http response
+     */
+    public function drugspost()
+    {
+        $input = Request::all();
+        Drug::create($input);
+        return response($input);
     }
     /**
      * Operation drugsDrugIdPut
@@ -108,7 +88,7 @@ class DrugsApi extends Controller
      *
      * @return Http response
      */
-    public function drugsDrugIdPut($drug_id)
+    public function drugsput($drug_id)
     {
         $drug = Drug::findOrFail($drug_id);
         $input = Request::all();
@@ -128,6 +108,21 @@ class DrugsApi extends Controller
             return response('Failed');
         }
     }
+    /**
+     * Operation drugsDrugIdDelete
+     *
+     * Deletes the drug specified by drugId.
+     *
+     * @param int $drug_id Particular Service at facility specified by the ID (required)
+     *
+     * @return Http response
+     */
+    public function drugsdelete($drug_id)
+    {
+        $input = Request::all();
+        return response('How about implementing drugsDrugIdDelete as a DELETE method ?');
+    }
+
     /**
      * Operation drugsDrugIdDoseGet
      *
