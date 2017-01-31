@@ -920,7 +920,7 @@ class ListsApi extends Controller
     public function listsPatientsourcesget()
     {
         $response = Sources::all(); 
-        return response()->json([ 'data' => $response], 200);
+        return response()->json($response, 200);
     }
     /**
      * Operation listsPatientsourcesPatientsourcesIdGet
