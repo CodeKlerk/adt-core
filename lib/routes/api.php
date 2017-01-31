@@ -100,7 +100,7 @@ $api->version('v1', function ($api) {
         $api->get('/drugs/{drugId}/dose', 'App\Http\Controllers\DrugsApi@drugsDrugIdDoseget');
         $api->post('/drugs/{drugId}/dose', 'App\Http\Controllers\DrugsApi@drugsDrugIdDosepost');
 
-        /*
+        /* 
         *   Facility routes
         */
         $api->get('/facility', 'App\Http\Controllers\FacilityApi@facilityget');
