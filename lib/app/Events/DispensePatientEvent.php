@@ -30,7 +30,7 @@ class DispensePatientEvent extends Event
             $make_appointment = Appointment::create($this->data);
             //check if drugs exists in the array
             if(array_key_exists('drug', $this->data)){
-                // Looping through drug 
+                // Looping through drug
                 $id['patient_id'] = $this->patient;
                 $drug = $this->data['drugs'];
                 foreach($drugs as $drug){
