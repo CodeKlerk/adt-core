@@ -14,7 +14,7 @@ class TestController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('api.auth');
+        $this->middleware('api.auth');
     }
 
     public function post_test()
@@ -30,8 +30,7 @@ class TestController extends Controller
 
     public function get_test()
     {
-        $response = StockItem::with('drug')->get();
-        return response()->json($response, 200);
+        
     }
     
 }

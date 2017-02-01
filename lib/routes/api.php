@@ -85,9 +85,9 @@ $api->version('v1', function ($api) {
         /*
         *   Stock routes
         */
-        $api->GET('/stock', 'App\Http\Controllers\DrugsApi@stockget');
-        $api->post('/stock', 'App\Http\Controllers\DrugsApi@stockpost');
-        $api->GET('/stock/{stockId}/bincard', 'App\Http\Controllers\DrugsApi@stockStockIdBincardGet');
+        $api->get('/stock', 'App\Http\Controllers\StockApi@stockget');
+        $api->post('/stock', 'App\Http\Controllers\StockApi@stockpost');
+        $api->get('/stock/{stockId}/bincard', 'App\Http\Controllers\StockApi@stockBincardget');
 
         /*
         *   Dispense routes

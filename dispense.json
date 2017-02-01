@@ -1,0 +1,60 @@
+POST /adt-core/lib/public/api/patients/21/dispense HTTP/1.1
+Host: 192.168.33.10
+Content-Type: application/json
+Cache-Control: no-cache
+Postman-Token: 89f4ae45-8b6c-1335-35d1-5f1f92768a4f
+
+{ 
+	"dispense_point": "1", 
+	"purpose_id": "1", 
+	"visit_date": "2017-01-31", 
+	"appointment_date": "01/31/2017", 
+	"current_height": "1", 
+	"current_weight": "1", 
+	"days_to": -1, 
+	"current_regimen_id": "1", 
+	"appointment_adherance": "1", 
+	"non_adherence_reason_id": "1", 
+	"patient_id": 21, 
+	"facility_id": 1,
+	"user_id": 1,
+	"appointment_id": 1,
+	"drugs": [ 
+		{ 
+			"drug_id": "7", 
+			"unit": "1", 
+			"batch_no": "1234", 
+			"expiry_date": "", 
+			"dose_id": "1", 
+			"expected_pill_count": "", 
+			"actual_pill_count": "", 
+			"duration": "", 
+			"dispensed_qty": "", 
+			"stock_item_id": "1", 
+			"indication": "", 
+			"comment": "", 
+			"missed_pills": "", 
+			"facility_id": 1, 
+			"appointment_id": 1 
+			
+		}, 
+		{ 
+			"drug_id": "14", 
+			"unit": "1", 
+			"batch_no": "www", 
+			"expiry_date": "", 
+			"dose_id": "", 
+			"expected_pill_count": "", 
+			"actual_pill_count": "", 
+			"duration": "", 
+			"dispensed_qty": "", 
+			"stock_item_id": "1", 
+			"indication": "", 
+			"comment": "", 
+			"missed_pills": "", 
+			"facility_id": 1, 
+			"appointment_id": 1 
+			
+		} ] 
+	
+}
