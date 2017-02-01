@@ -48,4 +48,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return [];
     }
     
+    // Relationships
+    public function created_by(){
+        return $this->belongsTo('App\Models\UserModels\User');
+    }
+    public function access_level(){
+        return $this->belongsTo('App\Models\UserModels\AccessLevel');
+    }
 }

@@ -28,7 +28,7 @@ class UserApi extends Controller
      */
     public function usersget()
     {
-        $response = User::all();
+        $response = User::with('created_by', 'access_level')->get();
         return response()->json($response,200);
     }
     /**
