@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
+
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 use App\Models\UserModels\User;
@@ -41,15 +42,16 @@ class UserApi extends Controller
     public function userspost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $body = $input['body'];
-
-
-        return response('How about implementing usersPost as a POST method ?');
+        return User::create([
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'phone_number' => $input['phone_number'],
+            'access_level_id' => $input['access_level_id'],
+            'facility_id' => $input['facility_id'],
+            'created_by_id' => $input['created_by_id'],
+            'password' => app('hash')->make($input['password']),
+            'remember_token' => str_random(10)
+        ]);
     }
 
     /**
@@ -78,13 +80,17 @@ class UserApi extends Controller
     public function usersput($users_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing usersUsersIdPut as a PUT method ?');
+        $user = User::findOrFail($users_id);
+        return $user->update([
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'phone_number' => $input['phone_number'],
+            'access_level_id' => $input['access_level_id'],
+            'facility_id' => $input['facility_id'],
+            'created_by_id' => $input['created_by_id'],
+            'password' => app('hash')->make($input['password']),
+            'remember_token' => str_random(10)
+        ]);
     }
     /**
      * Operation usersUsersIdDelete
@@ -97,14 +103,7 @@ class UserApi extends Controller
      */
     public function usersdelete($users_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing usersUsersIdDelete as a DELETE method ?');
+        User::destroy($users_id);
     }
     
 }

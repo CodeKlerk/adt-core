@@ -42,6 +42,14 @@ $api->version('v1', function ($api) {
         $api->get('test', 'App\Http\Controllers\TestController@get_test');
         // 
         /*
+        *   User routes
+        */
+        $api->get('/users', 'App\Http\Controllers\UserApi@usersget');
+        $api->get('/users/{usersId}', 'App\Http\Controllers\UserApi@usersByIdget');
+        $api->post('/users', 'App\Http\Controllers\UserApi@userspost');
+        $api->put('/users/{usersId}', 'App\Http\Controllers\UserApi@usersput');
+        $api->delete('/users/{usersId}', 'App\Http\Controllers\UserApi@usersdelete');
+        /*
         *   Patient routes
         */
         $api->get('/patients', 'App\Http\Controllers\PatientsApi@patientsget');
@@ -231,14 +239,7 @@ $api->version('v1', function ($api) {
         $api->get('/lists/supporter/{supporterId}', 'App\Http\Controllers\ListsApi@listsSupporterByIdget');
         $api->put('/lists/supporter/{supporterId}', 'App\Http\Controllers\ListsApi@listsSupporterput');
         $api->delete('/lists/supporter/{supporterId}', 'App\Http\Controllers\ListsApi@listsSupporterdelete');
-        /*
-        *   User routes
-        */
-        $api->get('/users', 'App\Http\Controllers\UserApi@usersget');
-        $api->get('/users/{usersId}', 'App\Http\Controllers\UserApi@usersByIdget');
-        $api->post('/users', 'App\Http\Controllers\UserApi@userspost');
-        $api->put('/users/{usersId}', 'App\Http\Controllers\UserApi@usersput');
-        $api->delete('/users/{usersId}', 'App\Http\Controllers\UserApi@usersdelete');
+
         /*
         *   Temp routes
         */
