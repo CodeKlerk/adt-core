@@ -50,7 +50,7 @@ use App\Models\ListsModels\Instruction;
 use App\Models\ListsModels\NonAdherenceReason;
 use App\Models\ListsModels\Purpose;
 use App\Models\ListsModels\Supporter;
-
+use App\Models\UserModels\AccessLevel;
 // tmp 
 use App\Models\FacilityModels\FacilityTypes;
 
@@ -1433,5 +1433,8 @@ class ListsApi extends Controller
     public function type(){
         $response = FacilityTypes::all();
         return response()->json($response, 200);
+    }
+    public function access_level(){
+        return response()->json(AccessLevel::all(),200);
     }
 }
