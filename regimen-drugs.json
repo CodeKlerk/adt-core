@@ -1,0 +1,347 @@
+{
+  "regimens": {
+    "id": 2,
+    "name": "PA1A | AZT + 3TC (Adult PEP Option 1)",
+    "category": "1",
+    "drugs": [
+      {
+        "id": 4,
+        "name": "ABC/3TC 60/30 FDC Tabs",
+        "pack_size": 20,
+        "duration": 20,
+        "quantity": 30,
+        "indication": [
+          {
+            "id": 1,
+            "name": "IND 12 | UTI"
+          },
+          {
+            "id": 2,
+            "name": "IND13 GI"
+          }
+        ],
+        "is_arv": 0,
+        "is_tb": 0,
+        "deleted_at": null,
+        "unit_id": 3,
+        "dose_id": 2,
+        "generic_id": 1,
+        "supporter_id": 1,
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "id": 5,
+        "name": "ACYCLOVIR 400 MG TABS ( 30s)",
+        "pack_size": 20,
+        "duration": 20,
+        "quantity": 30,
+        "indication": [
+          {
+            "id": 1,
+            "name": "IND 12 | UTI"
+          },
+          {
+            "id": 2,
+            "name": "IND13 GI"
+          }
+        ],
+        "is_arv": 0,
+        "is_tb": 0,
+        "deleted_at": null,
+        "unit_id": 3,
+        "dose_id": 2,
+        "generic_id": 1,
+        "supporter_id": 1,
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "id": 6,
+        "name": "ACYCLOVIR 400MG (10s)",
+        "pack_size": 20,
+        "duration": 20,
+        "quantity": 30,
+        "indication": [
+          {
+            "id": 1,
+            "name": "IND 12 | UTI"
+          },
+          {
+            "id": 2,
+            "name": "IND13 GI"
+          }
+        ],
+        "is_arv": 0,
+        "is_tb": 0,
+        "deleted_at": null,
+        "unit_id": 3,
+        "dose_id": 2,
+        "generic_id": 1,
+        "supporter_id": 1,
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "id": 7,
+        "name": "AMPHOTERICIN B 50MG INJ",
+        "pack_size": 20,
+        "duration": 20,
+        "quantity": 30,
+        "indication": [
+          {
+            "id": 1,
+            "name": "IND 12 | UTI"
+          },
+          {
+            "id": 2,
+            "name": "IND13 GI"
+          }
+        ],
+        "is_arv": 0,
+        "is_tb": 0,
+        "deleted_at": null,
+        "unit_id": 5,
+        "dose_id": 2,
+        "generic_id": 1,
+        "supporter_id": 1,
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "id": 8,
+        "name": "AZT/3TC FDC (300MG/150MG)TABS",
+        "pack_size": 20,
+        "duration": 20,
+        "quantity": 30,
+        "indication": [
+          {
+            "id": 1,
+            "name": "IND 12 | UTI"
+          },
+          {
+            "id": 2,
+            "name": "IND13 GI"
+          }
+        ],
+        "is_arv": 0,
+        "is_tb": 0,
+        "deleted_at": null,
+        "unit_id": 5,
+        "dose_id": 2,
+        "generic_id": 1,
+        "supporter_id": 1,
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "id": 9,
+        "name": "AZT/3TC FDC (60MG/30MG)",
+        "pack_size": 20,
+        "duration": 20,
+        "quantity": 30,
+        "indication": [
+          {
+            "id": 1,
+            "name": "IND 12 | UTI"
+          },
+          {
+            "id": 2,
+            "name": "IND13 GI"
+          }
+        ],
+        "is_arv": 0,
+        "is_tb": 0,
+        "deleted_at": null,
+        "unit_id": 10,
+        "dose_id": 2,
+        "generic_id": 1,
+        "supporter_id": 1,
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "id": 10,
+        "name": "AZT/3TC/NVP FDC (300MG/150MG/200MG",
+        "pack_size": 20,
+        "duration": 20,
+        "quantity": 30,
+        "indication": [
+          {
+            "id": 1,
+            "name": "IND 12 | UTI"
+          },
+          {
+            "id": 2,
+            "name": "IND13 GI"
+          }
+        ],
+        "is_arv": 0,
+        "is_tb": 0,
+        "deleted_at": null,
+        "unit_id": 2,
+        "dose_id": 2,
+        "generic_id": 1,
+        "supporter_id": 1,
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "id": 11,
+        "name": "AZT/3TC/NVP FDC (60MG/30MG/50MG)",
+        "pack_size": 20,
+        "duration": 20,
+        "quantity": 30,
+        "indication": [
+          {
+            "id": 1,
+            "name": "IND 12 | UTI"
+          },
+          {
+            "id": 2,
+            "name": "IND13 GI"
+          }
+        ],
+        "is_arv": 0,
+        "is_tb": 0,
+        "deleted_at": null,
+        "unit_id": 8,
+        "dose_id": 2,
+        "generic_id": 1,
+        "supporter_id": 1,
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "id": 12,
+        "name": "COTRIMOXAZOLE 480MG Tabs",
+        "pack_size": 20,
+        "duration": 20,
+        "quantity": 30,
+        "indication": [
+          {
+            "id": 1,
+            "name": "IND 12 | UTI"
+          },
+          {
+            "id": 2,
+            "name": "IND13 GI"
+          }
+        ],
+        "is_arv": 0,
+        "is_tb": 0,
+        "deleted_at": null,
+        "unit_id": 6,
+        "dose_id": 2,
+        "generic_id": 1,
+        "supporter_id": 1,
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "id": 13,
+        "name": "COTRIMOXAZOLE 960MG Tabs (100s)",
+        "pack_size": 20,
+        "duration": 20,
+        "quantity": 30,
+        "indication": [
+          {
+            "id": 1,
+            "name": "IND 12 | UTI"
+          },
+          {
+            "id": 2,
+            "name": "IND13 GI"
+          }
+        ],
+        "is_arv": 0,
+        "is_tb": 0,
+        "deleted_at": null,
+        "unit_id": 4,
+        "dose_id": 2,
+        "generic_id": 1,
+        "supporter_id": 1,
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "id": 14,
+        "name": "COTRIMOXAZOLE DS 960 ( 500s)",
+        "pack_size": 20,
+        "duration": 20,
+        "quantity": 30,
+        "indication": [
+          {
+            "id": 1,
+            "name": "IND 12 | UTI"
+          },
+          {
+            "id": 2,
+            "name": "IND13 GI"
+          }
+        ],
+        "is_arv": 0,
+        "is_tb": 0,
+        "deleted_at": null,
+        "unit_id": 4,
+        "dose_id": 2,
+        "generic_id": 1,
+        "supporter_id": 1,
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "id": 15,
+        "name": "COTRIMOXAZOLE Susp 240mg/5ml",
+        "pack_size": 20,
+        "duration": 20,
+        "quantity": 30,
+        "indication": [
+          {
+            "id": 1,
+            "name": "IND 12 | UTI"
+          },
+          {
+            "id": 2,
+            "name": "IND13 GI"
+          }
+        ],
+        "is_arv": 0,
+        "is_tb": 0,
+        "deleted_at": null,
+        "unit_id": 3,
+        "dose_id": 2,
+        "generic_id": 1,
+        "supporter_id": 1,
+        "created_at": null,
+        "updated_at": null
+      },
+      {
+        "id": 16,
+        "name": "NEVIRAPINE (NVP) Susp 10MG/ML PMTC",
+        "pack_size": 20,
+        "duration": 20,
+        "quantity": 30,
+        "indication": [
+          {
+            "id": 1,
+            "name": "IND 12 | UTI"
+          },
+          {
+            "id": 2,
+            "name": "IND13 GI"
+          }
+        ],
+        "is_arv": 0,
+        "is_tb": 0,
+        "deleted_at": null,
+        "unit_id": 1,
+        "dose_id": 2,
+        "generic_id": 1,
+        "supporter_id": 1,
+        "created_at": "2017-01-16 07:36:57",
+        "updated_at": "2017-01-16 07:36:57"
+      }
+    ]
+  }
+}
