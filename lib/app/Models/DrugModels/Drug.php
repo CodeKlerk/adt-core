@@ -20,5 +20,8 @@ class Drug extends Model
     public function stock_item(){
         return $this->hasMany('App\Models\InventoryModels\StockItem', 'drug_id');
     }
+    public function unit(){
+        return $this->belongsTo('App\Models\ListsModels\Unit', 'unit_id');
+    }
 
 }

@@ -64,7 +64,7 @@ class StockApi extends Controller
     public function stockBincardget($drug_id)
     {
         // $response = StockItem::where('drug_id', $drug_id)->get();
-        $response = Drug::with('stock_item', 'stock_item.stock')->where('id', $drug_id)->get();
+        $response = Drug::with('unit','stock_item', 'stock_item.stock')->where('id', $drug_id)->get();
         return response()->json($response,200);
     }
     
