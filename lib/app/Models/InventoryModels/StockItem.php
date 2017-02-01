@@ -11,4 +11,7 @@ class StockItem extends Model
     public function drug(){
         return $this->belongsTo('App\Models\DrugModels\Drug', 'drug_id');
     }
+    public function stock(){
+        return $this->belongsTo('App\Models\InventoryModels\Stock', 'stock_id');
+    }
 }

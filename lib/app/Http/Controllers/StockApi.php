@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 use App\Models\InventoryModels\StockItem;
+use App\Models\DrugModels\Drug;
 
 class StockApi extends Controller
 {
@@ -60,16 +61,11 @@ class StockApi extends Controller
      *
      * @return Http response
      */
-    public function stockBincardget($stock_id)
+    public function stockBincardget($drug_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing stockStockIdBincardGet as a GET method ?');
+        // $response = StockItem::where('drug_id', $drug_id)->get();
+        $response = Drug::with('stock_item', 'stock_item.stock')->where('id', $drug_id)->get();
+        return response()->json($response,200);
     }
     
 }

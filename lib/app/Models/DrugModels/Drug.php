@@ -17,4 +17,8 @@ class Drug extends Model
         return $this->belongsTo('App\Models\ListsModels\Generic', 'generic_id');
     }
 
+    public function stock_item(){
+        return $this->hasMany('App\Models\InventoryModels\StockItem', 'drug_id');
+    }
+
 }
