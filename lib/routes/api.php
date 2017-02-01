@@ -83,6 +83,13 @@ $api->version('v1', function ($api) {
         $api->delete('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@deletePatientVisit');
         
         /*
+        *   Stock routes
+        */
+        $api->GET('/stock', 'App\Http\Controllers\DrugsApi@stockget');
+        $api->post('/stock', 'App\Http\Controllers\DrugsApi@stockpost');
+        $api->GET('/stock/{stockId}/bincard', 'App\Http\Controllers\DrugsApi@stockStockIdBincardGet');
+
+        /*
         *   Dispense routes
         */
         // $api->get('/patients/{patientId}/dispense', 'App\Http\Controllers\DispenseApi@dispenseDrugs'); // different route in doc
