@@ -85,8 +85,8 @@ $api->version('v1', function ($api) {
         $api->put('/patients/{patientId}/regimens/{regimenId}', 'App\Http\Controllers\PatientsApi@updatePatientRegimens');
         $api->delete('/patients/{patientId}/regimens/{regimenId}', 'App\Http\Controllers\PatientsApi@deletePatientRegimens');
         // visit
-        $api->get('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@patientVisits');
-        $api->post('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@addPatientVisits');
+        $api->get('/patients/{patientId}/visits', 'App\Http\Controllers\PatientsApi@patientVisits');
+        $api->post('/patients/{patientId}/visits', 'App\Http\Controllers\PatientsApi@addPatientVisits');
         $api->put('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@updatePatientVisit');
         $api->delete('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@deletePatientVisit');
         

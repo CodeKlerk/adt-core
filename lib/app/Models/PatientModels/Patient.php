@@ -72,4 +72,8 @@ class Patient extends Model
     public function patient_partner(){
         return $this->hasMany('App\Models\PatientModels\PatientPartner');
     }
+
+    public function visit(){
+        return $this->hasMany('App\Models\VisitModels\Visit');
+    }
 }

@@ -12,4 +12,8 @@ class Visit extends Model
                             'last_regimen_id', 'current_regimen_id', 'change_reason_id', 'non_adherence_reason_id', 
                             'appointment_id'
                             ];
+
+    public function visit_item(){
+        return $this->hasMany('App\Models\VisitModels\VisitItem');
+    }
 }

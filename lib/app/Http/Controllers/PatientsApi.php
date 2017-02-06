@@ -467,16 +467,11 @@ class PatientsApi extends Controller
      *
      * @return Http response
      */
-    public function patientVisits($patient_id, $visit_id)
+    public function patientVisits($patient_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing patientVisits as a GET method ?');
+        $patient_visits = Patient::findOrFail($patient_id);
+        $patient_visits->load('visit.visit_item.stock_item');
+        return response()->json($patient_visits,200);
     }
 
     /**
