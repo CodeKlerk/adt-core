@@ -49,7 +49,7 @@ class UserApi extends Controller
             'access_level_id' => $input['access_level_id'],
             'facility_id' => $input['facility_id'],
             'created_by_id' => $input['created_by_id'],
-            'password' => app('hash')->make($input['password']),
+            'password' => app('hash')->make($input['adt123']),
             'remember_token' => str_random(10)
         ]);
     }
