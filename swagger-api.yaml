@@ -13,12 +13,12 @@ security:
 paths:
   /stock:
     get:
-      summary: "fetches a list of services at a facility"
+      summary: "fetches a list of Stock Items at a facility"
       description: ""
       parameters:
       - name: "limit"
         in: "query"
-        description: "Number of service to fetch"
+        description: "Number of Stock Items to fetch"
         required: false
         type: "string"
       responses:
@@ -31,7 +31,7 @@ paths:
         400:
           description: "Invalid status value"
     post:
-      summary: "Add a new service to the facility"
+      summary: "Add a new Drugs to the facility"
       description: ""
       consumes:
       - "application/json"
@@ -44,14 +44,14 @@ paths:
         name: "body"
         required: false
         schema:
-          $ref: "#/definitions/Service"
+          $ref: "#/definitions/Drug"
       responses:
         201:
-          description: "Service Added Successfully"
+          description: "Drug Added Successfully"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Service"
+              $ref: "#/definitions/Drug"
         405:
           description: "Invalid input"
   /stock/{stockId}/bincard:
@@ -83,7 +83,7 @@ paths:
       parameters:
       - name: "limit"
         in: "query"
-        description: "Number of service to fetch"
+        description: "Number of CDRR's to fetch"
         required: false
         type: "string"
       responses:
@@ -92,11 +92,11 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Drug"
+              $ref: "#/definitions/Cdrr"
         400:
           description: "Invalid status value"
     post:
-      summary: "Add a new service to the facility"
+      summary: "Add a new CDRR to the facility"
       description: ""
       consumes:
       - "application/json"
@@ -109,14 +109,14 @@ paths:
         name: "body"
         required: false
         schema:
-          $ref: "#/definitions/Service"
+          $ref: "#/definitions/Cdrr"
       responses:
         201:
-          description: "Service Added Successfully"
+          description: "CDRR Added Successfully"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Service"
+              $ref: "#/definitions/Cdrr"
         405:
           description: "Invalid input"
   /cdrr/{cdrrId}:
@@ -145,12 +145,12 @@ paths:
 
   /drugs:
     get:
-      summary: "fetches a list of services at a facility"
+      summary: "fetches a list of drugs at a facility"
       description: ""
       parameters:
       - name: "limit"
         in: "query"
-        description: "Number of service to fetch"
+        description: "Number of drugs to fetch"
         required: false
         type: "string"
       responses:
@@ -163,7 +163,7 @@ paths:
         400:
           description: "Invalid status value"
     post:
-      summary: "Add a new service to the facility"
+      summary: "Add a new drugs to the facility"
       description: ""
       consumes:
       - "application/json"
@@ -176,14 +176,14 @@ paths:
         name: "body"
         required: false
         schema:
-          $ref: "#/definitions/Service"
+          $ref: "#/definitions/Drug"
       responses:
         201:
-          description: "Service Added Successfully"
+          description: "Drug Added Successfully"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Service"
+              $ref: "#/definitions/Drug"
         405:
           description: "Invalid input"
   /drugs/{drugId}:
@@ -193,7 +193,7 @@ paths:
       parameters:
       - name: "drugId"
         in: "path"
-        description: "Particular Service at facility specified by the ID"
+        description: "Particular drug specified by the ID"
         required: true
         type: "integer"
         format: "int64"
@@ -205,14 +205,14 @@ paths:
         400:
           description: "Invalid ID supplied"
         404:
-          description: "Service not found"
+          description: "Drug not found"
     put:
       summary: "Update an existing drug specified by the drugId"
       description: ""
       parameters:
       - name: "drugId"
         in: "path"
-        description: "Particular Service at facility specified by the ID"
+        description: "Particular Drugspecified by the ID"
         required: true
         type: "integer"
         format: "int64"
@@ -227,7 +227,7 @@ paths:
         400:
           description: "Invalid ID supplied"
         404:
-          description: "Patient not found"
+          description: "Drug not found"
         405:
           description: "Validation exception"
     delete:
@@ -236,7 +236,7 @@ paths:
       parameters:
       - name: "drugId"
         in: "path"
-        description: "Particular Service at facility specified by the ID"
+        description: "Particular Drug at facility specified by the ID"
         required: true
         type: "integer"
         format: "int64"
@@ -259,7 +259,7 @@ paths:
       parameters:
       - name: "drugId"
         in: "path"
-        description: "ID of service that needs to be fetched"
+        description: "ID of drug whose dose that needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -271,7 +271,7 @@ paths:
         400:
           description: "Invalid ID supplied"
         404:
-          description: "Patient not found"
+          description: "Doses not found"
     post:
       summary: "Add a dose for a particular drug with drugId"
       description: ""
@@ -280,7 +280,7 @@ paths:
       parameters:
       - name: "drugId"
         in: "path"
-        description: "ID of service that needs to be fetched"
+        description: "ID of drug whose dose needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -294,8 +294,6 @@ paths:
           description: "Update Accepted"
         400:
           description: "Invalid ID supplied"
-        404:
-          description: "Patient not found"
         405:
           description: "Validation exception"
   /lists/Subcounties:
@@ -419,7 +417,7 @@ paths:
         400:
           description: "Invalid ID supplied"
     delete:
-      summary: "Deletes a Allergy specified by serviceId"
+      summary: "Deletes a Allergy specified by allergyId"
       description: ""
       parameters:
       - name: "allergyId"
@@ -491,7 +489,7 @@ paths:
       parameters:
       - name: "categoryId"
         in: "path"
-        description: "ID of Service that needs to be fetched"
+        description: "ID of category that needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -518,7 +516,7 @@ paths:
       parameters:
       - name: "categoryId"
         in: "path"
-        description: "ID of Service that needs to be fetched"
+        description: "ID of category that needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -537,12 +535,12 @@ paths:
         400:
           description: "Invalid ID supplied"
     delete:
-      summary: "Deletes a Category specified by serviceId"
+      summary: "Deletes a Category specified by categoryId"
       description: ""
       parameters:
       - name: "categoryId"
         in: "path"
-        description: "ID of Service that needs to be fetched"
+        description: "ID of category that needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -559,7 +557,7 @@ paths:
   /lists/doses:
     get:
       summary: "Fetch doses"
-      description: "Fetch List of all doses for regimens (for select options)"
+      description: "Fetch List of all doses "
       produces:
       - "application/json"
       - "application/xml"
@@ -609,7 +607,7 @@ paths:
       parameters:
       - name: "doseId"
         in: "path"
-        description: "ID of Service that needs to be fetched"
+        description: "ID of Dose that needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -636,7 +634,7 @@ paths:
       parameters:
       - name: "doseId"
         in: "path"
-        description: "ID of Service that needs to be fetched"
+        description: "ID of Dose that needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -655,12 +653,12 @@ paths:
         400:
           description: "Invalid ID supplied"
     delete:
-      summary: "Deletes a Dose specified by serviceId"
+      summary: "Deletes a Dose specified by doseId"
       description: ""
       parameters:
       - name: "doseId"
         in: "path"
-        description: "ID of Service that needs to be fetched"
+        description: "ID of Dose that needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -674,6 +672,144 @@ paths:
           description: "Invalid Dose value"
         204:
           description: "Dose deleted"
+  /lists/classifications:
+    get:
+      summary: "Fetch classifications"
+      description: "Fetch List of all classifications"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Classification"
+        400:
+          description: "Invalid name value"
+    post:
+      summary: "create a Classification"
+      description: "create a Classification"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        201:
+          description: "Classification Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Classification"
+        405:
+          description: "Invalid input"
+  /lists/classifications/{classificationId}:
+    get:
+      summary: "Fetch Classification specified by classificationId"
+      description: "Fetch Classification specified by classificationId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "classificationId"
+        in: "path"
+        description: "ID of Classification that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Classification"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing Classification"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "classificationId"
+        in: "path"
+        description: "ID of Classification that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Classification"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        202:
+          description: "Update Accepted"
+        405:
+          description: "Validation exception"
+        404:
+          description: "Classification not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Deletes a Classification specified by classificationId"
+      description: ""
+      parameters:
+      - name: "classificationId"
+        in: "path"
+        description: "ID of Classification that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid Classification value"
+        204:
+          description: "Classification deleted"
   /lists/changereason:
     get:
       summary: "Fetch Change Reasons (for select options)"
@@ -2285,12 +2421,12 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Services"
+              $ref: "#/definitions/WhoStage"
         400:
           description: "Invalid name value"
     post:
-      summary: "create a service"
-      description: "create a service"
+      summary: "create a WhoStage"
+      description: "create a WhoStage"
       produces:
       - "application/json"
       - "application/xml"
@@ -2302,11 +2438,11 @@ paths:
         type: "string"
       responses:
         201:
-          description: "Service Added Successfully"
+          description: "WhoStage Added Successfully"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Service"
+              $ref: "#/definitions/WhoStage"
         405:
           description: "Invalid input"
   /lists/whostage/{whostageId}:
@@ -2319,7 +2455,7 @@ paths:
       parameters:
       - name: "whostageId"
         in: "path"
-        description: "ID of Service that needs to be fetched"
+        description: "ID of WhoStage that needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -2346,7 +2482,7 @@ paths:
       parameters:
       - name: "whostageId"
         in: "path"
-        description: "ID of Service that needs to be fetched"
+        description: "ID of WhoStage that needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -2361,16 +2497,16 @@ paths:
         405:
           description: "Validation exception"
         404:
-          description: "Service not found"
+          description: "WhoStage not found"
         400:
           description: "Invalid ID supplied"
     delete:
-      summary: "Deletes a service specified by whostageId"
+      summary: "Deletes a WhoStage specified by whostageId"
       description: ""
       parameters:
       - name: "whostageId"
         in: "path"
-        description: "ID of Service that needs to be fetched"
+        description: "ID of WhoStage that needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -2479,8 +2615,6 @@ paths:
       responses:
         405:
           description: "Validation exception"
-        404:
-          description: "Patient not found"
         400:
           description: "Invalid ID supplied"
     delete:
@@ -2759,8 +2893,6 @@ paths:
       responses:
         405:
           description: "Validation exception"
-        404:
-          description: "Patient not found"
         400:
           description: "Invalid ID supplied"
     delete:
@@ -2954,7 +3086,7 @@ paths:
         format: "int64"
       responses:
         404:
-          description: "Patient not found"
+          description: "prophylaxis not found"
         200:
           description: "successful operation"
           schema:
@@ -2990,8 +3122,6 @@ paths:
       responses:
         405:
           description: "Validation exception"
-        404:
-          description: "Patient not found"
         400:
           description: "Invalid ID supplied"
     delete:
@@ -3042,7 +3172,7 @@ paths:
         format: "int64"
       responses:
         404:
-          description: "Patient not found"
+          description: "Regimen not found"
         200:
           description: "successful operation"
           schema:
@@ -3114,8 +3244,6 @@ paths:
       responses:
         405:
           description: "Validation exception"
-        404:
-          description: "Patient not found"
         400:
           description: "Invalid ID supplied"
     delete:
@@ -3379,8 +3507,6 @@ paths:
           description: "Update Accepted"
         400:
           description: "Invalid ID supplied"
-        404:
-          description: "Patient not found"
         405:
           description: "Validation exception"
     delete:
@@ -3406,14 +3532,14 @@ paths:
   /services/{serviceId}/prophylaxis:
     get:
       summary: "Fetch Prophylaxis for a service"
-      description: "Returns the service with the specified serviceId"
+      description: "Returns the prophylaxis for the  service with the specified serviceId"
       produces:
       - "application/json"
       - "application/xml"
       parameters:
       - name: "serviceId"
         in: "path"
-        description: "ID of service that needs to be fetched"
+        description: "ID of service whose prophylaxis needs to be fetched"
         required: true
         type: "integer"
         format: "int64"
@@ -3425,7 +3551,7 @@ paths:
         400:
           description: "Invalid ID supplied"
         404:
-          description: "Patient not found"
+          description: "Resource not found"
     post:
       summary: "add Prophylaxis to service  specified by serviceId"
       description: ""
@@ -3449,8 +3575,6 @@ paths:
           description: "Update Accepted"
         400:
           description: "Invalid ID supplied"
-        404:
-          description: "Patient not found"
         405:
           description: "Validation exception"
   /services/{serviceId}/prophylaxis/{prophylaxisId}:
@@ -3479,7 +3603,7 @@ paths:
         400:
           description: "Invalid ID supplied"
         404:
-          description: "Patient not found"
+          description: "Resource not found"
     put:
       summary: "Update the Prophylaxis specified by prophylaxisId"
       description: ""
@@ -3489,7 +3613,7 @@ paths:
       parameters:
       - name: "serviceId"
         in: "path"
-        description: "ID of service that needs to be fetched"
+        description: "ID of service whose prophylaxis needs to be updated"
         required: true
         type: "integer"
         format: "int64"
@@ -3507,8 +3631,6 @@ paths:
           description: "Update Accepted"
         400:
           description: "Invalid ID supplied"
-        404:
-          description: "Patient not found"
         405:
           description: "Validation exception"
     delete:
@@ -3582,7 +3704,7 @@ paths:
         400:
           description: "Invalid ID supplied"
         404:
-          description: "Patient not found"
+          description: "Regimens not found"
         405:
           description: "Validation exception"
   /services/{serviceId}/regimens/{regimenId}:
@@ -3607,7 +3729,7 @@ paths:
         format: "int64"
       responses:
         404:
-          description: "Patient not found"
+          description: "Regimen not found"
         200:
           description: "successful operation"
           schema:
@@ -3645,7 +3767,7 @@ paths:
         400:
           description: "Invalid ID supplied"
         404:
-          description: "Patient not found"
+          description: "Patient Regimen not found"
         405:
           description: "Validation exception"
     delete:
@@ -3684,7 +3806,7 @@ paths:
       parameters:
       - name: "limit"
         in: "query"
-        description: "Number of service to fetch"
+        description: "Number of Users to fetch"
         required: false
         type: "string"
       responses:
