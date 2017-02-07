@@ -76,6 +76,72 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "Commodity not found"
+  /cdrr:
+    get:
+      summary: "FACILITY CONSUMPTION DATA REPORT AND REQUEST"
+      description: ""
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "Number of service to fetch"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Drug"
+        400:
+          description: "Invalid status value"
+    post:
+      summary: "Add a new service to the facility"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Service"
+      responses:
+        201:
+          description: "Service Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Service"
+        405:
+          description: "Invalid input"
+  /cdrr/{cdrrId}:
+    get:
+      summary: "Fetch all CDFF details specified by cdrrId"
+      description: "Returns CDRR specified by cdrrId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cdrrId"
+        in: "path"
+        description: "ID of commodity whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/BinCard"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Commodity not found"
+
 
   /drugs:
     get:
@@ -490,6 +556,124 @@ paths:
           description: "Invalid category value"
         204:
           description: "Category deleted"
+  /lists/doses:
+    get:
+      summary: "Fetch doses"
+      description: "Fetch List of all doses for regimens (for select options)"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Dose"
+        400:
+          description: "Invalid name value"
+    post:
+      summary: "create a Dose"
+      description: "create a Dose"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        201:
+          description: "Dose Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Dose"
+        405:
+          description: "Invalid input"
+  /lists/doses/{doseId}:
+    get:
+      summary: "Fetch Dose specified by doseId"
+      description: "Fetch Dose specified by doseId"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "doseId"
+        in: "path"
+        description: "ID of Service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "query"
+        description: "name to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Dose"
+        400:
+          description: "Invalid name value"
+    put:
+      summary: "Update an existing Dose"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "doseId"
+        in: "path"
+        description: "ID of Service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Dose"
+      responses:
+        202:
+          description: "Update Accepted"
+        405:
+          description: "Validation exception"
+        404:
+          description: "Dose not found"
+        400:
+          description: "Invalid ID supplied"
+    delete:
+      summary: "Deletes a Dose specified by serviceId"
+      description: ""
+      parameters:
+      - name: "doseId"
+        in: "path"
+        description: "ID of Service that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid Dose value"
+        204:
+          description: "Dose deleted"
   /lists/changereason:
     get:
       summary: "Fetch Change Reasons (for select options)"
