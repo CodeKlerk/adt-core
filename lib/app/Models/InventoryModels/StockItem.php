@@ -18,4 +18,8 @@ class StockItem extends Model
     public function stock(){
         return $this->belongsTo('App\Models\InventoryModels\Stock', 'stock_id');
     }
+
+    public function balance(){
+        return $this->hasOne('App\Models\InventoryModels\StockBalance', 'stock_item_id');
+    }
 }
