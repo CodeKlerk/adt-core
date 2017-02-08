@@ -15,5 +15,6 @@ class Visit extends Model
 
     public function visit_item(){
         return $this->hasMany('App\Models\VisitModels\VisitItem');
+        // return $this->hasMany('App\Models\VisitModels\VisitItem')->select(array('id','visit_id'));
     }
 }

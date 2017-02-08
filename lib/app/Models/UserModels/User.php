@@ -56,6 +56,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->belongsTo('App\Models\UserModels\AccessLevel');
     }
     public function facility(){
-        return $this->belongsTo('App\Models\FacilityModels\Facilities', 'facility_id');
+        return $this->belongsTo('App\Models\FacilityModels\Facilities', 'facility_id')->select(array('id', 'facility_type_id'));
     }
 }

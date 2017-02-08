@@ -63,8 +63,18 @@ class StockApi extends Controller
      */
     public function stockBincardget($drug_id)
     {
-        // $response = StockItem::where('drug_id', $drug_id)->get();
-        $response = Drug::with('unit','stock_item', 'stock_item.stock')->where('id', $drug_id)->get();
+        $transactions = Drug::with('unit','stock_item', 'stock_item.stock')->where('id', $drug_id)->get();
+
+        $batch_information = Drug::with('unit','stock_item')->where('id', $drug_id)->whereHas('stock_item.balance', function($query){
+            $query->where('balance', '>', '0');
+        })->get();
+
+        // return response()->json($batch_information);
+
+        $response = [
+            'transactions' => $transactions,
+            'batch_information' => $batch_information
+        ];
         return response()->json($response,200);
     }
     
