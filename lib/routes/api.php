@@ -280,12 +280,12 @@ $api->version('v1', function ($api) {
         $api->delete('/maps/{mapId}', 'App\Http\Controllers\MapsApi@mapsdelete');
 
         // maps log
-        $api->get('/maps/log', 'App\Http\Controllers\MapsApi@maps_logget');
-        $api->post('/maps/log', 'App\Http\Controllers\MapsApi@maps_logpost');
+        $api->get('/maps/log', 'App\Http\Controllers\MapsApi@mapsLogget');
+        $api->post('/maps/log', 'App\Http\Controllers\MapsApi@mapsLogpost');
 
-        $api->get('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@maps_logByIdget');
-        $api->put('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@maps_logput');
-        $api->delete('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@maps_logdelete');
+        $api->get('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@mapsLogByIdget');
+        $api->put('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@mapsLogput');
+        $api->delete('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@mapsLogdelete');
 
 
     });
