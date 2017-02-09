@@ -78,7 +78,7 @@ paths:
           description: "Commodity not found"
   /cdrr:
     get:
-      summary: "FACILITY CONSUMPTION DATA REPORT AND REQUEST"
+      summary: "Facility Consumption Data Report And Request"
       description: ""
       parameters:
       - name: "limit"
@@ -94,7 +94,7 @@ paths:
             items:
               $ref: "#/definitions/Cdrr"
         400:
-          description: "Invalid status value"
+          description: "Invalid value"
     post:
       summary: "Add a new CDRR to the facility"
       description: ""
@@ -121,7 +121,7 @@ paths:
           description: "Invalid input"
   /cdrr/{cdrrId}:
     get:
-      summary: "Fetch all CDFF details specified by cdrrId"
+      summary: "Fetch all CDRR details specified by cdrrId"
       description: "Returns CDRR specified by cdrrId"
       produces:
       - "application/json"
@@ -136,7 +136,7 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/BinCard"
+            $ref: "#/definitions/Cdrr"
         400:
           description: "Invalid ID supplied"
         404:
@@ -185,6 +185,144 @@ paths:
           description: "CDRR deleted"
         400:
           description: "Invalid CDRR value"
+  /cdrr/{cdrrId}/cdrritem:
+    get:
+      summary: "Fetch all CdrrItems for CDRR specified by cdrrId"
+      description: "Returns CdrrItems for CDRR specified by cdrrId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cdrrId"
+        in: "path"
+        description: "ID of CDRR whose whose CdrrItem needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/CdrrItem"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Commodity not found"
+    post:
+      summary: "Add a new cdrr item item to a CDRR"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "cdrrId"
+        in: "path"
+        description: "ID of CDRR whose CdrrItem you are creating"
+        required: true
+        type: "integer"
+        format: "int64"      
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/CdrrItem"
+      responses:
+        201:
+          description: "CDRR Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Cdrr"
+        405:
+          description: "Invalid input"
+  /cdrr/{cdrrId}/cdrritem/{cdrritemId}:
+    get:
+      summary: "Fetch particular CdrrItem specified by cdrritemId belonging to CDRR specified by cdrrId"
+      description: "Returns CdrrItem specified by cdrrId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cdrrId"
+        in: "path"
+        description: "ID of  CdrrItem whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "cdrritemId"
+        in: "path"
+        description: "ID of CdrrItem whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/CdrrItem"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Commodity not found"
+    put:
+      summary: "Update an existingCdrrItem specified by cdrritemId belonging to CDRR specified by cdrrId"
+      description: ""
+      parameters:
+      - name: "cdrrId"
+        in: "path"
+        description: "Particular CDRR specified by cdrrId"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "cdrritemId"
+        in: "path"
+        description: "ID of cdrritem whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/CdrrItem"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "CdrrItem not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes the CdrrItem specified by cdrritemId belonging to CDRR specified by cdrrId"
+      description: ""
+      parameters:
+      - name: "cdrrId"
+        in: "path"
+        description: "Particular CDRR specified by cdrrId"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "cdrritemId"
+        in: "path"
+        description: "ID of cdrritem whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "CDRR deleted"
+        400:
+          description: "Invalid cdrritem value"
   /drugs:
     get:
       summary: "fetches a list of drugs at a facility"
