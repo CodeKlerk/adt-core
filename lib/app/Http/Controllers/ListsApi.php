@@ -51,8 +51,11 @@ use App\Models\ListsModels\NonAdherenceReason;
 use App\Models\ListsModels\Purpose;
 use App\Models\ListsModels\Supporter;
 use App\Models\UserModels\AccessLevel;
+
 // tmp 
 use App\Models\FacilityModels\FacilityTypes;
+use App\Models\ListsModels\Classification;
+
 
 class ListsApi extends Controller
 {
@@ -1435,21 +1438,8 @@ class ListsApi extends Controller
      */
     public function listsClassificationsget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        if (!isset($input['api_key'])) {
-            throw new \InvalidArgumentException('Missing the required parameter $api_key when calling listsClassificationsGet');
-        }
-        $api_key = $input['api_key'];
-
-        $name = $input['name'];
-
-
-        return response('How about implementing listsClassificationsGet as a GET method ?');
+        $response = Classification::all();
+        return response()->json($response,200);
     }
     /**
      * Operation listsClassificationsClassificationIdGet
@@ -1462,14 +1452,8 @@ class ListsApi extends Controller
      */
     public function listsClassificationsByIdget($classification_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsClassificationsClassificationIdGet as a GET method ?');
+        $classification = Classification::findOrFail($classification_id);
+        return response()->json($classification,200);
     }
     /**
      * Operation listsClassificationsPost
@@ -1482,20 +1466,12 @@ class ListsApi extends Controller
     public function listsClassificationspost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        if (!isset($input['api_key'])) {
-            throw new \InvalidArgumentException('Missing the required parameter $api_key when calling listsClassificationsPost');
+        $new_classification = Classification::create($input);
+        if($new_classification){
+            return response()->json(['msg' => 'Added a new Classification']);
+        }else{
+            return response('Oops, it seems like there was a problem adding the Classification');
         }
-        $api_key = $input['api_key'];
-
-        $name = $input['name'];
-
-
-        return response('How about implementing listsClassificationsPost as a POST method ?');
     }
     /**
      * Operation listsClassificationsClassificationIdPut
@@ -1509,13 +1485,14 @@ class ListsApi extends Controller
     public function listsClassificationsput($classification_id)
     {
         $input = Request::all();
+        $classification = Classification::findOrFail($classification_id);
+        $classification->update(['name' => $input['name']]);
+        if($classification->save()){
+            return response()->json(['msg' => 'Update classification']);
+        }else{
+            return response('Oops, it seems like there was a problem updating the classification');
+        }
 
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsClassificationsClassificationIdPut as a PUT method ?');
     }
     /**
      * Operation listsClassificationsClassificationIdDelete
@@ -1528,14 +1505,10 @@ class ListsApi extends Controller
      */
     public function listsClassificationsdelete($classification_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsClassificationsClassificationIdDelete as a DELETE method ?');
+        $deleted_classification = Classification::destroy($classification_id);
+        if($deleted_classification){
+            return response()->json(['msg' => 'Deleted classification']);
+        }
     }
 
     // ///////////////////////
