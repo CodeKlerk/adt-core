@@ -287,6 +287,15 @@ $api->version('v1', function ($api) {
         $api->put('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@mapsLogput');
         $api->delete('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@mapsLogdelete');
 
+        /*
+        * store 
+        */
+        $api->get('/store', 'App\Http\Controllers\StockApi@storeget');
+        $api->post('/store', 'App\Http\Controllers\StockApi@storepost');
+
+        $api->get('/store/{storeId}', 'App\Http\Controllers\StockApi@storeByIdget');
+        $api->put('/store/{storeId}', 'App\Http\Controllers\StockApi@storeput');
+        $api->delete('/store/{storeId}', 'App\Http\Controllers\StockApi@storedelete');
 
     });
 });
