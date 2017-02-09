@@ -241,6 +241,13 @@ $api->version('v1', function ($api) {
         $api->delete('/lists/supporter/{supporterId}', 'App\Http\Controllers\ListsApi@listsSupporterdelete');
 
         /*
+        *   cdrr routes
+        */
+        $api->get('/cdrr', 'App\Http\Controllers\CdrrApi@cdrrget');
+        $api->post('/cdrr', 'App\Http\Controllers\CdrrApi@cdrrpost');
+        $api->get('/cdrr/{cdrrId}', 'App\Http\Controllers\CdrrApi@cdrrByIdget');
+
+        /*
         *   Temp routes
         */
         $api->get('/lists/access_level', 'App\Http\Controllers\ListsApi@access_level');
