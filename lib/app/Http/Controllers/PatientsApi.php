@@ -457,7 +457,7 @@ class PatientsApi extends Controller
         }
     }
 
-        /**
+    /**
      * Operation patientVisits
      *
      * Fetch a patient's visit.
@@ -539,25 +539,5 @@ class PatientsApi extends Controller
 
         return response('How about implementing deletePatientVisit as a DELETE method ?');
     }
-    /**
-     * Operation addService
-     *
-     * Add a new service to the facility.
-     *
-     *
-     * @return Http response
-     */
-    public function addService()
-    {
-        $input = Request::all();
 
-        //path params validation
-
-
-        //not path params validation
-        $body = $input['body'];
-
-
-        return response('How about implementing addService as a POST method ?');
-    }
 }
