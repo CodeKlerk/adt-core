@@ -239,7 +239,13 @@ $api->version('v1', function ($api) {
         $api->get('/lists/supporter/{supporterId}', 'App\Http\Controllers\ListsApi@listsSupporterByIdget');
         $api->put('/lists/supporter/{supporterId}', 'App\Http\Controllers\ListsApi@listsSupporterput');
         $api->delete('/lists/supporter/{supporterId}', 'App\Http\Controllers\ListsApi@listsSupporterdelete');
+        // classifications
+        $api->get('/lists/classifications', 'App\Http\Controllers\ListsApi@listsClassificationsget');
+        $api->post('/lists/classifications', 'App\Http\Controllers\ListsApi@listsClassificationspost');
 
+        $api->get('/lists/classifications/{classificationId}', 'App\Http\Controllers\ListsApi@listsClassificationsByIdget');
+        $api->put('/lists/classifications/{classificationId}', 'App\Http\Controllers\ListsApi@listsClassificationsput');
+        $api->delete('/lists/classifications/{classificationId}', 'App\Http\Controllers\ListsApi@listsClassificationsdelete');
         /*
         *   cdrr routes
         */

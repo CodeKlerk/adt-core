@@ -1421,6 +1421,123 @@ class ListsApi extends Controller
         }
     }
 
+    // //////////////////////////////
+    // classifications functions  //
+    // ////////////////////////////
+
+    /**
+     * Operation listsClassificationsGet
+     *
+     * Fetch classifications.
+     *
+     *
+     * @return Http response
+     */
+    public function listsClassificationsget()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        if (!isset($input['api_key'])) {
+            throw new \InvalidArgumentException('Missing the required parameter $api_key when calling listsClassificationsGet');
+        }
+        $api_key = $input['api_key'];
+
+        $name = $input['name'];
+
+
+        return response('How about implementing listsClassificationsGet as a GET method ?');
+    }
+    /**
+     * Operation listsClassificationsClassificationIdGet
+     *
+     * Fetch Classification specified by classificationId.
+     *
+     * @param int $classification_id ID of Classification that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsClassificationsByIdget($classification_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsClassificationsClassificationIdGet as a GET method ?');
+    }
+    /**
+     * Operation listsClassificationsPost
+     *
+     * create a Classification.
+     *
+     *
+     * @return Http response
+     */
+    public function listsClassificationspost()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        if (!isset($input['api_key'])) {
+            throw new \InvalidArgumentException('Missing the required parameter $api_key when calling listsClassificationsPost');
+        }
+        $api_key = $input['api_key'];
+
+        $name = $input['name'];
+
+
+        return response('How about implementing listsClassificationsPost as a POST method ?');
+    }
+    /**
+     * Operation listsClassificationsClassificationIdPut
+     *
+     * Update an existing Classification.
+     *
+     * @param int $classification_id ID of Classification that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsClassificationsput($classification_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsClassificationsClassificationIdPut as a PUT method ?');
+    }
+    /**
+     * Operation listsClassificationsClassificationIdDelete
+     *
+     * Deletes a Classification specified by classificationId.
+     *
+     * @param int $classification_id ID of Classification that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsClassificationsdelete($classification_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsClassificationsClassificationIdDelete as a DELETE method ?');
+    }
+
     // ///////////////////////
     // Temp functions      //
     // /////////////////////
