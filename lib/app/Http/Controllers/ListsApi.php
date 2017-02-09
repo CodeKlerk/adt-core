@@ -55,7 +55,7 @@ use App\Models\UserModels\AccessLevel;
 // tmp 
 use App\Models\FacilityModels\FacilityTypes;
 use App\Models\ListsModels\Classification;
-
+use App\Models\ListsModels\Indication;
 
 class ListsApi extends Controller
 {
@@ -1492,7 +1492,6 @@ class ListsApi extends Controller
         }else{
             return response('Oops, it seems like there was a problem updating the classification');
         }
-
     }
     /**
      * Operation listsClassificationsClassificationIdDelete
@@ -1525,16 +1524,8 @@ class ListsApi extends Controller
      */
     public function listsIndicationsget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsIndicationsGet as a GET method ?');
+        $response = Indication::all();
+        return response()->json($response,200);
     }
     /**
      * Operation listsIndicationsIndicationIdGet
@@ -1547,14 +1538,8 @@ class ListsApi extends Controller
      */
     public function listsIndicationsByIdget($indication_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsIndicationsIndicationIdGet as a GET method ?');
+        $indication = Indication::findOrFail($indication_id);
+        return response()->json($indication,200);
     }
     /**
      * Operation listsIndicationsPost
@@ -1567,15 +1552,12 @@ class ListsApi extends Controller
     public function listsIndicationspost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $name = $input['name'];
-
-
-        return response('How about implementing listsIndicationsPost as a POST method ?');
+        $new_indication = Indication::create($input);
+        if($new_indication){
+            return response()->json(['msg' => 'Added a new indication']);
+        }else{
+            return response('Oops, it seems like there was a problem adding the indication');
+        }
     }
     /**
      * Operation listsIndicationsIndicationIdPut
@@ -1589,13 +1571,13 @@ class ListsApi extends Controller
     public function listsIndicationsput($indication_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsIndicationsIndicationIdPut as a PUT method ?');
+        $indication = Indication::findOrFail($indication_id);
+        $indication->update(['name' => $input['name'], 'code' => $input['code']]);
+        if($indication->save()){
+            return response()->json(['msg' => 'Update indication']);
+        }else{
+            return response('Oops, it seems like there was a problem updating the indication');
+        }
     }
     /**
      * Operation listsIndicationsIndicationIdDelete
@@ -1608,14 +1590,10 @@ class ListsApi extends Controller
      */
     public function listsIndicationsdelete($indication_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsIndicationsIndicationIdDelete as a DELETE method ?');
+        $deleted_indication = Indication::destroy($indication_id);
+        if($deleted_indication){
+            return response()->json(['msg' => 'Deleted indication']);
+        }
     }
 
     // ///////////////////////
