@@ -246,6 +246,14 @@ $api->version('v1', function ($api) {
         $api->get('/lists/classifications/{classificationId}', 'App\Http\Controllers\ListsApi@listsClassificationsByIdget');
         $api->put('/lists/classifications/{classificationId}', 'App\Http\Controllers\ListsApi@listsClassificationsput');
         $api->delete('/lists/classifications/{classificationId}', 'App\Http\Controllers\ListsApi@listsClassificationsdelete');
+        // indications
+        $api->get('/lists/indications', 'App\Http\Controllers\ListsApi@listsIndicationsget');
+        $api->post('/lists/indications', 'App\Http\Controllers\ListsApi@listsIndicationspost');
+        $api->get('/lists/indications/{indicationId}', 'App\Http\Controllers\ListsApi@listsIndicationsByIdget');
+        $api->put('/lists/indications/{indicationId}', 'App\Http\Controllers\ListsApi@listsIndicationsput');
+        $api->delete('/lists/indications/{indicationId}', 'App\Http\Controllers\ListsApi@listsIndicationsdelete');
+
+
         /*
         *   cdrr routes
         */

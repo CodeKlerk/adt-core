@@ -1539,6 +1539,113 @@ class ListsApi extends Controller
     }
 
     // ///////////////////////
+    // indications         //
+    // /////////////////////
+
+    /**
+     * Operation listsIndicationsGet
+     *
+     * Fetch indications.
+     *
+     *
+     * @return Http response
+     */
+    public function listsIndicationsget()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsIndicationsGet as a GET method ?');
+    }
+    /**
+     * Operation listsIndicationsIndicationIdGet
+     *
+     * Fetch Indication specified by indicationId.
+     *
+     * @param int $indication_id ID of Indication that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsIndicationsByIdget($indication_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsIndicationsIndicationIdGet as a GET method ?');
+    }
+    /**
+     * Operation listsIndicationsPost
+     *
+     * create an Indication.
+     *
+     *
+     * @return Http response
+     */
+    public function listsIndicationspost()
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+        $name = $input['name'];
+
+
+        return response('How about implementing listsIndicationsPost as a POST method ?');
+    }
+    /**
+     * Operation listsIndicationsIndicationIdPut
+     *
+     * Update an existing Indication.
+     *
+     * @param int $indication_id ID of Indication that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsIndicationsput($indication_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsIndicationsIndicationIdPut as a PUT method ?');
+    }
+    /**
+     * Operation listsIndicationsIndicationIdDelete
+     *
+     * Deletes an Indication specified by indicationId.
+     *
+     * @param int $indication_id ID of Indication that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsIndicationsdelete($indication_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing listsIndicationsIndicationIdDelete as a DELETE method ?');
+    }
+
+    // ///////////////////////
     // Temp functions      //
     // /////////////////////
 
