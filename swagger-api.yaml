@@ -323,6 +323,392 @@ paths:
           description: "CDRR deleted"
         400:
           description: "Invalid cdrritem value"
+  /maps:
+    get:
+      summary: "Facility Consumption Data Report And Request"
+      description: ""
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "Number of maps's to fetch"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Maps"
+        400:
+          description: "Invalid value"
+    post:
+      summary: "Add a new maps to the facility"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Maps"
+      responses:
+        201:
+          description: "maps Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Maps"
+        405:
+          description: "Invalid input"
+  /maps/{mapsId}:
+    get:
+      summary: "Fetch all maps details specified by mapsId"
+      description: "Returns maps specified by mapsId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "mapsId"
+        in: "path"
+        description: "ID of commodity whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Maps"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Commodity not found"
+    put:
+      summary: "Update an existing maps specified by mapsId"
+      description: ""
+      parameters:
+      - name: "mapsId"
+        in: "path"
+        description: "Particular maps specified by mapsId"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/Maps"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "maps not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes the maps specified by mapsId"
+      description: ""
+      parameters:
+      - name: "mapsId"
+        in: "path"
+        description: "Particular maps specified by mapsId"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "maps deleted"
+        400:
+          description: "Invalid maps value"
+  /maps/{mapsId}/mapsitem:
+    get:
+      summary: "Fetch all mapsItems for maps specified by mapsId"
+      description: "Returns mapsItems for maps specified by mapsId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "mapsId"
+        in: "path"
+        description: "ID of maps whose whose mapsItem needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/MapsItem"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Commodity not found"
+    post:
+      summary: "Add a new maps item item to a maps"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "mapsId"
+        in: "path"
+        description: "ID of maps whose mapsItem you are creating"
+        required: true
+        type: "integer"
+        format: "int64"      
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/MapsItem"
+      responses:
+        201:
+          description: "maps Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Maps"
+        405:
+          description: "Invalid input"
+  /maps/{mapsId}/mapsitem/{mapsitemId}:
+    get:
+      summary: "Fetch particular mapsItem specified by mapsitemId belonging to maps specified by mapsId"
+      description: "Returns mapsItem specified by mapsId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "mapsId"
+        in: "path"
+        description: "ID of  mapsItem whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "mapsitemId"
+        in: "path"
+        description: "ID of mapsItem whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/MapsItem"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Commodity not found"
+    put:
+      summary: "Update an existingmapsItem specified by mapsitemId belonging to maps specified by mapsId"
+      description: ""
+      parameters:
+      - name: "mapsId"
+        in: "path"
+        description: "Particular maps specified by mapsId"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "mapsitemId"
+        in: "path"
+        description: "ID of mapsitem whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/MapsItem"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "mapsItem not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes the mapsItem specified by mapsitemId belonging to maps specified by mapsId"
+      description: ""
+      parameters:
+      - name: "mapsId"
+        in: "path"
+        description: "Particular maps specified by mapsId"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "mapsitemId"
+        in: "path"
+        description: "ID of mapsitem whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "maps deleted"
+        400:
+          description: "Invalid mapsitem value"
+  /maps/{mapsId}/mapslog:
+    get:
+      summary: "Fetch all mapslogs for maps specified by mapsId"
+      description: "Returns mapslogs for maps specified by mapsId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "mapsId"
+        in: "path"
+        description: "ID of maps whose whose mapslog needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/MapsLog"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Commodity not found"
+    post:
+      summary: "Add a new maps log to a maps"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "mapsId"
+        in: "path"
+        description: "ID of maps whose mapslog you are creating"
+        required: true
+        type: "integer"
+        format: "int64"      
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/MapsLog"
+      responses:
+        201:
+          description: "maps Added Successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Maps"
+        405:
+          description: "Invalid input"
+  /maps/{mapsId}/mapslog/{mapslogId}:
+    get:
+      summary: "Fetch particular mapslog specified by mapslogId belonging to maps specified by mapsId"
+      description: "Returns mapslog specified by mapsId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "mapsId"
+        in: "path"
+        description: "ID of  mapslog whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "mapslogId"
+        in: "path"
+        description: "ID of mapslog whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/MapsLog"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Commodity not found"
+    put:
+      summary: "Update an existingmapslog specified by mapslogId belonging to maps specified by mapsId"
+      description: ""
+      parameters:
+      - name: "mapsId"
+        in: "path"
+        description: "Particular maps specified by mapsId"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "mapslogId"
+        in: "path"
+        description: "ID of mapslog whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/MapsLog"
+      responses:
+        202:
+          description: "Update Accepted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "mapslog not found"
+        405:
+          description: "Validation exception"
+    delete:
+      summary: "Deletes the mapslog specified by mapslogId belonging to maps specified by mapsId"
+      description: ""
+      parameters:
+      - name: "mapsId"
+        in: "path"
+        description: "Particular maps specified by mapsId"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "mapslogId"
+        in: "path"
+        description: "ID of mapslog whose details needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "api_key"
+        in: "header"
+        description: ""
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "maps deleted"
+        400:
+          description: "Invalid mapslog value"
+
   /drugs:
     get:
       summary: "fetches a list of drugs at a facility"
