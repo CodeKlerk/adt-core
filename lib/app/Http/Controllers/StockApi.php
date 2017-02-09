@@ -69,8 +69,6 @@ class StockApi extends Controller
             $query->where('balance', '>', '0');
         })->get();
 
-        // return response()->json($batch_information);
-
         $response = [
             'transactions' => $transactions,
             'batch_information' => $batch_information
