@@ -282,6 +282,14 @@ $api->version('v1', function ($api) {
         /*
         * Temp/Maps routes
         */
+        // maps log
+        $api->get('/maps/log', 'App\Http\Controllers\MapsApi@mapsLogget');
+        $api->post('/maps/log', 'App\Http\Controllers\MapsApi@mapsLogpost');
+
+        $api->get('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@mapsLogByIdget');
+        $api->put('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@mapsLogput');
+        $api->delete('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@mapsLogdelete');
+
         // maps
         $api->get('/maps', 'App\Http\Controllers\MapsApi@mapsget');
         $api->post('/maps', 'App\Http\Controllers\MapsApi@mapspost');
@@ -290,13 +298,6 @@ $api->version('v1', function ($api) {
         $api->put('/maps/{mapId}', 'App\Http\Controllers\MapsApi@mapsput');
         $api->delete('/maps/{mapId}', 'App\Http\Controllers\MapsApi@mapsdelete');
 
-        // maps log
-        // $api->get('/maps/log', 'App\Http\Controllers\MapsApi@mapsLogget');
-        // $api->post('/maps/log', 'App\Http\Controllers\MapsApi@mapsLogpost');
-
-        // $api->get('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@mapsLogByIdget');
-        // $api->put('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@mapsLogput');
-        // $api->delete('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@mapsLogdelete');
 
         /*
         * store 
