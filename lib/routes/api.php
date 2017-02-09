@@ -89,7 +89,18 @@ $api->version('v1', function ($api) {
         $api->post('/patients/{patientId}/visits', 'App\Http\Controllers\PatientsApi@addPatientVisits');
         $api->put('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@updatePatientVisit');
         $api->delete('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@deletePatientVisit');
-        
+        // temp routes for patients 
+        // illnesses
+        $api->get('/patients/{patientId}/illnesses', 'App\Http\Controllers\PatientsApi@patientillnesses');
+        $api->post('/patients/{patientId}/illnesses', 'App\Http\Controllers\PatientsApi@addPatientillnesses');
+        $api->put('/patients/{patientId}/illnesses/{illnessId}', 'App\Http\Controllers\PatientsApi@updatePatientillnesses');
+        $api->delete('/patients/{patientId}/illnesses/{illnessId}', 'App\Http\Controllers\PatientsApi@deletePatientillnesses');
+        // partner
+        $api->get('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@patientpartner');
+        $api->post('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@addPatientpartner');
+        $api->put('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@updatePatientpartner');
+        $api->delete('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@deletePatientpartner');
+        // //////////////////////////
         /*
         *   Stock routes
         */
