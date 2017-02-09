@@ -267,5 +267,26 @@ $api->version('v1', function ($api) {
         $api->get('/lists/access_level', 'App\Http\Controllers\ListsApi@access_level');
         $api->get('/lists/type', 'App\Http\Controllers\ListsApi@type');
         $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
+
+        /*
+        * Temp/Maps routes
+        */
+        // maps
+        $api->get('/maps', 'App\Http\Controllers\MapsApi@mapsget');
+        $api->post('/maps', 'App\Http\Controllers\MapsApi@mapspost');
+
+        $api->get('/maps/{mapId}', 'App\Http\Controllers\MapsApi@mapsByIdget');
+        $api->put('/maps/{mapId}', 'App\Http\Controllers\MapsApi@mapsput');
+        $api->delete('/maps/{mapId}', 'App\Http\Controllers\MapsApi@mapsdelete');
+
+        // maps log
+        $api->get('/maps/log', 'App\Http\Controllers\MapsApi@maps_logget');
+        $api->post('/maps/log', 'App\Http\Controllers\MapsApi@maps_logpost');
+
+        $api->get('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@maps_logByIdget');
+        $api->put('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@maps_logput');
+        $api->delete('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@maps_logdelete');
+
+
     });
 });
