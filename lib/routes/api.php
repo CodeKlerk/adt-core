@@ -266,7 +266,12 @@ $api->version('v1', function ($api) {
         $api->get('/lists/indications/{indicationId}', 'App\Http\Controllers\ListsApi@listsIndicationsByIdget');
         $api->put('/lists/indications/{indicationId}', 'App\Http\Controllers\ListsApi@listsIndicationsput');
         $api->delete('/lists/indications/{indicationId}', 'App\Http\Controllers\ListsApi@listsIndicationsdelete');
-
+        // access level
+        $api->get('/lists/access_level', 'App\Http\Controllers\ListsApi@listsaccessLevelget');
+        $api->post('/lists/access_level', 'App\Http\Controllers\ListsApi@listsaccessLevelpost');
+        $api->get('/lists/access_level/{indicationId}', 'App\Http\Controllers\ListsApi@listsaccessLevelByIdget');
+        $api->put('/lists/access_level/{indicationId}', 'App\Http\Controllers\ListsApi@listsaccessLevelput');
+        $api->delete('/lists/access_level/{indicationId}', 'App\Http\Controllers\ListsApi@listsaccessLeveldelete');
 
         /*
         *   cdrr routes
@@ -286,15 +291,8 @@ $api->version('v1', function ($api) {
         $api->put('/cdrr/{cdrrId}', 'App\Http\Controllers\CdrrApi@cdrrput');
 
         /*
-        *   Temp routes
-        */
-        $api->get('/lists/access_level', 'App\Http\Controllers\ListsApi@access_level');
-        $api->get('/lists/type', 'App\Http\Controllers\ListsApi@type');
-        $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
-
-        /*
-        * Temp/Maps routes
-        */
+        * Maps routes
+        */        
         // maps log
         $api->get('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@mapsLogget');
         $api->post('/maps/{mapId}/log', 'App\Http\Controllers\MapsApi@mapsLogpost');
@@ -311,6 +309,12 @@ $api->version('v1', function ($api) {
         $api->put('/maps/{mapId}', 'App\Http\Controllers\MapsApi@mapsput');
         $api->delete('/maps/{mapId}', 'App\Http\Controllers\MapsApi@mapsdelete');
 
+        /*
+        *   Temp routes
+        */
+        $api->get('/lists/access_level', 'App\Http\Controllers\ListsApi@access_level');
+        $api->get('/lists/type', 'App\Http\Controllers\ListsApi@type');
+        $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
 
         /*
         * store 
