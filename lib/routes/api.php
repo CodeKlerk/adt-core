@@ -271,9 +271,19 @@ $api->version('v1', function ($api) {
         /*
         *   cdrr routes
         */
+        // cdrr logs
+        $api->get('/cdrr/{cdrrId}/log', 'App\Http\Controllers\cdrrApi@cdrrLogget');
+        $api->post('/cdrr/{cdrrId}/log', 'App\Http\Controllers\cdrrApi@cdrrLogpost');
+
+        $api->get('/cdrr/{cdrrId}/log/{logId}', 'App\Http\Controllers\cdrrApi@cdrrLogByIdget');
+        $api->put('/cdrr/{cdrrId}/log/{logId}', 'App\Http\Controllers\cdrrApi@cdrrLogput');
+        $api->delete('/cdrr/{cdrrId}/log/{logId}', 'App\Http\Controllers\cdrrApi@cdrrLogdelete');
+        // cdrr
         $api->get('/cdrr', 'App\Http\Controllers\CdrrApi@cdrrget');
         $api->post('/cdrr', 'App\Http\Controllers\CdrrApi@cdrrpost');
+
         $api->get('/cdrr/{cdrrId}', 'App\Http\Controllers\CdrrApi@cdrrByIdget');
+        $api->put('/cdrr/{cdrrId}', 'App\Http\Controllers\CdrrApi@cdrrput');
 
         /*
         *   Temp routes

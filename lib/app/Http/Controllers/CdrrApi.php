@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Models\CdrrModels\Cdrr;
+use App\Models\CdrrModels\CdrrItem;
+use App\Models\CdrrModels\CdrrLog;
 
 class CdrrApi extends Controller
 {
@@ -18,23 +21,12 @@ class CdrrApi extends Controller
     /**
      * Operation cdrrGet
      *
-     * FACILITY CONSUMPTION DATA REPORT AND REQUEST.
-     *
      *
      * @return Http response
      */
     public function cdrrget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $limit = $input['limit'];
-
-
-        return response('How about implementing cdrrGet as a GET method ?');
+        return response()->json(Cdrr::all(), 200);
     }
     /**
      * Operation cdrrCdrrIdGet
@@ -47,19 +39,13 @@ class CdrrApi extends Controller
      */
     public function cdrrByIdget($cdrr_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing cdrrCdrrIdGet as a GET method ?');
+        $response = Cdrr::findOrFail($cdrr_id);
+        return response()->json($response, 200);
     }
     /**
      * Operation cdrrPost
      *
-     * Add a new CDRR to the facility.
+     * Add a new CDRR.
      *
      *
      * @return Http response
@@ -67,15 +53,144 @@ class CdrrApi extends Controller
     public function cdrrpost()
     {
         $input = Request::all();
+        $new_cdrr = Cdrr::create($input);
+        if($new_cdrr){
+            return response()->json(['msg' => 'Added a new cdrr']);
+        }else{
+            return response('Oops, it seems like there was a problem adding the cdrr');
+        }
+    }
+    /**
+     * Operation cdrrput
+     *
+     * Update CDRR .
+     *
+     *
+     * @return Http response
+     */
+    public function cdrrput($cdrr_id)
+    {
+        $input = Request::all();
+        $cdrr = Cdrr::findOrFail($cdrr_id);
+        $cdrr->update([
+            'status' => $input['status'],
+            'code' => $input['code'],
+            'period_begin' => $input['period_begin'],
+            'period_end' => $input['period_end'],
+            'comments' => $input['comments'],
+            'reports_expected' => $input['reports_expected'],
+            'reports_actual' => $input['reports_actual'],
+            'services' => $input['services'],
+            'is_non_arv' => $input['is_non_arv'],
+            'facility_id' => $input['facility_id'],
+            'supporter_id' => $input['supporter_id']
+        ]);
+        if($cdrr->save()){
+            return response()->json(['msg' => 'Update indication']);
+        }else{
+            return response('Oops, it seems like there was a problem updating the indication');
+        }
+    }
+    /**
+     * Operation cdrrput
+     *
+     * delete CDRR .
+     *
+     *
+     * @return Http response
+     */
+    public function cdrrdelete($cdrr_id)
+    {
+        // delete
+    }
+
+    // cdrr logs
+
+    /**
+     * Operation cdrrLogget
+     *
+     * Fetch cdrrLog.
+     *
+     *
+     * @return Http response
+     */
+    public function cdrrLogget($cdrr_id)
+    {
+        $response = cdrrLog::where('cdrr_id', $cdrr_id)->get();
+        return response()->json($response,200);
+    }
+    /**
+     * Operation cdrrLogById
+     *
+     * Fetch cdrrLog specified by cdrrLogid.
+     *
+     * @param int $cdrr_id ID of cdrrLog that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function cdrrLogByIdget($cdrr_id, $log_id)
+    {
+        $response = cdrrLog::where('cdrr_id', $cdrr_id)->where('id', $log_id)->get();
+        return response()->json($response,200);
+    }
+    /**
+     * Operation cdrrLogsPost
+     *
+     * create an cdrrLog.
+     *
+     *
+     * @return Http response
+     */
+    public function cdrrLogpost($cdrr_id)
+    {
+        $input = Request::all();
+        $new_map_log = cdrrLog::create([ 'status'=>$input['status'], 'cdrr_id'=>$cdrr_id, 'user_id'=>$input['user_id'] ]);
+        if($new_map_log){
+            return response()->json(['msg' => 'add a new map log ']);
+        }else{
+            return response('nope');
+        }
+    }
+    /**
+     * Operation cdrrLogscdrrLogIdPut
+     *
+     * Update an existing cdrrLog.
+     *
+     * @param int $cdrr_id ID of cdrrLog that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function cdrrLogput($cdrr_id, $log_id)
+    {
+        $input = Request::all();
+        $log = cdrrLog::where('cdrr_id', $cdrr_id)
+                        ->where('id', $log_id)
+                        ->update([ 'status'=>$input['status'], 'user_id'=>$input['user_id'] ]);
+        if($log){
+            return response()->json(['msg' => 'updated map log ']);
+        }else{
+            return response('nope');
+        }
+    }
+    /**
+     * Operation cdrrLogscdrrLogIdDelete
+     *
+     * Deletes an cdrrLog specified by cdrrLogId.
+     *
+     * @param int $cdrr_id ID of cdrrLog that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function cdrrLogsdelete($cdrr_id)
+    {
+        $input = Request::all();
 
         //path params validation
 
 
         //not path params validation
-        $body = $input['body'];
 
-
-        return response('How about implementing cdrrPost as a POST method ?');
-    }
+        return response('How about implementing cdrrLogscdrrLogIdDelete as a DELETE method ?');
+    }   
 
 }
