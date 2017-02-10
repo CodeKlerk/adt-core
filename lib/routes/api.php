@@ -312,7 +312,6 @@ $api->version('v1', function ($api) {
         /*
         *   Temp routes
         */
-        $api->get('/lists/access_level', 'App\Http\Controllers\ListsApi@access_level');
         $api->get('/lists/type', 'App\Http\Controllers\ListsApi@type');
         $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
 

@@ -1596,6 +1596,92 @@ class ListsApi extends Controller
         }
     }
 
+    // //////////////////////////
+    // access_level functions //
+    // ////////////////////////
+
+    /**
+     * Operation listsaccessLevelGet
+     *
+     * Fetch accessLevel.
+     *
+     *
+     * @return Http response
+     */
+    public function listsaccessLevelget()
+    {
+        $response = AccessLevel::all();
+        return response()->json($response,200);
+    }
+    /**
+     * Operation listsaccessLevelaccessLevelIdGet
+     *
+     * Fetch accessLevel specified by accessLevelId.
+     *
+     * @param int $accessLevel_id ID of accessLevel that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsaccessLevelByIdget($accessLevel_id)
+    {
+        $accessLevel = AccessLevel::findOrFail($accessLevel_id);
+        return response()->json($accessLevel,200);
+    }
+    /**
+     * Operation listsaccessLevelPost
+     *
+     * create an accessLevel.
+     *
+     *
+     * @return Http response
+     */
+    public function listsaccessLevelpost()
+    {
+        $input = Request::all();
+        $new_accessLevel = AccessLevel::create($input);
+        if($new_accessLevel){
+            return response()->json(['msg' => 'Added a new accessLevel']);
+        }else{
+            return response('Oops, it seems like there was a problem adding the accessLevel');
+        }
+    }
+    /**
+     * Operation listsaccessLevelaccessLevelIdPut
+     *
+     * Update an existing accessLevel.
+     *
+     * @param int $accessLevel_id ID of accessLevel that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsaccessLevelput($accessLevel_id)
+    {
+        $input = Request::all();
+        $accessLevel = AccessLevel::findOrFail($accessLevel_id);
+        $accessLevel->update(['name' => $input['name'], 'description' => $input['description']]);
+        if($accessLevel->save()){
+            return response()->json(['msg' => 'Update accessLevel']);
+        }else{
+            return response('Oops, it seems like there was a problem updating the accessLevel');
+        }
+    }
+    /**
+     * Operation listsaccessLevelaccessLevelIdDelete
+     *
+     * Deletes an accessLevel specified by accessLevelId.
+     *
+     * @param int $accessLevel_id ID of accessLevel that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsaccessLeveldelete($accessLevel_id)
+    {
+        $deleted_accessLevel = AccessLevel::destroy($accessLevel_id);
+        if($deleted_accessLevel){
+            return response()->json(['msg' => 'Deleted accessLevel']);
+        }
+    }
+
     // ///////////////////////
     // Temp functions      //
     // /////////////////////
@@ -1608,8 +1694,5 @@ class ListsApi extends Controller
     public function type(){
         $response = FacilityTypes::all();
         return response()->json($response, 200);
-    }
-    public function access_level(){
-        return response()->json(AccessLevel::all(),200);
     }
 }
