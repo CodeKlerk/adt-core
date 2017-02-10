@@ -269,9 +269,15 @@ $api->version('v1', function ($api) {
         // access level
         $api->get('/lists/access_level', 'App\Http\Controllers\ListsApi@listsaccessLevelget');
         $api->post('/lists/access_level', 'App\Http\Controllers\ListsApi@listsaccessLevelpost');
-        $api->get('/lists/access_level/{indicationId}', 'App\Http\Controllers\ListsApi@listsaccessLevelByIdget');
-        $api->put('/lists/access_level/{indicationId}', 'App\Http\Controllers\ListsApi@listsaccessLevelput');
-        $api->delete('/lists/access_level/{indicationId}', 'App\Http\Controllers\ListsApi@listsaccessLeveldelete');
+        $api->get('/lists/access_level/{accessLevelId}', 'App\Http\Controllers\ListsApi@listsaccessLevelByIdget');
+        $api->put('/lists/access_level/{accessLevelId}', 'App\Http\Controllers\ListsApi@listsaccessLevelput');
+        $api->delete('/lists/access_level/{accessLevelId}', 'App\Http\Controllers\ListsApi@listsaccessLeveldelete');
+        // facility type
+        $api->get('/lists/facility_type', 'App\Http\Controllers\ListsApi@listsfacilityTypeget');
+        $api->post('/lists/facility_type', 'App\Http\Controllers\ListsApi@listsfacilityTypepost');
+        $api->get('/lists/facility_type/{facilityType}', 'App\Http\Controllers\ListsApi@listsfacilityTypeByIdget');
+        $api->put('/lists/facility_type/{facilityType}', 'App\Http\Controllers\ListsApi@listsfacilityTypeput');
+        $api->delete('/lists/facility_type/{facilityType}', 'App\Http\Controllers\ListsApi@listsfacilityTypedelete');
 
         /*
         *   cdrr routes

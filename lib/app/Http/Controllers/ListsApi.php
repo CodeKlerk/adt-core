@@ -1681,6 +1681,92 @@ class ListsApi extends Controller
             return response()->json(['msg' => 'Deleted accessLevel']);
         }
     }
+    // ///////////////////////////
+    // facility type functions //
+    // /////////////////////////
+
+    /**
+     * Operation listsfacilityTypeGet
+     *
+     * Fetch facilityType.
+     *
+     *
+     * @return Http response
+     */
+    public function listsfacilityTypeget()
+    {
+        $response = FacilityTypes::all();
+        return response()->json($response,200);
+    }
+    /**
+     * Operation listsfacilityTypefacilityTypeIdGet
+     *
+     * Fetch facilityType specified by facilityTypeId.
+     *
+     * @param int $facilityType_id ID of facilityType that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsfacilityTypeByIdget($facilityType_id)
+    {
+        $facilityType = FacilityTypes::findOrFail($facilityType_id);
+        return response()->json($facilityType,200);
+    }
+    /**
+     * Operation listsfacilityTypePost
+     *
+     * create an facilityType.
+     *
+     *
+     * @return Http response
+     */
+    public function listsfacilityTypepost()
+    {
+        $input = Request::all();
+        $new_facilityType = FacilityTypes::create($input);
+        if($new_facilityType){
+            return response()->json(['msg' => 'Added a new facilityType']);
+        }else{
+            return response('Oops, it seems like there was a problem adding the facilityType');
+        }
+    }
+    /**
+     * Operation listsfacilityTypefacilityTypeIdPut
+     *
+     * Update an existing facilityType.
+     *
+     * @param int $facilityType_id ID of facilityType that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsfacilityTypeput($facilityType_id)
+    {
+        $input = Request::all();
+        $facilityType = FacilityTypes::findOrFail($facilityType_id);
+        $facilityType->update(['name' => $input['name']]);
+        if($facilityType->save()){
+            return response()->json(['msg' => 'Update facilityType']);
+        }else{
+            return response('Oops, it seems like there was a problem updating the facilityType');
+        }
+    }
+    /**
+     * Operation listsfacilityTypefacilityTypeIdDelete
+     *
+     * Deletes an facilityType specified by facilityTypeId.
+     *
+     * @param int $facilityType_id ID of facilityType that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsfacilityTypedelete($facilityType_id)
+    {
+        $deleted_facilityType = FacilityTypes::destroy($facilityType_id);
+        if($deleted_facilityType){
+            return response()->json(['msg' => 'Deleted facilityType']);
+        }
+    }
+
 
     // ///////////////////////
     // Temp functions      //
