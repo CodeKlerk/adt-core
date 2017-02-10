@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
-
+use App\Models\MapsModels\Maps;
+use App\Models\MapsModels\MapsItem;
+use App\Models\MapsModels\MapsLog;
 
 class MapsApi extends Controller
 {
@@ -26,7 +28,8 @@ class MapsApi extends Controller
      */
     public function mapsget()
     {
-        // get all
+        $response = Maps::all();
+        return response()->json($response,200);
     }
     /**
      * Operation mapsById
@@ -37,11 +40,10 @@ class MapsApi extends Controller
      *
      * @return Http response
      */
-    public function mapsById($maps_id)
+    public function mapsByIdget($maps_id)
     {
-        $input = Request::all();
-
-        // get one
+        $response = Maps::findOrFail($maps_id);
+        return response()->json($response,200);
     }
     /**
      * Operation mapssPost
@@ -51,10 +53,15 @@ class MapsApi extends Controller
      *
      * @return Http response
      */
-    public function mapsspost()
+    public function mapspost()
     {
         $input = Request::all();
-        // post maps
+        $new_map = Maps::create($input);
+        if($new_map){
+            return response()->json(['msg' => 'add a new map']);
+        }else{
+            return response('nope');
+        }
     }
     /**
      * Operation mapssmapsIdPut
@@ -65,16 +72,27 @@ class MapsApi extends Controller
      *
      * @return Http response
      */
-    public function mapssput($maps_id)
+    public function mapsput($maps_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing mapssmapsIdPut as a PUT method ?');
+        $map = Maps::findOrFail($maps_id);
+        $map->update([
+            'status' => $input['status'],
+            'code' => $input['code'],
+            'period_begin' => $input['period_begin'],
+            'period_end' => $input['period_end'],
+            'reports_expected' => $input['reports_expected'],
+            'reports_actual' => $input['reports_actual'],
+            'services' => $input['services'],
+            'comments' => $input['comments'],
+            'facility_id' => $input['facility_id'],
+            'supporter_id' => $input['supporter_id'],
+            ]);
+        if($map->save()){
+            return response()->json(['msg' => 'Update map']);
+        }else{
+            return response('Oops, it seems like there was a problem updating the map');
+        } 
     }
     /**
      * Operation mapssmapsIdDelete
