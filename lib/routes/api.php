@@ -58,6 +58,9 @@ $api->version('v1', function ($api) {
         $api->put('/patients/{patientId}', 'App\Http\Controllers\PatientsApi@updatePatient');
         $api->delete('/patients/{patientId}', 'App\Http\Controllers\PatientsApi@deletePatient');
 
+        // check ccc_number
+        $api->get('/patients/ccc_number/{ccc_number}', 'App\Http\Controllers\PatientsApi@check_ccc_number');
+
         /*
         *   Patient additions routes
         */

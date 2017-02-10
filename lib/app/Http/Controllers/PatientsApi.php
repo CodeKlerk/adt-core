@@ -71,7 +71,15 @@ class PatientsApi extends Controller
         $response = Patient::paginate(10);
         return response()->json($response, 200);
     }
-
+    // check if ccc_number number is in use
+    public function check_ccc_number($ccc_number){
+        $check = Patient::where('ccc_number', $ccc_number)->count();
+        if($check > 0){
+            return response()->json(['msg' => 'ccc_number is in use'],200);
+        }else{
+           return response()->json(['msg' => 'ccc_number is good to use'],200);
+        }
+    }
     /**
      * Operation getPatientById
      *
