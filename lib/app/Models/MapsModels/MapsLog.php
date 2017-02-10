@@ -10,6 +10,6 @@ class MapsLog extends Model
     use SoftDeletes;
 
     protected $table = 'tbl_maps_log';
-    protected $fillable = [''];
+    protected $fillable = ['status', 'maps_id', 'user_id'];
     protected $dates = ['deleted_at'];
 }

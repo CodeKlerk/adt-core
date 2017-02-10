@@ -125,24 +125,24 @@ class MapsApi extends Controller
      *
      * @return Http response
      */
-    public function mapsLogget()
+    public function mapsLogget($maps_id)
     {
-        // get all
+        $response = MapsLog::where('maps_id', $maps_id)->get();
+        return response()->json($response,200);
     }
     /**
      * Operation mapsLogById
      *
      * Fetch mapsLog specified by mapsLogid.
      *
-     * @param int $mapsLog_id ID of mapsLog that needs to be fetched (required)
+     * @param int $maps_id ID of mapsLog that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function mapsLogById($mapsLog_id)
+    public function mapsLogByIdget($maps_id, $log_id)
     {
-        $input = Request::all();
-
-        // get one
+        $response = MapsLog::where('maps_id', $maps_id)->where('id', $log_id)->get();
+        return response()->json($response,200);
     }
     /**
      * Operation mapsLogsPost
@@ -152,41 +152,47 @@ class MapsApi extends Controller
      *
      * @return Http response
      */
-    public function mapsLogspost()
+    public function mapsLogpost($maps_id)
     {
         $input = Request::all();
-        // post mapsLog
+        $new_map_log = MapsLog::create([ 'status'=>$input['status'], 'maps_id'=>$maps_id, 'user_id'=>$input['user_id'] ]);
+        if($new_map_log){
+            return response()->json(['msg' => 'add a new map log ']);
+        }else{
+            return response('nope');
+        }
     }
     /**
      * Operation mapsLogsmapsLogIdPut
      *
      * Update an existing mapsLog.
      *
-     * @param int $mapsLog_id ID of mapsLog that needs to be fetched (required)
+     * @param int $maps_id ID of mapsLog that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function mapsLogsput($mapsLog_id)
+    public function mapsLogput($maps_id, $log_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing mapsLogsmapsLogIdPut as a PUT method ?');
+        $log = MapsLog::where('maps_id', $maps_id)
+                        ->where('id', $log_id)
+                        ->update([ 'status'=>$input['status'], 'user_id'=>$input['user_id'] ]);
+        if($log){
+            return response()->json(['msg' => 'updated map log ']);
+        }else{
+            return response('nope');
+        }
     }
     /**
      * Operation mapsLogsmapsLogIdDelete
      *
      * Deletes an mapsLog specified by mapsLogId.
      *
-     * @param int $mapsLog_id ID of mapsLog that needs to be fetched (required)
+     * @param int $maps_id ID of mapsLog that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function mapsLogsdelete($mapsLog_id)
+    public function mapsLogsdelete($maps_id)
     {
         $input = Request::all();
 
