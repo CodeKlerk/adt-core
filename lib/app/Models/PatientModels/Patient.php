@@ -49,7 +49,7 @@ class Patient extends Model
     }
 
     public function patient_status(){
-        return $this->hasMany('App\Models\PatientModels\PatientStatus', 'patient_id', 'id');
+        return $this->hasMany('App\Models\PatientModels\PatientStatus', 'patient_id', 'id')->latest()->take(1);
     }
 
     public function patient_drug_allergy(){
