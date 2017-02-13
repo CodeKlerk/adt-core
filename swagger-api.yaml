@@ -6,7 +6,7 @@ info:
   title: "ADT API"
   contact: {}
 # the domain of the service
-host: localhost:81/adt-core
+host: adt-core.io
 # array of all schemes that your API supports
 schemes:
   - http
@@ -14,10 +14,6 @@ schemes:
 basePath: /api
 produces:
   - application/json
-
-  license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 security:
 - adt_auth: []
 paths:
