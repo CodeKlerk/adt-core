@@ -94,7 +94,7 @@ class PatientsApi extends Controller
         $patient = Patient::findOrFail($patient_id);
         // $patient_status = PatientStatus::where('patient_id', $patient_id)->latest()->take(1)->get();
         $patient->load('service','facility', 'supporter', 'source', 'who_stage', 'patient_prophylaxis', 'patient_tb', 'patient_drug_other',
-                        'patient_status', 'patient_drug_allergy', 'drug_allergy_other', 'patient_dependant', 'patient_family_planning', 'patient_partner');
+                        'patient_status', 'patient_drug_allergy', 'drug_allergy_other', 'patient_dependant', 'patient_family_planning', 'patient_partner', 'next_appointment');
 
         return response()->json($patient, 200);
 

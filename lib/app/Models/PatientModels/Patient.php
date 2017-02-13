@@ -76,5 +76,8 @@ class Patient extends Model
     public function visit(){
         return $this->hasMany('App\Models\VisitModels\Visit');
     }
+    public function next_appointment(){
+        return $this->hasMany('App\Models\VisitModels\Appointment')->latest()->take(1);
+    }
 
 }
