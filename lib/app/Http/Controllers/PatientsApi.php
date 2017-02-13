@@ -75,9 +75,9 @@ class PatientsApi extends Controller
     public function check_ccc_number($ccc_number){
         $check = Patient::where('ccc_number', $ccc_number)->count();
         if($check > 0){
-            return response()->json(['msg' => 'ccc_number is in use'],200);
+            return response()->json(['msg' => 'true'],200);
         }else{
-           return response()->json(['msg' => 'ccc_number is good to use'],200);
+           return response()->json(['msg' => 'false'],200);
         }
     }
     /**
@@ -91,10 +91,12 @@ class PatientsApi extends Controller
      */
     public function getPatientById($patient_id)
     {
-        $response = Patient::findOrFail($patient_id);
-        $response->load('service','facility', 'supporter', 'source', 'who_stage', 'patient_prophylaxis', 'patient_tb', 'patient_drug_other',
+        $patient = Patient::findOrFail($patient_id);
+        // $patient_status = PatientStatus::where('patient_id', $patient_id)->latest()->take(1)->get();
+        $patient->load('service','facility', 'supporter', 'source', 'who_stage', 'patient_prophylaxis', 'patient_tb', 'patient_drug_other',
                         'patient_status', 'patient_drug_allergy', 'drug_allergy_other', 'patient_dependant', 'patient_family_planning', 'patient_partner');
-        return response()->json($response, 200);
+
+        return response()->json($patient, 200);
 
     }
 

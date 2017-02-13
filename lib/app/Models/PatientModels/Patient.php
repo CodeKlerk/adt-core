@@ -76,4 +76,5 @@ class Patient extends Model
     public function visit(){
         return $this->hasMany('App\Models\VisitModels\Visit');
     }
+
 }
