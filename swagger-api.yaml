@@ -5,6 +5,16 @@ info:
   version: "1.0.0"
   title: "ADT API"
   contact: {}
+# the domain of the service
+host: localhost:81/adt-core
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /api
+produces:
+  - application/json
+
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
