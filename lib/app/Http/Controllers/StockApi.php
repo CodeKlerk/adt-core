@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 use App\Models\InventoryModels\StockItem;
+use App\Models\InventoryModels\Stock;
+use App\Models\InventoryModels\TransactionType;
 use App\Models\DrugModels\Drug;
 
 class StockApi extends Controller
@@ -28,8 +30,7 @@ class StockApi extends Controller
      */
     public function stockget()
     {
-        $response = StockItem::all();
-        return $response;
+        return response()->json(TransactionType::with('stock.stock_item')->get(),200);
     }
     /**
      * Operation stockPost
@@ -83,6 +84,11 @@ class StockApi extends Controller
             'drug_information' => $drug_information
         ];
         return response()->json($response,200);
+    }
+
+    // transactions
+    public function stock_transaction_get(){
+        return response()->json(TransactionType::with('stock.stock_item')->get(),200);
     }
     
 }

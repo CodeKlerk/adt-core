@@ -107,6 +107,7 @@ $api->version('v1', function ($api) {
         // return latest
         $api->get('/patients/{patientId}/appointment/latest', 'App\Http\Controllers\PatientsApi@return_latest_appointment');
         $api->get('/patients/{patientId}/visit/latest', 'App\Http\Controllers\PatientsApi@return_latest_visit');
+        
         // //////////////////////////
         /*
         *   Stock routes

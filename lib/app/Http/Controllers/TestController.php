@@ -10,6 +10,8 @@ use App\Models\InventoryModels\StockItem;
 use App\Models\VisitModels\Appointment; 
 use App\Models\VisitModels\Visit;
 
+use App\Models\InventoryModels\TransactionType;
+
 class TestController extends Controller
 {
     /**
@@ -37,7 +39,7 @@ class TestController extends Controller
 
     public function get_test()
     {
-        
+        return response()->json(TransactionType::with('stock.stock_item')->get(),200);
     }
     
 }
