@@ -104,6 +104,9 @@ $api->version('v1', function ($api) {
         $api->post('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@addPatientpartner');
         $api->put('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@updatePatientpartner');
         $api->delete('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@deletePatientpartner');
+        // return latest
+        $api->get('/patients/{patientId}/appointment/latest', 'App\Http\Controllers\PatientsApi@return_latest_appointment');
+        $api->get('/patients/{patientId}/visit/latest', 'App\Http\Controllers\PatientsApi@return_latest_visit');
         // //////////////////////////
         /*
         *   Stock routes
