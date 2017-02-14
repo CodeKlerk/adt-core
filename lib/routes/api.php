@@ -40,6 +40,7 @@ $api->version('v1', function ($api) {
             'as' => 'api.auth.invalidate'
         ]);
         $api->get('test', 'App\Http\Controllers\TestController@get_test');
+        $api->get('test/{id}', 'App\Http\Controllers\TestController@get_test_with_id');
         // 
         /*
         *   User routes

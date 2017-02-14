@@ -45,6 +45,7 @@ use App\Models\PatientModels\PatientStatus;
 use App\Models\PatientModels\PatientTb;
 
 use App\Models\VisitModels\Appointment;
+use App\Models\VisitModels\Visit;
 // 
 use App\Events\CreatePatientEvent;
 use App\Events\UpdatePatientEvent;
@@ -548,6 +549,17 @@ class PatientsApi extends Controller
         //not path params validation
 
         return response('How about implementing deletePatientVisit as a DELETE method ?');
+    }
+
+    // functoins to return only the latest
+    public function return_latest_appointment($patient_id){
+        $appointment = Appointment::where('patient_id', $patient_id)->latest()->take(1)->get();
+        return response()->json($appointment,200);
+    }
+
+    public function return_latest_visit($patient_id){
+        $visit = Visit::where('patient_id', $patient_id)->latest()->take(1)->get();
+        return response()->json($visit,200);
     }
 
 }
