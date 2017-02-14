@@ -30,7 +30,7 @@ class StockApi extends Controller
      */
     public function stockget()
     {
-        return response()->json(TransactionType::with('stock.stock_item')->get(),200);
+        return response()->json(TransactionType::with('stock_item.drug')->get(),200);
     }
     /**
      * Operation stockPost

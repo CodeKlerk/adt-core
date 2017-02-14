@@ -39,7 +39,7 @@ class TestController extends Controller
 
     public function get_test()
     {
-        return response()->json(TransactionType::with('stock.stock_item')->get(),200);
+        return response()->json(TransactionType::with('stock_item.drug')->get(),200);
     }
     
 }
