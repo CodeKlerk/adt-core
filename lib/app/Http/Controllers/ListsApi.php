@@ -1468,7 +1468,7 @@ class ListsApi extends Controller
         $input = Request::all();
         $new_classification = Classification::create($input);
         if($new_classification){
-            return response()->json(['msg' => 'Added a new Classification']);
+            return response()->json(['msg' => 'Added a new Classification', 'data'=> $new_classification]);
         }else{
             return response('Oops, it seems like there was a problem adding the Classification');
         }
@@ -1488,7 +1488,7 @@ class ListsApi extends Controller
         $classification = Classification::findOrFail($classification_id);
         $classification->update(['name' => $input['name']]);
         if($classification->save()){
-            return response()->json(['msg' => 'Update classification']);
+            return response()->json(['msg' => 'Updated classification', 'data' => $classification]);
         }else{
             return response('Oops, it seems like there was a problem updating the classification');
         }
@@ -1554,7 +1554,7 @@ class ListsApi extends Controller
         $input = Request::all();
         $new_indication = Indication::create($input);
         if($new_indication){
-            return response()->json(['msg' => 'Added a new indication']);
+            return response()->json(['msg' => 'Added a new indication', 'data' => $new_indication]);
         }else{
             return response('Oops, it seems like there was a problem adding the indication');
         }
@@ -1658,7 +1658,7 @@ class ListsApi extends Controller
     {
         $input = Request::all();
         $accessLevel = AccessLevel::findOrFail($accessLevel_id);
-        $accessLevel->update(['name' => $input['name'], 'description' => $input['description']]);
+        $accessLevel->update(['name' => $input['name']]);
         if($accessLevel->save()){
             return response()->json(['msg' => 'Update accessLevel']);
         }else{
@@ -1725,7 +1725,7 @@ class ListsApi extends Controller
         $input = Request::all();
         $new_facilityType = FacilityTypes::create($input);
         if($new_facilityType){
-            return response()->json(['msg' => 'Added a new facilityType']);
+            return response()->json(['msg' => 'Added a new facilityType','data' => $new_facilityType]);
         }else{
             return response('Oops, it seems like there was a problem adding the facilityType');
         }
@@ -1745,7 +1745,7 @@ class ListsApi extends Controller
         $facilityType = FacilityTypes::findOrFail($facilityType_id);
         $facilityType->update(['name' => $input['name']]);
         if($facilityType->save()){
-            return response()->json(['msg' => 'Update facilityType']);
+            return response()->json(['msg' => 'Update facilityType','data' =>$facilityType] );
         }else{
             return response('Oops, it seems like there was a problem updating the facilityType');
         }

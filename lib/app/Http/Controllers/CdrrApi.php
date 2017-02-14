@@ -27,6 +27,7 @@ class CdrrApi extends Controller
     public function cdrrget()
     {
         return response()->json(Cdrr::all(), 200);
+        // return response('Oops, it seems like there was a problem updating the indication');
     }
     /**
      * Operation cdrrCdrrIdGet
@@ -55,7 +56,7 @@ class CdrrApi extends Controller
         $input = Request::all();
         $new_cdrr = Cdrr::create($input);
         if($new_cdrr){
-            return response()->json(['msg' => 'Added a new cdrr']);
+            return response()->json(['msg' => 'Added a new cdrr','data'=>$new_cdrr]);
         }else{
             return response('Oops, it seems like there was a problem adding the cdrr');
         }
@@ -86,7 +87,7 @@ class CdrrApi extends Controller
             'supporter_id' => $input['supporter_id']
         ]);
         if($cdrr->save()){
-            return response()->json(['msg' => 'Update indication']);
+            return response()->json(['msg' => 'Update CDRR']);
         }else{
             return response('Oops, it seems like there was a problem updating the indication');
         }
@@ -146,9 +147,9 @@ class CdrrApi extends Controller
         $input = Request::all();
         $new_map_log = cdrrLog::create([ 'status'=>$input['status'], 'cdrr_id'=>$cdrr_id, 'user_id'=>$input['user_id'] ]);
         if($new_map_log){
-            return response()->json(['msg' => 'add a new map log ']);
+            return response()->json(['msg' => 'add a new cdrr log ' ,'data'=>$new_map_log]);
         }else{
-            return response('nope');
+            return response('Failed to create CDRR log');
         }
     }
     /**
@@ -160,16 +161,16 @@ class CdrrApi extends Controller
      *
      * @return Http response
      */
-    public function cdrrLogput($cdrr_id, $log_id)
+    public function cdrrLogput($cdrr_id, $cdrr_id)
     {
         $input = Request::all();
         $log = cdrrLog::where('cdrr_id', $cdrr_id)
                         ->where('id', $log_id)
                         ->update([ 'status'=>$input['status'], 'user_id'=>$input['user_id'] ]);
         if($log){
-            return response()->json(['msg' => 'updated map log ']);
+            return response()->json(['msg' => 'updated cdrr log ','data'=>$log]);
         }else{
-            return response('nope');
+            return response('Failed to update map cdrr log');
         }
     }
     /**
@@ -181,7 +182,7 @@ class CdrrApi extends Controller
      *
      * @return Http response
      */
-    public function cdrrLogsdelete($cdrr_id)
+    public function cdrrLogsdelete($cdrr_id,$cdrr_id)
     {
         $input = Request::all();
 
