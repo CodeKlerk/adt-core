@@ -36,6 +36,10 @@ class Patient extends Model
         return $this->belongsTo('App\Models\ListsModels\WhoStage', 'who_stage_id');
     }
 
+    public function place_of_birth(){
+        return $this->belongsTo('App\Models\ListsModels\Sub_county', 'county_sub_id');
+    }
+
     public function patient_prophylaxis(){
         return $this->hasMany('App\Models\PatientModels\PatientProphylaxis', 'patient_id', 'id');
     }
