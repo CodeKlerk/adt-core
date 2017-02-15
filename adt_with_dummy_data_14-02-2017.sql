@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 14, 2017 at 06:07 PM
+-- Generation Time: Feb 15, 2017 at 06:10 AM
 -- Server version: 5.5.46-0ubuntu0.14.04.2
 -- PHP Version: 5.6.14-1+deb.sury.org~trusty+1
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `new_adt`
+-- Database: `adt`
 --
 
 -- --------------------------------------------------------
@@ -847,7 +847,7 @@ CREATE TABLE IF NOT EXISTS `tbl_password_resets` (
 
 CREATE TABLE IF NOT EXISTS `tbl_patient` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `ccc_number` varchar(25) NOT NULL,
+  `ccc_number` varchar(25) DEFAULT NULL,
   `first_name` varchar(15) NOT NULL,
   `last_name` varchar(15) NOT NULL,
   `other_name` varchar(15) NOT NULL,
@@ -858,6 +858,7 @@ CREATE TABLE IF NOT EXISTS `tbl_patient` (
   `birth_date` date NOT NULL,
   `initial_height` float NOT NULL,
   `initial_weight` float NOT NULL,
+  `initial_bsa` float DEFAULT NULL,
   `enrollment_date` date NOT NULL,
   `support_group` text NOT NULL,
   `status` enum('no partner','concordant','discordunt') NOT NULL,
@@ -897,24 +898,24 @@ CREATE TABLE IF NOT EXISTS `tbl_patient` (
 -- Dumping data for table `tbl_patient`
 --
 
-INSERT INTO `tbl_patient` (`id`, `ccc_number`, `first_name`, `last_name`, `other_name`, `phone_number`, `alternate_number`, `physical_address`, `gender`, `birth_date`, `initial_height`, `initial_weight`, `enrollment_date`, `support_group`, `status`, `is_pregnant`, `is_tb`, `is_tb_tested`, `is_smoke`, `is_alcohol`, `is_sms`, `service_id`, `facility_id`, `supporter_id`, `source_id`, `county_sub_id`, `who_stage_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(6, 'BSQNL82955', 'Christian', 'Vega', 'Jasmine', 254, 254, 'Ap #405-4940 A Rd.', 'male', '2016-01-15', 0, 0, '2016-01-15', 'et tristique pellentesque, tellus sem mollis dui, in sodales elit', 'no partner', 0, 0, 1, 0, 0, 0, 1, 3, 1, 3, 1, 1, '2017-01-16 05:23:47', '2017-01-16 05:23:47', NULL),
-(10, 'ZIVQY06416', 'Lysandra', 'Sutton', 'Margaret', 254, 254, '6585 Metus Road', 'female', '2016-01-16', 0, 0, '2016-01-15', 'Cras sed leo. Cras vehicula aliquet libero. Integer in magna.', 'no partner', 0, 1, 0, 0, 0, 1, 4, 4, 2, 6, 1, 3, '2017-01-16 05:35:51', '2017-01-16 05:35:51', NULL),
-(12, 'PUTZG43599', 'Lamar', 'Salinas', 'Edward', 254, 254, 'Ap #764-1082 Donec Road', 'male', '2016-01-18', 0, 0, '2016-01-16', 'non, feugiat nec, diam. Duis mi enim, condimentum eget, volutpat', 'no partner', 0, 1, 0, 0, 0, 0, 2, 5, 1, 3, 1, 1, '2017-01-16 05:37:34', '2017-01-16 05:37:34', NULL),
-(13, 'SRGNJ60817', 'Olga', 'Pacheco', 'Castor', 254, 254, '9692 Lobortis Rd.', 'female', '2016-01-16', 0, 0, '2016-01-15', 'lorem, sit amet ultricies sem magna nec quam. Curabitur vel', 'no partner', 1, 1, 1, 1, 0, 1, 1, 5, 2, 12, 1, 1, '2017-01-16 05:37:49', '2017-01-16 05:37:49', NULL),
-(14, 'TKRAZ34589', 'Wang', 'Bauer', 'Hiroko', 254, 254, 'P.O. Box 690, 3479 Pede Ave', 'female', '2016-01-19', 0, 0, '2016-01-16', 'justo sit amet nulla. Donec non justo. Proin non massa', 'no partner', 1, 1, 1, 1, 0, 0, 4, 6, 1, 3, 1, 2, '2017-01-18 20:28:30', '2017-01-18 20:28:30', NULL),
-(17, 'TKwewewe4589', 'Brian', 'Phiri', 'Hiroko', 254, 254, 'P.O. Box 690, 3479 Pede Ave', 'female', '2016-01-19', 0, 0, '2016-01-16', 'justo sit amet nulla. Donec non justo. Proin non massa', 'no partner', 1, 1, 1, 1, 0, 0, 4, 6, 1, 3, 1, 2, '2017-01-18 21:08:44', '2017-01-18 21:08:44', NULL),
-(18, 'PT12AQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 17:13:02', '2017-01-19 17:13:02', NULL),
-(19, 'PTFFQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 17:14:05', '2017-01-19 17:14:05', NULL),
-(20, 'BTAAQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 17:14:31', '2017-01-19 17:14:31', NULL),
-(21, 'ZTAAQ139er', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 17:14:46', '2017-01-19 17:14:46', NULL),
-(22, 'HTAAQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 17:15:33', '2017-01-19 17:15:33', NULL),
-(23, 'YTAAQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 18:04:53', '2017-01-19 18:04:53', NULL),
-(24, 'WTAAQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 18:05:10', '2017-01-19 18:05:10', NULL),
-(25, 'KTAAQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 18:05:17', '2017-01-19 18:05:17', NULL),
-(26, 'EOEEQ13976', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 18:06:13', '2017-01-19 18:06:13', NULL),
-(27, 'XTAWM13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 18:07:11', '2017-01-19 18:07:11', NULL),
-(28, 'PTAAQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 18:08:17', '2017-01-19 18:08:17', NULL);
+INSERT INTO `tbl_patient` (`id`, `ccc_number`, `first_name`, `last_name`, `other_name`, `phone_number`, `alternate_number`, `physical_address`, `gender`, `birth_date`, `initial_height`, `initial_weight`, `initial_bsa`, `enrollment_date`, `support_group`, `status`, `is_pregnant`, `is_tb`, `is_tb_tested`, `is_smoke`, `is_alcohol`, `is_sms`, `service_id`, `facility_id`, `supporter_id`, `source_id`, `county_sub_id`, `who_stage_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(6, 'BSQNL82955', 'Christian', 'Vega', 'Jasmine', 254, 254, 'Ap #405-4940 A Rd.', 'male', '2016-01-15', 0, 0, NULL, '2016-01-15', 'et tristique pellentesque, tellus sem mollis dui, in sodales elit', 'no partner', 0, 0, 1, 0, 0, 0, 1, 3, 1, 3, 1, 1, '2017-01-16 05:23:47', '2017-01-16 05:23:47', NULL),
+(10, 'ZIVQY06416', 'Lysandra', 'Sutton', 'Margaret', 254, 254, '6585 Metus Road', 'female', '2016-01-16', 0, 0, NULL, '2016-01-15', 'Cras sed leo. Cras vehicula aliquet libero. Integer in magna.', 'no partner', 0, 1, 0, 0, 0, 1, 4, 4, 2, 6, 1, 3, '2017-01-16 05:35:51', '2017-01-16 05:35:51', NULL),
+(12, 'PUTZG43599', 'Lamar', 'Salinas', 'Edward', 254, 254, 'Ap #764-1082 Donec Road', 'male', '2016-01-18', 0, 0, NULL, '2016-01-16', 'non, feugiat nec, diam. Duis mi enim, condimentum eget, volutpat', 'no partner', 0, 1, 0, 0, 0, 0, 2, 5, 1, 3, 1, 1, '2017-01-16 05:37:34', '2017-01-16 05:37:34', NULL),
+(13, 'SRGNJ60817', 'Olga', 'Pacheco', 'Castor', 254, 254, '9692 Lobortis Rd.', 'female', '2016-01-16', 0, 0, NULL, '2016-01-15', 'lorem, sit amet ultricies sem magna nec quam. Curabitur vel', 'no partner', 1, 1, 1, 1, 0, 1, 1, 5, 2, 12, 1, 1, '2017-01-16 05:37:49', '2017-01-16 05:37:49', NULL),
+(14, 'TKRAZ34589', 'Wang', 'Bauer', 'Hiroko', 254, 254, 'P.O. Box 690, 3479 Pede Ave', 'female', '2016-01-19', 0, 0, NULL, '2016-01-16', 'justo sit amet nulla. Donec non justo. Proin non massa', 'no partner', 1, 1, 1, 1, 0, 0, 4, 6, 1, 3, 1, 2, '2017-01-18 20:28:30', '2017-01-18 20:28:30', NULL),
+(17, 'TKwewewe4589', 'Brian', 'Phiri', 'Hiroko', 254, 254, 'P.O. Box 690, 3479 Pede Ave', 'female', '2016-01-19', 0, 0, NULL, '2016-01-16', 'justo sit amet nulla. Donec non justo. Proin non massa', 'no partner', 1, 1, 1, 1, 0, 0, 4, 6, 1, 3, 1, 2, '2017-01-18 21:08:44', '2017-01-18 21:08:44', NULL),
+(18, 'PT12AQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, NULL, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 17:13:02', '2017-01-19 17:13:02', NULL),
+(19, 'PTFFQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, NULL, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 17:14:05', '2017-01-19 17:14:05', NULL),
+(20, 'BTAAQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, NULL, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 17:14:31', '2017-01-19 17:14:31', NULL),
+(21, 'ZTAAQ139er', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, NULL, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 17:14:46', '2017-01-19 17:14:46', NULL),
+(22, 'HTAAQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, NULL, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 17:15:33', '2017-01-19 17:15:33', NULL),
+(23, 'YTAAQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, NULL, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 18:04:53', '2017-01-19 18:04:53', NULL),
+(24, 'WTAAQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, NULL, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 18:05:10', '2017-01-19 18:05:10', NULL),
+(25, 'KTAAQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, NULL, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 18:05:17', '2017-01-19 18:05:17', NULL),
+(26, 'EOEEQ13976', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, NULL, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 18:06:13', '2017-01-19 18:06:13', NULL),
+(27, 'XTAWM13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, NULL, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 18:07:11', '2017-01-19 18:07:11', NULL),
+(28, 'PTAAQ13966', 'Isabelle', 'Mason', 'Hyacinth', 254, 254, '969 Id St.', 'female', '2016-01-16', 0, 0, NULL, '2016-01-15', 'sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus', 'no partner', 1, 0, 1, 0, 0, 0, 5, 7, 1, 3, 1, 2, '2017-01-19 18:08:17', '2017-01-19 18:08:17', NULL);
 
 -- --------------------------------------------------------
 
@@ -1129,6 +1130,24 @@ CREATE TABLE IF NOT EXISTS `tbl_patient_tb` (
   KEY `INDEX` (`patient_id`),
   KEY `phase` (`phase`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_patient_viralload`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_patient_viralload` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `patient_id` bigint(20) NOT NULL,
+  `test_date` date NOT NULL,
+  `result` text NOT NULL,
+  `justification` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1574,6 +1593,7 @@ CREATE TABLE IF NOT EXISTS `tbl_visit` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `current_height` float NOT NULL,
   `current_weight` float NOT NULL,
+  `current_bsa` float DEFAULT NULL,
   `visit_date` date NOT NULL,
   `appointment_adherence` float NOT NULL DEFAULT '0',
   `patient_id` bigint(20) NOT NULL,
@@ -1820,4 +1840,3 @@ ALTER TABLE `tbl_visit`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
- 
