@@ -82,7 +82,7 @@ class Patient extends Model
     }
 
     public function visit(){
-        return $this->hasMany('App\Models\VisitModels\Visit');
+        return $this->hasMany('App\Models\VisitModels\Visit')->latest()->take(1);
     }
     public function next_appointment(){
         return $this->hasMany('App\Models\VisitModels\Appointment')->latest()->take(1);
