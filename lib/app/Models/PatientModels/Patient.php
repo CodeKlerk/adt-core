@@ -92,4 +92,7 @@ class Patient extends Model
         return $this->hasMany('App\Models\VisitModels\Appointment')->latest()->take(1);
     }
 
+    public function start_regimen(){
+        return $this->belongsTo('App\Models\RegimenModels\Regimen', 'initial_regimen_id');
+    }
 }

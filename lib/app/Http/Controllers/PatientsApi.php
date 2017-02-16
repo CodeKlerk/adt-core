@@ -97,7 +97,7 @@ class PatientsApi extends Controller
         $patient->load('service','facility', 'supporter', 'source', 'who_stage', 'prophylaxis', 'tb', 'other_drug',
                         'current_status.status', 'drug_allergy', 'other_drug_allergy', 'illnesses', 
                         'other_illnesses', 'patient_dependant', 'family_planning', 'partner', 
-                        'next_appointment', 'visit', 'next_appointment', 'place_of_birth');
+                        'next_appointment', 'visit', 'next_appointment', 'place_of_birth', 'start_regimen');
 
         return response()->json($patient, 200);
 
