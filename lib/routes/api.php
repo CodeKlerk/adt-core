@@ -17,29 +17,29 @@ $api->version('v1', function ($api) {
     $api->post('/auth/login', [
         'as' => 'api.auth.login',
         'uses' => 'App\Http\Controllers\Auth\AuthController@postLogin',
-    ]);
+        ]);
 
     $api->group([
         // 'middleware' => 'api.auth',
-    ], function ($api) {
+        ], function ($api) {
         // Auth
-        $api->get('/', [
-            'uses' => 'App\Http\Controllers\APIController@getIndex',
-            'as' => 'api.index'
-        ]);
-        $api->get('/auth/user', [
-            'uses' => 'App\Http\Controllers\Auth\AuthController@getUser',
-            'as' => 'api.auth.user'
-        ]);
-        $api->patch('/auth/refresh', [
-            'uses' => 'App\Http\Controllers\Auth\AuthController@patchRefresh',
-            'as' => 'api.auth.refresh'
-        ]);
-        $api->delete('/auth/invalidate', [
-            'uses' => 'App\Http\Controllers\Auth\AuthController@deleteInvalidate',
-            'as' => 'api.auth.invalidate'
-        ]);
-        $api->get('test', 'App\Http\Controllers\TestController@get_test');
+            $api->get('/', [
+                'uses' => 'App\Http\Controllers\APIController@getIndex',
+                'as' => 'api.index'
+                ]);
+            $api->get('/auth/user', [
+                'uses' => 'App\Http\Controllers\Auth\AuthController@getUser',
+                'as' => 'api.auth.user'
+                ]);
+            $api->patch('/auth/refresh', [
+                'uses' => 'App\Http\Controllers\Auth\AuthController@patchRefresh',
+                'as' => 'api.auth.refresh'
+                ]);
+            $api->delete('/auth/invalidate', [
+                'uses' => 'App\Http\Controllers\Auth\AuthController@deleteInvalidate',
+                'as' => 'api.auth.invalidate'
+                ]);
+            $api->get('test', 'App\Http\Controllers\TestController@get_test');
         // 
         /*
         *   User routes
@@ -315,6 +315,14 @@ $api->version('v1', function ($api) {
         $api->put('/maps/{mapId}', 'App\Http\Controllers\MapsApi@mapsput');
         $api->delete('/maps/{mapId}', 'App\Http\Controllers\MapsApi@mapsdelete');
 
+
+  // maps items
+        $api->get('/maps/{mapId}/items', 'App\Http\Controllers\MapsApi@mapsItemsget');
+        $api->post('/maps/{mapId}/items', 'App\Http\Controllers\MapsApi@mapsItemspost');
+
+        $api->get('/maps/{mapId}/items/{itemsId}', 'App\Http\Controllers\MapsApi@mapsItemsByIdget');
+        $api->put('/maps/{mapId}/items/{itemsId}', 'App\Http\Controllers\MapsApi@mapsItemsput');
+        $api->delete('/maps/{mapId}/items/{itemsId}', 'App\Http\Controllers\MapsApi@mapsItemssdelete');
 
 
         /*

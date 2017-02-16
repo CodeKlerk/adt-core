@@ -111,6 +111,93 @@ class MapsApi extends Controller
     }
 }    
 
+
+// maps item
+
+    /**
+     * Operation mapsItemget
+     *
+     * Fetch mapsItem.
+     *
+     *
+     * @return Http response
+     */
+    public function mapsItemsget($maps_id)
+    {
+        $response = MapsItem::where('maps_id', $maps_id)->get();
+        return response()->json($response,200);
+    }
+    /**
+     * Operation mapsItemById
+     *
+     * Fetch mapsItem specified by mapsItemid.
+     *
+     * @param int $maps_id ID of mapsItem that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function mapsItemsByIdget($maps_id, $item_id)
+    {
+        $response = MapsItem::where('maps_id', $maps_id)->where('id', $item_id)->get();
+        return response()->json($response,200);
+    }
+    /**
+     * Operation mapsItemsPost
+     *
+     * create an mapsItem.
+     *
+     *
+     * @return Http response
+     */
+    public function mapsItemspost($maps_id)
+    {
+
+        $input = Request::all();
+        $new_map_item = MapsItem::create([ 'total'=>$input['total'], 'maps_id'=>$maps_id, 'regimen_id'=>$input['regimen_id'] ]);
+        if($new_map_item){
+            return response()->json(['msg' => 'add a new map item ', 'data' => $new_map_item]);
+        }else{
+            return response('Failed to create Maps Item');
+        }
+    }
+    /**
+     * Operation mapsItemsmapsItemIdPut
+     *
+     * Update an existing mapsItem.
+     *
+     * @param int $maps_id ID of mapsItem that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function mapsItemsput($maps_id, $item_id)
+    {
+        $input = Request::all();
+        $updated_map_item = MapsItem::findOrFail($item_id);
+        $updated_map_item->update([ 'total'=>$input['total'], 'maps_id'=>$maps_id, 'regimen_id'=>$input['regimen_id'] ]);
+        if($updated_map_item->save()){
+            return response()->json(['msg' => 'updated map item ', 'data' => $updated_map_item]);
+        }else{
+            return response('Failed to update Maps Item');
+        }
+    }
+    /**
+     * Operation mapsItemsmapsItemIdDelete
+     *
+     * Deletes an mapsItem specified by mapsItemId.
+     *
+     * @param int $maps_id ID of mapsItem that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function mapsItemssdelete($maps_id,$item_id)
+    {
+        $deleted_map = MapsItem::destroy($item_id);
+        if($deleted_map){
+            return response()->json(['msg' => 'Deleted Map']);
+        }else{
+            return response('Failed to delete Maps Item');
+        }
+    }   
 // maps log
 
     /**
