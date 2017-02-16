@@ -44,6 +44,7 @@ use App\Models\ListsModels\Pepreason;
 use App\Models\ListsModels\Familyplanning;
 use App\Models\ListsModels\Services;
 use App\Models\ListsModels\Sub_county;
+use App\Models\ListsModels\Status;
 use App\Models\ListsModels\ChangeReason;
 use App\Models\ListsModels\Generic;
 use App\Models\ListsModels\Instruction;
@@ -1764,6 +1765,93 @@ class ListsApi extends Controller
         $deleted_facilityType = FacilityTypes::destroy($facilityType_id);
         if($deleted_facilityType){
             return response()->json(['msg' => 'Deleted facilityType']);
+        }
+    }
+
+
+    // ///////////////////////////
+    // status        functions //
+    // /////////////////////////    //////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Operation listsstatusTypeGet
+     *
+     * Fetch statusType.
+     *
+     *
+     * @return Http response
+     */
+    public function listsstatusget()
+    {
+        $response = FacilityTypes::all();
+        return response()->json($response,200);
+    }
+    /**
+     * Operation listsstatusIdGet
+     *
+     * Fetch status specified by statusId.
+     *
+     * @param int $status_id ID of status that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsstatusByIdget($status_id)
+    {
+        $status = FacilityTypes::findOrFail($status_id);
+        return response()->json($status,200);
+    }
+    /**
+     * Operation listsPost
+     *
+     * create an .
+     *
+     *
+     * @return Http response
+     */
+    public function listspost()
+    {
+        $input = Request::all();
+        $new_ = FacilityTypes::create($input);
+        if($new_){
+            return response()->json(['msg' => 'Added a new ']);
+        }else{
+            return response('Oops, it seems like there was a problem adding the ');
+        }
+    }
+    /**
+     * Operation listsIdPut
+     *
+     * Update an existing status.
+     *
+     * @param int $status_id ID of status that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsstatusput($status_id)
+    {
+        $input = Request::all();
+        $status = FacilityTypes::findOrFail($status_id);
+        $status->update(['name' => $input['name']]);
+        if($status->save()){
+            return response()->json(['msg' => 'Update status']);
+        }else{
+            return response('Oops, it seems like there was a problem updating the status');
+        }
+    }
+    /**
+     * Operation listsstatusIdDelete
+     *
+     * Deletes an status specified by statusId.
+     *
+     * @param int $status_id ID of facilityType that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsstatusdelete($status_id)
+    {
+        $deleted_status = FacilityTypes::destroy($status_id);
+        if($deleted_status){
+            return response()->json(['msg' => 'Deleted status']);
         }
     }
 

@@ -283,6 +283,12 @@ $api->version('v1', function ($api) {
         $api->get('/lists/facility_type/{facilityType}', 'App\Http\Controllers\ListsApi@listsfacilityTypeByIdget');
         $api->put('/lists/facility_type/{facilityType}', 'App\Http\Controllers\ListsApi@listsfacilityTypeput');
         $api->delete('/lists/facility_type/{facilityType}', 'App\Http\Controllers\ListsApi@listsfacilityTypedelete');
+        // status --temp 
+        $api->get('/lists/status', 'App\Http\Controllers\ListsApi@listsstatusget');
+        $api->post('/lists/status', 'App\Http\Controllers\ListsApi@listsstatuspost');
+        $api->get('/lists/status/{statusId}', 'App\Http\Controllers\ListsApi@listsstatusByIdget');
+        $api->put('/lists/status/{statusId}', 'App\Http\Controllers\ListsApi@listsstatusput');
+        $api->delete('/lists/status/{statusId}', 'App\Http\Controllers\ListsApi@listsstatusdelete');
 
         /*
         *   cdrr routes
