@@ -111,7 +111,7 @@ class CreatePatientEvent extends Event
             'facility_id' => $data['facility_id'],
             'user_id' => $data['user_id'],
             'purpose_id' => $data['purpose_id'],
-            'current_regimen_id' => $data['regimen_id'],
+            'current_regimen_id' => $data['initial_regimen_id'],
             'appointment_id' => $appointment_id
         ]);
     }
