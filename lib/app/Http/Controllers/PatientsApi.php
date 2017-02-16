@@ -43,12 +43,14 @@ use App\Models\PatientModels\PatientProphylaxis;
 use App\Models\PatientModels\PatientRegimens;
 use App\Models\PatientModels\PatientStatus;
 use App\Models\PatientModels\PatientTb;
+use App\Models\PatientModels\PatientViralload;
 
 use App\Models\VisitModels\Appointment;
 use App\Models\VisitModels\Visit;
 // 
 use App\Events\CreatePatientEvent;
 use App\Events\UpdatePatientEvent;
+use App\Events\DispensePatientEvent;
 
 class PatientsApi extends Controller
     {
@@ -395,14 +397,7 @@ class PatientsApi extends Controller
      */
     public function deletePatientRegimens($patient_id, $regimen_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing deletePatientRegimens as a DELETE method ?');
+        // $patient_regimen = PatientRegimen::where
     }
 
 
@@ -495,16 +490,12 @@ class PatientsApi extends Controller
      *
      * @return Http response
      */
-    public function addPatientVisits($patient_id, $visit_id)
+    public function addPatientVisits($patient_id)
     {
         $input = Request::all();
-
-        //path params <validation></validation>
-
-
-        //not path params validation
-
-        return response('How about implementing addPatientVisits as a POST method ?');
+        $patient['patient_id'] = $patient_id;
+        $visit_information = array_merge($input, $patient);
+        event(new DispensePatientEvent($visit_information));
     }
 
     /**
@@ -563,10 +554,9 @@ class PatientsApi extends Controller
      * @return Http response
      */
     public function patientViralload($patient_id)
-    {
-
-        $patient_viralload->load('visit.visit_item.stock_item._drug'); ///////////////////////////////////////////////
-        // return response()->json($patient_viralload,200);
+    {   
+        $patient_viralload = PatientViralload::get();
+        return response()->json($patient_viralload,200); 
     }
 
     /**
@@ -579,16 +569,15 @@ class PatientsApi extends Controller
      *
      * @return Http response
      */
-    public function addPatientViralload($patient_id, $viralload_id)
+    public function addPatientViralload($patient_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing addPatientviralload as a POST method ?');
+        $new_virallod = PatientViralload::create($input);
+        if($new_virallod){
+            return response()->json('',201);
+        }else{
+            return response()->json('',400);
+        }
     }
 
     /**
