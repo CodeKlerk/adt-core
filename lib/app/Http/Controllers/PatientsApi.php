@@ -93,12 +93,10 @@ class PatientsApi extends Controller
     public function getPatientById($patient_id)
     {
         $patient = Patient::findOrFail($patient_id);
-        // $patient_status = PatientStatus::where('patient_id', $patient_id)->latest()->take(1)->get();
         $patient->load('service','facility', 'supporter', 'source', 'who_stage', 'prophylaxis', 'tb', 'other_drug',
-                        'current_status.status', 'drug_allergy', 'other_drug_allergy', 'illnesses', 
+                        'current_status', 'drug_allergy', 'other_drug_allergy', 'illnesses', 
                         'other_illnesses', 'patient_dependant', 'family_planning', 'partner', 
                         'next_appointment', 'visit', 'next_appointment', 'place_of_birth', 'start_regimen');
-
         return response()->json($patient, 200);
 
     }
@@ -482,7 +480,7 @@ class PatientsApi extends Controller
      */
     public function patientVisits($patient_id)
     {
-        // $patient_visits = Patient::findOrFail($patient_id)->select('id')->with('visit.visit_item.stock_item._drug');
+        $patient_visits = Patient::findOrFail($patient_id)->select('id')->with('visit.visit_item.stock_item._drug');
         $patient_visits->load('visit.visit_item.stock_item._drug');
         return response()->json($patient_visits,200);
     }
@@ -552,6 +550,92 @@ class PatientsApi extends Controller
 
         return response('How about implementing deletePatientVisit as a DELETE method ?');
     }
+
+    // viralload    
+    /**
+     * Operation patientviralload
+     *
+     * Fetch a patient's viralload.
+     *
+     * @param int $patient_id ID&#39;s of patient and viralload that needs to be fetched (required)
+     * @param int $viralload_id ID&#39;s of viralload that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientViralload($patient_id)
+    {
+
+        $patient_viralload->load('visit.visit_item.stock_item._drug'); ///////////////////////////////////////////////
+        // return response()->json($patient_viralload,200);
+    }
+
+    /**
+     * Operation addPatientviralload
+     *
+     * Add a new viralload to a patient.
+     *
+     * @param int $patient_id ID&#39;s of patient (required)
+     * @param int $viralload_id ID&#39;s of viralload (required)
+     *
+     * @return Http response
+     */
+    public function addPatientViralload($patient_id, $viralload_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing addPatientviralload as a POST method ?');
+    }
+
+    /**
+     * Operation updatePatientviralload
+     *
+     * Update an existing patient appointment.
+     *
+     * @param int $patient_id Patient id to update (required)
+     * @param int $viralload_id viralload id to update (required)
+     *
+     * @return Http response
+     */
+    public function updatePatientViralload($patient_id, $viralload_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing updatePatientviralload as a PUT method ?');
+    }
+
+    /**
+     * Operation deletePatientviralload
+     *
+     * Remove a patient viralload.
+     *
+     * @param int $patient_id ID&#39;s of patient and appointment that needs to be fetched (required)
+     * @param int $viralload_id ID of appointment that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function deletePatientViralload($patient_id, $viralload_id)
+    {
+        $input = Request::all();
+
+        //path params validation
+
+
+        //not path params validation
+
+        return response('How about implementing deletePatientviralload as a DELETE method ?');
+    }
+
+
 
     // functoins to return only the latest
     public function return_latest_appointment($patient_id){

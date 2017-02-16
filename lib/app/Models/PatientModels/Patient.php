@@ -41,7 +41,8 @@ class Patient extends Model
     }
 
     public function prophylaxis(){
-        return $this->hasMany('App\Models\PatientModels\PatientProphylaxis', 'patient_id', 'id');
+        // return $this->hasMany('App\Models\PatientModels\PatientProphylaxis', 'patient_id', 'id');
+        return $this->belongsToMany('App\Models\ListsModels\Prophylaxis', 'tbl_patient_prophylaxis')->withPivot('patient_id', 'prophylaxis_id');
     }
 
     public function tb(){
@@ -53,7 +54,9 @@ class Patient extends Model
     }
 
     public function current_status(){
-        return $this->hasOne('App\Models\PatientModels\PatientStatus', 'patient_id', 'id')->latest()->take(1);
+        // return $this->hasOne('App\Models\PatientModels\PatientStatus', 'patient_id', 'id')->latest()->take(1);
+
+        return $this->belongsToMany('App\Models\ListsModels\Status', 'tbl_patient_status')->withPivot('patient_id','status_id');
     }
 
     public function drug_allergy(){
