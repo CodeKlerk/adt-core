@@ -46,6 +46,12 @@ class DispenseApi extends Controller
     {
     }
 
+    public function dispenseget($patient_id){
+        $response = Visit::where('patient_id', $patient_id)->get();
+        $response->load('visit_item.stock_item.drug');
+        return response()->json($response,200);
+    }
+
     public function dispensepost($patient_id){
         $input = Request::all();
         $patient['patient_id'] = $patient_id;
