@@ -40,27 +40,27 @@ class Patient extends Model
         return $this->belongsTo('App\Models\ListsModels\Sub_county', 'county_sub_id');
     }
 
-    public function patient_prophylaxis(){
+    public function prophylaxis(){
         return $this->hasMany('App\Models\PatientModels\PatientProphylaxis', 'patient_id', 'id');
     }
 
-    public function patient_tb(){
+    public function tb(){
         return $this->hasOne('App\Models\PatientModels\PatientTb', 'patient_id', 'id');
     }
 
-    public function patient_drug_other(){
+    public function other_drug(){
         return $this->hasMany('App\Models\PatientModels\PatientDrugOther', 'patient_id', 'id');
     }
 
-    public function patient_status(){
+    public function current_status(){
         return $this->hasMany('App\Models\PatientModels\PatientStatus', 'patient_id', 'id')->latest()->take(1);
     }
 
-    public function patient_drug_allergy(){
+    public function drug_allergy(){
         return $this->hasMany('App\Models\PatientModels\PatientAllergies', 'patient_id', 'id');
     }
 
-    public function drug_allergy_other(){
+    public function other_drug_allergy(){
         return $this->hasMany('App\Models\PatientModels\PatientDrugAllergyOther');
     }
 
@@ -69,20 +69,20 @@ class Patient extends Model
         return $this->hasMany('App\Models\PatientModels\PatientDependant', 'patient_id', 'id');
     }
 
-    public function patient_family_planning(){
+    public function family_planning(){
         return $this->hasMany('App\Models\PatientModels\PatientFamilyPlanning', 'patient_id', 'id');
     }
 
-    public function patient_partner(){
+    public function partner(){
         return $this->hasMany('App\Models\PatientModels\PatientPartner');
     }
 
-    public function patient_illnesses(){
+    public function illnesses(){
         return $this->hasMany('App\Models\PatientModels\PatientIllness');
     } 
 
-    public function patient_illnesses_other(){
-        return $this->hasMany('App\Models\PatientModels\PatientDrugOther');
+    public function other_illnesses(){
+        return $this->hasOne('App\Models\PatientModels\PatientIllnessOther');
     }
 
     public function visit(){

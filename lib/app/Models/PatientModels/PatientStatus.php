@@ -10,4 +10,8 @@ class PatientStatus extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = ['patient_id', 'status_id', 'change_date'];
     public $timestamps = false;
+
+    public function status(){
+        return $this->belongsTo('App\Models\ListsModels\Status');
+    }
 }
