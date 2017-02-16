@@ -498,7 +498,7 @@ class PatientsApi extends Controller
         event(new DispensePatientEvent($visit_information));
     }
 
-    /**
+    /** 
      * Operation updatePatientVisit
      *
      * Update an existing patient appointment.
@@ -593,13 +593,19 @@ class PatientsApi extends Controller
     public function updatePatientViralload($patient_id, $viralload_id)
     {
         $input = Request::all();
+        
+        $viralload = PatientViralload::findOrFail($viralload_id)->where('patient_id', $patient_id);
+        $viralload->update([
+            'test_date' => $input[''],
+            'result' => $input['result'],
+            'justification' => $input['justification']
+        ]);
 
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing updatePatientviralload as a PUT method ?');
+        if($viralload->save()){
+            return response()->json('',202);
+        }else{
+            return response()->json('', 400);
+        }
     }
 
     /**
@@ -614,14 +620,8 @@ class PatientsApi extends Controller
      */
     public function deletePatientViralload($patient_id, $viralload_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing deletePatientviralload as a DELETE method ?');
+        $deleted_viralload = PatientViralload::destroy($viralload_id);
+        return response()->json('',200); 
     }
 
 

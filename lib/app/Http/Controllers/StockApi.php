@@ -77,7 +77,6 @@ class StockApi extends Controller
             'min_stock_level' => '0',
             'avg_monthly_consumption' => '0' 
         ];
-        return $drug_information;
         $response = [
             'transactions' => $transactions,
             'batch_information' => $batch_information,
