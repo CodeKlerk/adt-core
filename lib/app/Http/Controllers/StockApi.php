@@ -9,6 +9,7 @@ use App\Models\InventoryModels\StockItem;
 use App\Models\InventoryModels\Stock;
 use App\Models\InventoryModels\TransactionType;
 use App\Models\DrugModels\Drug;
+use App\Models\InventoryModels\StockBalance;
 
 class StockApi extends Controller
 {
@@ -69,14 +70,16 @@ class StockApi extends Controller
         $batch_information = Drug::with('unit','stock_item')->where('id', $drug_id)->whereHas('stock_item.balance', function($query){
             $query->where('balance', '>', '0');
         })->get();
-        $drug_information = [ 
-            'commodity' => "ABACAVIR (ABC) Liquid 20MG/ML (240ml)",
-            'unit' => 'Bottle',
-            'total_stock' => '0',
-            'max_stock_level' => '0',
-            'min_stock_level' => '0',
-            'avg_monthly_consumption' => '0' 
-        ];
+
+        $drug_information = StockBalance::where('drug_id', $drug_id)->get();
+        // $drug_information = [ 
+        //     'commodity' => "ABACAVIR (ABC) Liquid 20MG/ML (240ml)",
+        //     'unit' => 'Bottle',
+        //     'total_stock' => '0',
+        //     'max_stock_level' => '0',
+        //     'min_stock_level' => '0',
+        //     'avg_monthly_consumption' => '0' 
+        // ];
         $response = [
             'transactions' => $transactions,
             'batch_information' => $batch_information,
