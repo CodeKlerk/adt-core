@@ -101,7 +101,10 @@ class CdrrApi extends Controller
      */
     public function cdrrdelete($cdrr_id)
     {
-        // delete
+        $deleted_Cdrr = Cdrr::destroy($cdrr_id);
+        if($deleted_Cdrr){
+            return response()->json(['msg' => 'Deleted cdrr']);
+        }
     }
 
     // cdrr logs
@@ -183,14 +186,10 @@ class CdrrApi extends Controller
      */
     public function cdrrLogsdelete($cdrr_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing cdrrLogscdrrLogIdDelete as a DELETE method ?');
+        $deleted_cdrrLog = cdrrLog::destroy($cdrr_id);
+        if($deleted_cdrrLog){
+            return response()->json(['msg' => 'Deleted cdrrLog']);
+        }
     }   
 
 }
