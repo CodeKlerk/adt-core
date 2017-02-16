@@ -288,7 +288,7 @@ $api->version('v1', function ($api) {
 
         $api->get('/cdrr/{cdrrId}/log/{logId}', 'App\Http\Controllers\cdrrApi@cdrrLogByIdget');
         $api->put('/cdrr/{cdrrId}/log/{logId}', 'App\Http\Controllers\cdrrApi@cdrrLogput');
-        $api->delete('/cdrr/{cdrrId}/log/{logId}', 'App\Http\Controllers\cdrrApi@cdrrLogdelete');
+        $api->delete('/cdrr/{cdrrId}/log/{logId}', 'App\Http\Controllers\cdrrApi@cdrrLogsdelete');
         // cdrr
         $api->get('/cdrr', 'App\Http\Controllers\CdrrApi@cdrrget');
         $api->post('/cdrr', 'App\Http\Controllers\CdrrApi@cdrrpost');

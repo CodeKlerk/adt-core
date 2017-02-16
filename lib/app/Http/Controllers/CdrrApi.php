@@ -103,6 +103,10 @@ class CdrrApi extends Controller
     public function cdrrdelete($cdrr_id)
     {
         // delete
+         $deleted_cdrr = Cdrr::destroy($cdrr_id);
+        if($deleted_cdrr){
+            return response()->json(['msg' => 'Deleted cdrr']);
+        }
     }
 
     // cdrr logs
@@ -161,16 +165,19 @@ class CdrrApi extends Controller
      *
      * @return Http response
      */
-    public function cdrrLogput($cdrr_id, $cdrr_id)
+    public function cdrrLogput($cdrr_id, $log_id)
     {
         $input = Request::all();
-        $log = cdrrLog::where('cdrr_id', $cdrr_id)
-                        ->where('id', $log_id)
-                        ->update([ 'status'=>$input['status'], 'user_id'=>$input['user_id'] ]);
+        
+        $log = cdrrLog::findOrFail($log_id);
+
+        // $log = cdrrLog::where('cdrr_id', $cdrr_id)
+        //                 ->where('id', $log_id)
+        $log->update([ 'status'=>$input['status'], 'user_id'=>$input['user_id'] ]);
         if($log){
             return response()->json(['msg' => 'updated cdrr log ','data'=>$log]);
         }else{
-            return response('Failed to update map cdrr log');
+            return response('Failed to update cdrr log');
         }
     }
     /**
@@ -182,16 +189,16 @@ class CdrrApi extends Controller
      *
      * @return Http response
      */
-    public function cdrrLogsdelete($cdrr_id,$cdrr_id)
+    public function cdrrLogsdelete($cdrr_id,$log_id)
     {
         $input = Request::all();
 
         //path params validation
 
-
-        //not path params validation
-
-        return response('How about implementing cdrrLogscdrrLogIdDelete as a DELETE method ?');
+        $deleted_cdrr_log = CdrrLog::destroy($log_id);
+        if($deleted_cdrr_log){
+            return response()->json(['msg' => 'Deleted cdrr log']);
+        }
     }   
 
 }
