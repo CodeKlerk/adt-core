@@ -105,14 +105,10 @@ class MapsApi extends Controller
      */
     public function mapssdelete($maps_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing mapssmapsIdDelete as a DELETE method ?');
+        $deleted_maps = Maps::destroy($maps_id);
+        if($deleted_maps){
+            return response()->json(['msg' => 'Deleted Map']);
+        }
     }    
 
 // maps log
@@ -194,14 +190,10 @@ class MapsApi extends Controller
      */
     public function mapsLogsdelete($maps_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing mapsLogsmapsLogIdDelete as a DELETE method ?');
+        $deleted_mapslog = MapsLog::destroy($maps_id);
+        if($deleted_mapslog){
+            return response()->json(['msg' => 'Deleted MapsLog']);
+        }
     }   
 
 }
