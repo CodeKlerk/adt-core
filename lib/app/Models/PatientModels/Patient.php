@@ -49,11 +49,11 @@ class Patient extends Model
     }
 
     public function other_drug(){
-        return $this->hasMany('App\Models\PatientModels\PatientDrugOther', 'patient_id', 'id');
+        return $this->hasOne('App\Models\PatientModels\PatientDrugOther', 'patient_id', 'id');
     }
 
     public function current_status(){
-        return $this->hasMany('App\Models\PatientModels\PatientStatus', 'patient_id', 'id')->latest()->take(1);
+        return $this->hasOne('App\Models\PatientModels\PatientStatus', 'patient_id', 'id')->latest()->take(1);
     }
 
     public function drug_allergy(){
@@ -61,7 +61,7 @@ class Patient extends Model
     }
 
     public function other_drug_allergy(){
-        return $this->hasMany('App\Models\PatientModels\PatientDrugAllergyOther');
+        return $this->hasOne('App\Models\PatientModels\PatientDrugAllergyOther');
     }
 
 
@@ -86,10 +86,10 @@ class Patient extends Model
     }
 
     public function visit(){
-        return $this->hasMany('App\Models\VisitModels\Visit')->latest()->take(1);
+        return $this->hasOne('App\Models\VisitModels\Visit')->latest()->take(1);
     }
     public function next_appointment(){
-        return $this->hasMany('App\Models\VisitModels\Appointment')->latest()->take(1);
+        return $this->hasOne('App\Models\VisitModels\Appointment')->latest()->take(1);
     }
 
     public function start_regimen(){
