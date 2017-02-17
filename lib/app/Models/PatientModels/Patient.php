@@ -12,7 +12,8 @@ class Patient extends Model
     protected $table = 'tbl_patient';
     protected $dates = ['deleted_at'];
     protected $fillable = ['ccc_number', 'first_name', 'last_name',
-     'other_name', 'phone_number', 'alternate_number', 'physical_address', 
+     'other_name', 'phone_number', 'alternate_number', 'physical_address', 'initial_regimen_id', 'initial_height',
+     'initial_weight', 'initial_bsa',
      'gender', 'birth_date', 'enrollment_date', 'support_group', 'is_pregnant', 'is_tb', 'is_tb_tested', 
      'is_smoke', 'is_alchohol', 'is_sms', 'service_id', 'facility_id', 'supporter_id', 'source_id', 'county_sub_id', 'who_stage_id', 'status'];
 
@@ -36,28 +37,35 @@ class Patient extends Model
         return $this->belongsTo('App\Models\ListsModels\WhoStage', 'who_stage_id');
     }
 
-    public function patient_prophylaxis(){
-        return $this->hasMany('App\Models\PatientModels\PatientProphylaxis', 'patient_id', 'id');
+    public function place_of_birth(){
+        return $this->belongsTo('App\Models\ListsModels\Sub_county', 'county_sub_id');
     }
 
-    public function patient_tb(){
+    public function prophylaxis(){
+        // return $this->hasMany('App\Models\PatientModels\PatientProphylaxis', 'patient_id', 'id');
+        return $this->belongsToMany('App\Models\ListsModels\Prophylaxis', 'tbl_patient_prophylaxis')->withPivot('patient_id', 'prophylaxis_id');
+    }
+
+    public function tb(){
         return $this->hasOne('App\Models\PatientModels\PatientTb', 'patient_id', 'id');
     }
 
-    public function patient_drug_other(){
-        return $this->hasMany('App\Models\PatientModels\PatientDrugOther', 'patient_id', 'id');
+    public function other_drug(){
+        return $this->hasOne('App\Models\PatientModels\PatientDrugOther', 'patient_id', 'id');
     }
 
-    public function patient_status(){
-        return $this->hasMany('App\Models\PatientModels\PatientStatus', 'patient_id', 'id');
+    public function current_status(){
+        // return $this->hasOne('App\Models\PatientModels\PatientStatus', 'patient_id', 'id')->latest()->take(1);
+
+        return $this->belongsToMany('App\Models\ListsModels\Status', 'tbl_patient_status')->withPivot('patient_id','status_id');
     }
 
-    public function patient_drug_allergy(){
+    public function drug_allergy(){
         return $this->hasMany('App\Models\PatientModels\PatientAllergies', 'patient_id', 'id');
     }
 
-    public function drug_allergy_other(){
-        return $this->hasMany('App\Models\PatientModels\PatientDrugAllergyOther');
+    public function other_drug_allergy(){
+        return $this->hasOne('App\Models\PatientModels\PatientDrugAllergyOther');
     }
 
 
@@ -65,16 +73,30 @@ class Patient extends Model
         return $this->hasMany('App\Models\PatientModels\PatientDependant', 'patient_id', 'id');
     }
 
-    public function patient_family_planning(){
+    public function family_planning(){
         return $this->hasMany('App\Models\PatientModels\PatientFamilyPlanning', 'patient_id', 'id');
     }
 
-    public function patient_partner(){
+    public function partner(){
         return $this->hasMany('App\Models\PatientModels\PatientPartner');
     }
 
-    public function visit(){
-        return $this->hasMany('App\Models\VisitModels\Visit');
+    public function illnesses(){
+        return $this->hasMany('App\Models\PatientModels\PatientIllness');
+    } 
+
+    public function other_illnesses(){
+        return $this->hasOne('App\Models\PatientModels\PatientIllnessOther');
     }
 
+    public function visit(){
+        return $this->hasOne('App\Models\VisitModels\Visit')->latest()->take(1);
+    }
+    public function next_appointment(){
+        return $this->hasOne('App\Models\VisitModels\Appointment')->latest()->take(1);
+    }
+
+    public function start_regimen(){
+        return $this->belongsTo('App\Models\RegimenModels\Regimen', 'initial_regimen_id');
+    }
 }

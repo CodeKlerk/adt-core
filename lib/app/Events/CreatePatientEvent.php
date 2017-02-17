@@ -7,6 +7,8 @@ use App\Models\PatientModels\PatientIllness;
 use App\Models\PatientModels\PatientAllergies;
 use App\Models\PatientModels\PatientProphylaxis;
 use App\Models\PatientModels\PatientFamilyPlanning;
+use App\Models\VisitModels\Appointment;
+use App\Models\VisitModels\Visit;
 class CreatePatientEvent extends Event
 {
 
@@ -81,7 +83,37 @@ class CreatePatientEvent extends Event
                     $pfp->save();
                 }
             }
+
+            $this->appointment_insert($merged_request_and_new_id);
+
         }
+    }
+
+    public function appointment_insert($data){
+        $first_appointment = new Appointment;
+        $first_appointment->appointment_date = $data['start_regimen_date'];
+        $first_appointment->is_appointment = 1;
+        $first_appointment->patient_id = $data['patient_id'];
+        $first_appointment->facility_id = $data['facility_id'];
+        if($first_appointment->save()){
+            $appointment_id = $first_appointment->id;
+            $this->visit_insert($appointment_id, $data);
+        }
+    }
+
+    public function visit_insert($appointment_id, $data){
+        $first_visit = Visit::create([
+            'current_height' => $data['initial_weight'],
+            'current_weight' => $data['initial_height'],
+            'visit_date' => $data['start_regimen_date'],
+            'appointment_adherence' => 100,
+            'patient_id' => $data['patient_id'],
+            'facility_id' => $data['facility_id'],
+            'user_id' => $data['user_id'],
+            'purpose_id' => $data['purpose_id'],
+            'current_regimen_id' => $data['initial_regimen_id'],
+            'appointment_id' => $appointment_id
+        ]);
     }
 
     public function multi_model_insert(array $models, $data) {

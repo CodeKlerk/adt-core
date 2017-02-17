@@ -240,9 +240,9 @@ class MapsApi extends Controller
         $input = Request::all();
         $new_map_log = MapsLog::create([ 'status'=>$input['status'], 'maps_id'=>$maps_id, 'user_id'=>$input['user_id'] ]);
         if($new_map_log){
-            return response()->json(['msg' => 'add a new map log ']);
+            return response()->json(['msg' => 'add a new map log ', 'data' => $new_map_log ]);
         }else{
-            return response('nope');
+            return response('Failed to create Maps Log');
         }
     }
     /**
@@ -261,9 +261,9 @@ class MapsApi extends Controller
         ->where('id', $log_id)
         ->update([ 'status'=>$input['status'], 'user_id'=>$input['user_id'] ]);
         if($log){
-            return response()->json(['msg' => 'updated map log ']);
+            return response()->json(['msg' => 'updated maps log ']);
         }else{
-            return response('nope');
+            return response('Failed to update Maps Log');
         }
     }
     /**
@@ -277,9 +277,11 @@ class MapsApi extends Controller
      */
     public function mapsLogsdelete($maps_id)
     {
-        $deleted_map = Maps::destroy($maps_id);
-        if($deleted_map){
-            return response()->json(['msg' => 'Deleted Map']);
+        $deleted_mapslog = MapsLog::destroy($maps_id);
+        if($deleted_mapslog){
+            return response()->json(['msg' => 'Deleted MapsLog']);
+        }else{
+            return response('Failed to delete Maps Log');
         }
     }   
 

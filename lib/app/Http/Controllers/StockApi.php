@@ -6,7 +6,10 @@ use Illuminate\Support\Facades\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 use App\Models\InventoryModels\StockItem;
+use App\Models\InventoryModels\Stock;
+use App\Models\InventoryModels\TransactionType;
 use App\Models\DrugModels\Drug;
+use App\Models\InventoryModels\StockBalance;
 
 class StockApi extends Controller
 {
@@ -28,8 +31,7 @@ class StockApi extends Controller
      */
     public function stockget()
     {
-        $response = StockItem::all();
-        return $response;
+        return response()->json(TransactionType::with('stock_item.drug')->get(),200);
     }
     /**
      * Operation stockPost
@@ -68,21 +70,27 @@ class StockApi extends Controller
         $batch_information = Drug::with('unit','stock_item')->where('id', $drug_id)->whereHas('stock_item.balance', function($query){
             $query->where('balance', '>', '0');
         })->get();
-        $drug_information = [ 
-            'commodity' => "ABACAVIR (ABC) Liquid 20MG/ML (240ml)",
-            'unit' => 'Bottle',
-            'total_stock' => '0',
-            'max_stock_level' => '0',
-            'min_stock_level' => '0',
-            'avg_monthly_consumption' => '0' 
-        ];
-        return $drug_information;
+
+        $drug_information = StockBalance::where('drug_id', $drug_id)->get();
+        // $drug_information = [ 
+        //     'commodity' => "ABACAVIR (ABC) Liquid 20MG/ML (240ml)",
+        //     'unit' => 'Bottle',
+        //     'total_stock' => '0',
+        //     'max_stock_level' => '0',
+        //     'min_stock_level' => '0',
+        //     'avg_monthly_consumption' => '0' 
+        // ];
         $response = [
             'transactions' => $transactions,
             'batch_information' => $batch_information,
             'drug_information' => $drug_information
         ];
         return response()->json($response,200);
+    }
+
+    // transactions
+    public function stock_transaction_get(){
+        return response()->json(TransactionType::with('stock.stock_item')->get(),200);
     }
     
 }

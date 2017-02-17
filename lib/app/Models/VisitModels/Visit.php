@@ -17,4 +17,10 @@ class Visit extends Model
         return $this->hasMany('App\Models\VisitModels\VisitItem');
         // return $this->hasMany('App\Models\VisitModels\VisitItem')->select(array('id','visit_id'));
     }
+    public function current_regimen(){
+        return $this->belongsTo('App\Models\RegimenModels\Regimen', 'current_regimen_id');
+    }
+    public function appointment(){
+        return $this->belongsTo('App\Models\VisitModels\Appointment', 'appointment_id');
+    }
 }

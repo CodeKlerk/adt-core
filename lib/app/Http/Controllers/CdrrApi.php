@@ -191,13 +191,11 @@ class CdrrApi extends Controller
      */
     public function cdrrLogsdelete($cdrr_id,$log_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-        $deleted_cdrr_log = CdrrLog::destroy($log_id);
-        if($deleted_cdrr_log){
-            return response()->json(['msg' => 'Deleted cdrr log']);
+        $deleted_cdrrLog = cdrrLog::destroy($cdrr_id);
+        if($deleted_cdrrLog){
+            return response()->json(['msg' => 'Deleted cdrrLog']);
+        }else{
+            return response('Failed to update cdrr log');
         }
     }   
 

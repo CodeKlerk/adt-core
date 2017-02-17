@@ -40,6 +40,7 @@ $api->version('v1', function ($api) {
                 'as' => 'api.auth.invalidate'
                 ]);
             $api->get('test', 'App\Http\Controllers\TestController@get_test');
+            $api->get('test/{id}', 'App\Http\Controllers\TestController@get_test_with_id');
         // 
         /*
         *   User routes
@@ -103,6 +104,15 @@ $api->version('v1', function ($api) {
         $api->post('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@addPatientpartner');
         $api->put('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@updatePatientpartner');
         $api->delete('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@deletePatientpartner');
+        //  alload
+        $api->get('/patients/{patientId}/viralload', 'App\Http\Controllers\PatientsApi@patientviralload');
+        $api->post('/patients/{patientId}/viralload', 'App\Http\Controllers\PatientsApi@addPatientviralload');
+        $api->put('/patients/{patientId}/viralload/{viralloadId}', 'App\Http\Controllers\PatientsApi@updatePatientviralload');
+        $api->delete('/patients/{patientId}/viralload/{viralloadId}', 'App\Http\Controllers\PatientsApi@deletePatientviralload');
+        // return latest
+        $api->get('/patients/{patientId}/appointment/latest', 'App\Http\Controllers\PatientsApi@return_latest_appointment');
+        $api->get('/patients/{patientId}/visit/latest', 'App\Http\Controllers\PatientsApi@return_latest_visit');
+        
         // //////////////////////////
         /*
         *   Stock routes
@@ -114,7 +124,7 @@ $api->version('v1', function ($api) {
         /*
         *   Dispense routes
         */
-        // $api->get('/patients/{patientId}/dispense', 'App\Http\Controllers\DispenseApi@dispenseDrugs'); // different route in doc
+        $api->get('/patients/{patientId}/dispense', 'App\Http\Controllers\DispenseApi@dispenseget'); // different route in doc
         $api->post('/patients/{patientId}/dispense', 'App\Http\Controllers\DispenseApi@dispensepost'); // different route in doc
         
         /*
@@ -158,9 +168,8 @@ $api->version('v1', function ($api) {
         $api->get('/lists/counties', 'App\Http\Controllers\ListsApi@listsCountiesget');
         $api->get('/lists/counties/{countyId}', 'App\Http\Controllers\ListsApi@listsCountiesget'); 
         // SubCounties
-
-        $api->get('/lists/counties/{countyId}/Subcounties', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
-
+        $api->get('/lists/subcounties', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
+        // $api->get('/lists/counties/{countyId}/Subcounties', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
         $api->get('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
         // Family Planning
         $api->get('/lists/familyplanning', 'App\Http\Controllers\ListsApi@listsFamilyplanningget');
@@ -278,6 +287,12 @@ $api->version('v1', function ($api) {
         $api->get('/lists/facility_type/{facilityType}', 'App\Http\Controllers\ListsApi@listsfacilityTypeByIdget');
         $api->put('/lists/facility_type/{facilityType}', 'App\Http\Controllers\ListsApi@listsfacilityTypeput');
         $api->delete('/lists/facility_type/{facilityType}', 'App\Http\Controllers\ListsApi@listsfacilityTypedelete');
+        // status --temp 
+        $api->get('/lists/status', 'App\Http\Controllers\ListsApi@listsstatusget');
+        $api->post('/lists/status', 'App\Http\Controllers\ListsApi@listsstatuspost');
+        $api->get('/lists/status/{statusId}', 'App\Http\Controllers\ListsApi@listsstatusByIdget');
+        $api->put('/lists/status/{statusId}', 'App\Http\Controllers\ListsApi@listsstatusput');
+        $api->delete('/lists/status/{statusId}', 'App\Http\Controllers\ListsApi@listsstatusdelete');
 
         /*
         *   cdrr routes
@@ -329,7 +344,7 @@ $api->version('v1', function ($api) {
         *   Temp routes
         */
         $api->get('/lists/type', 'App\Http\Controllers\ListsApi@type');
-        $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
+        $api->get('/lists/subcounty', 'App\Http\Controllers\ListsApi@sub_county');
 
         /*
         * store 
