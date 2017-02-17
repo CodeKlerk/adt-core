@@ -101,7 +101,6 @@ class PatientsApi extends Controller
                         'other_illnesses', 'patient_dependant', 'family_planning', 'partner', 
                         'next_appointment', 'visit.current_regimen', 'visit.appointment', 'next_appointment', 'place_of_birth', 'start_regimen');
         return response()->json($patient, 200);
-
     }
 
     /**
