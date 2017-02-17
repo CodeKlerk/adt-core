@@ -168,9 +168,8 @@ $api->version('v1', function ($api) {
         $api->get('/lists/counties', 'App\Http\Controllers\ListsApi@listsCountiesget');
         $api->get('/lists/counties/{countyId}', 'App\Http\Controllers\ListsApi@listsCountiesget'); 
         // SubCounties
-
-        $api->get('/lists/counties/{countyId}/Subcounties', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
-
+        $api->get('/lists/subcounties', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
+        // $api->get('/lists/counties/{countyId}/Subcounties', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
         $api->get('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
         // Family Planning
         $api->get('/lists/familyplanning', 'App\Http\Controllers\ListsApi@listsFamilyplanningget');
@@ -335,7 +334,7 @@ $api->version('v1', function ($api) {
         *   Temp routes
         */
         $api->get('/lists/type', 'App\Http\Controllers\ListsApi@type');
-        $api->get('/lists/sub_county', 'App\Http\Controllers\ListsApi@sub_county');
+        $api->get('/lists/subcounty', 'App\Http\Controllers\ListsApi@sub_county');
 
         /*
         * store 
