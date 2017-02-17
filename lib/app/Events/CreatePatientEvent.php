@@ -91,7 +91,7 @@ class CreatePatientEvent extends Event
 
     public function appointment_insert($data){
         $first_appointment = new Appointment;
-        $first_appointment->appointment_date = $data['start_regimen_date'];
+        $first_appointment->appointment_date = $data['regimen_start_date'];
         $first_appointment->is_appointment = 1;
         $first_appointment->patient_id = $data['patient_id'];
         $first_appointment->facility_id = $data['facility_id'];
@@ -105,12 +105,12 @@ class CreatePatientEvent extends Event
         $first_visit = Visit::create([
             'current_height' => $data['initial_weight'],
             'current_weight' => $data['initial_height'],
-            'visit_date' => $data['start_regimen_date'],
+            'visit_date' => $data['regimen_start_date'],
             'appointment_adherence' => 100,
             'patient_id' => $data['patient_id'],
             'facility_id' => $data['facility_id'],
             'user_id' => $data['user_id'],
-            'purpose_id' => $data['purpose_id'],
+            'purpose_id' => 1,
             'current_regimen_id' => $data['initial_regimen_id'],
             'appointment_id' => $appointment_id
         ]);

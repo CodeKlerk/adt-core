@@ -35,6 +35,10 @@ class UpdatePatientEvent extends Event
             'physical_address' => $this->patient['physical_address'],
             'gender' => $this->patient['gender'],
             'birth_date' => $this->patient['birth_date'],
+            'initial_height' => $this->patient['initial_height'],
+            'initial_weight' => $this->patient['initial_weight'],
+            'initial_regimen_id' => $this->patient['initial_regimen_id'],
+            'initial_bsa' => $this->patient['initial_bsa'],
             'enrollment_date' => $this->patient['enrollment_date'],
             'support_group' => $this->patient['support_group'],
             'is_pregnant' => $this->patient['is_pregnant'],
@@ -48,8 +52,11 @@ class UpdatePatientEvent extends Event
             'supporter_id' => $this->patient['supporter_id'],
             'source_id' => $this->patient['source_id'],
             'county_sub_id' => $this->patient['county_sub_id'],
-            'who_stage_id' => $this->patient['who_stage_id'],
-            'status' => $this->patient['status']
+            'who_stage_id' => $this->patient['who_stage_id']
         ]);
+        if(array_key_exists('status', $this->patient)){
+            $patient->update(['status' => $this->patient['status']]);
+        }
+
     }
 }
