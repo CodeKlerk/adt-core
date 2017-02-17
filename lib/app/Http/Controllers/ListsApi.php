@@ -1783,7 +1783,7 @@ class ListsApi extends Controller
      */
     public function listsstatusget()
     {
-        $response = FacilityTypes::all();
+        $response = Status::all();
         return response()->json($response,200);
     }
     /**
@@ -1797,7 +1797,7 @@ class ListsApi extends Controller
      */
     public function listsstatusByIdget($status_id)
     {
-        $status = FacilityTypes::findOrFail($status_id);
+        $status = Status::findOrFail($status_id);
         return response()->json($status,200);
     }
     /**
@@ -1811,7 +1811,7 @@ class ListsApi extends Controller
     public function listspost()
     {
         $input = Request::all();
-        $new_ = FacilityTypes::create($input);
+        $new_ = Status::create($input);
         if($new_){
             return response()->json(['msg' => 'Added a new ']);
         }else{
@@ -1830,7 +1830,7 @@ class ListsApi extends Controller
     public function listsstatusput($status_id)
     {
         $input = Request::all();
-        $status = FacilityTypes::findOrFail($status_id);
+        $status = Status::findOrFail($status_id);
         $status->update(['name' => $input['name']]);
         if($status->save()){
             return response()->json(['msg' => 'Update status']);
@@ -1849,7 +1849,7 @@ class ListsApi extends Controller
      */
     public function listsstatusdelete($status_id)
     {
-        $deleted_status = FacilityTypes::destroy($status_id);
+        $deleted_status = Status::destroy($status_id);
         if($deleted_status){
             return response()->json(['msg' => 'Deleted status']);
         }
