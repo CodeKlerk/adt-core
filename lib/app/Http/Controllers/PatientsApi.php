@@ -72,6 +72,7 @@ class PatientsApi extends Controller
     public function patientsGet()
     {
         $response = Patient::paginate(10);
+        $response->load('next_appointment', 'visit.current_regimen', 'current_status');
         return response()->json($response, 200);
     }
     // check if ccc_number number is in use
@@ -100,7 +101,6 @@ class PatientsApi extends Controller
                         'other_illnesses', 'patient_dependant', 'family_planning', 'partner', 
                         'next_appointment', 'visit.current_regimen', 'visit.appointment', 'next_appointment', 'place_of_birth', 'start_regimen');
         return response()->json($patient, 200);
-
     }
 
     /**

@@ -54,8 +54,10 @@ class UpdatePatientEvent extends Event
             'county_sub_id' => $this->patient['county_sub_id'],
             'who_stage_id' => $this->patient['who_stage_id']
         ]);
+        $patient->save();
         if(array_key_exists('status', $this->patient)){
             $patient->update(['status' => $this->patient['status']]);
+            $patient->save();
         }
 
     }
