@@ -52,10 +52,11 @@ class UpdatePatientEvent extends Event
             'supporter_id' => $this->patient['supporter_id'],
             'source_id' => $this->patient['source_id'],
             'county_sub_id' => $this->patient['county_sub_id'],
-            'who_stage_id' => $this->patient['who_stage_id'],
+            'who_stage_id' => $this->patient['who_stage_id']
         ]);
         if(array_key_exists('status', $this->patient)){
             $patient->update(['status' => $this->patient['status']]);
         }
+
     }
 }
