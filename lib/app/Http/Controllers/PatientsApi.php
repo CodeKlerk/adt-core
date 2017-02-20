@@ -555,7 +555,7 @@ class PatientsApi extends Controller
      */
     public function patientViralload($patient_id)
     {   
-        $patient_viralload = PatientViralload::get();
+        $patient_viralload = PatientViralload::where('patient_id', $patient_id)->get();
         return response()->json($patient_viralload,200); 
     }
 

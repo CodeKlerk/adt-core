@@ -228,14 +228,7 @@ class ListsApi extends Controller
      */
     public function listsCountiesDelete($county_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsCountiesCountyIdDelete as a DELETE method ?');
+        
     }
 
     // ///////////////////////
