@@ -89,7 +89,7 @@ class MapsApi extends Controller
             'supporter_id' => $input['supporter_id'],
             ]);
         if($map->save()){
-            return response()->json(['msg' => 'Update map']);
+            return response()->json(['msg' => 'Update map'], 'data'=>$map);
         }else{
             return response('Oops, it seems like there was a problem updating the map');
         } 
@@ -257,11 +257,12 @@ class MapsApi extends Controller
     public function mapsLogput($maps_id, $log_id)
     {
         $input = Request::all();
-        $log = MapsLog::where('maps_id', $maps_id)
-        ->where('id', $log_id)
-        ->update([ 'status'=>$input['status'], 'user_id'=>$input['user_id'] ]);
-        if($log){
-            return response()->json(['msg' => 'updated maps log ']);
+        $mapsLog = MapsLog::findOrFail($log_id);
+
+        $mapsLog->update([ 'status'=>$input['status'], 'user_id'=>$input['user_id'], 'maps_id'=>$input['maps_id'], 'user_id'=>$input['user_id']  ]);
+
+        if($mapsLog->save()){
+            return response()->json(['msg' => 'updated maps log ', 'data'=> $mapsLog]);
         }else{
             return response('Failed to update Maps Log');
         }
@@ -275,9 +276,9 @@ class MapsApi extends Controller
      *
      * @return Http response
      */
-    public function mapsLogsdelete($maps_id)
+    public function mapsLogsdelete($maps_id,$log_id)
     {
-        $deleted_mapslog = MapsLog::destroy($maps_id);
+        $deleted_mapslog = MapsLog::destroy($log_id);
         if($deleted_mapslog){
             return response()->json(['msg' => 'Deleted MapsLog']);
         }else{

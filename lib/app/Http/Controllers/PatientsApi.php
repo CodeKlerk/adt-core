@@ -238,6 +238,111 @@ class PatientsApi extends Controller
 
     }
 
+#   ======================== PATIENT ILLNESS
+
+       /**
+     * Operation patientIllness
+     *
+     * Fetch a patient's allergies.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     * @param int $illness_id ID of Allergies that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function getpatientIllness($patient_id)
+    {
+
+        $response = PatientIllness::where('patient_id',  $patient_id)->get();
+        if(!$response){  
+            return response('cant find patient nor Illnesses');
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+
+      public function getpatientIllnessbyId($patient_id, $illness_id)
+    {
+        
+        // $response = PatientIllness::where('patient_id',  $patient_id)->where('illness_id',  $illness_id)->get();
+        $response = PatientIllness::findOrFail($illness_id);
+        if(!$response){  
+            return response('cant find patient nor Illnesses');
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+
+    /**
+     * Operation addPatientIllness
+     *
+     * Add a new PatientIllness to a patient.
+     *
+     * @param int $patient_id ID&#39;s of patient (required)
+     * @param int $illness_id ID of Allergies (required)
+     *
+     * @return Http response
+     */
+    public function addPatientIllness()
+    {
+        $input = Request::all();
+        $save = PatientIllness::create($input);
+        if($save){
+            return response()->json(['msg'=> 'Illness added to patient', 'response'=> $input]);
+        }else{
+            return response()->json(['msg'=> 'There seems to have been a problem']);
+        }
+
+    }
+
+    /**
+     * Operation updatePatientIllness
+     *
+     * Update an existing patient Allergies.
+     *
+     * @param int $patient_id Patient id to update (required)
+     * @param int $illness_id Allergies id to update (required)
+     *
+     * @return Http response
+     */
+    public function updatePatientIllness($patient_id, $illness_id)
+    {
+        // patient_id  illness_id
+        $input = Request::all();
+        $updatedpatientIllness = PatientIllness::findOrFail($illness_id);
+        $updatedpatientIllness->update([ 'patient_id'=>$input['patient_id'], 'illness_id'=>$input['illness_id']]);
+        if($updatedpatientIllness->save()){
+            return response()->json(['msg' => 'Updated Illness','data'=> $updatedpatientIllness]);
+        }else{
+            return response("there seems to have been a problem while updating");
+        }
+
+    }
+
+    /**
+     * Operation deletePatientIllness
+     *
+     * Remove a patient PatientIllness.
+     *
+     * @param int $patient_id ID&#39;s of patient and appointment that needs to be fetched (required)
+     * @param int $illness_id ID of appointment that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function deletePatientIllness($patient_id, $illness_id)
+    {
+        $patientIllness = PatientIllness::destroy($illness_id);
+
+                if($patientIllness){
+            return response()->json(['msg' => 'deleted the patient Illness record']);
+        }else{
+            return response('there seems to have been a problem while delteting');
+        }
+
+    }
+#   ========================/ PATIENT ILLNESS
+
     /**
      * Operation patientAppointments
      *
