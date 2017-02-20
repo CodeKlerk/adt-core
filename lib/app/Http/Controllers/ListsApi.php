@@ -228,7 +228,10 @@ class ListsApi extends Controller
      */
     public function listsCountiesDelete($county_id)
     {
-        
+        $deleted_county = County::destroy($illness_id);
+        if($deleted_county){
+            return response()->json(['msg' => 'Deleted County']);
+        }
     }
 
     // ///////////////////////
