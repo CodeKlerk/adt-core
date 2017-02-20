@@ -217,6 +217,9 @@ class ListsApi extends Controller
         $response = County::findOrFail($county_id);
         return response()->json($response,200);
     }
+
+    
+
     /**
      * Operation listsCountiesCountyIdDelete
      *

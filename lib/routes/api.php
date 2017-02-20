@@ -104,7 +104,8 @@ $api->version('v1', function ($api) {
         $api->post('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@addPatientpartner');
         $api->put('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@updatePatientpartner');
         $api->delete('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@deletePatientpartner');
-        //  alload
+        //  viralload
+
         $api->get('/patients/{patientId}/viralload', 'App\Http\Controllers\PatientsApi@patientviralload');
         $api->post('/patients/{patientId}/viralload', 'App\Http\Controllers\PatientsApi@addPatientviralload');
         $api->put('/patients/{patientId}/viralload/{viralloadId}', 'App\Http\Controllers\PatientsApi@updatePatientviralload');

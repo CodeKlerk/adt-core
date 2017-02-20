@@ -28,7 +28,7 @@ class MapsApi extends Controller
      */
     public function mapsget()
     {
-        $response = Maps::all();
+        $response = Maps::with('facility')->get();
         return response()->json($response,200);
     }
     /**
