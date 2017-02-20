@@ -1338,7 +1338,6 @@ class ListsApi extends Controller
         }
     }
 
-// supsup
     // /////////////////////////////
     // Supporter functions       // ///////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////
@@ -1383,7 +1382,7 @@ class ListsApi extends Controller
         $input = Request::all();
         $new_supporter = Supporter::create($input);
         if($new_supporter){
-            return response()->json(['msg' => 'Added a new supporter']);
+            return response()->json(['msg' => 'Added a new supporter', 'data' => $new_supporter]);
         }else{
             return response('Oops, it seems like there was a problem adding the supporter');
         }
@@ -1403,7 +1402,7 @@ class ListsApi extends Controller
         $supporter = Supporter::findOrFail($supporter_id);
         $supporter->update(['name' => $input['name']]);
         if($supporter->save()){
-            return response()->json(['msg' => 'Update Supporter']);
+            return response()->json(['msg' => 'Update Supporter', 'data'=> $supporter]);
         }else{
             return response('Oops, it seems like there was a problem updating the Supporter');
         }
