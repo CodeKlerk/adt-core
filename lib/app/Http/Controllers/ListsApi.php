@@ -214,14 +214,8 @@ class ListsApi extends Controller
      */
     public function listsCountiesByIdGet($county_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsCountiesCountyIdGet as a GET method ?');
+        $response = County::findOrFail($county_id);
+        return response()->json($response,200);
     }
     /**
      * Operation listsCountiesCountyIdDelete
