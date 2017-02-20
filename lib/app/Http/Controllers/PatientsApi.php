@@ -243,7 +243,7 @@ class PatientsApi extends Controller
        /**
      * Operation patientIllness
      *
-     * Fetch a patient's allergies.
+     * Fetch a patient's illnesses.
      *
      
      * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
@@ -342,6 +342,102 @@ class PatientsApi extends Controller
 
     }
 #   ========================/ PATIENT ILLNESS
+
+
+#   ======================== PATIENT PARTNERS
+
+       /**
+     * Operation patientPartner
+     *
+     * Fetch a patient's Partners.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     * @param int $partner_id ID of Allergies that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function getpatientPartner($patient_id)
+    {
+
+        // $response = PatientPartner::where('patient_id',  $patient_id)->get();
+        $response = PatientPartner::where('patient_id',  $patient_id)->orWhere('partner_id',  $patient_id)->get();
+        if(!$response){  
+            return response('cant find patient nor Partner');
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+
+   /**
+     * Operation addPatientPartner
+     *
+     * Add a new PatientPartner to a patient.
+     *
+     * @param int $patient_id ID&#39;s of patient (required)
+     * @param int $partner_id ID of Allergies (required)
+     *
+     * @return Http response
+     */
+    public function addPatientPartner()
+    {
+        $input = Request::all();
+        $save = PatientPartner::create($input);
+        if($save){
+            return response()->json(['msg'=> 'Partner added to patient', 'response'=> $input]);
+        }else{
+            return response()->json(['msg'=> 'There seems to have been a problem']);
+        }
+
+    }
+
+    /**
+     * Operation updatePatientPartner
+     *
+     * Update an existing patient Allergies.
+     *
+     * @param int $patient_id Patient id to update (required)
+     * @param int $partner_id Allergies id to update (required)
+     *
+     * @return Http response
+     */
+    public function updatePatientPartner($patient_id, $partner_id)
+    {
+        // patient_id  partner_id
+        $input = Request::all();
+        $updatedpatientPartner = PatientPartner::findOrFail($partner_id);
+        $updatedpatientPartner->update([ 'patient_id'=>$input['patient_id'], 'partner_id'=>$input['partner_id']]);
+        if($updatedpatientPartner->save()){
+            return response()->json(['msg' => 'Updated Partner','data'=> $updatedpatientPartner]);
+        }else{
+            return response("there seems to have been a problem while updating");
+        }
+
+    }
+
+    /**
+     * Operation deletePatientPartner
+     *
+     * Remove a patient PatientPartner.
+     *
+     * @param int $patient_id ID&#39;s of patient and appointment that needs to be fetched (required)
+     * @param int $partner_id ID of appointment that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function deletePatientPartner($patient_id, $partner_id)
+    {
+        $patientPartner = PatientPartner::destroy($partner_id);
+
+                if($patientPartner){
+            return response()->json(['msg' => 'deleted the patient Partner record']);
+        }else{
+            return response('there seems to have been a problem while delteting');
+        }
+
+    }
+#   ========================/ PATIENT PARTNERS
+
 
     /**
      * Operation patientAppointments
