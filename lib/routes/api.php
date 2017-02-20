@@ -352,12 +352,12 @@ $api->version('v1', function ($api) {
         /*
         * store 
         */
-        $api->get('/store', 'App\Http\Controllers\StockApi@storeget');
-        $api->post('/store', 'App\Http\Controllers\StockApi@storepost');
+        $api->get('/stores', 'App\Http\Controllers\StockApi@storeget');
+        $api->post('/stores', 'App\Http\Controllers\StockApi@storepost');
 
-        $api->get('/store/{storeId}', 'App\Http\Controllers\StockApi@storeByIdget');
-        $api->put('/store/{storeId}', 'App\Http\Controllers\StockApi@storeput');
-        $api->delete('/store/{storeId}', 'App\Http\Controllers\StockApi@storedelete');
+        $api->get('/stores/{storeId}', 'App\Http\Controllers\StockApi@storeByIdget');
+        $api->put('/stores/{storeId}', 'App\Http\Controllers\StockApi@storeput');
+        $api->delete('/stores/{storeId}', 'App\Http\Controllers\StockApi@storesdelete');
 
     });
 });
