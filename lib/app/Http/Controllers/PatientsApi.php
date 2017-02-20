@@ -475,8 +475,8 @@ class PatientsApi extends Controller
      */
     public function patientVisits($patient_id)
     {
-        $patient_visits = Patient::findOrFail($patient_id)->select('id')->with('visit.visit_item.stock_item._drug')->get();
-        return response()->json($patient_visits,200);
+        $patient_visits = Patient::where('id', $patient_id)->select('id')->with('visit.visit_item.stock_item.drug')->get();
+        return $patient_visits;
     }
 
     /**
