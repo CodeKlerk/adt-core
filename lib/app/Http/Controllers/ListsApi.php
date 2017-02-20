@@ -1266,7 +1266,7 @@ class ListsApi extends Controller
      */
     public function listsWhostageget()
     {
-        $response = WhoStage::all();
+        $response = Whostage::all();
         return response()->json($response,200);
     }
     /**
