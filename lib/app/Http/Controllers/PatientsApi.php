@@ -782,9 +782,8 @@ class PatientsApi extends Controller
      */
     public function patientVisits($patient_id)
     {
-        $patient_visits = Patient::findOrFail($patient_id)->select('id')->with('visit.visit_item.stock_item._drug');
-        $patient_visits->load('visit.visit_item.stock_item._drug');
-        return response()->json($patient_visits,200);
+        $patient_visits = Patient::where('id', $patient_id)->select('id')->with('visit.visit_item.stock_item.drug')->get();
+        return $patient_visits;
     }
 
     /**
@@ -862,7 +861,7 @@ class PatientsApi extends Controller
      */
     public function patientViralload($patient_id)
     {   
-        $patient_viralload = PatientViralload::get();
+        $patient_viralload = PatientViralload::where('patient_id', $patient_id)->get();
         return response()->json($patient_viralload,200); 
     }
 

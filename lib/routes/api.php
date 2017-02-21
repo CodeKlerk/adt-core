@@ -111,11 +111,20 @@ $api->version('v1', function ($api) {
 
 
         // partner
+<<<<<<< HEAD
         $api->get('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@getpatientPartner');
         $api->post('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@addPatientPartner');
         $api->put('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@updatePatientPartner');
         $api->delete('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@deletePatientPartner');
         //  alload
+=======
+        $api->get('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@patientpartner');
+        $api->post('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@addPatientpartner');
+        $api->put('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@updatePatientpartner');
+        $api->delete('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@deletePatientpartner');
+        //  viralload
+
+>>>>>>> 9299ad1b0627cac6ede1054a803d1042f12e3491
         $api->get('/patients/{patientId}/viralload', 'App\Http\Controllers\PatientsApi@patientviralload');
         $api->post('/patients/{patientId}/viralload', 'App\Http\Controllers\PatientsApi@addPatientviralload');
         $api->put('/patients/{patientId}/viralload/{viralloadId}', 'App\Http\Controllers\PatientsApi@updatePatientviralload');

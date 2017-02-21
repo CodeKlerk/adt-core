@@ -84,6 +84,15 @@ class CreatePatientEvent extends Event
                 }
             }
 
+            // check if whostage
+            if(array_key_exists('who_stage', $this->patient)){
+                $who_stage = $this->patient['who_stage'];
+                $ws = new Whostage;
+                $ws->patient_id = $new_patient_id['patient_id'];
+                $ws->name = $who_stage;
+                $ws->save();
+            }
+
             $this->appointment_insert($merged_request_and_new_id);
 
         }

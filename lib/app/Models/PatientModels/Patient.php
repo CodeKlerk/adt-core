@@ -89,8 +89,11 @@ class Patient extends Model
         return $this->hasOne('App\Models\PatientModels\PatientIllnessOther');
     }
 
-    public function visit(){
+    public function latest_visit(){
         return $this->hasOne('App\Models\VisitModels\Visit')->latest()->take(1);
+    }
+    public function visit(){
+        return $this->hasMany('App\Models\VisitModels\Visit');
     }
     public function next_appointment(){
         return $this->hasOne('App\Models\VisitModels\Appointment')->latest()->take(1);

@@ -14,4 +14,8 @@ class Cdrr extends Model
                             'comments', 'reports_expected', 'reports_actual', 
                             'services', 'is_non_arv', 'facility_id', 'supporter_id' ];
     protected $dates = ['deleted_at'];
+
+    public function facility(){
+        return $this->belongsTo('App\Models\FacilityModels\Facilities', 'facility_id');
+    }
 }

@@ -26,7 +26,7 @@ class CdrrApi extends Controller
      */
     public function cdrrget()
     {
-        return response()->json(Cdrr::all(), 200);
+        return response()->json(Cdrr::with('facility')->get(), 200);
         // return response('Oops, it seems like there was a problem updating the indication');
     }
     /**

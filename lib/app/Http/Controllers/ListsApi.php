@@ -214,15 +214,12 @@ class ListsApi extends Controller
      */
     public function listsCountiesByIdGet($county_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsCountiesCountyIdGet as a GET method ?');
+        $response = County::findOrFail($county_id);
+        return response()->json($response,200);
     }
+
+    
+
     /**
      * Operation listsCountiesCountyIdDelete
      *
@@ -234,14 +231,10 @@ class ListsApi extends Controller
      */
     public function listsCountiesDelete($county_id)
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsCountiesCountyIdDelete as a DELETE method ?');
+        $deleted_county = County::destroy($illness_id);
+        if($deleted_county){
+            return response()->json(['msg' => 'Deleted County']);
+        }
     }
 
     // ///////////////////////
@@ -1266,7 +1259,7 @@ class ListsApi extends Controller
      */
     public function listsWhostageget()
     {
-        $response = WhoStage::all();
+        $response = Whostage::all();
         return response()->json($response,200);
     }
     /**
