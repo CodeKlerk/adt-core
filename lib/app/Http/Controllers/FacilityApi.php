@@ -21,7 +21,6 @@ class FacilityApi extends Controller
     }
     public function facilityByIdget($facility_id){
         $response = Facilities::findOrFail($facility_id);
-        $response->load('subcounty', 'supporter', 'county', 'type');
         return response()->json($response, 200);
     }
 
@@ -29,9 +28,9 @@ class FacilityApi extends Controller
         $input = Request::all();
         $new_facility = Facilities::create($input);
         if($new_facility){
-            $this->response->created();
+            return response()->json(['msg' => 'Added a facility', 'facility' => $new_facility],200);
         }else{
-            return $this->response->errorBadRequest();
+            return response()->json(['msg' => 'could not create facility'],400);
         }
     }
 
@@ -58,10 +57,19 @@ class FacilityApi extends Controller
                 'is_sms' => $input['is_sms']
             ]);
             if($facility->save()){
-                return response()->json(['msg'=> 'updated facility']);
+                return response()->json(['msg'=> 'updated facility', 'facility' => $facility], 200);
             }else{
-                return $this->response->errorBadRequest();
+                return response()->json(['msg' => 'could not update facility'],400);
             }
+        }
+    }
+
+    public function facilitydelete($facility_id){
+        $deleted_facility = Facilities::destroy($facility_id);
+        if($deleted_facility){
+            return response()->json(['msg' => 'Deleted the facility']);
+        }else{
+            return response->json('Deleted facility');
         }
     }
     

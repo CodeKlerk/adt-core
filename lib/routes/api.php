@@ -160,6 +160,7 @@ $api->version('v1', function ($api) {
         $api->get('/facility/{facilityId}', 'App\Http\Controllers\FacilityApi@facilityByIdget');
         $api->post('facility', 'App\Http\Controllers\FacilityApi@facilitypost');
         $api->put('/facility/{facilityId}', 'App\Http\Controllers\FacilityApi@facilityput');
+        $api->delete('/facility/{facilityId}', 'App\Http\Controllers\FacilityApi@facilitydelete')
         /*
         *   List routes
         */
