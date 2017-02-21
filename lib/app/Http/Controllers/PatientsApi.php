@@ -425,7 +425,7 @@ class PatientsApi extends Controller
      *
      * @param int $patient_id Patient id to delete (required)
      * @param int $prophylaxis_id Patient id to delete (required)
-     *
+     *  
      * @return Http response
      */
     public function updatePatientProphylaxis($patient_id, $prophylaxis_id)

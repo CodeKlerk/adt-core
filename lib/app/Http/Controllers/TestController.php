@@ -7,11 +7,12 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\FacilityModels\Facilities;
 use App\Models\InventoryModels\StockItem;
 
+
 use App\Models\VisitModels\Appointment; 
 use App\Models\VisitModels\Visit;
 
 use App\Models\InventoryModels\TransactionType;
-
+use App\Models\ListsModels\Status;
 class TestController extends Controller
 {
     /**
@@ -39,7 +40,11 @@ class TestController extends Controller
 
     public function get_test()
     {
-        return response()->json(TransactionType::with('stock_item.drug')->get(),200);
+        // return response()->json(TransactionType::with('stock_item.drug')->get(),200);
+        $patient = Patient::get();
+        $response = Status::where('patient_id', 6)->withPivot('patient_id','status_id')->get();
+        return response()->json($patient, 200);
+
     }
     
 }
