@@ -184,10 +184,14 @@ $api->version('v1', function ($api) {
         $api->get('/lists/counties/{countyId}', 'App\Http\Controllers\ListsApi@listsCountiesByIdget');
         $api->put('/lists/counties/{countyId}', 'App\Http\Controllers\ListsApi@listsCountiesput');
         $api->delete('/lists/counties/{countyId}', 'App\Http\Controllers\ListsApi@listsCountiesdelete');
+
         // SubCounties
-        $api->get('/lists/subcounties', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
-        // $api->get('/lists/counties/{countyId}/Subcounties', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
-        $api->get('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
+        $api->get('/lists/subcounties', 'App\Http\Controllers\ListsApi@listsSubcountiesget');
+        $api->post('/lists/subcounties', 'App\Http\Controllers\ListsApi@listsSubcountiespost');
+
+        $api->get('/lists/subcounties/{subcountyID}', 'App\Http\Controllers\ListsApi@listsSubcountiesByIdget');
+        $api->put('/lists/subcounties/{subcountyID}', 'App\Http\Controllers\ListsApi@listsSubcountiesput');
+        $api->delete('/lists/subcounties/{subcountyID}', 'App\Http\Controllers\ListsApi@listsSubcountiesdelete');
         
         // Family Planning
         $api->get('/lists/familyplanning', 'App\Http\Controllers\ListsApi@listsFamilyplanningget');

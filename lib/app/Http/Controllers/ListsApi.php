@@ -190,7 +190,7 @@ class ListsApi extends Controller
     // ///////////////////////
     // Counties            //
     // //////////////////////
-    /** /**
+    /** 
      * Operation listsCountiesGet
      *
      * Fetch Regimen Counties (for select options).
@@ -275,62 +275,85 @@ class ListsApi extends Controller
     // ///////////////////////
     // CountiesSubcounties //
     // /////////////////////
-    /**
-     * Operation listsCountiesCountyIdSubcountiesGet
+    /** 
+     * Operation listsSubcountiesGet
      *
-     * Fetch counties (for select options).
+     * Fetch Regimen Subcounties (for select options).
      *
-     * @param int $county_id ID of County that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function listsCountiesSubcountiesGet($county_id)
+    public function listsSubcountiesget()
     {
-        $response = Sub_county::all();
+        $response = Sub_county::get();
         return response()->json($response, 200);
     }
     /**
-     * Operation listsCountiesCountyIdSubcountiesSubcountyIdGet
+     * Operation listsSubcountiesSub_countyIdGet
      *
-     * Fetch County specified by countyId.
+     * Fetch Sub_county specified by Sub_countyId.
      *
-     * @param int $county_id ID of county (required)
-     * @param int $subcounty_id ID of subcounty (required)
+     * @param int $Sub_county_id ID of Service that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function listsCountiesSubcountiesByIdGet($county_id, $subcounty_id)
+    public function listsSubcountiesByIdget($sub_county_id)
+    {
+        $sub_county = Sub_county::findOrFail($sub_county_id);
+        return response()->json($sub_county, 200);
+    }
+    /**
+     * Operation listsSubcountiesPost
+     *
+     * create a Sub_county.
+     *
+     *
+     * @return Http response
+     */
+    public function listsSubcountiespost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsCountiesCountyIdSubcountiesSubcountyIdGet as a GET method ?');
+        $new_sub_county= Sub_county::create($input);
+        if($new_sub_county){
+            return response()->json(['msg' => 'Created Subcounty', 'Subcounty' => $new_sub_county], 200);
+        }else{
+            return response('Could not save Subcounty');
+        }
     }
 
     /**
-     * Operation listsCountiesCountyIdSubcountiesSubcountyIdDelete
+     * Operation listsSubcountiesSub_countyIdPut
      *
-     * Deletes a SubCounty specified by subcountyId in a County specified by countyId.
+     * Update an existing Sub_county.
      *
-     * @param int $county_id ID of county (required)
-     * @param int $subcounty_id ID of subcounty (required)
+     * @param int $Sub_county_id ID of Service that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function listsCountiesSubcountiesDelete($county_id, $subcounty_id)
+    public function listsSubcountiesput($sub_county_id)
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing listsCountiesCountyIdSubcountiesSubcountyIdDelete as a DELETE method ?');
+        $sub_county = Sub_county::findOrFail($sub_county_id);
+        $sub_county->update(['name' => $input['name']]);
+        if($sub_county->save()){
+            return response()->json(['msg' => 'Updated Sub_county', 'updated Sub_county' => $sub_county], 200);
+        }else{
+            return response('Could not update a Sub_county');
+        }
+    }
+    /**
+     * Operation listsSubcountiesSub_countyIdDelete
+     *
+     * Deletes a Sub_county specified by serviceId.
+     *
+     * @param int $Sub_county_id ID of Service that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsSubcountiesdelete($sub_county_id)
+    {
+        Sub_county::destroy($sub_county_id);
+        return response()->json(['msg' => 'deleted Subcounty'], 200);
     }
 
     // ///////////////////////
