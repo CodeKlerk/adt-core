@@ -109,6 +109,105 @@ class CdrrApi extends Controller
         }
     }
 
+    // cdrr items
+
+    /**
+     * Operation cdrrItemGet
+     *
+     *
+     * @return Http response
+     */
+    public function cdrrItemget()
+    {
+        $response = CdrrItem::all();
+        return response()->json($response, 200);
+    }
+    /**
+     * Operation cdrrItemcdrrItemIdGet
+     *
+     * Fetch all CDFF details specified by cdrrItemId.
+     *
+     * @param int $cdrrItem_id ID of commodity whose details needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function cdrrItemByIdget($cdrrItem_id)
+    {
+        $response = CdrrItem::findOrFail($cdrrItem_id);
+        return response()->json($response, 200);
+    }
+    /**
+     * Operation cdrrItemPost
+     *
+     * Add a new cdrrItem.
+     *
+     *
+     * @return Http response
+     */
+    public function cdrrItempost()
+    {
+        $input = Request::all();
+        $new_cdrrItem = CdrrItem::create($input);
+        if($new_cdrrItem){
+            return response()->json(['msg' => 'Added a new cdrrItem','data'=>$new_cdrrItem],201);
+        }else{
+            return response()->json(['msg' => 'Could not add cdrr item'],400);
+        }
+    }
+    /**
+     * Operation cdrrItemput
+     *
+     * Update cdrrItem .
+     *
+     *
+     * @return Http response
+     */
+    public function cdrrItemput($cdrrItem_id)
+    {
+        $input = Request::all();
+        $cdrrItem = CdrrItem::findOrFail($cdrrItem_id);
+        $cdrrItem->update([ 
+            'balance' => $input['balance'],
+            'received' => $input['received'],
+            'dispensed_units' => $input['dispensed_units'],
+            'dispensed_packs' => $input['dispensed_packs'],
+            'losses' => $input['losses'],
+            'adjustments_pos' => $input['adjustments_pos'],
+            'adjustments_neg' => $input['adjustments_neg'],
+            'count' => $input['count'],
+            'expiry_quantity' => $input['expiry_quantity'],
+            'expiry_date' => $input['expiry_date'],
+            'out_of_stock' => $input['out_of_stock'],
+            'resupply' => $input['resupply'],
+            'aggr_consumed' => $input['aggr_consumed'],
+            'aggr_on_hand' => $input['aggr_on_hand'],
+            'drug_id' => $input['drug_id'],
+            'cdrr_id' => $input['cdrr_id']
+         ]);
+        if($cdrrItem->save()){
+            return response()->json(['msg' => 'Update cdrrItem', 'item' => $cdrrItem],200);
+        }else{
+            return response()->json(['msg'=> 'could not update cdrr item'],400);
+        }
+    }
+    /**
+     * Operation cdrrItemput
+     *
+     * delete cdrrItem .
+     *
+     *
+     * @return Http response
+     */
+    public function cdrrItemdelete($cdrrItem_id)
+    {
+        // delete
+         $deleted_cdrrItem = CdrrItem::destroy($cdrrItem_id);
+        if($deleted_cdrrItem){
+            return response()->json(['msg' => 'Deleted cdrrItem']);
+        }
+    }
+
+
     // cdrr logs
 
     /**
