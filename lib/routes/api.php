@@ -180,7 +180,10 @@ $api->version('v1', function ($api) {
 
         // counties
         $api->get('/lists/counties', 'App\Http\Controllers\ListsApi@listsCountiesget');
-        $api->get('/lists/counties/{countyId}', 'App\Http\Controllers\ListsApi@listsCountiesget'); 
+        $api->post('/lists/counties', 'App\Http\Controllers\ListsApi@listsCountiespost');
+        $api->get('/lists/counties/{countyId}', 'App\Http\Controllers\ListsApi@listsCountiesByIdget');
+        $api->put('/lists/counties/{countyId}', 'App\Http\Controllers\ListsApi@listsCountiesput');
+        $api->delete('/lists/counties/{countyId}', 'App\Http\Controllers\ListsApi@listsCountiesdelete');
         // SubCounties
         $api->get('/lists/subcounties', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
         // $api->get('/lists/counties/{countyId}/Subcounties', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');

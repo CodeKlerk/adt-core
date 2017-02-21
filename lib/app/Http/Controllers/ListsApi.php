@@ -190,15 +190,15 @@ class ListsApi extends Controller
     // ///////////////////////
     // Counties            //
     // //////////////////////
-    /**
+    /** /**
      * Operation listsCountiesGet
      *
-     * Fetch counties (for select options).
+     * Fetch Regimen Counties (for select options).
      *
      *
      * @return Http response
      */
-    public function listsCountiesGet()
+    public function listsCountiesget()
     {
         $response = County::all();
         return response()->json($response, 200);
@@ -206,36 +206,71 @@ class ListsApi extends Controller
     /**
      * Operation listsCountiesCountyIdGet
      *
-     * Fetch County specified by countyId.
+     * Fetch County specified by CountyId.
      *
-     * @param int $county_id ID of county that needs to be fetched (required)
+     * @param int $County_id ID of Service that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function listsCountiesByIdGet($county_id)
+    public function listsCountiesByIdget($county)
     {
-        $response = County::findOrFail($county_id);
-        return response()->json($response,200);
+        $County = County::findOrFail($county);
+        return response()->json($county, 200);
+    }
+    /**
+     * Operation listsCountiesPost
+     *
+     * create a County.
+     *
+     *
+     * @return Http response
+     */
+    public function listsCountiespost()
+    {
+        $input = Request::all();
+        $new_county = County::create($input);
+        if($new_county){
+            return response()->json(['msg' => 'Created County', 'county' => $new_county], 200);
+        }else{
+            return response('Could not save county');
+        }
     }
 
-    
-
+    /**
+     * Operation listsCountiesCountyIdPut
+     *
+     * Update an existing County.
+     *
+     * @param int $County_id ID of Service that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function listsCountiesput($county)
+    {
+        $input = Request::all();
+        $county = County::findOrFail($county);
+        $county->update(['name' => $input['name']]);
+        if($county->save()){
+            return response()->json(['msg' => 'Updated County', 'updated county' => $county], 200);
+        }else{
+            return response('Could not update a County');
+        }
+    }
     /**
      * Operation listsCountiesCountyIdDelete
      *
-     * Deletes a County specified by countyId.
+     * Deletes a County specified by serviceId.
      *
-     * @param int $county_id ID of county that needs to be fetched (required)
+     * @param int $County_id ID of Service that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function listsCountiesDelete($county_id)
+    public function listsCountiesdelete($county)
     {
-        $deleted_county = County::destroy($illness_id);
-        if($deleted_county){
-            return response()->json(['msg' => 'Deleted County']);
-        }
+        County::destroy($county);
+        return response()->json(['msg' => 'deleted County'], 200);
     }
+
 
     // ///////////////////////
     // CountiesSubcounties //
