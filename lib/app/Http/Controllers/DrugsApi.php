@@ -49,7 +49,7 @@ class DrugsApi extends Controller
      */
     public function drugsget()
     {
-        $response = Drug::with('generic')->paginate(10);
+        $response = Drug::paginate(10);
         return response()->json($response, 200);
     }
     /**
