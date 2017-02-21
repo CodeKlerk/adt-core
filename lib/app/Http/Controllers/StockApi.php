@@ -7,6 +7,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 use App\Models\InventoryModels\StockItem;
 use App\Models\InventoryModels\Stock;
+use App\Models\InventoryModels\Store;
+
 use App\Models\InventoryModels\TransactionType;
 use App\Models\DrugModels\Drug;
 use App\Models\InventoryModels\StockBalance;
@@ -81,9 +83,9 @@ class StockApi extends Controller
         //     'avg_monthly_consumption' => '0' 
         // ];
         $response = [
-            'transactions' => $transactions,
-            'batch_information' => $batch_information,
-            'drug_information' => $drug_information
+        'transactions' => $transactions,
+        'batch_information' => $batch_information,
+        'drug_information' => $drug_information
         ];
         return response()->json($response,200);
     }
@@ -92,5 +94,54 @@ class StockApi extends Controller
     public function stock_transaction_get(){
         return response()->json(TransactionType::with('stock.stock_item')->get(),200);
     }
-    
+
+
+    public function storeget(){
+        $response = Store::all();
+        return response()->json($response, 200);
+    }
+    public function storeByIdget($store_id){
+        $input = Request::all();
+        // $map = Maps::findOrFail($maps_id);
+
+        $response = Store::findOrFail($store_id);
+        return response()->json($response, 200);
+    }
+
+    public function storepost(){
+        $input = Request::all();
+        $new_store = Store::create($input);
+        if($new_store){
+            return response()->json(['msg' => 'Store added' , 'data'=>$new_store]);
+        }else{
+            return response('Failed to add Store');
+        }
+    }
+
+    public function storeput($store_id)
+    {
+        $input = Request::all();
+        $store = Store::findOrFail($store_id);
+        $store->update([
+            'name' => $input['name'],
+            'type' => $input['type'],
+            'facility_id' => $input['facility_id']
+            ]);
+        if($store->save()){
+            return response()->json(['msg' => 'Update store' ,'data'=>$store]);
+        }else{
+            return response('Oops, it seems like there was a problem updating the store');
+        } 
+    }
+    public function storesdelete($store_id)
+    {
+      $deleted_store = Store::destroy($store_id);
+      if($deleted_store){
+        return response()->json(['msg' => 'Deleted store']);
+    }
+}    
+
+
+
+
 }

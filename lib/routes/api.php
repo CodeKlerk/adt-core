@@ -94,17 +94,28 @@ $api->version('v1', function ($api) {
         $api->put('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@updatePatientVisit');
         $api->delete('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@deletePatientVisit');
         // temp routes for patients 
+
         // illnesses
-        $api->get('/patients/{patientId}/illnesses', 'App\Http\Controllers\PatientsApi@patientillnesses');
-        $api->post('/patients/{patientId}/illnesses', 'App\Http\Controllers\PatientsApi@addPatientillnesses');
-        $api->put('/patients/{patientId}/illnesses/{illnessId}', 'App\Http\Controllers\PatientsApi@updatePatientillnesses');
-        $api->delete('/patients/{patientId}/illnesses/{illnessId}', 'App\Http\Controllers\PatientsApi@deletePatientillnesses');
+        $api->get('/patients/{patientId}/illnesses', 'App\Http\Controllers\PatientsApi@getpatientIllness');
+        $api->get('/patients/{patientId}/illnesses/{illnessId}', 'App\Http\Controllers\PatientsApi@getpatientIllnessbyId');
+        $api->post('/patients/{patientId}/illnesses', 'App\Http\Controllers\PatientsApi@addPatientIllness');
+        $api->put('/patients/{patientId}/illnesses/{illnessId}', 'App\Http\Controllers\PatientsApi@updatePatientIllness');
+        $api->delete('/patients/{patientId}/illnesses/{illnessId}', 'App\Http\Controllers\PatientsApi@deletePatientIllness');
+
+        // illnesses
+        $api->get('/patients/{patientId}/illnessesother', 'App\Http\Controllers\PatientsApi@getpatientOtherIllness');
+        $api->get('/patients/{patientId}/illnessesother/{illnessId}', 'App\Http\Controllers\PatientsApi@getpatientOtherIllnessbyId');
+        $api->post('/patients/{patientId}/illnessesother', 'App\Http\Controllers\PatientsApi@addPatientOtherIllness');
+        $api->put('/patients/{patientId}/illnessesother/{illnessId}', 'App\Http\Controllers\PatientsApi@updatePatientOtherIllness');
+        $api->delete('/patients/{patientId}/illnessesother/{illnessId}', 'App\Http\Controllers\PatientsApi@deletePatientOtherIllness');
+
+
         // partner
+
         $api->get('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@patientpartner');
         $api->post('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@addPatientpartner');
         $api->put('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@updatePatientpartner');
         $api->delete('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@deletePatientpartner');
-        //  viralload
 
         $api->get('/patients/{patientId}/viralload', 'App\Http\Controllers\PatientsApi@patientviralload');
         $api->post('/patients/{patientId}/viralload', 'App\Http\Controllers\PatientsApi@addPatientviralload');
@@ -352,12 +363,12 @@ $api->version('v1', function ($api) {
         /*
         * store 
         */
-        $api->get('/store', 'App\Http\Controllers\StockApi@storeget');
-        $api->post('/store', 'App\Http\Controllers\StockApi@storepost');
+        $api->get('/stores', 'App\Http\Controllers\StockApi@storeget');
+        $api->post('/stores', 'App\Http\Controllers\StockApi@storepost');
 
-        $api->get('/store/{storeId}', 'App\Http\Controllers\StockApi@storeByIdget');
-        $api->put('/store/{storeId}', 'App\Http\Controllers\StockApi@storeput');
-        $api->delete('/store/{storeId}', 'App\Http\Controllers\StockApi@storedelete');
+        $api->get('/stores/{storeId}', 'App\Http\Controllers\StockApi@storeByIdget');
+        $api->put('/stores/{storeId}', 'App\Http\Controllers\StockApi@storeput');
+        $api->delete('/stores/{storeId}', 'App\Http\Controllers\StockApi@storesdelete');
 
     });
 });
