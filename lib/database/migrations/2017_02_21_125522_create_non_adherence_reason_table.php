@@ -15,7 +15,9 @@ class CreateNonAdherenceReasonTable extends Migration
     {
         Schema::create('tbl_non_adherence_reason', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

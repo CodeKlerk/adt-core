@@ -15,7 +15,9 @@ class CreateProphylaxisTable extends Migration
     {
         Schema::create('tbl_prophylaxis', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

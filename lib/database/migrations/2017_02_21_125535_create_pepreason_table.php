@@ -15,7 +15,9 @@ class CreatePepreasonTable extends Migration
     {
         Schema::create('tbl_pepreason', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

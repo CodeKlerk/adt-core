@@ -15,7 +15,11 @@ class CreateCountySubTable extends Migration
     {
         Schema::create('tbl_county_sub', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->integer('county_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('county_id')->references('id')->on('tbl_county');
         });
     }
 

@@ -15,7 +15,9 @@ class CreateWhoStageTable extends Migration
     {
         Schema::create('tbl_who_stage', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

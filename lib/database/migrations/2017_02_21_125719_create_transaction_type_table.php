@@ -15,7 +15,10 @@ class CreateTransactionTypeTable extends Migration
     {
         Schema::create('tbl_transaction_type', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->enum('choices',['0', '1']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

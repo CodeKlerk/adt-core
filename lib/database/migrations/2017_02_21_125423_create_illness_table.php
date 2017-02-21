@@ -15,7 +15,9 @@ class CreateIllnessTable extends Migration
     {
         Schema::create('tbl_illness', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

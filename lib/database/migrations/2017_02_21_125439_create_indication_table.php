@@ -15,7 +15,10 @@ class CreateIndicationTable extends Migration
     {
         Schema::create('tbl_indication', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('code')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -15,7 +15,9 @@ class CreateCountyTable extends Migration
     {
         Schema::create('tbl_county', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

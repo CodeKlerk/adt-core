@@ -15,7 +15,10 @@ class CreateAccessLevelTable extends Migration
     {
         Schema::create('tbl_access_level', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->longText('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
