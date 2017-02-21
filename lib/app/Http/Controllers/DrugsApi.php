@@ -77,8 +77,11 @@ class DrugsApi extends Controller
     public function drugspost()
     {
         $input = Request::all();
-        Drug::create($input);
-        return response($input);
+        $new_drug = Drug::create($input);
+        if($new_drug){
+            return response()->json(['msg' => 'Added new drug', 'drug' => $new_drug],201);
+        }
+        return response()->json(['msg' => 'could not save drug'],<400></400>);
     }
     /**
      * Operation drugsDrugIdPut
@@ -104,9 +107,9 @@ class DrugsApi extends Controller
         $drug->generic_id = $input['generic_id'];
         $drug->supporter_id = $input['supporter_id'];
         if($drug->save()){
-            return response()->json(['msg' => 'updated']);
+            return response()->json(['msg' => 'updated drug', 'updated drug' => $drug],202);
         }else{
-            return response('Failed');
+            return response()->json(['msg' => 'Could not update'], 400);
         }
     }
     /**
@@ -120,8 +123,10 @@ class DrugsApi extends Controller
      */
     public function drugsdelete($drug_id)
     {
-        $input = Request::all();
-        return response('How about implementing drugsDrugIdDelete as a DELETE method ?');
+        $deleted_drug = Drug::distroy($drug_id);
+        if($deleted_drug){
+            return response()->json(['msg' => 'Deleted drug'],301);
+        }
     }
 
     /**
