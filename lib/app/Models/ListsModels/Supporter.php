@@ -12,4 +12,5 @@ class Supporter extends Model
     protected $table = 'tbl_supporter';
     protected $fillable = ['name'];
     protected $dates = ['deleted_by'];
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at'];
 }

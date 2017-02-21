@@ -12,4 +12,5 @@ class Indication extends Model
     protected $table = 'tbl_indication';
     protected $fillable = ['name','code'];
     protected $dates = ['deleted_at'];
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at'];
 }

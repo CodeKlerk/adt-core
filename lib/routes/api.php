@@ -185,6 +185,7 @@ $api->version('v1', function ($api) {
         $api->get('/lists/subcounties', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
         // $api->get('/lists/counties/{countyId}/Subcounties', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
         $api->get('/lists/counties/{countyId}/Subcounties/{subcountyId}', 'App\Http\Controllers\ListsApi@listsCountiesSubcountiesget');
+        
         // Family Planning
         $api->get('/lists/familyplanning', 'App\Http\Controllers\ListsApi@listsFamilyplanningget');
         $api->post('/lists/familyplanning', 'App\Http\Controllers\ListsApi@listsFamilyplanningpost');

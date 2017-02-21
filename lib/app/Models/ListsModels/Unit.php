@@ -12,4 +12,5 @@ class Unit extends Model
     protected $table = 'tbl_unit';
     protected $fillable = ['name'];
     protected $dates = ['deleted_at'];
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at'];
 }

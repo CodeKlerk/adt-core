@@ -12,4 +12,5 @@ class Purpose extends Model
     protected $table = 'tbl_purpose';
     protected $fillable = ['name'];
     protected $dates = ['deleted_at'];
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at'];
 }
