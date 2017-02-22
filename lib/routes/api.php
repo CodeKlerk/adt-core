@@ -161,10 +161,12 @@ $api->version('v1', function ($api) {
         */
 
         // apiointment
-        $api->get('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\VisitApi@patientappointments');
-        $api->post('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\VisitApi@addPatientappointments');
-        $api->put('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\VisitApi@updatePatientappointments');
-        $api->delete('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\VisitApi@deletePatientapiointment');
+        $api->get('/patients/{patientId}/appointments', 'App\Http\Controllers\VisitApi@patientappointmentsget');
+        $api->post('/patients/{patientId}/appointments', 'App\Http\Controllers\VisitApi@patientappointmentspost');
+
+        $api->get('/patients/{patientId}/appointments/{appointmentsId}', 'App\Http\Controllers\VisitApi@patientappointmentsByIdget');
+        $api->put('/patients/{patientId}/appointments/{appointmentsId}', 'App\Http\Controllers\VisitApi@patientappointmentsput');
+        $api->delete('/patients/{patientId}/appointments/{appointmentsId}', 'App\Http\Controllers\VisitApi@patientappointmentsdelete');
 
         // visit
         $api->get('/patients/{patientId}/visits', 'App\Http\Controllers\PatientsApi@patientVisits');

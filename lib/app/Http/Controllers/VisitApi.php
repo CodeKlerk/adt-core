@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 use App\Http\Requests;
 use Illuminate\Pagination\Paginator;
 
@@ -87,11 +88,16 @@ class VisitApi extends Controller
     public function patientAppointmentsput($patient_id, $appointment_id)
     {
         $input = Request::all();
-        $patient_tb = Appointment::where('patient_id', $patient_id)
-                                            ->where('id', $appointment_id)
-                                            ->update(['appointment_id' => $input['appointment_id']]);
-        if($patient_tb){
-            return response()->json(['msg' => 'Updated tb']);
+        $patient_appointment = Appointment::where('patient_id', $patient_id)
+                                   ->where('id', $appointment_id)
+                                   ->update([
+                                       "appointment_date" => $input['appointment_date'],
+                                        "is_appointment" => $input['is_appointment'],
+                                        "is_appointment" => $input['is_appointment'],
+                                        "facility_id" => $input['facility_id']
+                                   ]);
+        if($patient_appointment){
+            return response()->json(['msg' => 'Updated appointment', 'appointment' => $patient_appointment], 201);
         }else{
             return response()->json(['msg' => 'Could not update record'], 405);
         }
