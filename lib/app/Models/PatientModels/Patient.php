@@ -11,12 +11,14 @@ class Patient extends Model
 
     protected $table = 'tbl_patient';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['ccc_number', 'first_name', 'last_name',
-     'other_name', 'phone_number', 'alternate_number', 'physical_address', 'initial_regimen_id', 'initial_height',
-     'initial_weight', 'initial_bsa',
-     'gender', 'birth_date', 'enrollment_date', 'support_group', 'is_pregnant', 'is_tb', 'is_tb_tested', 
-     'is_smoke', 'is_alchohol', 'is_sms', 'service_id', 'facility_id', 'supporter_id', 'source_id', 'county_sub_id', 'who_stage_id', 'status'];
-
+    protected $fillable = [ 'ccc_number', 'first_name', 'last_name',
+                            'other_name', 'phone_number', 'alternate_number', 'physical_address', 'initial_regimen_id', 'initial_height',
+                            'initial_weight', 'initial_bsa',
+                            'gender', 'birth_date', 'enrollment_date', 'support_group', 'is_pregnant', 'is_tb', 'is_tb_tested', 
+                            'is_smoke', 'is_alchohol', 'is_sms', 'service_id', 'facility_id', 'supporter_id', 'source_id', 'county_sub_id', 'who_stage_id', 'status'
+                          ];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'current_status', 'next_appointment', 'latest_visit', 'facility'];
+    protected $appends = array('next_appointment_date', 'current_regimen_name', 'facility_name');
     public function service(){
         return $this->belongsTo('App\Models\ListsModels\Services', 'service_id');
     }
@@ -42,7 +44,6 @@ class Patient extends Model
     }
 
     public function prophylaxis(){
-        // return $this->hasMany('App\Models\PatientModels\PatientProphylaxis', 'patient_id', 'id');
         return $this->belongsToMany('App\Models\ListsModels\Prophylaxis', 'tbl_patient_prophylaxis')->withPivot('patient_id', 'prophylaxis_id');
     }
 
@@ -55,8 +56,6 @@ class Patient extends Model
     }
 
     public function current_status(){
-        // return $this->hasOne('App\Models\PatientModels\PatientStatus', 'patient_id', 'id')->latest()->take(1);
-
         return $this->belongsToMany('App\Models\ListsModels\Status', 'tbl_patient_status')->withPivot('patient_id','status_id');
     }
 
@@ -102,4 +101,24 @@ class Patient extends Model
     public function start_regimen(){
         return $this->belongsTo('App\Models\RegimenModels\Regimen', 'initial_regimen_id');
     }
+
+
+    public function getNextAppointmentDateAttribute(){
+        $next_appointment_date = null;
+        if($this->next_appointment){ $next_appointment_date = $this->next_appointment->appointment_date; }
+        return $next_appointment_date;
+    }
+
+    public function getCurrentRegimenNameAttribute(){
+        $current_regimen_name = null;
+        if($this->latest_visit){ $current_regimen_name = $this->latest_visit->current_regimen->name; }
+        return $current_regimen_name;
+    }
+
+    public function getFacilityNameAttribute(){
+        $facility_name = null;
+        if($this->facility){ $facility_name = $this->facility->name; }
+        return $facility_name;
+    }
+
 }
