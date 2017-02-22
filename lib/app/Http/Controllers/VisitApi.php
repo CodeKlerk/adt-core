@@ -124,4 +124,12 @@ class VisitApi extends Controller
             return response()->json(['msg' => 'Could not delete record'], 400);
         }
     }
+
+
+    // //////////
+    // Visit  //
+    // ////////
+
+    
+
 }
