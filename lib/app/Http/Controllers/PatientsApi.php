@@ -33,7 +33,7 @@ use Illuminate\Pagination\Paginator;
 
 use App\Models\PatientModels\Patient;
 use App\Models\PatientModels\PatientFamilyPlanning;
-use App\Models\PatientModels\PatientDependants;
+use App\Models\PatientModels\PatientDependant;
 use App\Models\PatientModels\PatientDrugAllergyOther;
 use App\Models\PatientModels\PatientAllergies;
 use App\Models\PatientModels\PatientDrugOther;
@@ -244,13 +244,122 @@ class PatientsApi extends Controller
      *
      * @return Http response
      */
-    public function deletePatientAllergies($patient_id, $allergie_id)
+    public function patientAllergiesdelete($patient_id, $allergie_id)
     {
         $patientAllergy = PatientAllergies::where('patient_id', $patient_id)
                                             ->where('drug_id', $allergie_id)
                                             ->delete();
         if($patientAllergy){
             return response()->json(['msg' => 'Saftly deleted the patient allergy record'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+
+    }
+
+    // dependant 
+    /**
+     * Operation patientdependants
+     *
+     * Fetch a patient's dependants.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientDependantsget($patient_id)
+    {
+        $response = PatientDependant::where('patient_id',  $patient_id)->with('dependant')->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find patient dependants'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation patientdependants
+     *
+     * Fetch a patient's dependants.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     * @param int $dependant_id ID of dependants that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientDependantsByIdget($patient_id, $dependant_id)
+    {
+        $response = PatientDependant::where('patient_id',  $patient_id)->where('dependant_id',  $dependant_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find dependants for this patient'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addPatientdependants
+     *
+     * Add a new patient dependant to a patient.
+     *
+     * @param int $patient_id ID&#39;s of patient (required)
+     * @param int $dependant_id ID of dependants (required)
+     *
+     * @return Http response
+     */
+    public function patientDependantspost()
+    {
+        $input = Request::all();
+        $new_patient_allergy = PatientDependant::create($input);
+        if($new_patient_allergy){
+            return response()->json(['msg'=> 'dependants added to patient', 'response'=> $new_patient_allergy], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not map patient to dependant'], 400);
+        }
+
+    }
+
+    /**
+     * Operation updatePatientdependants
+     *
+     * Update an existing patient dependants.
+     *
+     * @param int $patient_id Patient id to update (required)
+     * @param int $dependant_id dependants id to update (required)
+     *
+     * @return Http response
+     */
+    public function patientDependantsput($patient_id, $dependant_id)
+    {
+        $input = Request::all();
+        $patientAllergy = PatientDependant::where('patient_id', $patient_id)
+                                            ->where('dependant_id', $dependant_id)
+                                            ->update(['dependant_id' => $input['dependant_id']]);
+        if($patientAllergy){
+            return response()->json(['msg' => 'Updated dependant']);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+
+    }
+
+    /**
+     * Operation deletePatientdependants
+     *
+     * Remove a patient Patientdependants.
+     *
+     * @param int $patient_id ID&#39;s of patient and appointment that needs to be fetched (required)
+     * @param int $dependant_id ID of appointment that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientDependantsdelete($patient_id, $dependant_id)
+    {
+        $patientAllergy = PatientDependant::where('patient_id', $patient_id)
+                                            ->where('dependant_id', $dependant_id)
+                                            ->delete();
+        if($patientAllergy){
+            return response()->json(['msg' => 'Saftly deleted the patient dependant record'],200);
         }else{
             return response()->json(['msg' => 'Could not delete record'], 400);
         }

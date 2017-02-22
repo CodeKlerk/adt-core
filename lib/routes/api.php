@@ -73,10 +73,10 @@ $api->version('v1', function ($api) {
         $api->put('/patients/{patientId}/allergies/{allergieId}', 'App\Http\Controllers\PatientsApi@patientAllergiesput');
         $api->delete('/patients/{patientId}/allergies/{allergieId}', 'App\Http\Controllers\PatientsApi@patientAllergiesdelete');
         // apiointment
-        $api->get('/patients/{patientId}/apiointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@patientapiointments');
-        $api->post('/patients/{patientId}/apiointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@addPatientapiointments');
-        $api->put('/patients/{patientId}/apiointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@updatePatientapiointments');
-        $api->delete('/patients/{patientId}/apiointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@deletePatientapiointment');
+        $api->get('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@patientappointments');
+        $api->post('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@addPatientappointments');
+        $api->put('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@updatePatientappointments');
+        $api->delete('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@deletePatientapiointment');
         // dependants
         $api->get('/patients/{patientId}/dependants', 'App\Http\Controllers\PatientsApi@patientDependantsget');
         $api->post('/patients/{patientId}/dependants', 'App\Http\Controllers\PatientsApi@patientDependantspost');
