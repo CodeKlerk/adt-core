@@ -37,9 +37,7 @@ class FacilityApi extends Controller
     public function facilityput($facility_id){
         $input = Request::all();
         $facility = Facilities::findOrFail($facility_id);
-        if(!$facility){
-            return $this->response->errorNotFound();
-        }else{
+
             $facility->update([
                 'code' => $input['code'],
                 'name' => $input['name'],
@@ -61,7 +59,6 @@ class FacilityApi extends Controller
             }else{
                 return response()->json(['msg' => 'could not update facility'],400);
             }
-        }
     }
 
     public function facilitydelete($facility_id){

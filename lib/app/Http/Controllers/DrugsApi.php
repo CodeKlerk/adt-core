@@ -81,7 +81,7 @@ class DrugsApi extends Controller
         if($new_drug){
             return response()->json(['msg' => 'Added new drug', 'drug' => $new_drug],201);
         }
-        return response()->json(['msg' => 'could not save drug'],<400></400>);
+        return response()->json(['msg' => 'could not save drug'],400);
     }
     /**
      * Operation drugsDrugIdPut
