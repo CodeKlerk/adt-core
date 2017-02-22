@@ -12,4 +12,5 @@ class PatientAllergies extends Model
     protected $table = 'tbl_patient_drug_allergy'; 
     protected $fillable = ['patient_id','drug_id'];
     protected $dates = ['deleted_at'];
+    
 }

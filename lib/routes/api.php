@@ -66,10 +66,12 @@ $api->version('v1', function ($api) {
         *   Patient additions routes
         */
         // allergies
-        $api->get('/patients/{patientId}/allergies/{allergieId}', 'App\Http\Controllers\PatientsApi@patientAllergies');
-        $api->post('/patients/{patientId}/allergies/{allergieId}', 'App\Http\Controllers\PatientsApi@addPatientAllergies');
-        $api->put('/patients/{patientId}/allergies/{allergieId}', 'App\Http\Controllers\PatientsApi@updatePatientAllergies');
-        $api->delete('/patients/{patientId}/allergies/{allergieId}', 'App\Http\Controllers\PatientsApi@deletePatientAllergies');
+        $api->get('/patients/{patientId}/allergies', 'App\Http\Controllers\PatientsApi@patientAllergiesget');
+        $api->post('/patients/{patientId}/allergies/{allergieId}', 'App\Http\Controllers\PatientsApi@patientAllergiespost');
+
+        $api->get('/patients/{patientId}/allergies/{allergieId}', 'App\Http\Controllers\PatientsApi@patientAllergiesbyIdget');
+        $api->put('/patients/{patientId}/allergies/{allergieId}', 'App\Http\Controllers\PatientsApi@patientAllergiesput');
+        $api->delete('/patients/{patientId}/allergies/{allergieId}', 'App\Http\Controllers\PatientsApi@patientAllergiesdelete');
         // apiointment
         $api->get('/patients/{patientId}/apiointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@patientapiointments');
         $api->post('/patients/{patientId}/apiointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@addPatientapiointments');

@@ -156,20 +156,38 @@ class PatientsApi extends Controller
      *
      
      * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
-     * @param int $allergie_id ID of Allergies that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function patientAllergies($patient_id, $allergie_id)
+    public function patientAllergiesget($patient_id)
     {
-        $response = PatientAllergies::where('patient_id',  $patient_id)->where('drug_id',  $allergie_id)->get();
+        $response = PatientAllergies::where('patient_id',  $patient_id)->get();
         if(!$response){  
-            return response('cant find patient nor allergies');
+            return response()->json(['msg' => 'could not find patient allergies'], 204);
         }else{
             return response()->json($response, 200);
         }
     }
-
+    /**
+     * Operation patientAllergies
+     *
+     * Fetch a patient's allergies.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     * @param int $allergie_id ID of Allergies that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientAllergiesByIdget($patient_id, $allergie_id)
+    {
+        $response = PatientAllergies::where('patient_id',  $patient_id)->where('drug_id',  $allergie_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find allergies for this patient'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
     /**
      * Operation addPatientAllergies
      *
@@ -180,14 +198,14 @@ class PatientsApi extends Controller
      *
      * @return Http response
      */
-    public function addPatientAllergies()
+    public function patientAllergiespost()
     {
         $input = Request::all();
-        $save = PatientAllergies::create($input);
-        if($save){
-            return response()->json(['msg'=> 'Allergies added to patient', 'response'=> $input]);
+        $new_patient_allergy = PatientAllergies::create($input);
+        if($new_patient_allergy){
+            return response()->json(['msg'=> 'Allergies added to patient', 'response'=> $new_patient_allergy], 201);
         }else{
-            return response()->json(['msg'=> 'There seems to have been a problem']);
+            return response()->json(['msg'=> 'Could not map patient to allergy'], 400);
         }
 
     }
@@ -202,7 +220,7 @@ class PatientsApi extends Controller
      *
      * @return Http response
      */
-    public function updatePatientAllergies($patient_id, $allergie_id)
+    public function patientAllergiesput($patient_id, $allergie_id)
     {
         $input = Request::all();
         $patientAllergy = PatientAllergies::where('patient_id', $patient_id)
@@ -211,7 +229,7 @@ class PatientsApi extends Controller
         if($patientAllergy){
             return response()->json(['msg' => 'Updated allergy']);
         }else{
-            return response("there seems to have been a problem while updating");
+            return response()->json(['msg' => 'Could not update record'], 405);
         }
 
     }
@@ -232,9 +250,9 @@ class PatientsApi extends Controller
                                             ->where('drug_id', $allergie_id)
                                             ->delete();
         if($patientAllergy){
-            return response()->json(['msg' => 'Saftly deleted the patient allergy record']);
+            return response()->json(['msg' => 'Saftly deleted the patient allergy record'],200);
         }else{
-            return response('there seems to have been a problem while delteting');
+            return response()->json(['msg' => 'Could not delete record'], 400);
         }
 
     }
