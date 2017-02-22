@@ -22,8 +22,8 @@ class CreateAppointmentTable extends Migration
             $table->softDeletes();
 
             // fk
-            $table->integer('patient_id')->unsigned();
-            $table->integer('facility_id')->unsigned();
+            $table->foreign('patient_id')->references('id')->on('tbl_patient');
+            $table->foreign('facility_id')->references('id')->on('tbl_facility');
         });
     }
 
