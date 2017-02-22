@@ -45,9 +45,6 @@ use App\Models\PatientModels\PatientRegimen;
 use App\Models\PatientModels\PatientStatus;
 use App\Models\PatientModels\PatientTb;
 use App\Models\PatientModels\PatientViralload;
-
-use App\Models\VisitModels\Appointment;
-use App\Models\VisitModels\Visit;
 // 
 use App\Events\CreatePatientEvent;
 use App\Events\UpdatePatientEvent;
@@ -239,8 +236,8 @@ class PatientsApi extends Controller
      *
      * Remove a patient PatientAllergies.
      *
-     * @param int $patient_id ID&#39;s of patient and appointment that needs to be fetched (required)
-     * @param int $allergie_id ID of appointment that needs to be fetched (required)
+     * @param int $patient_id ID&#39;s of patient and allergies that needs to be fetched (required)
+     * @param int $allergie_id ID of allergies that needs to be fetched (required)
      *
      * @return Http response
      */
@@ -459,8 +456,8 @@ class PatientsApi extends Controller
      *
      * Remove a patient Patientdependants.
      *
-     * @param int $patient_id ID&#39;s of patient and appointment that needs to be fetched (required)
-     * @param int $dependant_id ID of appointment that needs to be fetched (required)
+     * @param int $patient_id ID&#39;s of patient and dependant that needs to be fetched (required)
+     * @param int $dependant_id ID of dependant that needs to be fetched (required)
      *
      * @return Http response
      */
@@ -953,90 +950,6 @@ class PatientsApi extends Controller
 
     }
 #   ========================/ PATIENT PARTNERS
-
-
-    /**
-     * Operation patientAppointments
-     *
-     * Fetch the patient's appointments.
-     *
-     * @param int $patient_id ID&#39;s of patient and appointment that needs to be fetched (required)
-     * @param int $appointment_id ID of appointment that needs to be fetched (required)
-     *
-     * @return Http response
-     */
-    public function patientAppointments($patient_id, $appointment_id)
-    {
-        $response = Appointment::where('patient_id', $patient_id)
-                                ->where('id', $appointment_id)
-                                ->first();
-        return response()->json($response, 200);
-    }
-
-    /**
-     * Operation addPatientAppointments
-     *
-     * Add a new Appointments to a patient.
-     *
-     * @param int $patient_id ID of patient (required)
-     * @param int $appointment_id ID of appointment (required)
-     *
-     * @return Http response
-     */
-    public function addPatientAppointments($patient_id)
-    {
-        $input = Request::all();
-        $appointment = Appointment::create($input);
-        if($appointment){
-            return response()->json(['msg'=> 'Added appointment']);
-        }else{
-            return response("Seems like something went while adding the appointment1");
-        }
-    }
-
-    /**
-     * Operation updatePatientAppointments
-     *
-     * Update an existing patient appointment.
-     *
-     * @param int $patient_id ID of patient for update (required)
-     * @param int $appointment_id ID of appointment for update (required)
-     *
-     * @return Http response
-     */
-    public function updatePatientAppointments($patient_id, $appointment_id)
-    {
-        $input = Request::all();
-        $patientAppointment = Appointment::where('patient_id', $patient_id)
-                                            ->where('id', $appointment_id)
-                                            ->update([
-                                                'appointment_date' => $input['appointment_date'],
-                                                'is_appointment' => $input['is_appointment'],
-                                                'facility_id' => $input['facility_id']
-                                            ]);
-        if($patientAppointment){
-            return response()->json(['msg'=> 'updated patient appointment'], 200);
-        }else{
-            return response('It seems like something went wrong while trying to update');
-        }
-    }
-
-    /**
-     * Operation deletePatientAppointment
-     *
-     * Remove a patient appointment.
-     *
-     * @param int $patient_id ID of patient and appointment that needs to be fetched (required)
-     * @param int $appointment_id ID of appointment that needs to be deleted (required)
-     *
-     * @return Http response
-     */
-    public function deletePatientAppointment($patient_id, $appointment_id)
-    {
-        $patientAppointment = Appointment::where('patient_id', $patient_id)
-                                            ->where('id', $appointment_id)
-                                            ->delete();
-    }
 
     /**
      * Operation PatientProphylaxiss

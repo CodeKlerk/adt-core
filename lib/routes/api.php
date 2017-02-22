@@ -72,11 +72,7 @@ $api->version('v1', function ($api) {
         $api->get('/patients/{patientId}/allergies/{allergieId}', 'App\Http\Controllers\PatientsApi@patientAllergiesbyIdget');
         $api->put('/patients/{patientId}/allergies/{allergieId}', 'App\Http\Controllers\PatientsApi@patientAllergiesput');
         $api->delete('/patients/{patientId}/allergies/{allergieId}', 'App\Http\Controllers\PatientsApi@patientAllergiesdelete');
-        // apiointment
-        $api->get('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@patientappointments');
-        $api->post('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@addPatientappointments');
-        $api->put('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@updatePatientappointments');
-        $api->delete('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\PatientsApi@deletePatientapiointment');
+        
         // dependants
         $api->get('/patients/{patientId}/dependants', 'App\Http\Controllers\PatientsApi@patientDependantsget');
         $api->post('/patients/{patientId}/dependants', 'App\Http\Controllers\PatientsApi@patientDependantspost');
@@ -106,11 +102,6 @@ $api->version('v1', function ($api) {
         $api->put('/patients/{patientId}/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\PatientsApi@patientProphylaxisput');
         $api->delete('/patients/{patientId}/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\PatientsApi@patientProphylaxisdelete');
 
-        // visit
-        $api->get('/patients/{patientId}/visits', 'App\Http\Controllers\PatientsApi@patientVisits');
-        $api->post('/patients/{patientId}/visits', 'App\Http\Controllers\PatientsApi@addPatientVisits');
-        $api->put('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@updatePatientVisit');
-        $api->delete('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@deletePatientVisit');
         // temp routes for patients 
 
         // illnesses
@@ -164,6 +155,23 @@ $api->version('v1', function ($api) {
         $api->get('/patients/{patientId}/visit/first', 'App\Http\Controllers\PatientsApi@return_first_visit');
         
         // //////////////////////////
+
+        /*
+        * Patient visist routes
+        */
+
+        // apiointment
+        $api->get('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\VisitApi@patientappointments');
+        $api->post('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\VisitApi@addPatientappointments');
+        $api->put('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\VisitApi@updatePatientappointments');
+        $api->delete('/patients/{patientId}/appointments/{apiointmentId}', 'App\Http\Controllers\VisitApi@deletePatientapiointment');
+
+        // visit
+        $api->get('/patients/{patientId}/visits', 'App\Http\Controllers\PatientsApi@patientVisits');
+        $api->post('/patients/{patientId}/visits', 'App\Http\Controllers\PatientsApi@addPatientVisits');
+        $api->put('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@updatePatientVisit');
+        $api->delete('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@deletePatientVisit');
+
         /*
         *   Stock routes
         */
