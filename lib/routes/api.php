@@ -99,9 +99,12 @@ $api->version('v1', function ($api) {
         $api->put('/patients/{patientId}/familyplanning/{familyplanId}', 'App\Http\Controllers\PatientsApi@patientFamilyPlanningput');
         $api->delete('/patients/{patientId}/familyplanning/{familyplanId}', 'App\Http\Controllers\PatientsApi@patientFamilyPlanningdelete');
         // prophylaxis
-        $api->get('/patients/{patientId}/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\PatientsApi@patientProphylaxis');
-        $api->put('/patients/{patientId}/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\PatientsApi@updatePatientProphylaxis');
-        $api->delete('/patients/{patientId}/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\PatientsApi@deletePatientProphylaxis');
+        $api->get('/patients/{patientId}/prophylaxis', 'App\Http\Controllers\PatientsApi@patientProphylaxisget');
+        $api->post('/patients/{patientId}/prophylaxis', 'App\Http\Controllers\PatientsApi@patientProphylaxispost');
+
+        $api->get('/patients/{patientId}/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\PatientsApi@patientProphylaxisByIdget');
+        $api->put('/patients/{patientId}/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\PatientsApi@patientProphylaxisput');
+        $api->delete('/patients/{patientId}/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\PatientsApi@patientProphylaxisdelete');
         // regimen
         $api->get('/patients/{patientId}/regimens/{regimenId}', 'App\Http\Controllers\PatientsApi@patientregimens');
         $api->post('/patients/{patientId}/regimens/{regimenId}', 'App\Http\Controllers\PatientsApi@addPatientRegimen');

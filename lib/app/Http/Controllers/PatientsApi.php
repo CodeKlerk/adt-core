@@ -1119,66 +1119,113 @@ class PatientsApi extends Controller
 
 
     /**
-     * Operation patientProphylaxis
+     * Operation PatientProphylaxiss
      *
-     * Fetch the prophylaxis patient is administered.
+     * Fetch a patient's family plannings.
      *
-     * @param int $patient_id ID of patient that needs to be fetched (required)
-     * @param int $prophylaxis_id ID of prophylaxis that needs to be fetched (required)
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function patientProphylaxis($patient_id, $prophylaxis_id)
+    public function patientProphylaxisget($patient_id)
     {
-        $patientProphylaxis = PatientProphylaxis::where('patient_id', $patient_id)
-                                            ->where('prophylaxis_id', $prophylaxis_id)
-                                            ->first();
-        return response()-json($patientProphylaxis, 200);
+        $response = PatientProphylaxis::where('patient_id',  $patient_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find patient Prophylaxis'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
     }
     /**
-     * Operation updatePatientProphylaxis
+     * Operation PatientProphylaxiss
      *
-     * Update an existing patient prophylaxis.
+     * Fetch a patient's familyplanning.
      *
-     * @param int $patient_id Patient id to delete (required)
-     * @param int $prophylaxis_id Patient id to delete (required)
-     *  
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     * @param int $Prophylaxis_id ID family plan that needs to be fetched (required)
+     *
      * @return Http response
      */
-    public function updatePatientProphylaxis($patient_id, $prophylaxis_id)
+    public function patientProphylaxisByIdget($patient_id, $prophylaxis_id)
+    {
+        $response = PatientProphylaxis::where('patient_id', $patient_id)
+                                            ->where('prophylaxis_id', $prophylaxis_id)
+                                            ->first();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find Prophylaxis for this patient'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addPatientProphylaxiss
+     *
+     * Add a new patient allergy to a patient.
+     *
+     * @param int $patient_id ID&#39;s of patient (required)
+     *
+     * @return Http response
+     */
+    public function patientProphylaxispost()
     {
         $input = Request::all();
-        $patientProphylaxis = PatientProphylaxis::where('patient_id', $patient_id)
-                                            ->where('prophylaxis_id', $prophylaxis_id)
-                                            ->update(['prophylaxis_id' => $input['prophylaxis_id']]);
-        if($patientProphylaxis){
-            return response()->json(['msg' => 'Updated the patient prophylaxis']);
+        $new_patient_prophylaxis = PatientProphylaxis::create($input);
+        if($new_patient_prophylaxis){
+            return response()->json(['msg'=> 'added prophylaxis to patient', 'response'=> $new_patient_prophylaxis], 201);
         }else{
-            return response('seemes like something went wrong');
+            return response()->json(['msg'=> 'Could not map patient to Prophylaxis'], 400);
         }
     }
 
     /**
-     * Operation deletePatientProphylaxis
+     * Operation updatePatientProphylaxiss
      *
-     * Remove a patient of a Prophylaxis.
+     * Update an existing patient Prophylaxis plannings.
      *
-     * @param int $patient_id Patient id to delete (required)
-     * @param int $prophylaxis_id Patient id to delete (required)
+     * @param int $patient_id Patient id to update (required)
+     * @param int $Prophylaxis_id family plannings id to update (required)
      *
      * @return Http response
      */
-    public function deletePatientProphylaxis($patient_id, $prophylaxis_id)
+    public function patientProphylaxisput($patient_id, $prophylaxis_id)
     {
-        $patientProphylaxis = PatientProphylaxis::where('patient_id', $patient_id)
-                                            ->where('prophylaxis_id', $prophylaxis_id)
-                                            ->delete();
-        if($patientProphylaxis){
-            return response()->json(['msg' => 'Deleted pateint']);
+        $input = Request::all();
+        $patient_Prophylaxis = PatientProphylaxis::where('patient_id', $patient_id)
+                                            ->where('id', $prophylaxis_id)
+                                            ->update(['prophylaxis_id' => $input['prophylaxis_id']]);
+        if($patient_Prophylaxis){
+            return response()->json(['msg' => 'Updated prophylaxis', 'prophylaxis' => $patient_Prophylaxis]);
         }else{
-            return response('Something seems to have gone wrong while trying to delete this object');
+            return response()->json(['msg' => 'Could not update record'], 405);
         }
     }
+
+    /**
+     * Operation deletePatientProphylaxiss
+     *
+     * Remove a patient PatientProphylaxiss.
+     *
+     * @param int $patient_id ID&#39;s of patient and allergy that needs to be fetched (required)
+     * @param int $Prophylaxis_id ID of allergy that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientProphylaxisdelete($patient_id, $prophylaxis_id)
+    {
+        $patient_Prophylaxis = PatientProphylaxis::where('patient_id', $patient_id)
+                                            ->where('prophylaxis_id', $prophylaxis_id)
+                                            ->delete();
+        if($patient_Prophylaxis){
+            return response()->json(['msg' => 'Saftly deleted the patient Prophylaxis record'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
+
+    // visits
+
 
     /**
      * Operation patientVisits
