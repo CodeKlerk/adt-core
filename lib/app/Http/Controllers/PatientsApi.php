@@ -503,7 +503,7 @@ class PatientsApi extends Controller
 
       public function patientIllnessByIdget($patient_id, $illness_id)
     {
-        $response = PatientIllness::where('patient_id', $partner_id)->where('illness_id', $illness_id)->get();
+        $response = PatientIllness::where('patient_id', $patient_id)->where('illness_id', $illness_id)->get();
         if(!$response){  
             return response()->json(['msg' => 'Could not find record'], 404);
         }else{
@@ -546,9 +546,11 @@ class PatientsApi extends Controller
     public function patientIllnessput($patient_id, $illness_id)
     {
         $input = Request::all();
-        $updatedpatientIllness = PatientIllness::findOrFail($illness_id);
-        $updatedpatientIllness->update([ 'patient_id'=>$input['patient_id'], 'illness_id'=>$input['illness_id']]);
-        if($updatedpatientIllness->save()){
+        $updatedpatientIllness = PatientIllness::where('patient_id', $patient_id)
+                                ->where('illness_id', $illness_id)
+                                ->update([ 'patient_id'=>$input['patient_id'], 'illness_id'=>$input['illness_id']]);
+
+        if($updatedpatientIllness){
             return response()->json(['msg' => 'Updated Illness','data'=> $updatedpatientIllness]);
         }else{
             return response("there seems to have been a problem while updating");
@@ -568,7 +570,9 @@ class PatientsApi extends Controller
      */
     public function patientIllnessdelete($patient_id, $illness_id)
     {
-        $deleted_patientIllness = PatientIllness::destroy($illness_id);
+        $deleted_patientIllness = PatientIllness::where('patient_id', $patient_id)
+                                ->where('illness_id', $illness_id)
+                                ->delete();
 
         if($deleted_patientIllness){
             return response()->json(['msg' => 'deleted the patient Illness record']);

@@ -644,7 +644,6 @@ class ListsApi extends Controller
     {
         $response = ChangeReason::findOrFail($changereason_id);
         return response()->json($response, 200);
-
     }
     /**
      * Operation listsChangereasonPost
