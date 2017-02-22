@@ -143,6 +143,14 @@ $api->version('v1', function ($api) {
         $api->get('/patients/{patientId}/status/{statusId}', 'App\Http\Controllers\PatientsApi@patientStatusByIdget');
         $api->put('/patients/{patientId}/status/{statusId}', 'App\Http\Controllers\PatientsApi@patientStatusput');
         $api->delete('/patients/{patientId}/status/{statusId}', 'App\Http\Controllers\PatientsApi@patientStatusdelete');
+
+        // tb
+        $api->get('/patients/{patientId}/tb', 'App\Http\Controllers\PatientsApi@patientTbget');
+        $api->post('/patients/{patientId}/tb', 'App\Http\Controllers\PatientsApi@patientTbpost');
+
+        $api->get('/patients/{patientId}/tb/{tbId}', 'App\Http\Controllers\PatientsApi@patientTbByIdget');
+        $api->put('/patients/{patientId}/tb/{tbId}', 'App\Http\Controllers\PatientsApi@patientTbput');
+        $api->delete('/patients/{patientId}/tb/{tbId}', 'App\Http\Controllers\PatientsApi@patientTbdelete');
         //  viralload
 
         $api->get('/patients/{patientId}/viralload', 'App\Http\Controllers\PatientsApi@patientviralload');

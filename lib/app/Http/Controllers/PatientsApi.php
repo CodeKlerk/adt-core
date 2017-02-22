@@ -1332,6 +1332,118 @@ class PatientsApi extends Controller
         }
     }
 
+    // tb 
+    /**
+     * Operation PatientTbs
+     *
+     * Fetch a patient's tb.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function PatientTbget($patient_id)
+    {
+        $response = PatientTb::where('patient_id',  $patient_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find tb'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation PatientTbs
+     *
+     * Fetch a patient's familyplanning.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     * @param int $tb_id ID family plan that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function PatientTbByIdget($patient_id, $tb_id)
+    {
+        $response = PatientTb::where('patient_id', $patient_id)
+                                            ->where('id', $tb_id)
+                                            ->first();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find tb records for this patient'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addPatientTbs
+     *
+     * Add a new patient tb to a patient.
+     *
+     * @param int $patient_id ID&#39;s of patient (required)
+     *
+     * @return Http response
+     */
+    public function PatientTbpost()
+    {
+        $input = Request::all();
+        $new_patient_tb = PatientTb::create($input);
+        if($new_patient_tb){
+            return response()->json(['msg'=> 'added tb to patient', 'response'=> $new_patient_tb], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not map patient to tb'], 400);
+        }
+    }
+
+    /**
+     * Operation updatePatientTbs
+     *
+     * Update an existing patient tbs plannings.
+     *
+     * @param int $patient_id Patient id to update (required)
+     * @param int $tb_id family plannings id to update (required)
+     *
+     * @return Http response
+     */
+    public function PatientTbput($patient_id, $tb_id)
+    {
+        $input = Request::all();
+        $patient_tb = PatientTb::where('patient_id', $patient_id)
+                                ->where('id', $tb_id)
+                                ->update([
+                                    "category" => $input['category'],
+                                    "phase" => $input['phase'],
+                                    "start_date" => $input['start_date'],
+                                    "end_date" => $input['end_date']
+                                 ]);
+        if($patient_tb){
+            return response()->json(['msg' => 'Updated tb']);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deletePatientTbs
+     *
+     * Remove a patient PatientTbs.
+     *
+     * @param int $patient_id ID&#39;s of patient and tb that needs to be fetched (required)
+     * @param int $tb_id ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function PatientTbdelete($patient_id, $tb_id)
+    {
+        $patient_tb = PatientTb::where('patient_id', $patient_id)
+                                            ->where('id', $tb_id)
+                                            ->delete();
+        if($patient_tb){
+            return response()->json(['msg' => 'Saftly deleted the patient tb record'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
+
 
     // viralload    
     /**
