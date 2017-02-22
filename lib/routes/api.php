@@ -105,11 +105,7 @@ $api->version('v1', function ($api) {
         $api->get('/patients/{patientId}/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\PatientsApi@patientProphylaxisByIdget');
         $api->put('/patients/{patientId}/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\PatientsApi@patientProphylaxisput');
         $api->delete('/patients/{patientId}/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\PatientsApi@patientProphylaxisdelete');
-        // regimen
-        $api->get('/patients/{patientId}/regimens/{regimenId}', 'App\Http\Controllers\PatientsApi@patientregimens');
-        $api->post('/patients/{patientId}/regimens/{regimenId}', 'App\Http\Controllers\PatientsApi@addPatientRegimen');
-        $api->put('/patients/{patientId}/regimens/{regimenId}', 'App\Http\Controllers\PatientsApi@updatePatientRegimens');
-        $api->delete('/patients/{patientId}/regimens/{regimenId}', 'App\Http\Controllers\PatientsApi@deletePatientRegimens');
+
         // visit
         $api->get('/patients/{patientId}/visits', 'App\Http\Controllers\PatientsApi@patientVisits');
         $api->post('/patients/{patientId}/visits', 'App\Http\Controllers\PatientsApi@addPatientVisits');
@@ -139,6 +135,14 @@ $api->version('v1', function ($api) {
         $api->get('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@patientPartnerByIdget');
         $api->put('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@patientPartnerput');
         $api->delete('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@patientPartnerdelete');
+
+        // status
+        $api->get('/patients/{patientId}/status', 'App\Http\Controllers\PatientsApi@patientStatusget');
+        $api->post('/patients/{patientId}/status', 'App\Http\Controllers\PatientsApi@patientStatuspost');
+
+        $api->get('/patients/{patientId}/status/{statusId}', 'App\Http\Controllers\PatientsApi@patientStatusByIdget');
+        $api->put('/patients/{patientId}/status/{statusId}', 'App\Http\Controllers\PatientsApi@patientStatusput');
+        $api->delete('/patients/{patientId}/status/{statusId}', 'App\Http\Controllers\PatientsApi@patientStatusdelete');
         //  viralload
 
         $api->get('/patients/{patientId}/viralload', 'App\Http\Controllers\PatientsApi@patientviralload');

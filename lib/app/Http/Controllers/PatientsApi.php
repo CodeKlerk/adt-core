@@ -41,7 +41,7 @@ use App\Models\PatientModels\PatientIllness;
 use App\Models\PatientModels\PatientIllnessOther;
 use App\Models\PatientModels\PatientPartner;
 use App\Models\PatientModels\PatientProphylaxis;
-use App\Models\PatientModels\PatientRegimens;
+use App\Models\PatientModels\PatientRegimen;
 use App\Models\PatientModels\PatientStatus;
 use App\Models\PatientModels\PatientTb;
 use App\Models\PatientModels\PatientViralload;
@@ -1039,86 +1039,6 @@ class PatientsApi extends Controller
     }
 
     /**
-     * Operation patientregimens
-     *
-     * Fetch the regimens patient is administered.
-     *
-     * @param int $patient_id ID of patient that needs to be fetched (required)
-     * @param int $regimen_id ID of regimen that needs to be fetched (required)
-     *
-     * @return Http response
-     */
-    public function patientregimens($patient_id, $regimen_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing patientregimens as a GET method ?');
-    }
-
-        /**
-     * Operation addPatientRegimen
-     *
-     * Add a new regimen to a patient.
-     *
-     * @param int $patient_id Patient id to delete (required)
-     * @param int $regimen_id Patient id to delete (required)
-     *
-     * @return Http response
-     */
-    public function addPatientRegimen($patient_id, $regimen_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing addPatientRegimen as a POST method ?');
-    }
-    /**
-     * Operation updatePatientRegimens
-     *
-     * Update an existing patient regimen.
-     *
-     * @param int $patient_id Patient id to update (required)
-     * @param int $regimen_id Patient id to update (required)
-     *
-     * @return Http response
-     */
-    public function updatePatientRegimens($patient_id, $regimen_id)
-    {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing updatePatientRegimens as a PUT method ?');
-    }
-    /**
-     * Operation deletePatientRegimens
-     *
-     * Remove a patient of a regimen.
-     *
-     * @param int $patient_id Patient id and Regimen id to delete (required)
-     * @param int $regimen_id Patient id to delete (required)
-     *
-     * @return Http response
-     */
-    public function deletePatientRegimens($patient_id, $regimen_id)
-    {
-        // $patient_regimen = PatientRegimen::where
-    }
-
-
-    /**
      * Operation PatientProphylaxiss
      *
      * Fetch a patient's family plannings.
@@ -1304,6 +1224,114 @@ class PatientsApi extends Controller
 
         return response('How about implementing deletePatientVisit as a DELETE method ?');
     }
+
+    // status 
+    /**
+     * Operation PatientStatuss
+     *
+     * Fetch a patient's family plannings.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientStatusget($patient_id)
+    {
+        $response = PatientStatus::where('patient_id',  $patient_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find patient status'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation PatientStatuss
+     *
+     * Fetch a patient's familyplanning.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     * @param int $status_id ID family plan that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientStatusByIdget($patient_id, $status_id)
+    {
+        $response = PatientStatus::where('patient_id', $patient_id)
+                                            ->where('status_id', $status_id)
+                                            ->first();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find status for this patient'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addPatientStatuss
+     *
+     * Add a new patient status to a patient.
+     *
+     * @param int $patient_id ID&#39;s of patient (required)
+     *
+     * @return Http response
+     */
+    public function patientStatuspost()
+    {
+        $input = Request::all();
+        $new_patient_status = PatientStatus::create($input);
+        if($new_patient_status){
+            return response()->json(['msg'=> 'added status to patient', 'response'=> $new_patient_status], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not map patient to status'], 400);
+        }
+    }
+
+    /**
+     * Operation updatePatientStatuss
+     *
+     * Update an existing patient statuss plannings.
+     *
+     * @param int $patient_id Patient id to update (required)
+     * @param int $status_id family plannings id to update (required)
+     *
+     * @return Http response
+     */
+    public function patientStatusput($patient_id, $status_id)
+    {
+        $input = Request::all();
+        $patient_status = PatientStatus::where('patient_id', $patient_id)
+                                            ->where('status_id', $status_id)
+                                            ->update(['status_id' => $input['status_id']]);
+        if($patient_status){
+            return response()->json(['msg' => 'Updated status']);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deletePatientStatuss
+     *
+     * Remove a patient PatientStatuss.
+     *
+     * @param int $patient_id ID&#39;s of patient and status that needs to be fetched (required)
+     * @param int $status_id ID of status that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientStatusdelete($patient_id, $status_id)
+    {
+        $patient_status = PatientStatus::where('patient_id', $patient_id)
+                                            ->where('status_id', $status_id)
+                                            ->delete();
+        if($patient_status){
+            return response()->json(['msg' => 'Saftly deleted the patient status record'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
+
 
     // viralload    
     /**
