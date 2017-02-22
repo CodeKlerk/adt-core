@@ -257,6 +257,117 @@ class PatientsApi extends Controller
 
     }
 
+    // family plan
+    /**
+     * Operation PatientFamilyPlannings
+     *
+     * Fetch a patient's family plannings.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientFamilyPlanningget($patient_id)
+    {
+        $response = PatientFamilyPlanning::where('patient_id',  $patient_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find patient family plan'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation PatientFamilyPlannings
+     *
+     * Fetch a patient's familyplanning.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     * @param int $family_planning_id ID family plan that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientFamilyPlanningbyIdget($patient_id, $family_planning_id)
+    {
+        $response = PatientFamilyPlanning::where('patient_id',  $patient_id)->where('id',  $family_planning_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find family plan for this patient'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addPatientFamilyPlannings
+     *
+     * Add a new patient allergy to a patient.
+     *
+     * @param int $patient_id ID&#39;s of patient (required)
+     *
+     * @return Http response
+     */
+    public function patientFamilyPlanningpost()
+    {
+        $input = Request::all();
+
+        // return $input;
+        $new_patient_familly_plan = PatientFamilyPlanning::create($input);
+        if($new_patient_familly_plan){
+            return response()->json(['msg'=> 'family plannings added to patient', 'response'=> $new_patient_familly_plan], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not map patient to family planning'], 400);
+        }
+
+    }
+
+    /**
+     * Operation updatePatientFamilyPlannings
+     *
+     * Update an existing patient family plannings.
+     *
+     * @param int $patient_id Patient id to update (required)
+     * @param int $family_planning_id family plannings id to update (required)
+     *
+     * @return Http response
+     */
+    public function patientFamilyPlanningput($patient_id, $family_planning_id)
+    {
+        $input = Request::all();
+        $patientAllergy = PatientFamilyPlanning::where('patient_id', $patient_id)
+                                            ->where('family_planning_id', $family_planning_id)
+                                            ->update(['family_planning_id' => $input['family_planning_id']]);
+        if($patientAllergy){
+            return response()->json(['msg' => 'Updated allergy']);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+
+    }
+
+    /**
+     * Operation deletePatientFamilyPlannings
+     *
+     * Remove a patient PatientFamilyPlannings.
+     *
+     * @param int $patient_id ID&#39;s of patient and allergy that needs to be fetched (required)
+     * @param int $family_planning_id ID of allergy that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientFamilyPlanningdelete($patient_id, $family_planning_id)
+    {
+        $patientAllergy = PatientFamilyPlanning::where('patient_id', $patient_id)
+                                            ->where('id', $family_planning_id)
+                                            ->delete();
+        if($patientAllergy){
+            return response()->json(['msg' => 'Saftly deleted the patient family planning record'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+
+    }
+
+
     // dependant 
     /**
      * Operation patientdependants
