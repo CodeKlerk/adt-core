@@ -130,10 +130,12 @@ $api->version('v1', function ($api) {
 
 
         // partner
-        $api->get('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@getpatientPartner');
-        $api->post('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@addPatientPartner');
-        $api->put('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@updatePatientPartner');
-        $api->delete('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@deletePatientPartner');
+        $api->get('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@patientPartnerget');
+        $api->post('/patients/{patientId}/partner', 'App\Http\Controllers\PatientsApi@patientPartnerpost');
+
+        $api->get('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@patientPartnerByIdget');
+        $api->put('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@patientPartnerput');
+        $api->delete('/patients/{patientId}/partner/{partnerId}', 'App\Http\Controllers\PatientsApi@patientPartnerdelete');
         //  viralload
 
         $api->get('/patients/{patientId}/viralload', 'App\Http\Controllers\PatientsApi@patientviralload');

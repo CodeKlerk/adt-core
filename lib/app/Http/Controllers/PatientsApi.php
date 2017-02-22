@@ -601,7 +601,7 @@ class PatientsApi extends Controller
 
         $response = PatientIllnessOther::where('patient_id',  $patient_id)->get();
         if(!$response){  
-            return response('cant find patient nor Illnesses');
+            return response()->json(['msg' => 'cant find patient nor Illnesses'],404);
         }else{
             return response()->json($response, 200);
         }
@@ -800,47 +800,109 @@ class PatientsApi extends Controller
 
 #   ======================== PATIENT PARTNERS
 
-       /**
-     * Operation patientPartner
+    /**
+     * Operation PatientPartners
      *
-     * Fetch a patient's Partners.
+     * Fetch a patient's family plannings.
      *
      
      * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
-     * @param int $partner_id ID of Allergies that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function getpatientPartner($patient_id)
+    public function patientPartnerget($patient_id)
     {
-
-        // $response = PatientPartner::where('patient_id',  $patient_id)->get();
-        $response = PatientPartner::where('patient_id',  $patient_id)->orWhere('partner_id',  $patient_id)->get();
+        $response = PatientPartner::where('patient_id',  $patient_id)->get();
         if(!$response){  
-            return response('cant find patient nor Partner');
+            return response()->json(['msg' => 'could not find patient partner plan'], 204);
         }else{
             return response()->json($response, 200);
         }
     }
-
-   /**
-     * Operation addPatientPartner
+    /**
+     * Operation PatientPartners
      *
-     * Add a new PatientPartner to a patient.
+     * Fetch a patient's familyplanning.
      *
-     * @param int $patient_id ID&#39;s of patient (required)
-     * @param int $partner_id ID of Allergies (required)
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     * @param int $partner_id ID family plan that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function addPatientPartner()
+    public function patientPartnerbyIdget($patient_id, $partner_id)
+    {
+        $response = PatientPartner::where('patient_id',  $patient_id)->where('partner_id',  $partner_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find partner for this patient'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addPatientPartners
+     *
+     * Add a new patient allergy to a patient.
+     *
+     * @param int $patient_id ID&#39;s of patient (required)
+     *
+     * @return Http response
+     */
+    public function patientPartnerpost()
     {
         $input = Request::all();
-        $save = PatientPartner::create($input);
-        if($save){
-            return response()->json(['msg'=> 'Partner added to patient', 'response'=> $input]);
+        $new_patient_partner = PatientPartner::create($input);
+        if($new_patient_partner){
+            return response()->json(['msg'=> 'partner given to patient', 'response'=> $new_patient_partner], 201);
         }else{
-            return response()->json(['msg'=> 'There seems to have been a problem']);
+            return response()->json(['msg'=> 'Could not map patient to partner'], 400);
+        }
+
+    }
+
+    /**
+     * Operation updatePatientPartners
+     *
+     * Update an existing patient partner plannings.
+     *
+     * @param int $patient_id Patient id to update (required)
+     * @param int $partner_id family plannings id to update (required)
+     *
+     * @return Http response
+     */
+    public function patientPartnerput($patient_id, $partner_id)
+    {
+        $input = Request::all();
+        $patient_partner = PatientPartner::where('patient_id', $patient_id)
+                                            ->where('partner_id', $partner_id)
+                                            ->update(['partner_id' => $input['partner_id']]);
+        if($patient_partner){
+            return response()->json(['msg' => 'Updated partner']);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+
+    }
+
+    /**
+     * Operation deletePatientPartners
+     *
+     * Remove a patient PatientPartners.
+     *
+     * @param int $patient_id ID&#39;s of patient and allergy that needs to be fetched (required)
+     * @param int $partner_id ID of allergy that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientPartnerdelete($patient_id, $partner_id)
+    {
+        $patient_partner = PatientPartner::where('patient_id', $patient_id)
+                                            ->where('partner_id', $partner_id)
+                                            ->delete();
+        if($patient_partner){
+            return response()->json(['msg' => 'Saftly deleted the patient partner planning record'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
         }
 
     }
