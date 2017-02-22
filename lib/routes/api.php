@@ -115,13 +115,13 @@ $api->version('v1', function ($api) {
         // temp routes for patients 
 
         // illnesses
-        $api->get('/patients/{patientId}/illnesses', 'App\Http\Controllers\PatientsApi@getpatientIllness');
-        $api->get('/patients/{patientId}/illnesses/{illnessId}', 'App\Http\Controllers\PatientsApi@getpatientIllnessbyId');
-        $api->post('/patients/{patientId}/illnesses', 'App\Http\Controllers\PatientsApi@addPatientIllness');
-        $api->put('/patients/{patientId}/illnesses/{illnessId}', 'App\Http\Controllers\PatientsApi@updatePatientIllness');
-        $api->delete('/patients/{patientId}/illnesses/{illnessId}', 'App\Http\Controllers\PatientsApi@deletePatientIllness');
+        $api->get('/patients/{patientId}/illnesses', 'App\Http\Controllers\PatientsApi@patientIllnessget');
+        $api->get('/patients/{patientId}/illnesses/{illnessId}', 'App\Http\Controllers\PatientsApi@patientIllnessByIdget');
+        $api->post('/patients/{patientId}/illnesses', 'App\Http\Controllers\PatientsApi@patientIllnesspost');
+        $api->put('/patients/{patientId}/illnesses/{illnessId}', 'App\Http\Controllers\PatientsApi@patientIllnessput');
+        $api->delete('/patients/{patientId}/illnesses/{illnessId}', 'App\Http\Controllers\PatientsApi@patientIllnessdelete');
 
-        // illnesses
+        // illnesses other
         $api->get('/patients/{patientId}/illnessesother', 'App\Http\Controllers\PatientsApi@getpatientOtherIllness');
         $api->get('/patients/{patientId}/illnessesother/{illnessId}', 'App\Http\Controllers\PatientsApi@getpatientOtherIllnessbyId');
         $api->post('/patients/{patientId}/illnessesother', 'App\Http\Controllers\PatientsApi@addPatientOtherIllness');

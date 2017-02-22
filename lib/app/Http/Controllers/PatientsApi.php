@@ -479,7 +479,7 @@ class PatientsApi extends Controller
 
 #   ======================== PATIENT ILLNESS
 
-       /**
+    /**
      * Operation patientIllness
      *
      * Fetch a patient's illnesses.
@@ -490,7 +490,7 @@ class PatientsApi extends Controller
      *
      * @return Http response
      */
-    public function getpatientIllness($patient_id)
+    public function patientIllnessget($patient_id)
     {
 
         $response = PatientIllness::where('patient_id',  $patient_id)->get();
@@ -501,13 +501,11 @@ class PatientsApi extends Controller
         }
     }
 
-      public function getpatientIllnessbyId($patient_id, $illness_id)
+      public function patientIllnessByIdget($patient_id, $illness_id)
     {
-        
-        // $response = PatientIllness::where('patient_id',  $patient_id)->where('illness_id',  $illness_id)->get();
-        $response = PatientIllness::findOrFail($illness_id);
+        $response = PatientIllness::where('patient_id', $partner_id)->where('illness_id', $illness_id)->get();
         if(!$response){  
-            return response('cant find patient nor Illnesses');
+            return response()->json(['msg' => 'Could not find record'], 404);
         }else{
             return response()->json($response, 200);
         }
@@ -523,12 +521,12 @@ class PatientsApi extends Controller
      *
      * @return Http response
      */
-    public function addPatientIllness()
+    public function patientIllnesspost()
     {
         $input = Request::all();
-        $save = PatientIllness::create($input);
-        if($save){
-            return response()->json(['msg'=> 'Illness added to patient', 'response'=> $input]);
+        $new_patient_illness = PatientIllness::create($input);
+        if($new_patient_illness){
+            return response()->json(['msg'=> 'Illness added to patient', 'response'=> $new_patient_illness]);
         }else{
             return response()->json(['msg'=> 'There seems to have been a problem']);
         }
@@ -545,9 +543,8 @@ class PatientsApi extends Controller
      *
      * @return Http response
      */
-    public function updatePatientIllness($patient_id, $illness_id)
+    public function patientIllnessput($patient_id, $illness_id)
     {
-        // patient_id  illness_id
         $input = Request::all();
         $updatedpatientIllness = PatientIllness::findOrFail($illness_id);
         $updatedpatientIllness->update([ 'patient_id'=>$input['patient_id'], 'illness_id'=>$input['illness_id']]);
@@ -569,11 +566,11 @@ class PatientsApi extends Controller
      *
      * @return Http response
      */
-    public function deletePatientIllness($patient_id, $illness_id)
+    public function patientIllnessdelete($patient_id, $illness_id)
     {
-        $patientIllness = PatientIllness::destroy($illness_id);
+        $deleted_patientIllness = PatientIllness::destroy($illness_id);
 
-                if($patientIllness){
+        if($deleted_patientIllness){
             return response()->json(['msg' => 'deleted the patient Illness record']);
         }else{
             return response('there seems to have been a problem while delteting');
