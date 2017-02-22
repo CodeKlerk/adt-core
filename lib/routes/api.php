@@ -84,6 +84,13 @@ $api->version('v1', function ($api) {
         $api->get('/patients/{patientId}/dependants/{dependantId}', 'App\Http\Controllers\PatientsApi@patientDependantsbyIdget');
         $api->put('/patients/{patientId}/dependants/{dependantId}', 'App\Http\Controllers\PatientsApi@patientDependantput');
         $api->delete('/patients/{patientId}/dependants/{dependantId}', 'App\Http\Controllers\PatientsApi@patientDependantsdelete');
+        // other allergies
+        $api->get('/patients/{patientId}/otherallergies', 'App\Http\Controllers\PatientsApi@patientOtherAllergiesget');
+        $api->post('/patients/{patientId}/otherallergies', 'App\Http\Controllers\PatientsApi@patientOtherAllergiespost');
+
+        $api->get('/patients/{patientId}/otherallergies/{otherallergieId}', 'App\Http\Controllers\PatientsApi@patientOtherAllergiesbyIdget');
+        $api->put('/patients/{patientId}/otherallergies/{otherallergieId}', 'App\Http\Controllers\PatientsApi@patientOtherAllergiesput');
+        $api->delete('/patients/{patientId}/otherallergies/{otherallergieId}', 'App\Http\Controllers\PatientsApi@patientOtherAllergiesdelete');
         // prophylaxis
         $api->get('/patients/{patientId}/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\PatientsApi@patientProphylaxis');
         $api->put('/patients/{patientId}/prophylaxis/{prophylaxisId}', 'App\Http\Controllers\PatientsApi@updatePatientProphylaxis');

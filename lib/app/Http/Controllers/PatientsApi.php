@@ -574,6 +574,115 @@ class PatientsApi extends Controller
         }
 
     }
+    // drug allergy other
+    /**
+     * Operation PatientDrugAllergyOthers
+     *
+     * Fetch a patient's dependants.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientOtherAllergiesget($patient_id)
+    {
+        $response = PatientDrugAllergyOther::where('patient_id',  $patient_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find patient allergies'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation PatientDrugAllergyOthers
+     *
+     * Fetch a patient's allergies.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     * @param int $drug_allergy__other_id ID allergies that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientOtherAllergiesbyIdget($patient_id, $allergy_other_id)
+    {
+        $response = PatientDrugAllergyOther::where('patient_id',  $patient_id)->where('id',  $allergy_other_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find allergies for this patient'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addPatientDrugAllergyOthers
+     *
+     * Add a new patient allergy to a patient.
+     *
+     * @param int $patient_id ID&#39;s of patient (required)
+     *
+     * @return Http response
+     */
+    public function patientOtherAllergiespost()
+    {
+        $input = Request::all();
+        $new_patient_allergy_other = PatientDrugAllergyOther::create($input);
+        if($new_patient_allergy_other){
+            return response()->json(['msg'=> 'dependants added to patient', 'response'=> $new_patient_allergy_other], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not map patient to dependant'], 400);
+        }
+
+    }
+
+    /**
+     * Operation updatePatientDrugAllergyOthers
+     *
+     * Update an existing patient dependants.
+     *
+     * @param int $patient_id Patient id to update (required)
+     * @param int $drug_allergy__other_id dependants id to update (required)
+     *
+     * @return Http response
+     */
+    public function patientOtherAllergiesput($patient_id, $drug_allergy__other_id)
+    {
+        $input = Request::all();
+        $patientAllergy = PatientDrugAllergyOther::where('patient_id', $patient_id)
+                                            ->where('id', $drug_allergy__other_id)
+                                            ->update(['allergy_name' => $input['allergy_name']]);
+        if($patientAllergy){
+            return response()->json(['msg' => 'Updated allergy']);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+
+    }
+
+    /**
+     * Operation deletePatientDrugAllergyOthers
+     *
+     * Remove a patient PatientDrugAllergyOthers.
+     *
+     * @param int $patient_id ID&#39;s of patient and allergy that needs to be fetched (required)
+     * @param int $drug_allergy__other_id ID of allergy that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function patientOtherAllergiesdelete($patient_id, $drug_allergy__other_id)
+    {
+        $patientAllergy = PatientDrugAllergyOther::where('patient_id', $patient_id)
+                                            ->where('id', $drug_allergy__other_id)
+                                            ->delete();
+        if($patientAllergy){
+            return response()->json(['msg' => 'Saftly deleted the patient dependant record'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+
+    }
+
+
 #   ========================/ PATIENT OTHER ILLNESS
 
 
