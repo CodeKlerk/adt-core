@@ -221,7 +221,15 @@ $api->version('v1', function ($api) {
         // drug dose
         $api->get('/drugs/{drugId}/dose', 'App\Http\Controllers\DrugsApi@drugsDrugIdDoseget');
         $api->post('/drugs/{drugId}/dose', 'App\Http\Controllers\DrugsApi@drugsDrugIdDosepost');
+        // regimen
+        $api->get('/regimen', 'App\Http\Controllers\DrugsApi@regimenget');
+        $api->post('/regimen', 'App\Http\Controllers\DrugsApi@regimenpost');
 
+        $api->get('/regimen/{regimenId}', 'App\Http\Controllers\DrugsApi@regimenByIdget');
+        $api->put('/regimen/{regimenId}', 'App\Http\Controllers\DrugsApi@regimenput');
+        $api->delete('/regimen/{regimenId}', 'App\Http\Controllers\DrugsApi@regimendelete');
+
+        
         /* 
         *   Facility routes
         */

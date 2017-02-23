@@ -30,6 +30,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Pagination\Paginator;
 use App\Models\DrugModels\Drug;
+use App\Models\RegimenModels\Regimen;
+
 class DrugsApi extends Controller
 {
     /**
@@ -129,44 +131,108 @@ class DrugsApi extends Controller
         }
     }
 
+    // regimen
     /**
-     * Operation drugsDrugIdDoseGet
+     * Operation regimenGET
      *
-     * Find drug dose for drugId.
+     * Fetch a regimen.
      *
-     * @param int $drug_id ID of service that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function drugsDrugIdDoseGet($drug_id)
+    public function regimenget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing drugsDrugIdDoseGet as a GET method ?');
+        $response = Regimen::get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find regimen'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
     }
     /**
-     * Operation drugsDrugIdDosePost
+     * Operation regimens
      *
-     * Add a dose for a particular drug with drugId.
+     * Fetch a regimenType.
      *
-     * @param int $drug_id ID of service that needs to be fetched (required)
+     
+     * @param int $regimen_id ID&#39;s of visit that needs to be fetched (required)
+     * @param int $ ID regimen that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function drugsDrugIdDosePost($drug_id)
+    public function regimenByIdget($regimen_id)
+    {
+        $response = Regimen::findOrFail($regimen_id);
+        if(!$response){  
+            return response()->json(['msg' => 'could not find regimen'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addregimens
+     *
+     * Add a new regimen to a visit.
+     *
+     * @param int $regimen_id ID&#39;s of visit (required)
+     *
+     * @return Http response
+     */
+    public function regimenpost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing drugsDrugIdDosePost as a POST method ?');
+        $new_regimen = Regimen::create($input);
+        if($new_regimen){
+            return response()->json(['msg'=> 'added regimen', 'response'=> $new_regimen], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add regimen'], 400);
+        }
     }
+
+    /**
+     * Operation updateregimens
+     *
+     * Update an existing regimens .
+     *
+     * @param int $regimen_id visit id to update (required)
+     * @param int $ regimen id to update (required)
+     *
+     * @return Http response
+     */
+    public function regimenput($regimen_id)
+    {
+        $input = Request::all();
+        $regimen = Regimen::findOrFail($regimen_id)->update([
+                                        "code" => $input['code'],
+                                        "name" => $input['name'],
+                                        "service_id" => $input['service_id'],
+                                        "category_id" => $input['category_id']
+                                    ]);
+        if($regimen){
+            return response()->json(['msg' => 'Updated regimen'], 201);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deleteregimen
+     *
+     * Remove a regimen.
+     *
+     * @param int $regimen_id ID&#39;s of visit and tb that needs to be fetched (required)
+     * @param int $ ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function regimendelete($regimen_id)
+    {
+        $regimen = Regimen::destroy($regimen_id);
+        if($regimen){
+            return response()->json(['msg' => 'Saftly deleted the regimen'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
+
 }
