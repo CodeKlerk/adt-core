@@ -176,18 +176,24 @@ $api->version('v1', function ($api) {
         $api->put('/patients/{patientId}/visits/{visitsId}', 'App\Http\Controllers\VisitApi@patientVisitsput');
         $api->delete('/patients/{patientId}/visits/{visitsId}', 'App\Http\Controllers\VisitApi@patientVisitsdelete');
         // visit items by visit id
-        $api->get('/visits/{visitsId}/item', 'App\Http\Controllers\VisitApi@visitsItemget');
-        $api->post('visits/{visitsId}/item', 'App\Http\Controllers\VisitApi@visitsItempost');
+        $api->get('/visits/{visitsId}/items', 'App\Http\Controllers\VisitApi@visitsItemget');
+        $api->post('visits/{visitsId}/items', 'App\Http\Controllers\VisitApi@visitsItempost');
 
-        $api->get('/visits/{visitsId}/item/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemByIdget');
-        $api->put('/visits/{visitsId}/item/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemput');
-        $api->delete('/visits/{visitsId}/item/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemdelete');
+        $api->get('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemByIdget');
+        $api->put('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemput');
+        $api->delete('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemdelete');
 
         /*
         *   Stock routes
         */
         $api->get('/stock', 'App\Http\Controllers\StockApi@stockget');
         $api->post('/stock', 'App\Http\Controllers\StockApi@stockpost');
+
+        $api->get('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockByIdget');
+        $api->put('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockput');
+        $api->delete('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockdelete');
+
+        // bincard
         $api->get('/stock/{drugid}/bincard', 'App\Http\Controllers\StockApi@stockBincardget');
 
         /*

@@ -24,38 +24,108 @@ class StockApi extends Controller
     }
 
     /**
-     * Operation stockGet
+     * Operation stocks
      *
-     * fetches a list of services at a facility.
+     * Fetch a 's stock.
      *
+     
+     * @param int  ID&#39;s of  that needs to be fetched (required)
      *
      * @return Http response
      */
     public function stockget()
     {
-        return response()->json(TransactionType::with('stock_item.drug')->get(),200);
+        $response = Stock::get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find stock'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
     }
     /**
-     * Operation stockPost
+     * Operation stocks
      *
-     * Add a new service to the facility.
+     * Fetch a 's stock.
      *
+     
+     * @param int  ID&#39;s of  that needs to be fetched (required)
+     * @param int $stock_id ID stock that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function stockByIdget($stock_id)
+    {
+        $response = Stock::findOrFail($stock_id);
+        if(!$response){  
+            return response()->json(['msg' => 'could not find stock for this '], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addstocks
+     *
+     * Add a new stock to a .
+     *
+     * @param int  ID&#39;s of  (required)
      *
      * @return Http response
      */
     public function stockpost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $body = $input['body'];
-
-
-        return response('How about implementing stockPost as a POST method ?');
+        $new_stock = Stock::create($input);
+        if($new_stock){
+            return response()->json(['msg'=> 'added stock to ', 'response'=> $new_stock], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add stock'], 400);
+        }
     }
+
+    /**
+     * Operation updatestocks
+     *
+     * Update an existing stocks .
+     *
+     * @param int   id to update (required)
+     * @param int $stock_id stock id to update (required)
+     *
+     * @return Http response
+     */
+    public function stockput($stock_id)
+    {
+        $input = Request::all();
+        $stock = Stock::findOrFail($stock_id)->update([
+                                        
+                                    ]);
+        if($stock){
+            return response()->json(['msg' => 'Updated stock']);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deletestock
+     *
+     * Remove a  stock.
+     *
+     * @param int  ID&#39;s of  and tb that needs to be fetched (required)
+     * @param int $stock_id ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function stockdelete($stock_id)
+    {
+        $deleted_stock = Stock::destroy($stock_id);
+        if($deleted_stock){
+            return response()->json(['msg' => 'Saftly deleted the  stock'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
+
+    // bincard
     /**
      * Operation stockStockIdBincardGet
      *

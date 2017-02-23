@@ -287,7 +287,7 @@ class VisitApi extends Controller
     public function visitsItemByIdget($visit_id, $vistItem_id)
     {
         $response = VisitItem::where('visit_id', $visit_id)
-                                            ->where('vistItem_id', $vistItem_id)
+                                            ->where('id', $vistItem_id)
                                             ->first();
         if(!$response){  
             return response()->json(['msg' => 'could not find vistItem for this visit'], 204);
@@ -329,7 +329,7 @@ class VisitApi extends Controller
     {
         $input = Request::all();
         $visit_vistItem = VisitItem::where('visit_id', $visit_id)
-                                    ->where('vistItem_id', $vistItem_id)
+                                    ->where('id', $vistItem_id)
                                     ->update([
                                         "duration" => $input['duration'],
                                         "expected_pill_count" => $input['expected_pill_count'],
