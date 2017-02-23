@@ -3,11 +3,15 @@
 namespace App\Models\InventoryModels;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TransactionType extends Model
 {
-    protected $table = 'tbl_transaction_type';
+    use SoftDeletes; 
 
+    protected $table = 'tbl_transaction_type';
+    protected $fillable = ['name', 'effect'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
     public function stock(){
         return $this->hasMany('App\Models\InventoryModels\Stock');
     }

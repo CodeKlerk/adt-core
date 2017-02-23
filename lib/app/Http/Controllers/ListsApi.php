@@ -53,6 +53,8 @@ use App\Models\ListsModels\Purpose;
 use App\Models\ListsModels\Supporter;
 use App\Models\UserModels\AccessLevel;
 
+use App\Models\InventoryModels\TransactionType;
+
 // tmp 
 use App\Models\FacilityModels\FacilityTypes;
 use App\Models\ListsModels\Classification;
@@ -1901,6 +1903,113 @@ class ListsApi extends Controller
         $deleted_status = Status::destroy($status_id);
         if($deleted_status){
             return response()->json(['msg' => 'Deleted status']);
+        }
+    }
+
+    // ///////////////////////
+    // Temp functions      //
+    // /////////////////////
+
+    /**
+     * Operation transactionTypeGET
+     *
+     * Fetch a transaction's transaction.
+     *
+     *
+     * @return Http response
+     */
+    public function transactionTypeget()
+    {
+        $response = TransactionType::get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find transaction'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation transactionTypes
+     *
+     * Fetch a transaction's transactionType.
+     *
+     
+     * @param int $transaction_type_id ID&#39;s of visit that needs to be fetched (required)
+     * @param int $ ID transactionType that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function transactionTypeByIdget($transaction_type_id)
+    {
+        $response = TransactionType::findOrFail($transaction_type_id);
+        if(!$response){  
+            return response()->json(['msg' => 'could not find facility type'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addtransactionTypes
+     *
+     * Add a new transactionType to a visit.
+     *
+     * @param int $transaction_type_id ID&#39;s of visit (required)
+     *
+     * @return Http response
+     */
+    public function transactionTypepost()
+    {
+        $input = Request::all();
+        $new_facilityType = TransactionType::create($input);
+        if($new_facilityType){
+            return response()->json(['msg'=> 'added transaction', 'response'=> $new_facilityType], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add transaction'], 400);
+        }
+    }
+
+    /**
+     * Operation updatetransactionTypes
+     *
+     * Update an existing transactionTypes .
+     *
+     * @param int $transaction_type_id visit id to update (required)
+     * @param int $ transactionType id to update (required)
+     *
+     * @return Http response
+     */
+    public function transactionTypeput($transaction_type_id)
+    {
+
+        $input = Request::all();
+        $transaction_type = TransactionType::findOrFail($transaction_type_id)
+                                    ->update([
+                                        "name" => $input['name'],
+                                        "effect" => $input['effect']
+                                    ]);
+        if($transaction_type){
+            return response()->json(['msg' => 'Updated transaction type'], 201);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deletetransactionType
+     *
+     * Remove a visit transactionType.
+     *
+     * @param int $transaction_type_id ID&#39;s of visit and tb that needs to be fetched (required)
+     * @param int $ ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function transactionTypedelete($transaction_type_id)
+    {
+        $deleted_transaction_type = TransactionType::destroy($transaction_type_id);
+        if($deleted_transaction_type){
+            return response()->json(['msg' => 'Saftly deleted the transaction type'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
         }
     }
 

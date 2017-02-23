@@ -379,6 +379,13 @@ $api->version('v1', function ($api) {
         $api->get('/lists/facility_type/{facilityType}', 'App\Http\Controllers\ListsApi@listsfacilityTypeByIdget');
         $api->put('/lists/facility_type/{facilityType}', 'App\Http\Controllers\ListsApi@listsfacilityTypeput');
         $api->delete('/lists/facility_type/{facilityType}', 'App\Http\Controllers\ListsApi@listsfacilityTypedelete');
+        // transaction type
+        $api->get('/lists/transaction_type', 'App\Http\Controllers\ListsApi@transactionTypeget');
+        $api->post('/lists/transaction_type', 'App\Http\Controllers\ListsApi@transactionTypepost');
+
+        $api->get('/lists/transaction_type/{transactiontypeId}', 'App\Http\Controllers\ListsApi@transactionTypeByIdget');
+        $api->put('/lists/transaction_type/{transactiontypeId}', 'App\Http\Controllers\ListsApi@transactionTypeput');
+        $api->delete('/lists/transaction_type/{transactiontypeId}', 'App\Http\Controllers\ListsApi@transactionTypedelete');
         // status --temp 
         $api->get('/lists/status', 'App\Http\Controllers\ListsApi@listsstatusget');
         $api->post('/lists/status', 'App\Http\Controllers\ListsApi@listsstatuspost');
