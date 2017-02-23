@@ -52,6 +52,7 @@ use App\Models\ListsModels\NonAdherenceReason;
 use App\Models\ListsModels\Purpose;
 use App\Models\ListsModels\Supporter;
 use App\Models\UserModels\AccessLevel;
+use App\Models\ListsModels\Dose;
 
 use App\Models\InventoryModels\TransactionType;
 
@@ -2011,8 +2012,110 @@ class ListsApi extends Controller
         }else{
             return response()->json(['msg' => 'Could not delete record'], 400);
         }
-    }
+    } 
 
+    // ///////////////////////
+    // Dose functions      //
+    // /////////////////////
+    /**
+     * Operation doseGET
+     *
+     * Fetch a Dose.
+     *
+     *
+     * @return Http response
+     */
+    public function doseget()
+    {
+        $response = Dose::get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find dose'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation doses
+     *
+     * Fetch a DoseType.
+     *
+     
+     * @param int $dose_id ID&#39;s of visit that needs to be fetched (required)
+     * @param int $ ID dose that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function doseByIdget($dose_id)
+    {
+        $response = Dose::findOrFail($dose_id);
+        if(!$response){  
+            return response()->json(['msg' => 'could not find dose'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation adddoses
+     *
+     * Add a new dose to a visit.
+     *
+     * @param int $dose_id ID&#39;s of visit (required)
+     *
+     * @return Http response
+     */
+    public function dosepost()
+    {
+        $input = Request::all();
+        $new_dose = Dose::create($input);
+        if($new_dose){
+            return response()->json(['msg'=> 'added dose', 'response'=> $new_dose], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add dose'], 400);
+        }
+    }
+    /**
+     * Operation updatedoses
+     *
+     * Update an existing doses .
+     *
+     * @param int $dose_id visit id to update (required)
+     * @param int $ dose id to update (required)
+     *
+     * @return Http response
+     */
+    public function doseput($dose_id)
+    {
+        $input = Request::all();
+        $dose = Dose::findOrFail($dose_id)->update([
+                                        "name" => $input['name'],
+                                        "frequency" => $input['frequency'],
+                                        "quantity" => $input['quantity']
+                                    ]);
+        if($dose){
+            return response()->json(['msg' => 'Updated dose'], 201);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+    /**
+     * Operation deletedose
+     *
+     * Remove a dose.
+     *
+     * @param int $dose_id ID&#39;s of visit and tb that needs to be fetched (required)
+     * @param int $ ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function dosedelete($dose_id)
+    {
+        $dose = Dose::destroy($dose_id);
+        if($dose){
+            return response()->json(['msg' => 'Saftly deleted the dose'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
 
     // ///////////////////////
     // Temp functions      //

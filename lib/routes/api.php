@@ -386,6 +386,13 @@ $api->version('v1', function ($api) {
         $api->get('/lists/transaction_type/{transactiontypeId}', 'App\Http\Controllers\ListsApi@transactionTypeByIdget');
         $api->put('/lists/transaction_type/{transactiontypeId}', 'App\Http\Controllers\ListsApi@transactionTypeput');
         $api->delete('/lists/transaction_type/{transactiontypeId}', 'App\Http\Controllers\ListsApi@transactionTypedelete');
+        // dose 
+        $api->get('/lists/dose', 'App\Http\Controllers\ListsApi@doseget');
+        $api->post('/lists/dose', 'App\Http\Controllers\ListsApi@dosepost');
+
+        $api->get('/lists/dose/{doseId}', 'App\Http\Controllers\ListsApi@doseByIdget');
+        $api->put('/lists/dose/{doseId}', 'App\Http\Controllers\ListsApi@doseput');
+        $api->delete('/lists/dose/{doseId}', 'App\Http\Controllers\ListsApi@dosedelete');
         // status --temp 
         $api->get('/lists/status', 'App\Http\Controllers\ListsApi@listsstatusget');
         $api->post('/lists/status', 'App\Http\Controllers\ListsApi@listsstatuspost');
