@@ -246,6 +246,92 @@ class StockApi extends Controller
         }
     }
 
+    // drug balance
+
+    /**
+     * Operation stockItemBalance
+     *
+     * fetches a list stock balances for an item.
+     *
+     *
+     * @return Http response
+     */
+    public function stockItemBalanceget($stock_item_id)
+    {
+        $response = StockBalance::where('stock_item_id', $stock_item_id)->get();
+        return response()->json($response, 200);
+    }
+    /**
+     * Operation stockItemBalanceDrugIdGet
+     *
+     * Find drug by drugId.
+     *
+     * @param int $balance_id Particular Service at facility specified by the ID (required)
+     *
+     * @return Http response
+     */
+    public function stockItemBalanceByIdget($stock_item_id, $balance_id)
+    {
+        $response = StockBalance::where('stock_item_id', $stock_item_id)->where('id', $balance_id)->get();
+        return response()->json($response, 200);
+    }
+    /**
+     * Operation stockItemBalancePost
+     *
+     * Add a new service to the facility.
+     *
+     *
+     * @return Http response
+     */
+    public function stockItemBalancepost($stock_item_id)
+    {
+        $input = Request::all();
+        $new_stock_item_balance = StockBalance::create($input);
+        if($new_stock_item_balance){
+            return response()->json(['msg' => 'Added new stock item balance', 'balance' => $new_stock_item_balance],201);
+        }
+        return response()->json(['msg' => 'could not save drug to regimen'],400);
+    }
+    /**
+     * Operation stockItemBalanceDrugIdPut
+     *
+     * Update an existing drug specified by the drugId.
+     *
+     * @param int $balance_id Particular Service at facility specified by the ID (required)
+     *
+     * @return Http response
+     */
+    public function stockItemBalanceput($stock_item_id, $balance_id)
+    {
+        $input = Request::all();
+        $stock_item_balance = StockBalance::where('stock_item_id', $stock_item_id)->where('id', $balance_id)
+                            ->update([
+                                "stock_item_id" => $input['stock_item_id'],
+                                "stock_type" => $input['stock_type'],
+                                "balance" => $input['balance']
+                            ]);
+        if($stock_item_balance){
+            return response()->json(['msg' => 'updated balance', 'updated balance' => $stock_item_balance],202);
+        }else{
+            return response()->json(['msg' => 'Could not update'], 400);
+        }
+    }
+    /**
+     * Operation stockItemBalanceDrugIdDelete
+     *
+     * Deletes the drug specified by drugId.
+     *
+     * @param int $balance_id Particular Service at facility specified by the ID (required)
+     *
+     * @return Http response
+     */
+    public function stockItemBalancedelete($stock_item_id, $balance_id)
+    {
+        $deleted_stock_item_balance = StockBalance::where('stock_item_id', $stock_item_id)->where('id', $balance_id)->delete();
+        if($deleted_stock_item_balance){
+            return response()->json(['msg' => 'Deleted balance'],301);
+        }
+    }
 
     // bincard
     /**
@@ -281,6 +367,7 @@ class StockApi extends Controller
         ];
         return response()->json($response,200);
     }
+
 
     // transactions
     public function stock_transaction_get(){
@@ -329,9 +416,7 @@ class StockApi extends Controller
     {
       $deleted_store = Store::destroy($store_id);
       if($deleted_store){
-        return response()->json(['msg' => 'Deleted store']);
+            return response()->json(['msg' => 'Deleted store']);
+        }
     }
-
-    // drug_stock
-
 }

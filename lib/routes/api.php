@@ -201,6 +201,13 @@ $api->version('v1', function ($api) {
         $api->put('/stock/{stockId}/items/{itemId}', 'App\Http\Controllers\StockApi@stockItemput');
         $api->delete('/stock/{stockId}/items/{itemId}', 'App\Http\Controllers\StockApi@stockItemdelete');
 
+        // drug stock balance
+        $api->get('/stock/{stockId}/balance', 'App\Http\Controllers\StockApi@stockItemBalanceget');
+        $api->post('/stock/{stockId}/balance', 'App\Http\Controllers\StockApi@stockItempost');
+
+        $api->get('/stock/{stockId}/balance/{balanceId}', 'App\Http\Controllers\StockApi@stockItemBalanceByIdget');
+        $api->put('/stock/{stockId}/balance/{balanceId}', 'App\Http\Controllers\StockApi@stockItemBalanceput');
+        $api->delete('/stock/{stockId}/balance/{balanceId}', 'App\Http\Controllers\StockApi@stockItemBalancedelete');
         // bincard
         $api->get('/stock/{drugid}/bincard', 'App\Http\Controllers\StockApi@stockBincardget');
 
