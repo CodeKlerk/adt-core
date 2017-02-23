@@ -214,7 +214,7 @@ class ListsApi extends Controller
      */
     public function listsCountiesByIdget($county)
     {
-        $County = County::findOrFail($county);
+        $county = County::findOrFail($county);
         return response()->json($county, 200);
     }
     /**
@@ -1857,12 +1857,12 @@ class ListsApi extends Controller
      *
      * @return Http response
      */
-    public function listspost()
+    public function listsstatuspost()
     {
         $input = Request::all();
-        $new_ = Status::create($input);
-        if($new_){
-            return response()->json(['msg' => 'Added a new ']);
+        $new_status = Status::create($input);
+        if($new_status){
+            return response()->json(['msg' => 'Added a new ', 'data' => $new_status],200);
         }else{
             return response('Oops, it seems like there was a problem adding the ');
         }

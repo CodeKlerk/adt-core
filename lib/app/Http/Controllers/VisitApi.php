@@ -9,6 +9,7 @@ use Illuminate\Pagination\Paginator;
 
 use App\Models\VisitModels\Appointment;
 use App\Models\VisitModels\Visit;
+use App\Models\VisitModels\VisitItem;
 
 class VisitApi extends Controller
 {
@@ -129,7 +130,232 @@ class VisitApi extends Controller
     // //////////
     // Visit  //
     // ////////
+    /**
+     * Operation Visits
+     *
+     * Fetch a patient's Visit.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function visitget($patient_id)
+    {
+        $response = Visit::where('patient_id',  $patient_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find visit'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation Visits
+     *
+     * Fetch a patient's visit.
+     *
+     
+     * @param int $patient_id ID&#39;s of patient that needs to be fetched (required)
+     * @param int $visit_id ID visit that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function visitByIdget($patient_id, $visit_id)
+    {
+        $response = Visit::where('patient_id', $patient_id)
+                                            ->where('visit_id', $visit_id)
+                                            ->first();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find visit for this patient'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addVisits
+     *
+     * Add a new visit to a patient.
+     *
+     * @param int $patient_id ID&#39;s of patient (required)
+     *
+     * @return Http response
+     */
+    public function visitpost()
+    {
+        $input = Request::all();
+        $new_patient_visit = Visit::create($input);
+        if($new_patient_visit){
+            return response()->json(['msg'=> 'added visit to patient', 'response'=> $new_patient_visit], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add visit'], 400);
+        }
+    }
 
+    /**
+     * Operation updateVisits
+     *
+     * Update an existing visits .
+     *
+     * @param int $patient_id Patient id to update (required)
+     * @param int $visit_id Visit id to update (required)
+     *
+     * @return Http response
+     */
+    public function visitput($patient_id, $visit_id)
+    {
+        $input = Request::all();
+        $patient_visit = Visit::where('patient_id', $patient_id)
+                                            ->where('visit_id', $visit_id)
+                                            ->update(['visit_id' => $input['visit_id']]);
+        if($patient_visit){
+            return response()->json(['msg' => 'Updated visit']);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deletevisit
+     *
+     * Remove a patient visit.
+     *
+     * @param int $patient_id ID&#39;s of patient and tb that needs to be fetched (required)
+     * @param int $visit_id ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function visitdelete($patient_id, $visit_id)
+    {
+        $patient_tb = Visit::where('patient_id', $patient_id)
+                                            ->where('id', $visit_id)
+                                            ->delete();
+        if($patient_tb){
+            return response()->json(['msg' => 'Saftly deleted the patient visit'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
+
+
+    // ///////////////
+    // Visit items //
+    // //////////////
     
+    /**
+     * Operation vistItems
+     *
+     * Fetch a visit's vistItem.
+     *
+     
+     * @param int $visit_id ID&#39;s of visit that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function vistItemget($visit_id)
+    {
+        $response = VisitItem::where('visit_id',  $visit_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find vistItem'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation vistItems
+     *
+     * Fetch a visit's vistItem.
+     *
+     
+     * @param int $visit_id ID&#39;s of visit that needs to be fetched (required)
+     * @param int $vistItem_id ID vistItem that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function vistItemByIdget($visit_id, $vistItem_id)
+    {
+        $response = VisitItem::where('visit_id', $visit_id)
+                                            ->where('vistItem_id', $vistItem_id)
+                                            ->first();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find vistItem for this visit'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addvistItems
+     *
+     * Add a new vistItem to a visit.
+     *
+     * @param int $visit_id ID&#39;s of visit (required)
+     *
+     * @return Http response
+     */
+    public function vistItempost()
+    {
+        $input = Request::all();
+        $new_vistItem = VisitItem::create($input);
+        if($new_vistItem){
+            return response()->json(['msg'=> 'added vistItem to visit', 'response'=> $new_vistItem], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add vistItem'], 400);
+        }
+    }
 
+    /**
+     * Operation updatevistItems
+     *
+     * Update an existing vistItems .
+     *
+     * @param int $visit_id visit id to update (required)
+     * @param int $vistItem_id vistItem id to update (required)
+     *
+     * @return Http response
+     */
+    public function vistItemput($visit_id, $vistItem_id)
+    {
+        $input = Request::all();
+        $visit_vistItem = VisitItem::where('visit_id', $visit_id)
+                                    ->where('vistItem_id', $vistItem_id)
+                                    ->update([
+                                        "duration" => $input['duration'],
+                                        "expected_pill_count" => $input['expected_pill_count'],
+                                        "actual_pill_count" => $input['actual_pill_count'],
+                                        "missed_pill_count" => $input['missed_pill_count'],
+                                        "non_adherence_reason_id" => $input['non_adherence_reason_id'],
+                                        "comment" => $input['comment'],
+                                        "visit_id" => $input['visit_id'],
+                                        "stock_item_id" => $input['stock_item_id'],
+                                        "dose_id" => $input['dose_id'],
+                                        "indication_id" => $input['indication_id']
+                                    ]);
+        if($visit_vistItem){
+            return response()->json(['msg' => 'Updated vistItem']);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deletevistItem
+     *
+     * Remove a visit vistItem.
+     *
+     * @param int $visit_id ID&#39;s of visit and tb that needs to be fetched (required)
+     * @param int $vistItem_id ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function vistItemdelete($visit_id, $vistItem_id)
+    {
+        $visit_tb = VisitItem::where('visit_id', $visit_id)
+                                            ->where('id', $vistItem_id)
+                                            ->delete();
+        if($visit_tb){
+            return response()->json(['msg' => 'Saftly deleted the visit vistItem'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
+    
 }

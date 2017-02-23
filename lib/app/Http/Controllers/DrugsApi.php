@@ -123,7 +123,7 @@ class DrugsApi extends Controller
      */
     public function drugsdelete($drug_id)
     {
-        $deleted_drug = Drug::distroy($drug_id);
+        $deleted_drug = Drug::destroy($drug_id);
         if($deleted_drug){
             return response()->json(['msg' => 'Deleted drug'],301);
         }

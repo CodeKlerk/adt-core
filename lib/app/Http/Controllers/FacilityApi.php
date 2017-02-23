@@ -48,7 +48,6 @@ class FacilityApi extends Controller
                 'service' => $input['service'],
                 'weekday_max' => $input['weekday_max'],
                 'weekend_max' => $input['weekend_max'],
-                'county_id' => $input['county_id'],
                 'county_sub_id' => $input['county_sub_id'],
                 'supporter_id' => $input['supporter_id'],
                 'facility_type_id' => $input['facility_type_id'],
@@ -66,7 +65,7 @@ class FacilityApi extends Controller
         if($deleted_facility){
             return response()->json(['msg' => 'Deleted the facility']);
         }else{
-            return response->json('Deleted facility');
+            return response()->json('Deleted facility');
         }
     }
     
