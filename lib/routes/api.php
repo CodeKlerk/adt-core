@@ -393,6 +393,13 @@ $api->version('v1', function ($api) {
         $api->get('/lists/dose/{doseId}', 'App\Http\Controllers\ListsApi@doseByIdget');
         $api->put('/lists/dose/{doseId}', 'App\Http\Controllers\ListsApi@doseput');
         $api->delete('/lists/dose/{doseId}', 'App\Http\Controllers\ListsApi@dosedelete');
+        // unit
+        $api->get('/lists/units', 'App\Http\Controllers\ListsApi@unitget');
+        $api->post('/lists/units', 'App\Http\Controllers\ListsApi@unitpost');
+
+        $api->get('/lists/units/{unitId}', 'App\Http\Controllers\ListsApi@unitByIdget');
+        $api->put('/lists/units/{unitId}', 'App\Http\Controllers\ListsApi@unitput');
+        $api->delete('/lists/units/{unitId}', 'App\Http\Controllers\ListsApi@unitdelete');
         // status --temp 
         $api->get('/lists/status', 'App\Http\Controllers\ListsApi@listsstatusget');
         $api->post('/lists/status', 'App\Http\Controllers\ListsApi@listsstatuspost');

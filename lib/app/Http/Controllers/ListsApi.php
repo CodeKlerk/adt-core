@@ -51,6 +51,7 @@ use App\Models\ListsModels\Instruction;
 use App\Models\ListsModels\NonAdherenceReason;
 use App\Models\ListsModels\Purpose;
 use App\Models\ListsModels\Supporter;
+use App\Models\ListsModels\Unit;
 use App\Models\UserModels\AccessLevel;
 use App\Models\ListsModels\Dose;
 
@@ -2086,11 +2087,8 @@ class ListsApi extends Controller
     public function doseput($dose_id)
     {
         $input = Request::all();
-        $dose = Dose::findOrFail($dose_id)->update([
-                                        "name" => $input['name'],
-                                        "frequency" => $input['frequency'],
-                                        "quantity" => $input['quantity']
-                                    ]);
+        $dose = Dose::findOrFail($dose_id)
+                ->update([ "name" => $input['name'], "frequency" => $input['frequency'], "quantity" => $input['quantity'] ]);
         if($dose){
             return response()->json(['msg' => 'Updated dose'], 201);
         }else{
@@ -2112,6 +2110,108 @@ class ListsApi extends Controller
         $dose = Dose::destroy($dose_id);
         if($dose){
             return response()->json(['msg' => 'Saftly deleted the dose'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
+
+    // ///////////////////////
+    // Unit functions      //
+    // /////////////////////
+
+    /**
+     * Operation unitGET
+     *
+     * Fetch a unit.
+     *
+     *
+     * @return Http response
+     */
+    public function unitget()
+    {
+        $response = Unit::get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find unit'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation units
+     *
+     * Fetch a unitType.
+     *
+     
+     * @param int $unit_id ID&#39;s of visit that needs to be fetched (required)
+     * @param int $ ID unit that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function unitByIdget($unit_id)
+    {
+        $response = Unit::findOrFail($unit_id);
+        if(!$response){  
+            return response()->json(['msg' => 'could not find unit'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addunits
+     *
+     * Add a new unit to a visit.
+     *
+     * @param int $unit_id ID&#39;s of visit (required)
+     *
+     * @return Http response
+     */
+    public function unitpost()
+    {
+        $input = Request::all();
+        $new_unit = Unit::create($input);
+        if($new_unit){
+            return response()->json(['msg'=> 'added unit', 'response'=> $new_unit], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add unit'], 400);
+        }
+    }
+
+    /**
+     * Operation updateunits
+     *
+     * Update an existing units .
+     *
+     * @param int $unit_id visit id to update (required)
+     * @param int $ unit id to update (required)
+     *
+     * @return Http response
+     */
+    public function unitput($unit_id)
+    {
+        $input = Request::all();
+        $unit = Unit::findOrFail($unit_id)->update(["name" => $input['name'] ]);
+        if($unit){
+            return response()->json(['msg' => 'Updated unit'], 201);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deleteunit
+     *
+     * Remove a unit.
+     *
+     * @param int $unit_id ID&#39;s of visit and tb that needs to be fetched (required)
+     * @param int $ ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function unitdelete($unit_id)
+    {
+        $unit = Unit::destroy($unit_id);
+        if($unit){
+            return response()->json(['msg' => 'Saftly deleted the unit'],200);
         }else{
             return response()->json(['msg' => 'Could not delete record'], 400);
         }
