@@ -17,8 +17,8 @@ class CreateRegimenDrugTable extends Migration
             $table->increments('id');
             $table->integer('ccc_store_sp');
             $table->string('source');
-            $table->integer('drug_id')->unsigned();
-            $table->integer('regimen_id')->unsigned();
+            $table->integer('drug_id')->unsigned(); 
+            $table->integer('regimen_id')->unsigned();  
             $table->timestamps();
             $table->softDeletes();
 
