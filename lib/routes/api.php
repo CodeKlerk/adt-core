@@ -193,6 +193,14 @@ $api->version('v1', function ($api) {
         $api->put('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockput');
         $api->delete('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockdelete');
 
+        // stock items
+        $api->get('/stock/{stockId}/items', 'App\Http\Controllers\StockApi@stockItemget');
+        $api->post('/stock/{stockId}/items', 'App\Http\Controllers\StockApi@stockItempost');
+
+        $api->get('/stock/{stockId}/items/{itemId}', 'App\Http\Controllers\StockApi@stockItemByIdget');
+        $api->put('/stock/{stockId}/items/{itemId}', 'App\Http\Controllers\StockApi@stockItemput');
+        $api->delete('/stock/{stockId}/items/{itemId}', 'App\Http\Controllers\StockApi@stockItemdelete');
+
         // bincard
         $api->get('/stock/{drugid}/bincard', 'App\Http\Controllers\StockApi@stockBincardget');
 

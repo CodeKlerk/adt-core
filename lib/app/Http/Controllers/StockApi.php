@@ -125,6 +125,128 @@ class StockApi extends Controller
         }
     }
 
+    // stock items 
+
+    /**
+     * Operation stockItems
+     *
+     * Fetch a visit's stockItem.
+     *
+     
+     * @param int $stock_id ID&#39;s of visit that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function stockItemget($stock_id)
+    {
+        $response = StockItem::where('stock_id',  $stock_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find vist item'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation stockItems
+     *
+     * Fetch a visit's stockItem.
+     *
+     
+     * @param int $stock_id ID&#39;s of visit that needs to be fetched (required)
+     * @param int $stock_item_id ID stockItem that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function stockItemByIdget($stock_id, $stock_item_id)
+    {
+        $response = StockItem::where('stock_id', $stock_id)
+                                            ->where('id', $stock_item_id)
+                                            ->first();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find stockItem for this visit'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addstockItems
+     *
+     * Add a new stockItem to a visit.
+     *
+     * @param int $stock_id ID&#39;s of visit (required)
+     *
+     * @return Http response
+     */
+    public function StockItempost()
+    {
+        $input = Request::all();
+        $new_stockItem = StockItem::create($input);
+        if($new_stockItem){
+            return response()->json(['msg'=> 'added stockItem to visit', 'response'=> $new_stockItem], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add stockItem'], 400);
+        }
+    }
+
+    /**
+     * Operation updatestockItems
+     *
+     * Update an existing stockItems .
+     *
+     * @param int $stock_id visit id to update (required)
+     * @param int $stock_item_id stockItem id to update (required)
+     *
+     * @return Http response
+     */
+    public function stockItemput($stock_id, $stock_item_id)
+    {
+        $input = Request::all();
+        $visit_stockItem = StockItem::where('stock_id', $stock_id)
+                                    ->where('id', $stock_item_id)
+                                    ->update([
+                                        "batch_number" => $input['batch_number'],
+                                        "expiry_date" => $input['expiry_date'],
+                                        "quantity_in" => $input['quantity_in'],
+                                        "quantity_out" => $input['quantity_out'],
+                                        "quantity_packs" => $input['quantity_packs'],
+                                        "balance_before" => $input['balance_before'],
+                                        "balance_after" => $input['balance_after'],
+                                        "unit_cost" => $input['unit_cost'],
+                                        "total_cost" => $input['total_cost'],
+                                        "comment" => $input['comment'],
+                                        "drug_id" => $input['drug_id'],
+                                        "stock_id" => $input['stock_id']
+                                    ]);
+        if($visit_stockItem){
+            return response()->json(['msg' => 'Updated stockItem']);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deletestockItem
+     *
+     * Remove a visit stockItem.
+     *
+     * @param int $stock_id ID&#39;s of visit and tb that needs to be fetched (required)
+     * @param int $stock_item_id ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function stockItemdelete($stock_id, $stock_item_id)
+    {
+        $visit_tb = StockItem::where('stock_id', $stock_id)
+                                            ->where('id', $stock_item_id)
+                                            ->delete();
+        if($visit_tb){
+            return response()->json(['msg' => 'Saftly deleted the visit stockItem'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
+
+
     // bincard
     /**
      * Operation stockStockIdBincardGet
