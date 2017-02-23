@@ -228,7 +228,13 @@ $api->version('v1', function ($api) {
         $api->get('/regimen/{regimenId}', 'App\Http\Controllers\DrugsApi@regimenByIdget');
         $api->put('/regimen/{regimenId}', 'App\Http\Controllers\DrugsApi@regimenput');
         $api->delete('/regimen/{regimenId}', 'App\Http\Controllers\DrugsApi@regimendelete');
+        // regimen drug
+        $api->get('/regimen/{regimenId}/drugs', 'App\Http\Controllers\DrugsApi@regimenDrugget');
+        $api->post('/regimen/{regimenId}/drugs', 'App\Http\Controllers\DrugsApi@regimenDrugpost');
 
+        $api->get('/regimen/{regimenId}/drugs/{drugId}', 'App\Http\Controllers\DrugsApi@regimenDrugByIdget');
+        $api->put('/regimen/{regimenId}/drugs/{drugId}', 'App\Http\Controllers\DrugsApi@regimenDrugput');
+        $api->delete('/regimen/{regimenId}/drugs/{drugId}', 'App\Http\Controllers\DrugsApi@regimenDrugdelete');
         
         /* 
         *   Facility routes

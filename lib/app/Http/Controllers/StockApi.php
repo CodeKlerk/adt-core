@@ -331,9 +331,7 @@ class StockApi extends Controller
       if($deleted_store){
         return response()->json(['msg' => 'Deleted store']);
     }
-}    
 
-
-
+    // drug_stock
 
 }
