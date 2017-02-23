@@ -169,10 +169,19 @@ $api->version('v1', function ($api) {
         $api->delete('/patients/{patientId}/appointments/{appointmentsId}', 'App\Http\Controllers\VisitApi@patientappointmentsdelete');
 
         // visit
-        $api->get('/patients/{patientId}/visits', 'App\Http\Controllers\PatientsApi@patientVisits');
-        $api->post('/patients/{patientId}/visits', 'App\Http\Controllers\PatientsApi@addPatientVisits');
-        $api->put('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@updatePatientVisit');
-        $api->delete('/patients/{patientId}/visits/{visitId}', 'App\Http\Controllers\PatientsApi@deletePatientVisit');
+        $api->get('/patients/{patientId}/visits', 'App\Http\Controllers\VisitApi@patientVisitsget');
+        $api->post('/patients/{patientId}/visits', 'App\Http\Controllers\VisitApi@patientVisitspost');
+
+        $api->get('/patients/{patientId}/visits/{visitsId}', 'App\Http\Controllers\VisitApi@patientVisitsByIdget');
+        $api->put('/patients/{patientId}/visits/{visitsId}', 'App\Http\Controllers\VisitApi@patientVisitsput');
+        $api->delete('/patients/{patientId}/visits/{visitsId}', 'App\Http\Controllers\VisitApi@patientVisitsdelete');
+        // visit items by visit id
+        $api->get('/visits/{visitsId}/item', 'App\Http\Controllers\VisitApi@visitsItemget');
+        $api->post('visits/{visitsId}/item', 'App\Http\Controllers\VisitApi@visitsItempost');
+
+        $api->get('/visits/{visitsId}/item/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemByIdget');
+        $api->put('/visits/{visitsId}/item/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemput');
+        $api->delete('/visits/{visitsId}/item/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemdelete');
 
         /*
         *   Stock routes

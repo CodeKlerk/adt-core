@@ -94,7 +94,6 @@ class VisitApi extends Controller
                                    ->update([
                                        "appointment_date" => $input['appointment_date'],
                                         "is_appointment" => $input['is_appointment'],
-                                        "is_appointment" => $input['is_appointment'],
                                         "facility_id" => $input['facility_id']
                                    ]);
         if($patient_appointment){
@@ -140,7 +139,7 @@ class VisitApi extends Controller
      *
      * @return Http response
      */
-    public function visitget($patient_id)
+    public function patientVisitsget($patient_id)
     {
         $response = Visit::where('patient_id',  $patient_id)->get();
         if(!$response){  
@@ -160,10 +159,10 @@ class VisitApi extends Controller
      *
      * @return Http response
      */
-    public function visitByIdget($patient_id, $visit_id)
+    public function patientVisitsByIdget($patient_id, $visit_id)
     {
         $response = Visit::where('patient_id', $patient_id)
-                                            ->where('visit_id', $visit_id)
+                                            ->where('id', $visit_id)
                                             ->first();
         if(!$response){  
             return response()->json(['msg' => 'could not find visit for this patient'], 204);
@@ -180,7 +179,7 @@ class VisitApi extends Controller
      *
      * @return Http response
      */
-    public function visitpost()
+    public function patientVisitspost()
     {
         $input = Request::all();
         $new_patient_visit = Visit::create($input);
@@ -201,12 +200,26 @@ class VisitApi extends Controller
      *
      * @return Http response
      */
-    public function visitput($patient_id, $visit_id)
+    public function patientVisitsput($patient_id, $visit_id)
     {
         $input = Request::all();
         $patient_visit = Visit::where('patient_id', $patient_id)
-                                            ->where('visit_id', $visit_id)
-                                            ->update(['visit_id' => $input['visit_id']]);
+                                ->where('id', $visit_id)
+                                ->update([
+                                    "current_height" => $input['current_height'],
+                                    "current_weight" => $input['current_weight'],
+                                    "current_bsa" => $input['current_bsa'],
+                                    "visit_date" => $input['visit_date'],
+                                    "appointment_adherence" => $input['appointment_adherence'],
+                                    "patient_id" => $input['patient_id'],
+                                    "facility_id" => $input['facility_id'],
+                                    "user_id" => $input['user_id'],
+                                    "purpose_id" => $input['purpose_id'],
+                                    "last_regimen_id" => $input['last_regimen_id'],
+                                    "current_regimen_id" => $input['current_regimen_id'],
+                                    "change_reason_id" => $input['change_reason_id'],
+                                    "appointment_id" => $input['appointment_id']
+                                ]);
         if($patient_visit){
             return response()->json(['msg' => 'Updated visit']);
         }else{
@@ -224,7 +237,7 @@ class VisitApi extends Controller
      *
      * @return Http response
      */
-    public function visitdelete($patient_id, $visit_id)
+    public function patientVisitsdelete($patient_id, $visit_id)
     {
         $patient_tb = Visit::where('patient_id', $patient_id)
                                             ->where('id', $visit_id)
@@ -251,7 +264,7 @@ class VisitApi extends Controller
      *
      * @return Http response
      */
-    public function vistItemget($visit_id)
+    public function visitsItemget($visit_id)
     {
         $response = VisitItem::where('visit_id',  $visit_id)->get();
         if(!$response){  
@@ -271,7 +284,7 @@ class VisitApi extends Controller
      *
      * @return Http response
      */
-    public function vistItemByIdget($visit_id, $vistItem_id)
+    public function visitsItemByIdget($visit_id, $vistItem_id)
     {
         $response = VisitItem::where('visit_id', $visit_id)
                                             ->where('vistItem_id', $vistItem_id)
@@ -291,7 +304,7 @@ class VisitApi extends Controller
      *
      * @return Http response
      */
-    public function vistItempost()
+    public function visitsItempost()
     {
         $input = Request::all();
         $new_vistItem = VisitItem::create($input);
@@ -312,7 +325,7 @@ class VisitApi extends Controller
      *
      * @return Http response
      */
-    public function vistItemput($visit_id, $vistItem_id)
+    public function visitsItemput($visit_id, $vistItem_id)
     {
         $input = Request::all();
         $visit_vistItem = VisitItem::where('visit_id', $visit_id)
@@ -346,7 +359,7 @@ class VisitApi extends Controller
      *
      * @return Http response
      */
-    public function vistItemdelete($visit_id, $vistItem_id)
+    public function visitsItemdelete($visit_id, $vistItem_id)
     {
         $visit_tb = VisitItem::where('visit_id', $visit_id)
                                             ->where('id', $vistItem_id)
@@ -357,5 +370,5 @@ class VisitApi extends Controller
             return response()->json(['msg' => 'Could not delete record'], 400);
         }
     }
-    
+
 }
