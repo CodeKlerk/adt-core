@@ -17,8 +17,8 @@ class Patient extends Model
                             'gender', 'birth_date', 'enrollment_date', 'support_group', 'is_pregnant', 'is_tb', 'is_tb_tested', 
                             'is_smoke', 'is_alchohol', 'is_sms', 'service_id', 'facility_id', 'supporter_id', 'source_id', 'county_sub_id', 'who_stage_id', 'status'
                           ];
-    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'current_status', 'next_appointment', 'latest_visit', 'facility'];
-    protected $appends = array('next_appointment_date', 'current_regimen_name', 'facility_name');
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'next_appointment', 'latest_visit', 'facility'];
+    protected $appends = array('next_appointment_date', 'facility_name');
     public function service(){
         return $this->belongsTo('App\Models\ListsModels\Services', 'service_id');
     }
@@ -56,7 +56,7 @@ class Patient extends Model
     }
 
     public function current_status(){
-        return $this->belongsToMany('App\Models\ListsModels\Status', 'tbl_patient_status')->withPivot('patient_id','status_id');
+        return $this->belongsToMany('App\Models\ListsModels\Status', 'tbl_patient_status')->withPivot('patient_id','status_id')->latest()->take(1);
     }
 
     public function drug_allergy(){
@@ -91,9 +91,14 @@ class Patient extends Model
     public function latest_visit(){
         return $this->hasOne('App\Models\VisitModels\Visit')->latest()->take(1);
     }
+    public function first_visit(){
+        return $this->hasOne('App\Models\VisitModels\Visit')->take(1);
+    }
+    
     public function visit(){
         return $this->hasMany('App\Models\VisitModels\Visit');
     }
+    
     public function next_appointment(){
         return $this->hasOne('App\Models\VisitModels\Appointment')->latest()->take(1);
     }

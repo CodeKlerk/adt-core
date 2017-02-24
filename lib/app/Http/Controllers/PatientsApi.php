@@ -46,7 +46,7 @@ use App\Models\PatientModels\PatientStatus;
 use App\Models\PatientModels\PatientTb;
 use App\Models\PatientModels\PatientViralload;
 
-use App\Models\VisitModels\Appointments;
+use App\Models\VisitModels\Appointment;
 use App\Models\VisitModels\Visit;
 // 
 use App\Events\CreatePatientEvent;
@@ -100,7 +100,7 @@ class PatientsApi extends Controller
         $patient->load('service','facility', 'supporter', 'source', 'who_stage', 'prophylaxis', 'tb', 'other_drug',
                         'current_status', 'drug_allergy', 'other_drug_allergy', 'illnesses', 
                         'other_illnesses', 'patient_dependant', 'family_planning', 'partner', 
-                        'next_appointment', 'visit.current_regimen', 'visit.appointment', 'next_appointment', 'place_of_birth', 'start_regimen');
+                        'next_appointment', 'next_appointment', 'place_of_birth', 'first_visit');
         return response()->json($patient, 200);
     }
 
