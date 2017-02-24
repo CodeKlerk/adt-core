@@ -45,6 +45,9 @@ use App\Models\PatientModels\PatientRegimen;
 use App\Models\PatientModels\PatientStatus;
 use App\Models\PatientModels\PatientTb;
 use App\Models\PatientModels\PatientViralload;
+
+use App\Models\VisitModels\Appointments;
+use App\Models\VisitModels\Visit;
 // 
 use App\Events\CreatePatientEvent;
 use App\Events\UpdatePatientEvent;
