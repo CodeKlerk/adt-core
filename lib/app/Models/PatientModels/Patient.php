@@ -99,7 +99,7 @@ class Patient extends Model
     }
 
     public function start_regimen(){
-        return $this->belongsTo('App\Models\RegimenModels\Regimen', 'initial_regimen_id');
+        return $this->belongsTo('App\Models\DrugModels\Regimen', 'initial_regimen_id');
     }
 
 
