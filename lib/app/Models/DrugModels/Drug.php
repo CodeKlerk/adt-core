@@ -26,7 +26,7 @@ class Drug extends Model
         return $this->belongsTo('App\Models\ListsModels\Unit', 'unit_id');
     }
     public function dose(){
-        return $this->belongsTo('App\Models\DrugModels\Dose', 'dose_id');
+        return $this->belongsTo('App\Models\ListsModels\Dose', 'dose_id');
     }
     public function supporter(){
         return $this->belongsTo('App\Models\ListsModels\Supporter', 'supporter_id');

@@ -24,38 +24,316 @@ class StockApi extends Controller
     }
 
     /**
-     * Operation stockGet
+     * Operation stocks
      *
-     * fetches a list of services at a facility.
+     * Fetch a 's stock.
      *
+     
+     * @param int  ID&#39;s of  that needs to be fetched (required)
      *
      * @return Http response
      */
     public function stockget()
     {
-        return response()->json(TransactionType::with('stock_item.drug')->get(),200);
+        $response = Stock::get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find stock'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
     }
     /**
-     * Operation stockPost
+     * Operation stocks
      *
-     * Add a new service to the facility.
+     * Fetch a 's stock.
      *
+     
+     * @param int  ID&#39;s of  that needs to be fetched (required)
+     * @param int $stock_id ID stock that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function stockByIdget($stock_id)
+    {
+        $response = Stock::findOrFail($stock_id);
+        if(!$response){  
+            return response()->json(['msg' => 'could not find stock for this '], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addstocks
+     *
+     * Add a new stock to a .
+     *
+     * @param int  ID&#39;s of  (required)
      *
      * @return Http response
      */
     public function stockpost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-        $body = $input['body'];
-
-
-        return response('How about implementing stockPost as a POST method ?');
+        $new_stock = Stock::create($input);
+        if($new_stock){
+            return response()->json(['msg'=> 'added stock to ', 'response'=> $new_stock], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add stock'], 400);
+        }
     }
+
+    /**
+     * Operation updatestocks
+     *
+     * Update an existing stocks .
+     *
+     * @param int   id to update (required)
+     * @param int $stock_id stock id to update (required)
+     *
+     * @return Http response
+     */
+    public function stockput($stock_id)
+    {
+        $input = Request::all();
+        $stock = Stock::findOrFail($stock_id)->update([
+                                        
+                                    ]);
+        if($stock){
+            return response()->json(['msg' => 'Updated stock']);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deletestock
+     *
+     * Remove a  stock.
+     *
+     * @param int  ID&#39;s of  and tb that needs to be fetched (required)
+     * @param int $stock_id ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function stockdelete($stock_id)
+    {
+        $deleted_stock = Stock::destroy($stock_id);
+        if($deleted_stock){
+            return response()->json(['msg' => 'Saftly deleted the  stock'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
+
+    // stock items 
+
+    /**
+     * Operation stockItems
+     *
+     * Fetch a visit's stockItem.
+     *
+     
+     * @param int $stock_id ID&#39;s of visit that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function stockItemget($stock_id)
+    {
+        $response = StockItem::where('stock_id',  $stock_id)->get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find vist item'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation stockItems
+     *
+     * Fetch a visit's stockItem.
+     *
+     
+     * @param int $stock_id ID&#39;s of visit that needs to be fetched (required)
+     * @param int $stock_item_id ID stockItem that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function stockItemByIdget($stock_id, $stock_item_id)
+    {
+        $response = StockItem::where('stock_id', $stock_id)
+                                            ->where('id', $stock_item_id)
+                                            ->first();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find stockItem for this visit'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addstockItems
+     *
+     * Add a new stockItem to a visit.
+     *
+     * @param int $stock_id ID&#39;s of visit (required)
+     *
+     * @return Http response
+     */
+    public function StockItempost()
+    {
+        $input = Request::all();
+        $new_stockItem = StockItem::create($input);
+        if($new_stockItem){
+            return response()->json(['msg'=> 'added stockItem to visit', 'response'=> $new_stockItem], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add stockItem'], 400);
+        }
+    }
+
+    /**
+     * Operation updatestockItems
+     *
+     * Update an existing stockItems .
+     *
+     * @param int $stock_id visit id to update (required)
+     * @param int $stock_item_id stockItem id to update (required)
+     *
+     * @return Http response
+     */
+    public function stockItemput($stock_id, $stock_item_id)
+    {
+        $input = Request::all();
+        $visit_stockItem = StockItem::where('stock_id', $stock_id)
+                                    ->where('id', $stock_item_id)
+                                    ->update([
+                                        "batch_number" => $input['batch_number'],
+                                        "expiry_date" => $input['expiry_date'],
+                                        "quantity_in" => $input['quantity_in'],
+                                        "quantity_out" => $input['quantity_out'],
+                                        "quantity_packs" => $input['quantity_packs'],
+                                        "balance_before" => $input['balance_before'],
+                                        "balance_after" => $input['balance_after'],
+                                        "unit_cost" => $input['unit_cost'],
+                                        "total_cost" => $input['total_cost'],
+                                        "comment" => $input['comment'],
+                                        "drug_id" => $input['drug_id'],
+                                        "stock_id" => $input['stock_id']
+                                    ]);
+        if($visit_stockItem){
+            return response()->json(['msg' => 'Updated stockItem']);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deletestockItem
+     *
+     * Remove a visit stockItem.
+     *
+     * @param int $stock_id ID&#39;s of visit and tb that needs to be fetched (required)
+     * @param int $stock_item_id ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function stockItemdelete($stock_id, $stock_item_id)
+    {
+        $visit_tb = StockItem::where('stock_id', $stock_id)
+                                            ->where('id', $stock_item_id)
+                                            ->delete();
+        if($visit_tb){
+            return response()->json(['msg' => 'Saftly deleted the visit stockItem'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
+
+    // drug balance
+
+    /**
+     * Operation stockItemBalance
+     *
+     * fetches a list stock balances for an item.
+     *
+     *
+     * @return Http response
+     */
+    public function stockItemBalanceget($stock_item_id)
+    {
+        $response = StockBalance::where('stock_item_id', $stock_item_id)->get();
+        return response()->json($response, 200);
+    }
+    /**
+     * Operation stockItemBalanceDrugIdGet
+     *
+     * Find drug by drugId.
+     *
+     * @param int $balance_id Particular Service at facility specified by the ID (required)
+     *
+     * @return Http response
+     */
+    public function stockItemBalanceByIdget($stock_item_id, $balance_id)
+    {
+        $response = StockBalance::where('stock_item_id', $stock_item_id)->where('id', $balance_id)->get();
+        return response()->json($response, 200);
+    }
+    /**
+     * Operation stockItemBalancePost
+     *
+     * Add a new service to the facility.
+     *
+     *
+     * @return Http response
+     */
+    public function stockItemBalancepost($stock_item_id)
+    {
+        $input = Request::all();
+        $new_stock_item_balance = StockBalance::create($input);
+        if($new_stock_item_balance){
+            return response()->json(['msg' => 'Added new stock item balance', 'balance' => $new_stock_item_balance],201);
+        }
+        return response()->json(['msg' => 'could not save drug to regimen'],400);
+    }
+    /**
+     * Operation stockItemBalanceDrugIdPut
+     *
+     * Update an existing drug specified by the drugId.
+     *
+     * @param int $balance_id Particular Service at facility specified by the ID (required)
+     *
+     * @return Http response
+     */
+    public function stockItemBalanceput($stock_item_id, $balance_id)
+    {
+        $input = Request::all();
+        $stock_item_balance = StockBalance::where('stock_item_id', $stock_item_id)->where('id', $balance_id)
+                            ->update([
+                                "stock_item_id" => $input['stock_item_id'],
+                                "stock_type" => $input['stock_type'],
+                                "balance" => $input['balance']
+                            ]);
+        if($stock_item_balance){
+            return response()->json(['msg' => 'updated balance', 'updated balance' => $stock_item_balance],202);
+        }else{
+            return response()->json(['msg' => 'Could not update'], 400);
+        }
+    }
+    /**
+     * Operation stockItemBalanceDrugIdDelete
+     *
+     * Deletes the drug specified by drugId.
+     *
+     * @param int $balance_id Particular Service at facility specified by the ID (required)
+     *
+     * @return Http response
+     */
+    public function stockItemBalancedelete($stock_item_id, $balance_id)
+    {
+        $deleted_stock_item_balance = StockBalance::where('stock_item_id', $stock_item_id)->where('id', $balance_id)->delete();
+        if($deleted_stock_item_balance){
+            return response()->json(['msg' => 'Deleted balance'],301);
+        }
+    }
+
+    // bincard
     /**
      * Operation stockStockIdBincardGet
      *
@@ -89,6 +367,7 @@ class StockApi extends Controller
         ];
         return response()->json($response,200);
     }
+
 
     // transactions
     public function stock_transaction_get(){
@@ -137,11 +416,7 @@ class StockApi extends Controller
     {
       $deleted_store = Store::destroy($store_id);
       if($deleted_store){
-        return response()->json(['msg' => 'Deleted store']);
+            return response()->json(['msg' => 'Deleted store']);
+        }
     }
-}    
-
-
-
-
 }

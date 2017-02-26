@@ -30,6 +30,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Pagination\Paginator;
 use App\Models\DrugModels\Drug;
+use App\Models\DrugModels\Regimen;
+use App\Models\DrugModels\RegimenDrug;
+
 class DrugsApi extends Controller
 {
     /**
@@ -123,50 +126,204 @@ class DrugsApi extends Controller
      */
     public function drugsdelete($drug_id)
     {
-        $deleted_drug = Drug::distroy($drug_id);
+        $deleted_drug = Drug::destroy($drug_id);
         if($deleted_drug){
             return response()->json(['msg' => 'Deleted drug'],301);
         }
     }
 
+    // regimen
     /**
-     * Operation drugsDrugIdDoseGet
+     * Operation regimenGET
      *
-     * Find drug dose for drugId.
+     * Fetch a regimen.
      *
-     * @param int $drug_id ID of service that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function drugsDrugIdDoseGet($drug_id)
+    public function regimenget()
     {
-        $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing drugsDrugIdDoseGet as a GET method ?');
+        $response = Regimen::get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find regimen'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
     }
     /**
-     * Operation drugsDrugIdDosePost
+     * Operation regimens
      *
-     * Add a dose for a particular drug with drugId.
+     * Fetch a regimenType.
      *
-     * @param int $drug_id ID of service that needs to be fetched (required)
+     
+     * @param int $regimen_id ID&#39;s of visit that needs to be fetched (required)
+     * @param int $ ID regimen that needs to be fetched (required)
      *
      * @return Http response
      */
-    public function drugsDrugIdDosePost($drug_id)
+    public function regimenByIdget($regimen_id)
+    {
+        $response = Regimen::findOrFail($regimen_id);
+        if(!$response){  
+            return response()->json(['msg' => 'could not find regimen'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addregimens
+     *
+     * Add a new regimen to a visit.
+     *
+     * @param int $regimen_id ID&#39;s of visit (required)
+     *
+     * @return Http response
+     */
+    public function regimenpost()
     {
         $input = Request::all();
-
-        //path params validation
-
-
-        //not path params validation
-
-        return response('How about implementing drugsDrugIdDosePost as a POST method ?');
+        $new_regimen = Regimen::create($input);
+        if($new_regimen){
+            return response()->json(['msg'=> 'added regimen', 'response'=> $new_regimen], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add regimen'], 400);
+        }
     }
+
+    /**
+     * Operation updateregimens
+     *
+     * Update an existing regimens .
+     *
+     * @param int $regimen_id visit id to update (required)
+     * @param int $ regimen id to update (required)
+     *
+     * @return Http response
+     */
+    public function regimenput($regimen_id)
+    {
+        $input = Request::all();
+        $regimen = Regimen::findOrFail($regimen_id)->update([
+                                        "code" => $input['code'],
+                                        "name" => $input['name'],
+                                        "service_id" => $input['service_id'],
+                                        "category_id" => $input['category_id']
+                                    ]);
+        if($regimen){
+            return response()->json(['msg' => 'Updated regimen'], 201);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deleteregimen
+     *
+     * Remove a regimen.
+     *
+     * @param int $regimen_id ID&#39;s of visit and tb that needs to be fetched (required)
+     * @param int $ ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function regimendelete($regimen_id)
+    {
+        $regimen = Regimen::destroy($regimen_id);
+        if($regimen){
+            return response()->json(['msg' => 'Saftly deleted the regimen'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
+
+
+    // regimen drugs 
+
+    /**
+     * Operation regimenDrugGet
+     *
+     * fetches a list of services at a facility.
+     *
+     *
+     * @return Http response
+     */
+    public function regimenDrugget($regimen_id)
+    {
+        $response = RegimenDrug::where('regimen_id', $regimen_id)->get();
+        return response()->json($response, 200);
+    }
+    /**
+     * Operation regimenDrugDrugIdGet
+     *
+     * Find drug by drugId.
+     *
+     * @param int $drug_id Particular Service at facility specified by the ID (required)
+     *
+     * @return Http response
+     */
+    public function regimenDrugByIdget($regimen_id, $drug_id)
+    {
+        $response = RegimenDrug::where('regimen_id', $regimen_id)->where('drug_id', $drug_id)->get();
+        return response()->json($response, 200);
+    }
+    /**
+     * Operation regimenDrugPost
+     *
+     * Add a new service to the facility.
+     *
+     *
+     * @return Http response
+     */
+    public function regimenDrugpost($regimen_id)
+    {
+        $input = Request::all();
+        $new_regimen_drug = RegimenDrug::create($input);
+        if($new_regimen_drug){
+            return response()->json(['msg' => 'Added new drug to regimen', 'drug' => $new_regimen_drug],201);
+        }
+        return response()->json(['msg' => 'could not save drug to regimen'],400);
+    }
+    /**
+     * Operation regimenDrugDrugIdPut
+     *
+     * Update an existing drug specified by the drugId.
+     *
+     * @param int $drug_id Particular Service at facility specified by the ID (required)
+     *
+     * @return Http response
+     */
+    public function regimenDrugput($regimen_id, $drug_id)
+    {
+        $input = Request::all();
+        $regimen_drug = RegimenDrug::where('regimen_id', $regimen_id)->where('drug_id', $drug_id)
+                            ->update([
+                                "drug_id" => $input['drug_id'],
+                                "source" => $input['source'],
+                                "ccc_store_sp" => $input['ccc_store_sp']
+                            ]);
+        if($regimen_drug){
+            return response()->json(['msg' => 'updated drug', 'updated drug' => $regimen_drug],202);
+        }else{
+            return response()->json(['msg' => 'Could not update'], 400);
+        }
+    }
+    /**
+     * Operation regimenDrugDrugIdDelete
+     *
+     * Deletes the drug specified by drugId.
+     *
+     * @param int $drug_id Particular Service at facility specified by the ID (required)
+     *
+     * @return Http response
+     */
+    public function regimenDrugdelete($regimen_id, $drug_id)
+    {
+        $deleted_regimen_drug = RegimenDrug::where('regimen_id', $regimen_id)->where('drug_id', $drug_id)->delete();
+        if($deleted_regimen_drug){
+            return response()->json(['msg' => 'Deleted drug'],301);
+        }
+    }
+
+    // drug stock
+
 }

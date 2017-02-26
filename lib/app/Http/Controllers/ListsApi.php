@@ -51,7 +51,11 @@ use App\Models\ListsModels\Instruction;
 use App\Models\ListsModels\NonAdherenceReason;
 use App\Models\ListsModels\Purpose;
 use App\Models\ListsModels\Supporter;
+use App\Models\ListsModels\Unit;
 use App\Models\UserModels\AccessLevel;
+use App\Models\ListsModels\Dose;
+
+use App\Models\InventoryModels\TransactionType;
 
 // tmp 
 use App\Models\FacilityModels\FacilityTypes;
@@ -214,7 +218,7 @@ class ListsApi extends Controller
      */
     public function listsCountiesByIdget($county)
     {
-        $County = County::findOrFail($county);
+        $county = County::findOrFail($county);
         return response()->json($county, 200);
     }
     /**
@@ -644,7 +648,6 @@ class ListsApi extends Controller
     {
         $response = ChangeReason::findOrFail($changereason_id);
         return response()->json($response, 200);
-
     }
     /**
      * Operation listsChangereasonPost
@@ -1858,12 +1861,12 @@ class ListsApi extends Controller
      *
      * @return Http response
      */
-    public function listspost()
+    public function listsstatuspost()
     {
         $input = Request::all();
-        $new_ = Status::create($input);
-        if($new_){
-            return response()->json(['msg' => 'Added a new ']);
+        $new_status = Status::create($input);
+        if($new_status){
+            return response()->json(['msg' => 'Added a new ', 'data' => $new_status],200);
         }else{
             return response('Oops, it seems like there was a problem adding the ');
         }
@@ -1905,6 +1908,314 @@ class ListsApi extends Controller
         }
     }
 
+    // ///////////////////////
+    // Temp functions      //
+    // /////////////////////
+
+    /**
+     * Operation transactionTypeGET
+     *
+     * Fetch a transaction's transaction.
+     *
+     *
+     * @return Http response
+     */
+    public function transactionTypeget()
+    {
+        $response = TransactionType::get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find transaction'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation transactionTypes
+     *
+     * Fetch a transaction's transactionType.
+     *
+     
+     * @param int $transaction_type_id ID&#39;s of visit that needs to be fetched (required)
+     * @param int $ ID transactionType that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function transactionTypeByIdget($transaction_type_id)
+    {
+        $response = TransactionType::findOrFail($transaction_type_id);
+        if(!$response){  
+            return response()->json(['msg' => 'could not find facility type'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addtransactionTypes
+     *
+     * Add a new transactionType to a visit.
+     *
+     * @param int $transaction_type_id ID&#39;s of visit (required)
+     *
+     * @return Http response
+     */
+    public function transactionTypepost()
+    {
+        $input = Request::all();
+        $new_facilityType = TransactionType::create($input);
+        if($new_facilityType){
+            return response()->json(['msg'=> 'added transaction', 'response'=> $new_facilityType], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add transaction'], 400);
+        }
+    }
+
+    /**
+     * Operation updatetransactionTypes
+     *
+     * Update an existing transactionTypes .
+     *
+     * @param int $transaction_type_id visit id to update (required)
+     * @param int $ transactionType id to update (required)
+     *
+     * @return Http response
+     */
+    public function transactionTypeput($transaction_type_id)
+    {
+
+        $input = Request::all();
+        $transaction_type = TransactionType::findOrFail($transaction_type_id)
+                                    ->update([
+                                        "name" => $input['name'],
+                                        "effect" => $input['effect']
+                                    ]);
+        if($transaction_type){
+            return response()->json(['msg' => 'Updated transaction type'], 201);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deletetransactionType
+     *
+     * Remove a visit transactionType.
+     *
+     * @param int $transaction_type_id ID&#39;s of visit and tb that needs to be fetched (required)
+     * @param int $ ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function transactionTypedelete($transaction_type_id)
+    {
+        $deleted_transaction_type = TransactionType::destroy($transaction_type_id);
+        if($deleted_transaction_type){
+            return response()->json(['msg' => 'Saftly deleted the transaction type'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    } 
+
+    // ///////////////////////
+    // Dose functions      //
+    // /////////////////////
+    /**
+     * Operation doseGET
+     *
+     * Fetch a Dose.
+     *
+     *
+     * @return Http response
+     */
+    public function doseget()
+    {
+        $response = Dose::get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find dose'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation doses
+     *
+     * Fetch a DoseType.
+     *
+     
+     * @param int $dose_id ID&#39;s of visit that needs to be fetched (required)
+     * @param int $ ID dose that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function doseByIdget($dose_id)
+    {
+        $response = Dose::findOrFail($dose_id);
+        if(!$response){  
+            return response()->json(['msg' => 'could not find dose'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation adddoses
+     *
+     * Add a new dose to a visit.
+     *
+     * @param int $dose_id ID&#39;s of visit (required)
+     *
+     * @return Http response
+     */
+    public function dosepost()
+    {
+        $input = Request::all();
+        $new_dose = Dose::create($input);
+        if($new_dose){
+            return response()->json(['msg'=> 'added dose', 'response'=> $new_dose], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add dose'], 400);
+        }
+    }
+    /**
+     * Operation updatedoses
+     *
+     * Update an existing doses .
+     *
+     * @param int $dose_id visit id to update (required)
+     * @param int $ dose id to update (required)
+     *
+     * @return Http response
+     */
+    public function doseput($dose_id)
+    {
+        $input = Request::all();
+        $dose = Dose::findOrFail($dose_id)
+                ->update([ "name" => $input['name'], "frequency" => $input['frequency'], "quantity" => $input['quantity'] ]);
+        if($dose){
+            return response()->json(['msg' => 'Updated dose'], 201);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+    /**
+     * Operation deletedose
+     *
+     * Remove a dose.
+     *
+     * @param int $dose_id ID&#39;s of visit and tb that needs to be fetched (required)
+     * @param int $ ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function dosedelete($dose_id)
+    {
+        $dose = Dose::destroy($dose_id);
+        if($dose){
+            return response()->json(['msg' => 'Saftly deleted the dose'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
+
+    // ///////////////////////
+    // Unit functions      //
+    // /////////////////////
+
+    /**
+     * Operation unitGET
+     *
+     * Fetch a unit.
+     *
+     *
+     * @return Http response
+     */
+    public function unitget()
+    {
+        $response = Unit::get();
+        if(!$response){  
+            return response()->json(['msg' => 'could not find unit'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation units
+     *
+     * Fetch a unitType.
+     *
+     
+     * @param int $unit_id ID&#39;s of visit that needs to be fetched (required)
+     * @param int $ ID unit that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function unitByIdget($unit_id)
+    {
+        $response = Unit::findOrFail($unit_id);
+        if(!$response){  
+            return response()->json(['msg' => 'could not find unit'], 204);
+        }else{
+            return response()->json($response, 200);
+        }
+    }
+    /**
+     * Operation addunits
+     *
+     * Add a new unit to a visit.
+     *
+     * @param int $unit_id ID&#39;s of visit (required)
+     *
+     * @return Http response
+     */
+    public function unitpost()
+    {
+        $input = Request::all();
+        $new_unit = Unit::create($input);
+        if($new_unit){
+            return response()->json(['msg'=> 'added unit', 'response'=> $new_unit], 201);
+        }else{
+            return response()->json(['msg'=> 'Could not add unit'], 400);
+        }
+    }
+
+    /**
+     * Operation updateunits
+     *
+     * Update an existing units .
+     *
+     * @param int $unit_id visit id to update (required)
+     * @param int $ unit id to update (required)
+     *
+     * @return Http response
+     */
+    public function unitput($unit_id)
+    {
+        $input = Request::all();
+        $unit = Unit::findOrFail($unit_id)->update(["name" => $input['name'] ]);
+        if($unit){
+            return response()->json(['msg' => 'Updated unit'], 201);
+        }else{
+            return response()->json(['msg' => 'Could not update record'], 405);
+        }
+    }
+
+    /**
+     * Operation deleteunit
+     *
+     * Remove a unit.
+     *
+     * @param int $unit_id ID&#39;s of visit and tb that needs to be fetched (required)
+     * @param int $ ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function unitdelete($unit_id)
+    {
+        $unit = Unit::destroy($unit_id);
+        if($unit){
+            return response()->json(['msg' => 'Saftly deleted the unit'],200);
+        }else{
+            return response()->json(['msg' => 'Could not delete record'], 400);
+        }
+    }
 
     // ///////////////////////
     // Temp functions      //

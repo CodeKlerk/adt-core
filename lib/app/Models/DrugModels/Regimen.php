@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\RegimenModels;
+namespace App\Models\DrugModels;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

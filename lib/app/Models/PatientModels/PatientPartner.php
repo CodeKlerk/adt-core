@@ -9,9 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PatientPartner extends Model
 {
     use SoftDeletes;
+
     protected $table = 'tbl_patient_partner';
     protected $fillable = ['patient_id', 'partner_id'];
     protected $dates = ['deleted_at'];
-    public $timestamps = false;
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    // TODO : return partner ccc_number
 
 }
