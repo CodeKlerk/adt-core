@@ -324,6 +324,6 @@ class DrugsApi extends Controller
         }
     }
 
-    // drug stock
+    
 
 }

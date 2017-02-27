@@ -182,6 +182,8 @@ $api->version('v1', function ($api) {
         $api->get('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemByIdget');
         $api->put('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemput');
         $api->delete('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemdelete');
+        // regimen change 
+        
 
         /*
         *   Stock routes
@@ -189,7 +191,10 @@ $api->version('v1', function ($api) {
         // stock store
         $api->get('/stock/store', 'App\Http\Controllers\StockApi@recordedStockItems');
         $api->get('/stock/store/{storeId}', 'App\Http\Controllers\StockApi@recordedStockItemsById');
-        
+
+        // temp 
+        $api->get('stock/store/{storeId}/drug/{drugId}', 'App\Http\Controllers\StockApi@recordedStockItemsByDrug');
+
         $api->get('/stock', 'App\Http\Controllers\StockApi@stockget');
         $api->post('/stock', 'App\Http\Controllers\StockApi@stockpost');
 
