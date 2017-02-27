@@ -12,16 +12,39 @@ class Visit extends Model
                             'last_regimen_id', 'current_regimen_id', 'change_reason_id', 'non_adherence_reason_id', 
                             'appointment_id'
                             ];
-    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
-    protected $appends = array();
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'facility', 'purpose_id', 'purpose'];
+
+    protected $appends = array('facility_name', 'purpose_name');
 
     public function visit_item(){
         return $this->hasMany('App\Models\VisitModels\VisitItem');
     }
+    
     public function current_regimen(){
         return $this->belongsTo('App\Models\RegimenModels\Regimen', 'current_regimen_id');
     }
     public function appointment(){
         return $this->belongsTo('App\Models\VisitModels\Appointment', 'appointment_id');
+    }
+
+    public function facility(){
+        return $this->belongsTo('App\Models\FacilityModels\Facilities', 'facility_id');
+    }
+
+    public function purpose(){
+        return $this->belongsTo('App\Models\ListsModels\Purpose', 'purpose_id');
+    }
+
+
+
+    public function getFacilityNameAttribute(){
+        $faciltiy_name = null;
+        if($this->facility){ $faciltiy_name = $this->facility->name; }
+        return $faciltiy_name;
+    }
+    public function getPurposeNameAttribute(){
+        $purpose_name = null;
+        if($this->purpose){ $purpose_name = $this->purpose->name; }
+        return $purpose_name;
     }
 }

@@ -141,7 +141,8 @@ class VisitApi extends Controller
      */
     public function patientVisitsget($patient_id)
     {
-        $response = Visit::where('patient_id',  $patient_id)->get();
+        $response = Visit::where('patient_id',  $patient_id)->with('visit_item.stock_item')->get();
+        
         if(!$response){  
             return response()->json(['msg' => 'could not find visit'], 204);
         }else{

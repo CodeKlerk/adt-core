@@ -15,6 +15,8 @@ class StockItem extends Model
                           ];
                           
     protected $dates = ['deleted_at'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'drug'];
+    protected $appends = array('drug_name');
 
     public function drug(){
         return $this->belongsTo('App\Models\DrugModels\Drug', 'drug_id');
@@ -29,5 +31,11 @@ class StockItem extends Model
 
     public function balance(){
         return $this->hasOne('App\Models\InventoryModels\StockBalance', 'stock_item_id');
+    }
+
+    public function getDrugNameAttribute(){
+        $drug_name = null;
+        if($this->drug){ $drug_name = $this->drug->name; }
+        return $drug_name;
     }
 } 
