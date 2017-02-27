@@ -89,7 +89,7 @@ class MapsApi extends Controller
             'supporter_id' => $input['supporter_id'],
             ]);
         if($map->save()){
-            return response()->json(['msg' => 'Update map'], 'data'=>$map);
+            return response()->json(['msg' => 'Update map', 'data'=>$map]);
         }else{
             return response('Oops, it seems like there was a problem updating the map');
         } 
