@@ -5209,9 +5209,6 @@ definitions:
       change_reason_id:
         type: "integer"
         format: "int32"
-      non_adherence_reason_id:
-        type: "integer"
-        format: "int32"
       appointment_id:
         type: "integer"
         format: "int32"
@@ -5230,6 +5227,9 @@ definitions:
         type: "integer"
         format: "int32"
       missed_pill_count:
+        type: "integer"
+        format: "int32"
+      non_adherence_reason_id:
         type: "integer"
         format: "int32"
       comment:
