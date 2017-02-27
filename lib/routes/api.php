@@ -186,6 +186,10 @@ $api->version('v1', function ($api) {
         /*
         *   Stock routes
         */
+        // stock store
+        $api->get('/stock/store', 'App\Http\Controllers\StockApi@recordedStockItems');
+        $api->get('/stock/store/{storeId}', 'App\Http\Controllers\StockApi@recordedStockItemsById');
+        
         $api->get('/stock', 'App\Http\Controllers\StockApi@stockget');
         $api->post('/stock', 'App\Http\Controllers\StockApi@stockpost');
 
@@ -211,8 +215,7 @@ $api->version('v1', function ($api) {
         // bincard
         $api->get('/stock/{drugid}/bincard', 'App\Http\Controllers\StockApi@stockBincardget');
 
-        // stock
-        $api->get('/stock/item/record', 'App\Http\Controllers\StockApi@recordedStockItems');
+        
 
         /*
         *   Dispense routes

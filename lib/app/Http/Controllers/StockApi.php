@@ -426,8 +426,8 @@ class StockApi extends Controller
         return response()->json($response,200);
     }
 
-    public function recordedStockItemsById(){
-        $response = RecordedStockItems::get();
+    public function recordedStockItemsById($store_id){
+        $response = RecordedStockItems::where('store_id', $store_id)->get();
         return response()->json($response,200);
     }
 }
