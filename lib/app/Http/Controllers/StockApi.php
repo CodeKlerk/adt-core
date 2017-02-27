@@ -11,6 +11,7 @@ use App\Models\InventoryModels\Store;
 
 use App\Models\InventoryModels\TransactionType;
 use App\Models\DrugModels\Drug;
+use App\Models\InventoryModels\RecordedStockItems;
 use App\Models\InventoryModels\StockBalance;
 
 class StockApi extends Controller
@@ -381,8 +382,6 @@ class StockApi extends Controller
     }
     public function storeByIdget($store_id){
         $input = Request::all();
-        // $map = Maps::findOrFail($maps_id);
-
         $response = Store::findOrFail($store_id);
         return response()->json($response, 200);
     }
@@ -418,5 +417,17 @@ class StockApi extends Controller
       if($deleted_store){
             return response()->json(['msg' => 'Deleted store']);
         }
+    }
+
+
+    // get stock record
+    public function recordedStockItems(){
+        $response = RecordedStockItems::get();
+        return response()->json($response,200);
+    }
+
+    public function recordedStockItemsById(){
+        $response = RecordedStockItems::get();
+        return response()->json($response,200);
     }
 }

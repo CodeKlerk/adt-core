@@ -211,6 +211,9 @@ $api->version('v1', function ($api) {
         // bincard
         $api->get('/stock/{drugid}/bincard', 'App\Http\Controllers\StockApi@stockBincardget');
 
+        // stock
+        $api->get('/stock/item/record', 'App\Http\Controllers\StockApi@recordedStockItems');
+
         /*
         *   Dispense routes
         */
@@ -472,7 +475,7 @@ $api->version('v1', function ($api) {
         $api->delete('/maps/{mapId}', 'App\Http\Controllers\MapsApi@mapsdelete');
 
 
-  // maps items
+        // maps items
         $api->get('/maps/{mapId}/items', 'App\Http\Controllers\MapsApi@mapsItemsget');
         $api->post('/maps/{mapId}/items', 'App\Http\Controllers\MapsApi@mapsItemspost');
 
