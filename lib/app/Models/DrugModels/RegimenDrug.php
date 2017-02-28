@@ -13,4 +13,8 @@ class RegimenDrug extends Model
     protected $fillable = ['drug_id','regimen_id', 'source', 'ccc_store_sp'];
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
     protected $dates = ['deleted_at'];
+
+    public function drugs(){
+        return $this->belongsTo('App\Models\DrugModels\Drug', 'drug_id');
+    }
 }
