@@ -17,8 +17,8 @@ class Patient extends Model
                             'gender', 'birth_date', 'enrollment_date', 'support_group', 'is_pregnant', 'is_tb', 'is_tb_tested', 
                             'is_smoke', 'is_alchohol', 'is_sms', 'service_id', 'facility_id', 'supporter_id', 'source_id', 'county_sub_id', 'who_stage_id', 'status'
                           ];
-    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'next_appointment', 'latest_visit', 'facility'];
-    protected $appends = array('next_appointment_date', 'facility_name');
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'next_appointment', 'latest_visit', 'facility', 'current_status'];
+    protected $appends = array('next_appointment_date', 'facility_name', 'current_status_name', 'current_status_id');
     public function service(){
         return $this->belongsTo('App\Models\ListsModels\Services', 'service_id');
     }
@@ -124,6 +124,25 @@ class Patient extends Model
         $facility_name = null;
         if($this->facility){ $facility_name = $this->facility->name; }
         return $facility_name;
+    }
+
+    public function getCurrentStatusNameAttribute(){
+        // $current_status_name = $this->current_status[0]->name;
+        // if($this->current_status){ $current_status_name = $this->current_status[0]->name; }
+        // return ($this->current_status);
+        // $this->current_status[0]->name
+        if(!$this->current_status == null){
+            foreach( $this->current_status as $current_status_name){
+                return $current_status_name->name;
+            }
+        }
+    }
+    public function getCurrentStatusidAttribute(){
+        if(!$this->current_status == null){
+            foreach( $this->current_status as $current_status_name){
+                return $current_status_name->id;
+            }
+        }
     }
 
 }

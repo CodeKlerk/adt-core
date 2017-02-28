@@ -72,8 +72,8 @@ class PatientsApi extends Controller
      */
     public function patientsGet()
     {
-        $response = Patient::paginate(10);
-        $response->load('current_status');
+        $response = Patient::get();
+        // $response->load('current_status');
         return response()->json($response, 200);
     }
     // check if ccc_number number is in use
