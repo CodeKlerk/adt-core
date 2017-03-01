@@ -29,7 +29,7 @@ class CreatePatientEvent extends Event
         if($created_patient){
             $new_patient_id['patient_id'] = $created_patient->id;
             $merged_request_and_new_id = array_merge($this->patient, $new_patient_id);
-            $this->multi_model_insert(['PatientDrugAllergyOther', 'PatientDrugOther', 'PatientStatus', 'PatientTb'], $merged_request_and_new_id);
+            $this->multi_model_insert(['PatientDrugAllergyOther', 'PatientDrugOther', 'PatientStatus', 'PatientTb', 'PatientIllnessOther'], $merged_request_and_new_id);
             
             //check if illnesses exists in the array
             if(array_key_exists('illnesses', $this->patient)){
@@ -93,12 +93,12 @@ class CreatePatientEvent extends Event
                 $ws->save();
             }
 
-            $this->appointment_insert($merged_request_and_new_id);
+            $this->first_appointment_insert($merged_request_and_new_id);
 
         }
     }
 
-    public function appointment_insert($data){
+    public function first_appointment_insert($data){
         $first_appointment = new Appointment;
         $first_appointment->appointment_date = $data['regimen_start_date'];
         $first_appointment->is_appointment = 1;
@@ -106,14 +106,15 @@ class CreatePatientEvent extends Event
         $first_appointment->facility_id = $data['facility_id'];
         if($first_appointment->save()){
             $appointment_id = $first_appointment->id;
-            $this->visit_insert($appointment_id, $data);
+            $this->first_visit_insert($appointment_id, $data);
         }
     }
 
-    public function visit_insert($appointment_id, $data){
+    public function first_visit_insert($appointment_id, $data){
         $first_visit = Visit::create([
             'current_height' => $data['initial_weight'],
             'current_weight' => $data['initial_height'],
+            'current_bsa' => $data['initial_bsa'],
             'visit_date' => $data['regimen_start_date'],
             'appointment_adherence' => 100,
             'patient_id' => $data['patient_id'],
