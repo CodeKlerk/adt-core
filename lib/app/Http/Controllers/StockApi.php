@@ -378,7 +378,7 @@ class StockApi extends Controller
 
 
     public function storeget(){
-        $response = Store::all();
+        $response = Store::get()->groupBy('type');
         return response()->json($response, 200);
     }
     public function storeByIdget($store_id){
@@ -438,4 +438,5 @@ class StockApi extends Controller
         $response = DB::table('v_stock_balance')->where('store_id', $store_id)->where('drug_id', $drug_id)->get()->groupBy('batch_number');
         return response()->json($response,200);
     }
+
 }
