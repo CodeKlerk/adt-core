@@ -35,6 +35,10 @@ class Visit extends Model
         return $this->belongsTo('App\Models\ListsModels\Purpose', 'purpose_id');
     }
 
+    public function regimen_change(){
+        return $this->hasMany('App\Models\DrugModels\RegimenChange', 'visit_id');
+    }
+
 
 
     public function getFacilityNameAttribute(){

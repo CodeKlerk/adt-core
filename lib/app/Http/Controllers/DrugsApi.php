@@ -249,7 +249,8 @@ class DrugsApi extends Controller
      */
     public function regimenDrugget($regimen_id)
     {
-        $response = RegimenDrug::where('regimen_id', $regimen_id)->get();
+        $response = Regimen::get();
+        $response->load('drug');
         return response()->json($response, 200);
     }
     /**
@@ -324,6 +325,6 @@ class DrugsApi extends Controller
         }
     }
 
-    // drug stock
+    
 
 }

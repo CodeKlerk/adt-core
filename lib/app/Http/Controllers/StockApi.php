@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -428,6 +429,12 @@ class StockApi extends Controller
 
     public function recordedStockItemsById($store_id){
         $response = RecordedStockItems::where('store_id', $store_id)->get();
+        return response()->json($response,200);
+    }
+    
+    public function recordedStockItemsByDrug($store_id, $drug_id){
+        // $response = RecordedStockItems::where('store_id', $store_id)->where('drug_id', $drug_id)->get();
+        $response = DB::table('v_stock_balance')->where('store_id', $store_id)->where('drug_id', $drug_id)->get()->keyBy('batch_number');
         return response()->json($response,200);
     }
 }

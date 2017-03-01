@@ -8,7 +8,7 @@ class RecordedStockItems extends Model
 {
     protected $table = 'v_stock_balance';
 
-    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'drug'];
     protected $appends = array('drug_name');
     public function drug(){
         return $this->belongsTo('App\Models\DrugModels\Drug', 'drug_id');
