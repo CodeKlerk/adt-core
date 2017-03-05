@@ -14,18 +14,18 @@ class CreateVisitTable extends Migration
     public function up()
     {
         Schema::create('tbl_visit', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->float('current_height');
             $table->float('current_weight');
             $table->float('current_bsa');
             $table->float('appointment_adherence');
             $table->date('visit_date');
-            $table->integer('patient_id')->unsigned();
-            $table->integer('facility_id')->unsigned();
-            $table->integer('user_id')->unsigned();
-            $table->integer('purpose_id')->unsigned();
-            $table->integer('current_regimen_id')->unsigned();
-            $table->integer('appointment_id')->unsigned();
+            $table->bigInteger('patient_id')->unsigned();
+            $table->bigInteger('facility_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('purpose_id')->unsigned();
+            $table->bigInteger('current_regimen_id')->unsigned();
+            $table->bigInteger('appointment_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 

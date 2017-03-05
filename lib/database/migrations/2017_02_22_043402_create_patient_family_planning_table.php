@@ -14,9 +14,9 @@ class CreatePatientFamilyPlanningTable extends Migration
     public function up()
     {
         Schema::create('tbl_patient_family_planning', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('patient_id')->unsigned();
-            $table->integer('family_planning_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('patient_id')->unsigned();
+            $table->bigInteger('family_planning_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             // fk

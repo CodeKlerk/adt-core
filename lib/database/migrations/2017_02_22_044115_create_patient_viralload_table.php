@@ -14,8 +14,8 @@ class CreatePatientViralloadTable extends Migration
     public function up()
     {
         Schema::create('tbl_patient_viralload', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('patient_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('patient_id')->unsigned();
             $table->date('test_date');
             $table->text('result');
             $table->text('justification');

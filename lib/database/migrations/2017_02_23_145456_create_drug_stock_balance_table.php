@@ -14,9 +14,9 @@ class CreateDrugStockBalanceTable extends Migration
     public function up()
     {
         Schema::create('tbl_drug_stock_balance', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('drug_id')->unsigned();
-            $table->integer('stock_item_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('drug_id')->unsigned();
+            $table->bigInteger('stock_item_id')->unsigned();
             $table->integer('stock_type');
             $table->integer('balance');
             $table->timestamps();

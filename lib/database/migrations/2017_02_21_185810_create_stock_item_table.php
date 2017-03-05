@@ -14,7 +14,7 @@ class CreateStockItemTable extends Migration
     public function up()
     {
         Schema::create('tbl_stock_item', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('batch_number');
             $table->date('expiry_date');
             $table->integer('quantity_in');
@@ -25,8 +25,8 @@ class CreateStockItemTable extends Migration
             $table->double('unit_cost');
             $table->double('total_cost');
             $table->text('comment');
-            $table->integer('drug_id')->unsigned();
-            $table->integer('stock_id')->unsigned();
+            $table->bigInteger('drug_id')->unsigned();
+            $table->bigInteger('stock_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             // fk

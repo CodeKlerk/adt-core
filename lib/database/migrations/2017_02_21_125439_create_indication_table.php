@@ -14,7 +14,7 @@ class CreateIndicationTable extends Migration
     public function up()
     {
         Schema::create('tbl_indication', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('code')->unique();
             $table->timestamps();

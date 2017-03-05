@@ -14,7 +14,7 @@ class CreateFacilityTypeTable extends Migration
     public function up()
     {
         Schema::create('tbl_facility_type', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();

@@ -14,7 +14,7 @@ class CreateDoseTable extends Migration
     public function up()
     {
         Schema::create('tbl_dose', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->integer('quantity');
             $table->integer('frequency');

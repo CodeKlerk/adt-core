@@ -14,7 +14,7 @@ class CreateMapsTable extends Migration
     public function up()
     {
         Schema::create('tbl_maps', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('status');
             $table->enum('code', ['D-MAPS','F-MAPS']);
             $table->date('period_begin');
@@ -23,8 +23,8 @@ class CreateMapsTable extends Migration
             $table->integer('reports_actual');
             $table->text('services');
             $table->text('comments');
-            $table->integer('facility_id')->unsigned();
-            $table->integer('supporter_id')->unsigned();
+            $table->bigInteger('facility_id')->unsigned();
+            $table->bigInteger('supporter_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 

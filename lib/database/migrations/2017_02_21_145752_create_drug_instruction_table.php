@@ -14,9 +14,9 @@ class CreateDrugInstructionTable extends Migration
     public function up()
     {
         Schema::create('tbl_drug_instruction', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('drug_id')->unsigned();
-            $table->integer('instruction_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('drug_id')->unsigned();
+            $table->bigInteger('instruction_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             // fk

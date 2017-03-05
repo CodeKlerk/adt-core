@@ -14,14 +14,14 @@ class CreateStockTable extends Migration
     public function up()
     {
         Schema::create('tbl_stock', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->timestamp('transaction_time');
             $table->text('transaction_detail');
             $table->string('ref_number');
-            $table->integer('user_id')->unsigned();
-            $table->integer('store_id')->unsigned();
-            $table->integer('facility_id')->unsigned();
-            $table->integer('transaction_type_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('store_id')->unsigned();
+            $table->bigInteger('facility_id')->unsigned();
+            $table->bigInteger('transaction_type_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             // fk

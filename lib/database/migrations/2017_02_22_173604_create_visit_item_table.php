@@ -14,17 +14,17 @@ class CreateVisitItemTable extends Migration
     public function up()
     {
         Schema::create('tbl_visit_item', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('duration');
             $table->integer('expected_pill_count');
             $table->integer('actual_pill_count');
             $table->integer('missed_pill_count');
             $table->integer('non_adherence_reason_id');
             $table->text('comment');
-            $table->integer('visit_id')->unsigned();
-            $table->integer('stock_item_id')->unsigned();
-            $table->integer('dose_id')->unsigned();
-            $table->integer('indication_id')->unsigned();
+            $table->bigInteger('visit_id')->unsigned();
+            $table->bigInteger('stock_item_id')->unsigned();
+            $table->bigInteger('dose_id')->unsigned();
+            $table->bigInteger('indication_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 

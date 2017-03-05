@@ -14,7 +14,7 @@ class CreateAccessLevelTable extends Migration
     public function up()
     {
         Schema::create('tbl_access_level', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->longText('description');
             $table->timestamps();

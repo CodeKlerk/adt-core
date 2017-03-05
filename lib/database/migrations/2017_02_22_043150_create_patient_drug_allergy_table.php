@@ -14,9 +14,9 @@ class CreatePatientDrugAllergyTable extends Migration
     public function up()
     {
         Schema::create('tbl_patient_drug_allergy', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('patient_id')->unsigned();
-            $table->integer('drug_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('patient_id')->unsigned();
+            $table->bigInteger('drug_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             // fk
