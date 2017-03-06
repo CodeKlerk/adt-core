@@ -16,8 +16,8 @@ class CreateMapsItemTable extends Migration
         Schema::create('tbl_maps_item', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('total');
-            $table->integer('regimen_id')->unsigned();
-            $table->integer('maps_id')->unsigned();
+            $table->bigInteger('regimen_id')->unsigned();
+            $table->bigInteger('maps_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 

@@ -15,7 +15,7 @@ class CreateRegimenChangeTable extends Migration
     {
         Schema::create('tbl_regimen_change', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('visit_id ')->unsigned();
+            $table->bigInteger('visit_id')->unsigned();
             $table->bigInteger('last_regimen_id')->unsigned();
             $table->bigInteger('change_reason_id')->unsigned();
             $table->timestamps();

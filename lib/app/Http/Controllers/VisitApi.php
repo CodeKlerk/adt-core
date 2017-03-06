@@ -420,7 +420,7 @@ class VisitApi extends Controller
     {
         $input = Request::all();
         $patient['patient_id'] = $patient_id;
-        $visit_information = array_merge($input, $patient);
+    $visit_information = array_merge($input, $patient);
         event(new DispensePatientEvent($visit_information));
     }
 
