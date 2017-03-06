@@ -27,6 +27,7 @@ class CreateStockItemTable extends Migration
             $table->text('comment');
             $table->bigInteger('drug_id')->unsigned();
             $table->bigInteger('stock_id')->unsigned();
+            $table->string('store');
             $table->timestamps();
             $table->softDeletes();
             // fk

@@ -28,7 +28,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
-use Illuminate\Pagination\Paginator;
 use App\Models\DrugModels\Drug;
 use App\Models\DrugModels\Regimen;
 use App\Models\DrugModels\RegimenDrug;
@@ -52,7 +51,7 @@ class DrugsApi extends Controller
      */
     public function drugsget()
     {
-        $response = Drug::paginate(10);
+        $response = Drug::get();
         return response()->json($response, 200);
     }
     /**
