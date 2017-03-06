@@ -14,10 +14,10 @@ class CreateStoreTable extends Migration
     public function up()
     {
         Schema::create('tbl_store', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->enum('type', ['store', 'pharmacy']);
-            $table->integer('facility_id')->unsigned();
+            $table->bigInteger('facility_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 

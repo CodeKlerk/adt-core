@@ -14,9 +14,9 @@ class CreatePatientPartnerTable extends Migration
     public function up()
     {
         Schema::create('tbl_patient_partner', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('patient_id')->unsigned();
-            $table->integer('partner_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('patient_id')->unsigned();
+            $table->bigInteger('partner_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             // fk

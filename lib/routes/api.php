@@ -225,7 +225,9 @@ $api->version('v1', function ($api) {
         $api->delete('/stock/{stockId}/balance/{balanceId}', 'App\Http\Controllers\StockApi@stockItemBalancedelete');
         // bincard
         $api->get('/stock/{drugid}/bincard', 'App\Http\Controllers\StockApi@stockBincardget');
-
+        
+        // transaction
+        $api->get('/stock_transactions', 'App\Http\Controllers\StockApi@stockTransactionpost');
         
 
         /*

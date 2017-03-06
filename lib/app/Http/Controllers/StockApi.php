@@ -15,6 +15,8 @@ use App\Models\DrugModels\Drug;
 use App\Models\InventoryModels\RecordedStockItems;
 use App\Models\InventoryModels\StockBalance;
 
+use App\Events\StockTransactionEvent;
+
 class StockApi extends Controller
 {
     /**
@@ -76,12 +78,20 @@ class StockApi extends Controller
     public function stockpost()
     {
         $input = Request::all();
-        $new_stock = Stock::create($input);
-        if($new_stock){
-            return response()->json(['msg'=> 'added stock to ', 'response'=> $new_stock], 201);
-        }else{
-            return response()->json(['msg'=> 'Could not add stock'], 400);
+        $transaction_qty_type = '';
+
+        if(array_key_exists('transaction_type_id', $input)){
+            $transaction_type_id = $input['transaction_type_id'];
+            $transaction_type = TransactionType::findOrFail($transaction_type_id);
+            if(!$transaction_type['effect'] == ''){
+                $transaction_qty_type =  'in';
+            }else{
+                $transaction_qty_type = 'out';
+            }
         }
+        // return $input;
+        event(new StockTransactionEvent($input, $transaction_qty_type));
+        return response()->json(['msg'=> 'Transaction complite', 'response'=> $input], 201);
     }
 
     /**
@@ -99,7 +109,7 @@ class StockApi extends Controller
         $input = Request::all();
         $stock = Stock::findOrFail($stock_id)->update([
                                         
-                                    ]);
+        ]);
         if($stock){
             return response()->json(['msg' => 'Updated stock']);
         }else{
@@ -378,7 +388,7 @@ class StockApi extends Controller
 
 
     public function storeget(){
-        $response = Store::all();
+        $response = Store::get()->groupBy('type');
         return response()->json($response, 200);
     }
     public function storeByIdget($store_id){
@@ -438,4 +448,15 @@ class StockApi extends Controller
         $response = DB::table('v_stock_balance')->where('store_id', $store_id)->where('drug_id', $drug_id)->get()->groupBy('batch_number');
         return response()->json($response,200);
     }
-}
+
+
+    // stock transacions
+    public function stockTransactionpost(){
+        $input = Request::all();
+        return $input;
+
+        event(new StockTransactionEvent($input));
+        return response()->json(['msg'=> 'Transaction complite', 'response'=> $input], 201);
+    }
+
+}                                           

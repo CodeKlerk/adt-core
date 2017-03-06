@@ -14,7 +14,7 @@ class CreateCdrrItemTable extends Migration
     public function up()
     {
         Schema::create('tbl_cdrr_item', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('balance');
             $table->integer('received');
             $table->integer('dispensed_units');
@@ -29,8 +29,8 @@ class CreateCdrrItemTable extends Migration
             $table->integer('aggr_consumed');
             $table->integer('aggr_on_hand');
             $table->date('expiry_date');
-            $table->integer('drug_id')->unsigned();
-            $table->integer('cdrr_id')->unsigned();
+            $table->bigInteger('drug_id')->unsigned();
+            $table->bigInteger('cdrr_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             // fk

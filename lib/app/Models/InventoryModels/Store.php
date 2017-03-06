@@ -11,7 +11,7 @@ class Store extends Model
     protected $table = 'tbl_store';
     protected $fillable = ['name', 'type','facility_id'];
     protected $dates = ['deleted_at'];
-    protected $hidden = ['created_at', 'updated_at', 'facility_id'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'facility_id', 'facility'];
     protected $appends = array('facility_name');
 
     public function facility(){

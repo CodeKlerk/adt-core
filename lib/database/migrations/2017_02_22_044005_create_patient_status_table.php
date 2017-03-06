@@ -14,9 +14,9 @@ class CreatePatientStatusTable extends Migration
     public function up()
     {
         Schema::create('tbl_patient_status', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('patient_id')->unsigned();
-            $table->integer('status_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('patient_id')->unsigned();
+            $table->bigInteger('status_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             // fk

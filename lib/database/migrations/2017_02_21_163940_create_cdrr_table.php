@@ -14,7 +14,7 @@ class CreateCdrrTable extends Migration
     public function up()
     {
         Schema::create('tbl_cdrr', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('status');
             $table->enum('code', ['D-CDRR','F-CDRR_units','F-CDRR_packs']);
             $table->date('period_begin');
@@ -24,8 +24,8 @@ class CreateCdrrTable extends Migration
             $table->integer('reports_actual');
             $table->text('service');
             $table->tinyInteger('is_non_arv');
-            $table->integer('facility_id')->unsigned();
-            $table->integer('supporter_id')->unsigned();
+            $table->bigInteger('facility_id')->unsigned();
+            $table->bigInteger('supporter_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 

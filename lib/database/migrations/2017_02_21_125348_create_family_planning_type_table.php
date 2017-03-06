@@ -14,7 +14,7 @@ class CreateFamilyPlanningTypeTable extends Migration
     public function up()
     {
         Schema::create('tbl_family_planning', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();

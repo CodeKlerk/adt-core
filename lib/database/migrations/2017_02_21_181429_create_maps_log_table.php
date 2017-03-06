@@ -14,10 +14,10 @@ class CreateMapsLogTable extends Migration
     public function up()
     {
         Schema::create('tbl_maps_log', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('status');
-            $table->integer('user_id')->unsigned();
-            $table->integer('maps_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('maps_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 

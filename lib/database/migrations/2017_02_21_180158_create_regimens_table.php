@@ -14,10 +14,10 @@ class CreateRegimensTable extends Migration
     public function up()
     {
         Schema::create('tbl_regimen', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('code');
-            $table->integer('service_id')->unsigned();
-            $table->integer('category_id')->unsigned();
+            $table->bigInteger('service_id')->unsigned();
+            $table->bigInteger('category_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             

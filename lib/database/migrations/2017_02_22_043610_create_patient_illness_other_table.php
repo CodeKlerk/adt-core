@@ -14,9 +14,9 @@ class CreatePatientIllnessOtherTable extends Migration
     public function up()
     {
         Schema::create('tbl_patient_illness_other', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('patient_id')->unsigned();
-            $table->integer('other_illness');
+            $table->bigIncrements('id');
+            $table->bigInteger('patient_id')->unsigned();
+            $table->bigInteger('other_illness');
             $table->timestamps();
             $table->softDeletes();
             // fk

@@ -14,7 +14,7 @@ class RegimenDrug extends Model
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
     protected $dates = ['deleted_at'];
 
-    public function drugs(){
+    public function drug(){
         return $this->belongsTo('App\Models\DrugModels\Drug', 'drug_id');
     }
 }

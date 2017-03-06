@@ -14,9 +14,9 @@ class CreatePatientProphylaxisTable extends Migration
     public function up()
     {
         Schema::create('tbl_patient_prophylaxis', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('patient_id')->unsigned();
-            $table->integer('prophylaxis_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('patient_id')->unsigned();
+            $table->bigInteger('prophylaxis_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             // fk

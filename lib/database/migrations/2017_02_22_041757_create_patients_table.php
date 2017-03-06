@@ -14,7 +14,7 @@ class CreatePatientsTable extends Migration
     public function up()
     {
         Schema::create('tbl_patient', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('ccc_number');
             $table->string('first_name');
             $table->string('last_name');
@@ -36,12 +36,12 @@ class CreatePatientsTable extends Migration
             $table->tinyInteger('is_smoke');
             $table->tinyInteger('is_alcohol');
             $table->tinyInteger('is_sms');
-            $table->integer('service_id')->unsigned();
-            $table->integer('facility_id')->unsigned();
-            $table->integer('supporter_id')->unsigned();
-            $table->integer('source_id')->unsigned();
-            $table->integer('county_sub_id')->unsigned();
-            $table->integer('who_stage_id')->unsigned();
+            $table->bigInteger('service_id')->unsigned();
+            $table->bigInteger('facility_id')->unsigned();
+            $table->bigInteger('supporter_id')->unsigned();
+            $table->bigInteger('source_id')->unsigned();
+            $table->bigInteger('county_sub_id')->unsigned();
+            $table->bigInteger('who_stage_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 

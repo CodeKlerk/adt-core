@@ -14,7 +14,7 @@ class CreateDrugTable extends Migration
     public function up()
     {
         Schema::create('tbl_drug', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->integer('pack_size');
             $table->integer('duration');
@@ -22,10 +22,10 @@ class CreateDrugTable extends Migration
             $table->tinyInteger('is_arv');
             $table->tinyInteger('is_tb');
             $table->tinyInteger('is_oi');
-            $table->integer('unit_id')->unsigned();
-            $table->integer('dose_id')->unsigned();
-            $table->integer('generic_id')->unsigned();
-            $table->integer('supporter_id')->unsigned();
+            $table->bigInteger('unit_id')->unsigned();
+            $table->bigInteger('dose_id')->unsigned();
+            $table->bigInteger('generic_id')->unsigned();
+            $table->bigInteger('supporter_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             // fk

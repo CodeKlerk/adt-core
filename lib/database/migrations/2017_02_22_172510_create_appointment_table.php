@@ -14,10 +14,10 @@ class CreateAppointmentTable extends Migration
     public function up()
     {
         Schema::create('tbl_appointment', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->date('appointment_date');
-            $table->integer('patient_id')->unsigned();
-            $table->integer('facility_id')->unsigned();
+            $table->bigInteger('patient_id')->unsigned();
+            $table->bigInteger('facility_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 

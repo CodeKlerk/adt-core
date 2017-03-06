@@ -11,7 +11,7 @@ class StockItem extends Model
 
     protected $table = 'tbl_stock_item';
     protected $fillable = [ 'batch_number', 'expiry_date', 'quantity_in', 'quantity_out', 'quantity_packs', 
-                            'balance_before', 'balance_after', 'unit_cost', 'total_cost', 'comment', 'drug_id', 'stock_id'
+                            'balance_before', 'balance_after', 'unit_cost', 'comment', 'drug_id', 'stock_id'
                           ];
                           
     protected $dates = ['deleted_at'];

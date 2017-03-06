@@ -14,10 +14,10 @@ class CreateCdrrLogTable extends Migration
     public function up()
     {
         Schema::create('tbl_cdrr_log', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('status');
-            $table->integer('cdrr_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->bigInteger('cdrr_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             // fk

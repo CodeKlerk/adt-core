@@ -14,9 +14,9 @@ class CreatePatientPepreasonTable extends Migration
     public function up()
     {
         Schema::create('tbl_patient_pepreason', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('patient_id')->unsigned();
-            $table->integer('pepreason_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('patient_id')->unsigned();
+            $table->bigInteger('pepreason_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             // fk

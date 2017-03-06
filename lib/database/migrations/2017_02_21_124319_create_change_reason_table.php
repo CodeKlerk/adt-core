@@ -14,7 +14,7 @@ class CreateChangeReasonTable extends Migration
     public function up()
     {
         Schema::create('tbl_change_reason', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
