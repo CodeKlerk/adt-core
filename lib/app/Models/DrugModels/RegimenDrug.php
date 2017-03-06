@@ -15,6 +15,6 @@ class RegimenDrug extends Model
     protected $dates = ['deleted_at'];
 
     public function drug(){
-        return $this->belongsTo('App\Models\DrugModels\Drug', 'drug_id');
+        return $this->belongsToMany('App\Models\DrugModels\Drug', 'drug_id');
     }
 }
