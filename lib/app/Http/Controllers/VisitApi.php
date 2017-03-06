@@ -372,4 +372,86 @@ class VisitApi extends Controller
         }
     }
 
+    // //////////////////
+    // dispense       //
+    // ////////////////
+    
+    /**
+     * Operation dispenses
+     *
+     * Fetch a dispense
+     *
+     
+     * @param int $patient_id ID&#39;s of dispense that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function dispenseget($patient_id)
+    {
+        $response = Visit::where('patient_id', $patient_id)->get();
+        $response->load('visit_item.stock_item.drug');
+        return response()->json($response,200);
+    }
+    /**
+     * Operation dispenses
+     *
+     * Fetch a dispense
+     *
+     
+     * @param int $patient_id ID&#39;s of dispense that needs to be fetched (required)
+     * @param int $dispense_id ID dispense that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function dispenseByIdget($patient_id, $dispense_id)
+    {
+        // 
+    }
+    /**
+     * Operation adddispenses
+     *
+     * Add a new dispense to a dispense.
+     *
+     * @param int $patient_id ID&#39;s of dispense (required)
+     *
+     * @return Http response
+     */
+    public function dispensepost($patient_id)
+    {
+        $input = Request::all();
+        $patient['patient_id'] = $patient_id;
+        $visit_information = array_merge($input, $patient);
+        event(new DispensePatientEvent($visit_information));
+    }
+
+    /**
+     * Operation updatedispenses
+     *
+     * Update an existing dispenses .
+     *
+     * @param int $patient_id dispense id to update (required)
+     * @param int $dispense_id dispense id to update (required)
+     *
+     * @return Http response
+     */
+    public function dispenseput($patient_id, $dispense_id)
+    {
+        $input = Request::all();
+    }
+
+    /**
+     * Operation deletedispense
+     *
+     * Remove a dispense dispense.
+     *
+     * @param int $patient_id ID&#39;s of dispense and tb that needs to be fetched (required)
+     * @param int $dispense_id ID of tb that needs to be fetched (required)
+     *
+     * @return Http response
+     */
+    public function dispensedelete($patient_id, $dispense_id)
+    {
+
+    }
+
 }
