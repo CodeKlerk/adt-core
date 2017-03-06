@@ -78,9 +78,19 @@ class StockApi extends Controller
     public function stockpost()
     {
         $input = Request::all();
-        // return $input;
+        $transaction_qty_type = '';
 
-        event(new StockTransactionEvent($input));
+        if(array_key_exists('transaction_type_id', $input)){
+            $transaction_type_id = $input['transaction_type_id'];
+            $transaction_type = TransactionType::findOrFail($transaction_type_id);
+            if(!$transaction_type['effect'] == '' || !$transaction_type['effect'] == 'NULL'){
+                $transaction_qty_type =  'in';
+            }else{
+                $transaction_qty_type = 'out';
+            }
+        }
+        // return $input;
+        event(new StockTransactionEvent($input, $transaction_qty_type));
         return response()->json(['msg'=> 'Transaction complite', 'response'=> $input], 201);
     }
 
@@ -99,7 +109,7 @@ class StockApi extends Controller
         $input = Request::all();
         $stock = Stock::findOrFail($stock_id)->update([
                                         
-                                    ]);
+        ]);
         if($stock){
             return response()->json(['msg' => 'Updated stock']);
         }else{
