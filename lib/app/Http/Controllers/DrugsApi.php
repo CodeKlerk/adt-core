@@ -28,7 +28,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
-use Illuminate\Pagination\Paginator;
 use App\Models\DrugModels\Drug;
 use App\Models\DrugModels\Regimen;
 use App\Models\DrugModels\RegimenDrug;
