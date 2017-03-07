@@ -119,7 +119,7 @@ class CreatePatientEvent extends Event
             'appointment_adherence' => 100,
             'patient_id' => $data['patient_id'],
             'facility_id' => $data['facility_id'],
-            'user_id' => $data['user_id'],
+            'user_id' => 1,
             'purpose_id' => 1,
             'current_regimen_id' => $data['initial_regimen_id'],
             'appointment_id' => $appointment_id
