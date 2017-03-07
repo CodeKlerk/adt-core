@@ -236,6 +236,9 @@ $api->version('v1', function ($api) {
         $api->get('/patients/{patientId}/dispense', 'App\Http\Controllers\VisitApi@dispenseget'); // different route in doc
         $api->post('/patients/{patientId}/dispense', 'App\Http\Controllers\VisitApi@dispensepost'); // different route in doc
         
+        // get drug
+        $api->get('/dispense/drug/{drugId}', 'App\Http\Controllers\VisitApi@dispenseGetDrug');
+        
         /*
         *   Drugs routes
         */  
