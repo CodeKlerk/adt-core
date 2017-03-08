@@ -433,11 +433,15 @@ class StockApi extends Controller
     // store stock 
 
     public function storeStockget($store_id){
-        $response = Stock::where('store_id', $store_id)->get();
-        $response->load('stock_item');
+        $response = DB::table('tbl_store')
+                       ->join('tbl_stock', 'tbl_store.id', 'tbl_stock.store_id')
+                       ->join('tbl_stock_item', 'tbl_stock.id', 'tbl_stock_item.stock_id')
+                       ->where('tbl_store.id', $store_id)
+                       ->select('batch_number', 'expiry_date', 'balance_before', 'unit_cost', 'comment', 'store', 'drug_id')
+                       ->get();
         return response()->json($response,200);
     }
-
+ 
     public function storeStockpost($store_id)
     {
         $input = Request::all();

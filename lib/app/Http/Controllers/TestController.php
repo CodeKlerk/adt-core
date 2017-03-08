@@ -38,14 +38,14 @@ class TestController extends Controller
     }
 
     public function get_test_with_id($id){
-        $stocks_by_store = Stock::where('store_id', $id);
-        // return $stocks_by_store->flatten();
-        // $stocks_by_store->load('stock_item');
-        foreach($stocks_by_store as $st){
-            // $item = StockItem::where('stock_id', $st)->get();
-            $response[] = $st->flatten();
-        }
-        return response()->json($response,200);
+        $stocks_by_store = DB::table('tbl_store')
+                              ->join('tbl_stock', 'tbl_store.id', 'tbl_stock.store_id')
+                              ->join('tbl_stock_item', 'tbl_stock.id', 'tbl_stock_item.stock_id')
+                              ->where('tbl_store.id', $id)
+                              ->select('batch_number', 'expiry_date', 'balance_before', 'unit_cost', 'comment', 'store')
+                              ->get();
+        
+        return response()->json($stocks_by_store,200);
     }
 
     public function get_test()
