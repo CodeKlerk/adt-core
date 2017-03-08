@@ -388,7 +388,7 @@ class StockApi extends Controller
 
 
     public function storeget(){
-        $response = Store::get()->groupBy('type');
+        $response = Store::get();
         return response()->json($response, 200);
     }
     public function storeByIdget($store_id){
