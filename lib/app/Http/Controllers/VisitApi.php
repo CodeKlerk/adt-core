@@ -466,7 +466,7 @@ class VisitApi extends Controller
                                  quantity_out * quantity_packs  - DATEDIFF(now(),visit_date) *td.quantity * td.frequency as expected_pillcount
                                  FROM tbl_visit tv, tbl_visit_item tvi, tbl_dose td, tbl_stock_item  tsi
                                  where tv.id = tvi.visit_id
-                                 AND tsi.drug_id = 1
+                                 AND tsi.drug_id = 3
                                  LIMIT 1'
                              );
         $response = [
@@ -475,8 +475,8 @@ class VisitApi extends Controller
                 'drug_name' => $drug->name,
                 'duration' => $drug->duration,
                 'refill' => 'true',
-                'expected_pill_count' => $stock_counts['0']->expected_pillcount,
-                'days_count' => $stock_counts['0']->dayscount,
+                'expected_pill_count' => 0,
+                'days_count' => 0,
                 'batches' => $stock_item
                 ]
         ];

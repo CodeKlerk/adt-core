@@ -195,10 +195,11 @@ $api->version('v1', function ($api) {
         $api->get('store/{storeId}/stock/drug/{drugId}', 'App\Http\Controllers\StockApi@recordedStockItemsDrugById');
 
         $api->get('/stock', 'App\Http\Controllers\StockApi@stockget');
-        // $api->post('/stock', 'App\Http\Controllers\StockApi@stockpost');
+        $api->post('/stock', 'App\Http\Controllers\StockApi@stockpost');
         
-        $api->post('/store/{storeId}/stock', 'App\Http\Controllers\StockApi@stockpost');
-
+        $api->get('/store/{storeId}/stock', 'App\Http\Controllers\StockApi@storeStockget');
+        $api->post('/store/{storeId}/stock', 'App\Http\Controllers\StockApi@storeStockpost');
+        
         $api->get('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockByIdget');
         $api->put('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockput');
         $api->delete('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockdelete');

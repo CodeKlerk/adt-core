@@ -75,7 +75,7 @@ class StockApi extends Controller
      *
      * @return Http response
      */
-    public function stockpost($store_id)
+    public function stockpost()
     {
         $input = Request::all();
         $transaction_qty_type = '';
@@ -90,7 +90,7 @@ class StockApi extends Controller
             }
         }
         // return $input;
-        event(new StockTransactionEvent($input, $transaction_qty_type, $store_id));
+        event(new StockTransactionEvent($input, $transaction_qty_type));
         return response()->json(['msg'=> 'Transaction complite', 'response'=> $input], 201);
     }
 
@@ -428,6 +428,32 @@ class StockApi extends Controller
       if($deleted_store){
             return response()->json(['msg' => 'Deleted store']);
         }
+    }
+
+    // store stock 
+
+    public function storeStockget($store_id){
+        $response = Stock::where('store_id', $store_id)->get();
+        return response()->json($response,200);
+    }
+
+    public function storeStockpost($store_id)
+    {
+        $input = Request::all();
+        $transaction_qty_type = '';
+
+        if(array_key_exists('transaction_type_id', $input)){
+            $transaction_type_id = $input['transaction_type_id'];
+            $transaction_type = TransactionType::findOrFail($transaction_type_id);
+            if(!$transaction_type['effect'] == ''){
+                $transaction_qty_type =  'in';
+            }else{
+                $transaction_qty_type = 'out';
+            }
+        }
+        // return $input;
+        event(new StockTransactionEvent($input, $transaction_qty_type, $store_id));
+        return response()->json(['msg'=> 'Transaction complite', 'response'=> $input], 201);
     }
 
 
