@@ -6,10 +6,14 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\VisitModels\Appointment;
 use App\Models\VisitModels\Visit;
 use App\Models\VisitModels\VisitItem;
+
+use App\Models\DrugModels\Drug;
+use App\Models\InventoryModels\StockItem;
 
 class VisitApi extends Controller
 {
@@ -452,6 +456,31 @@ class VisitApi extends Controller
     public function dispensedelete($patient_id, $dispense_id)
     {
 
+    }
+
+    // return drug
+    public function dispenseGetDrug($drug_id){
+        $drug = Drug::findOrFail($drug_id);
+        $stock_item = StockItem::where('drug_id', $drug_id)->select('batch_number', 'expiry_date', 'balance_after', 'unit_cost')->get();
+        $stock_counts = DB::select('SELECT DATEDIFF(now(),visit_date)  as dayscount,
+                                 quantity_out * quantity_packs  - DATEDIFF(now(),visit_date) *td.quantity * td.frequency as expected_pillcount
+                                 FROM tbl_visit tv, tbl_visit_item tvi, tbl_dose td, tbl_stock_item  tsi
+                                 where tv.id = tvi.visit_id
+                                 AND tsi.drug_id = 1
+                                 LIMIT 1'
+                             );
+        $response = [
+            'drug' => [
+                'drug_id' => $drug->id,
+                'drug_name' => $drug->name,
+                'duration' => $drug->duration,
+                'refill' => 'true',
+                'expected_pill_count' => $stock_counts['0']->expected_pillcount,
+                'days_count' => $stock_counts['0']->dayscount,
+                'batches' => $stock_item
+                ]
+        ];
+        return $response;
     }
 
 }

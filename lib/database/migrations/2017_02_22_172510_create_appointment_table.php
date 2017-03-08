@@ -16,6 +16,7 @@ class CreateAppointmentTable extends Migration
         Schema::create('tbl_appointment', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('appointment_date');
+            $table->tinyInteger('is_appointment');
             $table->bigInteger('patient_id')->unsigned();
             $table->bigInteger('facility_id')->unsigned();
             $table->timestamps();

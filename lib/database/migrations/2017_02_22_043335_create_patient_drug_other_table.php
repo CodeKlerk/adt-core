@@ -16,7 +16,7 @@ class CreatePatientDrugOtherTable extends Migration
         Schema::create('tbl_patient_drug_other', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('patient_id')->unsigned();
-            $table->bigInteger('drug_name')->unsigned();
+            $table->string('drug_name')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             // fk

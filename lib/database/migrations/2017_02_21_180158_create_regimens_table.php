@@ -16,6 +16,7 @@ class CreateRegimensTable extends Migration
         Schema::create('tbl_regimen', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('code');
+            $table->string('name');
             $table->bigInteger('service_id')->unsigned();
             $table->bigInteger('category_id')->unsigned();
             $table->timestamps();
