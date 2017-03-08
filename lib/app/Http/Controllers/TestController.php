@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\FacilityModels\Facilities;
 use App\Models\InventoryModels\StockItem;
-
+use App\Models\InventoryModels\Stock;
 
 use App\Models\VisitModels\Appointment; 
 use App\Models\VisitModels\Visit;
@@ -38,33 +38,20 @@ class TestController extends Controller
     }
 
     public function get_test_with_id($id){
-        return response()->json(Visit::where('patient_id', $id)->latest()->take(1)->get(),200);
+        $stocks_by_store = Stock::where('store_id', $id);
+        // return $stocks_by_store->flatten();
+        // $stocks_by_store->load('stock_item');
+        foreach($stocks_by_store as $st){
+            // $item = StockItem::where('stock_id', $st)->get();
+            $response[] = $st->flatten();
+        }
+        return response()->json($response,200);
     }
 
     public function get_test()
     {
-        // return response()->json(TransactionType::with('stock_item.drug')->get(),200);
-        // $patient = Patient::get();
-        // $response = Status::where('patient_id', 6)->withPivot('patient_id','status_id')->get();
-        // return response()->json($patient, 200);
-        // $response = DB::table('tbl_visit')
-        //                 ->join('tbl_visit_item', 'tbl_visit.id' , 'tbl_visit_item.visit_id')
-        //                 ->join('tbl_dose', 'tbl_visit_item.dose_id', 'tbl_dose.id')
-        //                 ->join('tbl_stock_item', 'tbl_visit_item.stock_item_id', 'tbl_stock_item.id')
-        //                 ->join('tbl_drug', 'tbl_stock_item.drug_id', 'tbl_drug.id')
-        //                 // ->select('patient_id', 'drug_id', 'frequency')
-        //                 ->get();
-         $response = DB::select('SELECT DATEDIFF(now(),visit_date)  as dayscount,
-                                 quantity_out * quantity_packs  - DATEDIFF(now(),visit_date) *td.quantity * td.frequency as expected_pillcount
-                                 FROM tbl_visit tv, tbl_visit_item tvi, tbl_dose td, tbl_stock_item  tsi
-                                 where tv.id = tvi.visit_id
-                                 LIMIT 1'
-                             );
-        return $response;
-        //     ->join('')
-        //  tvi, tbl_dose td, tbl_stock_item  tsi, tbl_drug tdr
-
-
+        $response = StockItem::get();
+        return response()->json($response,200);
     }
     
 }

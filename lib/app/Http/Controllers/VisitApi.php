@@ -461,7 +461,7 @@ class VisitApi extends Controller
     // return drug
     public function dispenseGetDrug($drug_id){
         $drug = Drug::findOrFail($drug_id);
-        $stock_item = StockItem::where('drug_id', $drug_id)->select('batch_number', 'expiry_date', 'balance_after', 'unit_cost')->get();
+        $stock_item = StockItem::where('drug_id', $drug_id)->get();
         $stock_counts = DB::select('SELECT DATEDIFF(now(),visit_date)  as dayscount,
                                  quantity_out * quantity_packs  - DATEDIFF(now(),visit_date) *td.quantity * td.frequency as expected_pillcount
                                  FROM tbl_visit tv, tbl_visit_item tvi, tbl_dose td, tbl_stock_item  tsi
@@ -474,6 +474,7 @@ class VisitApi extends Controller
                 'drug_id' => $drug->id,
                 'drug_name' => $drug->name,
                 'duration' => $drug->duration,
+                'unit' => $drug->unit['name'],
                 'refill' => 'true',
                 'expected_pill_count' => 0,
                 'days_count' => 0,
