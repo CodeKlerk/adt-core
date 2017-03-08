@@ -470,16 +470,14 @@ class VisitApi extends Controller
                                  LIMIT 1'
                              );
         $response = [
-            'drug' => [
-                'drug_id' => $drug->id,
-                'drug_name' => $drug->name,
-                'duration' => $drug->duration,
-                'unit' => $drug->unit['name'],
-                'refill' => 'true',
-                'expected_pill_count' => 0,
-                'days_count' => 0,
-                'batches' => $stock_item
-                ]
+            'drug_id' => $drug->id,
+            'drug_name' => $drug->name,
+            'duration' => $drug->duration,
+            'unit' => $drug->unit['name'],
+            'refill' => 'true',
+            'expected_pill_count' => 0,
+            'days_count' => 0,
+            'batches' => $stock_item
         ];
         return $response;
     }
