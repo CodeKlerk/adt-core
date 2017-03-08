@@ -30,16 +30,20 @@ class StockTransactionEvent extends Event
         $new_stock->ref_number = $this->transaction_data['ref_number'];
         $new_stock->user_id = 1;
         $new_stock->store_id = $this->store_id;
+        $new_stock->facility_id = 1;
         if(array_key_exists('transaction_detail',$this->transaction_data)){
             $new_stock->transaction_detail = $this->transaction_data['transaction_detail'];
         }
-        if(array_key_exists('facility_id', $transaction_data)){
-            $new_stock->facility_id = $this->transaction_data['facility_id'];
-        }
         $new_stock->transaction_type_id = $this->transaction_data['transaction_type_id'];
-
-        if($new_stock){
+        
+        if($new_stock->save()){
             if(array_key_exists('drugs', $this->transaction_data)){
+                if(array_key_exists('store_id', $this->transaction_data)){
+                    $store = $this->transaction_data['store_id'];
+                }else{
+                    $store = $this->transaction_data['store'];
+                }
+
                 $new_stock_id['stock_id'] = $new_stock->id;
                 $stock_items = $this->transaction_data['drugs'];
                 
@@ -47,17 +51,15 @@ class StockTransactionEvent extends Event
                     // add patient_id to drug
                     $si = array_merge($stock_item, $new_stock_id);
                     $new_item = new StockItem;
+                    $new_item->stock_id = $si['stock_id'];
                     $new_item->batch_number = $si['batch_number'];
                     $new_item->drug_id = $si['drug_id'];
                     $new_item->unit_cost = $si['unit_cost'];
-                    if(array_key_exists('stock_id', $stock_item)){
-                        $new_item->stock = $si['stock_id'];
-                    }else{
-                        $new_item->stock = $si['stock'];
-                    }
+                    $new_item->store = $store; 
                     // $new_item->pack_size = $si['pack_size'];
                     $new_item->expiry_date = $si['expiry_date'];
                     $new_item->quantity_packs = $si['quantity_packs'];
+                    $new_item->balance_before = $si['balance_before'];
                     if($this->transaction_qty_type == 'in'){
                         $new_item->quantity_in = $si['quantity'];
                     }else{
