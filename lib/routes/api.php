@@ -203,7 +203,7 @@ $api->version('v1', function ($api) {
         $api->get('stock/store/{storeId}/drug/{drugId}', 'App\Http\Controllers\StockApi@recordedStockItemsDrugById');
 
         $api->get('/stock', 'App\Http\Controllers\StockApi@stockget');
-        $api->post('/stock', 'App\Http\Controllers\StockApi@stockpost');
+        // $api->post('/stock', 'App\Http\Controllers\StockApi@stockpost');
         
         $api->post('/store/{storeId}/stock', 'App\Http\Controllers\StockApi@stockpost');
 

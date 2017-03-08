@@ -27,10 +27,12 @@ class StockTransactionEvent extends Event
         // $new_stock = Stock::create($this->transaction_data);
         $new_stock = new Stock;
         $new_stock->transaction_time = $this->transaction_data['transaction_date'];
-        $new_stock->transaction_detail = $this->transaction_data['transaction_detail'];
         $new_stock->ref_number = $this->transaction_data['ref_number'];
         $new_stock->user_id = 1;
         $new_stock->store_id = $this->store_id;
+        if(array_key_exists('transaction_detail',$this->transaction_data)){
+            $new_stock->transaction_detail = $this->transaction_data['transaction_detail'];
+        }
         if(array_key_exists('facility_id', $transaction_data)){
             $new_stock->facility_id = $this->transaction_data['facility_id'];
         }
