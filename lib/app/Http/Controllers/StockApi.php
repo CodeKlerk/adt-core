@@ -75,7 +75,7 @@ class StockApi extends Controller
      *
      * @return Http response
      */
-    public function stockpost()
+    public function stockpost($store_id)
     {
         $input = Request::all();
         $transaction_qty_type = '';
@@ -90,7 +90,7 @@ class StockApi extends Controller
             }
         }
         // return $input;
-        event(new StockTransactionEvent($input, $transaction_qty_type));
+        event(new StockTransactionEvent($input, $transaction_qty_type, $store_id));
         return response()->json(['msg'=> 'Transaction complite', 'response'=> $input], 201);
     }
 

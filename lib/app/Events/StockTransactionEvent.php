@@ -9,25 +9,38 @@ class StockTransactionEvent extends Event
 {
     protected $transaction_data;
     protected $transaction_qty_type;
+    protected $store_id;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($data, $type)
+    public function __construct($data, $type, $store_id)
     {
         $this->transaction_data = $data;
         $this->transaction_qty_type = $type;
+        $this->store_id = $store_id;
         $this->handle();
     }
 
     public function handle(){
-        $new_stock = Stock::create($this->transaction_data);
+        // $new_stock = Stock::create($this->transaction_data);
+        $new_stock = new Stock;
+        $new_stock->transaction_time = $this->transaction_data['transaction_date'];
+        $new_stock->transaction_detail = $this->transaction_data['transaction_detail'];
+        $new_stock->ref_number = $this->transaction_data['ref_number'];
+        $new_stock->user_id = 1;
+        $new_stock->store_id = $this->store_id;
+        if(array_key_exists('facility_id', $transaction_data)){
+            $new_stock->facility_id = $this->transaction_data['facility_id'];
+        }
+        $new_stock->transaction_type_id = $this->transaction_data['transaction_type_id'];
+
         if($new_stock){
             if(array_key_exists('drugs', $this->transaction_data)){
                 $new_stock_id['stock_id'] = $new_stock->id;
                 $stock_items = $this->transaction_data['drugs'];
-
+                
                 foreach($stock_items as $stock_item){
                     // add patient_id to drug
                     $si = array_merge($stock_item, $new_stock_id);
