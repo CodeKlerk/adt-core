@@ -35,6 +35,11 @@ class StockTransactionEvent extends Event
                     $new_item->batch_number = $si['batch_number'];
                     $new_item->drug_id = $si['drug_id'];
                     $new_item->unit_cost = $si['unit_cost'];
+                    if(array_key_exists('stock_id', $stock_item)){
+                        $new_item->stock = $si['stock_id'];
+                    }else{
+                        $new_item->stock = $si['stock'];
+                    }
                     // $new_item->pack_size = $si['pack_size'];
                     $new_item->expiry_date = $si['expiry_date'];
                     $new_item->quantity_packs = $si['quantity_packs'];

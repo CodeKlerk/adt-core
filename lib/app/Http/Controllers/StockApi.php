@@ -441,8 +441,12 @@ class StockApi extends Controller
         $response = RecordedStockItems::where('store_id', $store_id)->get();
         return response()->json($response,200);
     }
-    
-    public function recordedStockItemsByDrug($store_id, $drug_id){
+
+    public function recordedStockItemsDrug($store_id){
+        $response = RecordedStockItems::where('store_id', $store_id)->get();
+        return response()->json($response,200);
+    }
+    public function recordedStockItemsDrugById($store_id, $drug_id){
         // $response = RecordedStockItems::where('store_id', $store_id)->where('drug_id', $drug_id)->get();
         // $response = DB::table('v_stock_balance')->where('store_id', $store_id)->where('drug_id', $drug_id)->get()->keyBy('batch_number');
         $response = DB::table('v_stock_balance')->where('store_id', $store_id)->where('drug_id', $drug_id)->get()->groupBy('batch_number');
