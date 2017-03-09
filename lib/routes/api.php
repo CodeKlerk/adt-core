@@ -192,7 +192,7 @@ $api->version('v1', function ($api) {
         $api->get('/stock/store/{storeId}', 'App\Http\Controllers\StockApi@recordedStockItemsById');
 
         // temp 
-        $api->get('store/{storeId}/stock/drug', 'App\Http\Controllers\StockApi@recordedStockItemsDrug');
+        $api->get('store/{storeId}/stock/drug', 'App\Http\Controllers\StockApi@storeStockget');
         $api->get('store/{storeId}/stock/drug/{drugId}', 'App\Http\Controllers\StockApi@recordedStockItemsDrugById');
 
         $api->get('/stock', 'App\Http\Controllers\StockApi@stockget');
