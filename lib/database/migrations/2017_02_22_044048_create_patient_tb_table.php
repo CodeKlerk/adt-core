@@ -16,7 +16,7 @@ class CreatePatientTbTable extends Migration
         Schema::create('tbl_patient_tb', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('patient_id')->unsigned();
-            $table->enum('cateory', ['1','2']);
+            $table->enum('category', ['1','2']);
             $table->enum('phase', ['intensive','continuation','completed']);
             $table->date('start_date');
             $table->date('end_date');

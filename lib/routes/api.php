@@ -182,14 +182,6 @@ $api->version('v1', function ($api) {
         $api->get('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemByIdget');
         $api->put('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemput');
         $api->delete('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemdelete');
-        // regimen change 
-        // $api->get('/visits/{visitsId}/regimen_change', 'App\Http\Controllers\VisitApi@regimenChangeget');
-        // $api->post('/visits/{visitsId}/regimen_change', 'App\Http\Controllers\VisitApi@regimenChangepost');
-
-        // $api->get('/visits/{visitsId}/regimen_change/{regimenchangeId}', 'App\Http\Controllers\VisitApi@regimenChangeByIdget');
-        // $api->put('/visits/{visitsId}/regimen_change/{regimenchangeId}', 'App\Http\Controllers\VisitApi@regimenChangeput');
-        // $api->delete('/visits/{visitsId}/regimen_change/{regimenchangeId}', 'App\Http\Controllers\VisitApi@regimenChangedelete');
-
 
         /*
         *   Stock routes
@@ -199,11 +191,15 @@ $api->version('v1', function ($api) {
         $api->get('/stock/store/{storeId}', 'App\Http\Controllers\StockApi@recordedStockItemsById');
 
         // temp 
-        $api->get('stock/store/{storeId}/drug/{drugId}', 'App\Http\Controllers\StockApi@recordedStockItemsByDrug');
+        $api->get('store/{storeId}/stock/drug', 'App\Http\Controllers\StockApi@recordedStockItemsDrug');
+        $api->get('store/{storeId}/stock/drug/{drugId}', 'App\Http\Controllers\StockApi@recordedStockItemsDrugById');
 
         $api->get('/stock', 'App\Http\Controllers\StockApi@stockget');
         $api->post('/stock', 'App\Http\Controllers\StockApi@stockpost');
-
+        
+        $api->get('/store/{storeId}/stock', 'App\Http\Controllers\StockApi@storeStockget');
+        $api->post('/store/{storeId}/stock', 'App\Http\Controllers\StockApi@storeStockpost');
+        
         $api->get('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockByIdget');
         $api->put('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockput');
         $api->delete('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockdelete');

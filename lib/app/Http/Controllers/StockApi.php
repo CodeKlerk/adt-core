@@ -388,7 +388,7 @@ class StockApi extends Controller
 
 
     public function storeget(){
-        $response = Store::get()->groupBy('type');
+        $response = Store::get();
         return response()->json($response, 200);
     }
     public function storeByIdget($store_id){
@@ -430,6 +430,38 @@ class StockApi extends Controller
         }
     }
 
+    // store stock 
+
+    public function storeStockget($store_id){
+        $response = DB::table('tbl_store')
+                       ->join('tbl_stock', 'tbl_store.id', 'tbl_stock.store_id')
+                       ->join('tbl_stock_item', 'tbl_stock.id', 'tbl_stock_item.stock_id')
+                       ->join('tbl_drug', 'tbl_stock_item.drug_id', 'tbl_drug.id')
+                       ->where('tbl_store.id', $store_id)
+                       ->select('batch_number', 'expiry_date', 'balance_before', 'unit_cost', 'comment', 'store', 'drug_id', 'tbl_drug.name')
+                       ->get();
+        return response()->json($response,200);
+    }
+ 
+    public function storeStockpost($store_id)
+    {
+        $input = Request::all();
+        $transaction_qty_type = '';
+
+        if(array_key_exists('transaction_type_id', $input)){
+            $transaction_type_id = $input['transaction_type_id'];
+            $transaction_type = TransactionType::findOrFail($transaction_type_id);
+            if(!$transaction_type['effect'] == ''){
+                $transaction_qty_type =  'in';
+            }else{
+                $transaction_qty_type = 'out';
+            }
+        }
+        // return $input;
+        event(new StockTransactionEvent($input, $transaction_qty_type, $store_id));
+        return response()->json(['msg'=> 'Transaction complite', 'response'=> $input], 201);
+    }
+
 
     // get stock record
     public function recordedStockItems(){
@@ -441,8 +473,12 @@ class StockApi extends Controller
         $response = RecordedStockItems::where('store_id', $store_id)->get();
         return response()->json($response,200);
     }
-    
-    public function recordedStockItemsByDrug($store_id, $drug_id){
+
+    public function recordedStockItemsDrug($store_id){
+        $response = RecordedStockItems::where('store_id', $store_id)->get();
+        return response()->json($response,200);
+    }
+    public function recordedStockItemsDrugById($store_id, $drug_id){
         // $response = RecordedStockItems::where('store_id', $store_id)->where('drug_id', $drug_id)->get();
         // $response = DB::table('v_stock_balance')->where('store_id', $store_id)->where('drug_id', $drug_id)->get()->keyBy('batch_number');
         $response = DB::table('v_stock_balance')->where('store_id', $store_id)->where('drug_id', $drug_id)->get()->groupBy('batch_number');
