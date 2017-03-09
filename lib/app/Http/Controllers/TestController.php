@@ -38,20 +38,24 @@ class TestController extends Controller
     }
 
     public function get_test_with_id($id){
-        $stocks_by_store = DB::table('tbl_store')
-                              ->join('tbl_stock', 'tbl_store.id', 'tbl_stock.store_id')
-                              ->join('tbl_stock_item', 'tbl_stock.id', 'tbl_stock_item.stock_id')
-                              ->where('tbl_store.id', $id)
-                              ->select('batch_number', 'expiry_date', 'balance_before', 'unit_cost', 'comment', 'store')
-                              ->get();
+        // $stocks_by_store = DB::table('tbl_store')
+        //                       ->join('tbl_stock', 'tbl_store.id', 'tbl_stock.store_id')
+        //                       ->join('tbl_stock_item', 'tbl_stock.id', 'tbl_stock_item.stock_id')
+        //                       ->where('tbl_store.id', $id)
+        //                       ->select('batch_number', 'expiry_date', 'balance_before', 'unit_cost', 'comment', 'store')
+        //                       ->get();
         
-        return response()->json($stocks_by_store,200);
+        // return response()->json($stocks_by_store,200);
     }
 
-    public function get_test()
+    public function get_test($name = null, $limit = 0)
     {
-        $response = StockItem::get();
-        return response()->json($response,200);
+        if($name == null){
+            return "brian with Limit".$limit;
+        }else{
+            return $name.'with Limit: '.$limit;
+        }
+        
     }
     
 }

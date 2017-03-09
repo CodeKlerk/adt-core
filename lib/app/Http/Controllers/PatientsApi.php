@@ -108,6 +108,7 @@ class PatientsApi extends Controller
     public function updatePatient($patient_id)
     {
         $input = Request::all();
+        return $input;
         event(new UpdatePatientEvent($input, $patient_id));
     }
 
