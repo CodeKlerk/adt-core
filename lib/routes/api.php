@@ -182,7 +182,8 @@ $api->version('v1', function ($api) {
         $api->get('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemByIdget');
         $api->put('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemput');
         $api->delete('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemdelete');
-
+        // patient drugs
+        $api->get('/patients/{patientId}/visit/item', 'App\Http\Controllers\VisitApi@patientVisitItemsget');
         /*
         *   Stock routes
         */

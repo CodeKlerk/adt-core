@@ -482,4 +482,16 @@ class VisitApi extends Controller
         return $response;
     }
 
+    public function patientVisitItemsget($patient_id){
+	$response = DB::table('tbl_patient')
+                       ->join('tbl_visit', 'tbl_patient.id', 'tbl_visit.patient_id')
+                       ->join('tbl_visit_item', 'tbl_visit.id', 'tbl_visit_item.visit_id')
+                       ->join('tbl_stock_item', 'tbl_stock_item.id', 'tbl_visit_item.stock_item_id')
+                       ->join('tbl_drug', 'tbl_stock_item.drug_id', 'tbl_drug.id')
+                       ->where('tbl_patient.id', $patient_id)
+                       ->get();
+	return response()->json($response,200);
+    }
+
 }
+
