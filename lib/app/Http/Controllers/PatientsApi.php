@@ -1356,7 +1356,7 @@ class PatientsApi extends Controller
 
     // functions to return only return the first 
     public function return_first_visit($patient_id){
-        $first_visit = Visit::where('patient_id', $patient_id)->sortByDesc('created_at')->first();
+        $first_visit = Visit::where('patient_id', $patient_id)->first();
         return response()->json($first_visit, 200);
     }
 
