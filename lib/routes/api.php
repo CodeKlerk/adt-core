@@ -39,8 +39,8 @@ $api->version('v1', function ($api) {
                 'uses' => 'App\Http\Controllers\Auth\AuthController@deleteInvalidate',
                 'as' => 'api.auth.invalidate'
                 ]);
-            $api->get('test', 'App\Http\Controllers\TestController@get_test');
-            $api->get('test/{id}', 'App\Http\Controllers\TestController@get_test_with_id');
+            $api->get('test/{name?}/{limit?}', 'App\Http\Controllers\TestController@get_test');
+            // $api->get('test/{id}', 'App\Http\Controllers\TestController@get_test_with_id');
         // 
         /*
         *   User routes
@@ -182,7 +182,8 @@ $api->version('v1', function ($api) {
         $api->get('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemByIdget');
         $api->put('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemput');
         $api->delete('/visits/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemdelete');
-
+        // patient drugs
+        $api->get('/patients/{patientId}/visit/item', 'App\Http\Controllers\VisitApi@patientVisitItemsget');
         /*
         *   Stock routes
         */
@@ -190,16 +191,15 @@ $api->version('v1', function ($api) {
         $api->get('/stock/store', 'App\Http\Controllers\StockApi@recordedStockItems');
         $api->get('/stock/store/{storeId}', 'App\Http\Controllers\StockApi@recordedStockItemsById');
 
-        // temp 
-        $api->get('store/{storeId}/stock/drug', 'App\Http\Controllers\StockApi@recordedStockItemsDrug');
+        // temp  
+        $api->get('store/{storeId}/stock/drug', 'App\Http\Controllers\StockApi@storeStockget');
         $api->get('store/{storeId}/stock/drug/{drugId}', 'App\Http\Controllers\StockApi@recordedStockItemsDrugById');
 
         $api->get('/stock', 'App\Http\Controllers\StockApi@stockget');
-        $api->post('/stock', 'App\Http\Controllers\StockApi@stockpost');
+        // $api->post('/stock', 'App\Http\Controllers\StockApi@stockpost');
         
-        $api->get('/store/{storeId}/stock', 'App\Http\Controllers\StockApi@storeStockget');
-        $api->post('/store/{storeId}/stock', 'App\Http\Controllers\StockApi@storeStockpost');
-        
+        $api->post('/store/{storeId}/stock', 'App\Http\Controllers\StockApi@stockpost');
+
         $api->get('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockByIdget');
         $api->put('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockput');
         $api->delete('/stock/{stockId}', 'App\Http\Controllers\StockApi@stockdelete');
@@ -211,6 +211,9 @@ $api->version('v1', function ($api) {
         $api->get('/stock/{stockId}/items/{itemId}', 'App\Http\Controllers\StockApi@stockItemByIdget');
         $api->put('/stock/{stockId}/items/{itemId}', 'App\Http\Controllers\StockApi@stockItemput');
         $api->delete('/stock/{stockId}/items/{itemId}', 'App\Http\Controllers\StockApi@stockItemdelete');
+
+        // get all stock items
+        $api->get('/stockItems', 'App\Http\Controllers\StockApi@stockItemAllget');
 
         // drug stock balance
         $api->get('/stock/{stockId}/balance', 'App\Http\Controllers\StockApi@stockItemBalanceget');

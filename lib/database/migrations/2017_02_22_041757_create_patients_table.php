@@ -30,6 +30,7 @@ class CreatePatientsTable extends Migration
             $table->date('enrollment_date');
             $table->text('support_group');
             $table->enum('status', ['no partner','concordant','discordunt']);
+            $table->tinyInteger('disclosure');
             $table->tinyInteger('is_pregnant');
             $table->tinyInteger('is_tb');
             $table->tinyInteger('is_tb_tested');
