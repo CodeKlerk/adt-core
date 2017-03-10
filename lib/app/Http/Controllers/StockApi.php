@@ -437,8 +437,11 @@ class StockApi extends Controller
                        ->join('tbl_stock', 'tbl_store.id', 'tbl_stock.store_id')
                        ->join('tbl_stock_item', 'tbl_stock.id', 'tbl_stock_item.stock_id')
                        ->join('tbl_drug', 'tbl_stock_item.drug_id', 'tbl_drug.id')
-                       ->where('tbl_store.id', $store_id)
-                       ->select('batch_number', 'expiry_date', 'balance_before', 'unit_cost', 'comment', 'store', 'drug_id as id', 'tbl_drug.name')
+                       ->join('tbl_unit', 'tbl_drug.unit_id', 'tbl_unit.id')
+                       ->join('tbl_dose', 'tbl_drug.dose_id', 'tbl_dose.id')
+                       ->join('tbl_generic', 'tbl_drug.generic_id', 'tbl_generic.id')
+                       ->where('tbl_store.id', $store_id)   
+                       ->select('tbl_unit.name as unit', 'pack_size', 'tbl_generic.name as generic', 'tbl_dose.name as dose', 'batch_number', 'expiry_date', 'balance_before', 'balance_after', 'unit_cost', 'comment', 'store', 'drug_id as id', 'tbl_drug.name as drug')
                        ->get();
         return response()->json($response,200);
     }
