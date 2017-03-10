@@ -488,6 +488,11 @@ class StockApi extends Controller
         return response()->json($response,200);
     }
 
+    public function stockItemAllget(){
+        $response = StockItem::get();
+
+        return response()->json($response,200);
+    }
 
     // stock transacions
     public function stockTransactionpost(){

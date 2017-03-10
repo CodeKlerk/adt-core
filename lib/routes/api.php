@@ -212,6 +212,9 @@ $api->version('v1', function ($api) {
         $api->put('/stock/{stockId}/items/{itemId}', 'App\Http\Controllers\StockApi@stockItemput');
         $api->delete('/stock/{stockId}/items/{itemId}', 'App\Http\Controllers\StockApi@stockItemdelete');
 
+        // get all stock items
+        $api->get('/stockItems', 'App\Http\Controllers\StockApi@stockItemAllget');
+
         // drug stock balance
         $api->get('/stock/{stockId}/balance', 'App\Http\Controllers\StockApi@stockItemBalanceget');
         $api->post('/stock/{stockId}/balance', 'App\Http\Controllers\StockApi@stockItempost');
