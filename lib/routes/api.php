@@ -149,6 +149,8 @@ $api->version('v1', function ($api) {
             $api->get('/{visitsId}/patients/{patientId}', 'App\Http\Controllers\VisitApi@patientVisitsByIdget');
             $api->put('/{visitsId}/patients/{patientId}', 'App\Http\Controllers\VisitApi@patientVisitsput');
             $api->delete('/{visitsId}/patients/{patientId}', 'App\Http\Controllers\VisitApi@patientVisitsdelete');
+            // visits items for patients
+            $api->get('/patients/{patientId}/items', 'App\Http\Controllers\VisitApi@patientVisitItemsget');
             // visit items by visit id
             $api->get('/{visitsId}/items', 'App\Http\Controllers\VisitApi@visitsItemget');
             $api->post('/{visitsId}/items', 'App\Http\Controllers\VisitApi@visitsItempost');
@@ -156,7 +158,7 @@ $api->version('v1', function ($api) {
             $api->get('/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemByIdget');
             $api->put('/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemput');
             $api->delete('/{visitsId}/items/{itemId}', 'App\Http\Controllers\VisitApi@visitsItemdelete');
-
+           
             // get first patient visit
             $api->get('/patients/{patientId}/first', 'App\Http\Controllers\PatientsApi@return_first_visit');
             //  get current patient visit

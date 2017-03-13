@@ -12,7 +12,7 @@ class Visit extends Model
                             'last_regimen_id', 'current_regimen_id', 'change_reason_id', 'non_adherence_reason_id', 
                             'appointment_id'
                             ];
-    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'facility', 'purpose_id', 'purpose'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'facility', 'purpose'];
 
     protected $appends = array('facility_name', 'purpose_name');
 

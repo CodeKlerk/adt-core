@@ -483,15 +483,15 @@ class VisitApi extends Controller
     }
 
     public function patientVisitItemsget($patient_id){
-	$response = DB::table('tbl_stock_item')
-		       ->join('tbl_visit_item', 'tbl_stock_item.id', 'tbl_visit_item.stock_item_id')
-		       ->join('tbl_visit', 'tbl_visit.id', 'tbl_visit_item.visit_id')
-               ->join('tbl_drug', 'tbl_stock_item.drug_id', 'tbl_drug.id')
-               ->join('tbl_unit', 'tbl_drug.unit_id', 'tbl_unit.id')
-               ->where('tbl_visit.patient_id', $patient_id)
-               ->select('drug_id', 'batch_number', 'tbl_unit.name as unit','tbl_visit_item.dose_id', 'expected_pill_count', 'tbl_visit_item.duration', 'quantity_out', 'indication_id', 'expiry_date', 'balance_before')
-		       ->get();
-	return response()->json($response,200);
+        $response = DB::table('tbl_stock_item')
+                ->join('tbl_visit_item', 'tbl_stock_item.id', 'tbl_visit_item.stock_item_id')
+                ->join('tbl_visit', 'tbl_visit.id', 'tbl_visit_item.visit_id')
+                ->join('tbl_drug', 'tbl_stock_item.drug_id', 'tbl_drug.id')
+                ->join('tbl_unit', 'tbl_drug.unit_id', 'tbl_unit.id')
+                ->where('tbl_visit.patient_id', $patient_id)
+                ->select('drug_id', 'batch_number', 'tbl_unit.name as unit','tbl_visit_item.dose_id', 'expected_pill_count', 'tbl_visit_item.duration', 'quantity_out', 'indication_id', 'expiry_date', 'balance_before')
+                ->get();
+        return response()->json($response,200);
     }
 
 }

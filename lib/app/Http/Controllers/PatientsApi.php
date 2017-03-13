@@ -1350,7 +1350,7 @@ class PatientsApi extends Controller
     }
 
     public function return_latest_visit($patient_id){
-        $visit = Visit::where('patient_id', $patient_id)->latest()->take(1)->get();
+        $visit = Visit::with('purpose')->where('patient_id', $patient_id)->latest()->take(1)->get();
         return response()->json($visit,200);
     }
 
