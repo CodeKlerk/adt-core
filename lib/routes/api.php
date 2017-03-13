@@ -476,7 +476,7 @@ $api->version('v1', function ($api) {
             $api->get('/{storeId}/stocks', 'App\Http\Controllers\StockApi@storeStockget');
             $api->post('/{storeId}/stocks', 'App\Http\Controllers\StockApi@storeStockpost');
 
-            $api->get('/{storeId}/stocks/drugs', 'App\Http\Controllers\StockApi@recordedStockItemsDrug');
+            $api->get('/{storeId}/stocks/drugs', 'App\Http\Controllers\StockApi@storeStockget');
             $api->get('/{storeId}/stocks/drugs/{drugId}', 'App\Http\Controllers\StockApi@recordedStockItemsDrugById');
         });
 
