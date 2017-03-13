@@ -145,12 +145,12 @@ $api->version('v1', function ($api) {
         $api->group(['prefix' => 'visits'], function($api){
             $api->get('/patients/{patientId}', 'App\Http\Controllers\VisitApi@patientVisitsget');
             $api->post('/patients/{patientId}', 'App\Http\Controllers\VisitApi@patientVisitspost');
-
             $api->get('/{visitsId}/patients/{patientId}', 'App\Http\Controllers\VisitApi@patientVisitsByIdget');
             $api->put('/{visitsId}/patients/{patientId}', 'App\Http\Controllers\VisitApi@patientVisitsput');
             $api->delete('/{visitsId}/patients/{patientId}', 'App\Http\Controllers\VisitApi@patientVisitsdelete');
             // visits items for patients
             $api->get('/patients/{patientId}/items', 'App\Http\Controllers\VisitApi@patientVisitItemsget');
+            // $api->get('patients/{patientId}/items')
             // visit items by visit id
             $api->get('/{visitsId}/items', 'App\Http\Controllers\VisitApi@visitsItemget');
             $api->post('/{visitsId}/items', 'App\Http\Controllers\VisitApi@visitsItempost');
@@ -192,8 +192,8 @@ $api->version('v1', function ($api) {
             $api->delete('/{stockId}/balances/{balanceId}', 'App\Http\Controllers\StockApi@stockItemBalancedelete');
 
             // stock store
-            $api->get('/stock/store', 'App\Http\Controllers\StockApi@recordedStockItems');
-            $api->get('/stock/store/{storeId}', 'App\Http\Controllers\StockApi@recordedStockItemsById');
+            // $api->get('/store', 'App\Http\Controllers\StockApi@recordedStockItems');
+            // $api->get('/store/{storeId}', 'App\Http\Controllers\StockApi@recordedStockItemsById');
 
             // bincard
             $api->get('/{drugid}/bin_cards', 'App\Http\Controllers\StockApi@stockBincardget');
@@ -477,7 +477,7 @@ $api->version('v1', function ($api) {
             $api->post('/{storeId}/stocks', 'App\Http\Controllers\StockApi@storeStockpost');
 
             $api->get('/{storeId}/stocks/drugs', 'App\Http\Controllers\StockApi@storeStockget');
-            $api->get('/{storeId}/stocks/drugs/{drugId}', 'App\Http\Controllers\StockApi@recordedStockItemsDrugById');
+            $api->get('/{storeId}/stocks/drugs/{drugId}', 'App\Http\Controllers\StockApi@storeStockDrugByIdget');
         });
 
     });

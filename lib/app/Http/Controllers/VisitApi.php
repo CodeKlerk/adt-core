@@ -489,7 +489,12 @@ class VisitApi extends Controller
                 ->join('tbl_drug', 'tbl_stock_item.drug_id', 'tbl_drug.id')
                 ->join('tbl_unit', 'tbl_drug.unit_id', 'tbl_unit.id')
                 ->where('tbl_visit.patient_id', $patient_id)
-                ->select('drug_id', 'batch_number', 'tbl_unit.name as unit','tbl_visit_item.dose_id', 'expected_pill_count', 'tbl_visit_item.duration', 'quantity_out', 'indication_id', 'expiry_date', 'balance_before')
+                ->select( 'drug_id', 'batch_number', 'tbl_unit.name as unit','tbl_visit_item.dose_id', 
+                          'expected_pill_count','actual_pill_count', 'tbl_visit_item.duration', 'quantity_out', 'indication_id', 
+                          'expiry_date', 'balance_before', 'tbl_visit_item.comment', 'tbl_visit_item.duration',
+                          'tbl_visit_item.missed_pill_count', 'tbl_visit_item.indication_id', 'tbl_stock_item.quantity_out',
+                          'tbl_stock_item.balance_before'
+                        )
                 ->get();
         return response()->json($response,200);
     }
