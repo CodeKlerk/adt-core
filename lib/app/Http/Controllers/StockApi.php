@@ -458,11 +458,14 @@ class StockApi extends Controller
         return response()->json(['msg'=> 'Transaction complite', 'response'=> $input], 201);
     }
 
-    public function storeStockDrugByIdget($date = null,$store_id, $drug_id){
+    public function storeStockDrugByIdget($store_id, $drug_id, $date){
         if($date == 'now'){
             $current_date = date('Y-m-d');
-        }else{
+        }else if($date == 'all'){
             $current_date = '0000:00:00';
+        }
+        else{
+            return response()->json(['msg' => 'please enter a valid route']);
         }
         $response = DB::table('tbl_store')
                        ->join('tbl_stock', 'tbl_store.id', 'tbl_stock.store_id')
