@@ -478,7 +478,7 @@ class StockApi extends Controller
                        ->select( 'tbl_unit.name as unit', 'pack_size', 'tbl_generic.name as generic', 
                                  'tbl_dose.name as dose', 'batch_number', 'expiry_date', 'balance_before', 
                                  'balance_after', 'unit_cost', 'comment', 'store', 'drug_id as id', 
-                                 'tbl_drug.name', 'tbl_stock.ref_number', 'tbl_stock.transaction_time',
+                                 'tbl_drug.name', 'tbl_stock.ref_number', 'tbl_stock.transaction_time as transaction_date',
                                  'tbl_stock.transaction_detail', 'tbl_stock.transaction_type_id', 'tbl_transaction_type.name as transaction_name',
                                  'tbl_stock_item.expiry_date', 'tbl_stock_item.quantity_packs', 'tbl_stock_item.total_cost'
                                )
