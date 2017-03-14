@@ -22,8 +22,8 @@ $api->version('v1', function ($api) {
         $api->get('/auth/user', [ 'uses' => 'App\Http\Controllers\Auth\AuthController@getUser', 'as' => 'api.auth.user' ]);
         $api->patch('/auth/refresh', [ 'uses' => 'App\Http\Controllers\Auth\AuthController@patchRefresh', 'as' => 'api.auth.refresh' ]);
         $api->delete('/auth/invalidate', [ 'uses' => 'App\Http\Controllers\Auth\AuthController@deleteInvalidate', 'as' => 'api.auth.invalidate' ]);
-        $api->get('test', 'App\Http\Controllers\TestController@get_test');
-        $api->get('test/{id}', 'App\Http\Controllers\TestController@get_test_with_id');
+        $api->get('test/{storeId}/{drugId}/{date?}', 'App\Http\Controllers\TestController@get_test');
+        // $api->get('test/{id}', 'App\Http\Controllers\TestController@get_test_with_id');
 
         
         $api->group(['prefix' => 'users'], function($api){
@@ -477,7 +477,8 @@ $api->version('v1', function ($api) {
             $api->post('/{storeId}/stocks', 'App\Http\Controllers\StockApi@storeStockpost');
 
             $api->get('/{storeId}/stocks/drugs', 'App\Http\Controllers\StockApi@storeStockget');
-            $api->get('/{storeId}/stocks/drugs/{drugId}', 'App\Http\Controllers\StockApi@storeStockDrugByIdget');
+            $api->get('/{storeId}/stocks/drugs/{drugId}/information', 'App\Http\Controllers\StockApi@storeStockDrugInformationget');
+            $api->get('/{storeId}/stocks/drugs/{drugId}/{filter}', 'App\Http\Controllers\StockApi@storeStockDrugByIdget');
         });
 
     });
