@@ -471,6 +471,7 @@ class StockApi extends Controller
                        ->join('tbl_unit', 'tbl_drug.unit_id', 'tbl_unit.id')
                        ->join('tbl_dose', 'tbl_drug.dose_id', 'tbl_dose.id')
                        ->join('tbl_generic', 'tbl_drug.generic_id', 'tbl_generic.id')
+                       ->join('tbl_transaction_type', 'tbl_stock.transaction_type_id', 'tbl_transaction_type.id')
                        ->where('tbl_store.id', $store_id)
                        ->where('tbl_stock_item.drug_id', $drug_id) 
                        ->where('tbl_stock_item.expiry_date', '>', $current_date)  
@@ -478,7 +479,7 @@ class StockApi extends Controller
                                  'tbl_dose.name as dose', 'batch_number', 'expiry_date', 'balance_before', 
                                  'balance_after', 'unit_cost', 'comment', 'store', 'drug_id as id', 
                                  'tbl_drug.name', 'tbl_stock.ref_number', 'tbl_stock.transaction_time',
-                                 'tbl_stock.transaction_detail', 'tbl_stock.transaction_type_id',
+                                 'tbl_stock.transaction_detail', 'tbl_stock.transaction_type_id', 'tbl_transaction_type.name as transaction_name',
                                  'tbl_stock_item.expiry_date', 'tbl_stock_item.quantity_packs', 'tbl_stock_item.total_cost'
                                )
                        ->get();

@@ -204,6 +204,7 @@ $api->version('v1', function ($api) {
             // patient dispense
             $api->get('/patients/{patientId}', 'App\Http\Controllers\VisitApi@dispenseget');
             $api->post('/patients/{patientId}', 'App\Http\Controllers\VisitApi@dispensepost');
+            $api->put('/patients/{patientId}', 'App\Http\Controllers\VisitApi@dispenseput');
             // available drugs
             $api->get('/drug/{drugId}', 'App\Http\Controllers\VisitApi@dispenseGetDrug');
         });
