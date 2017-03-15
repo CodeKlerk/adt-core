@@ -453,6 +453,7 @@ class VisitApi extends Controller
     public function dispenseput($patient_id, $dispense_id)
     {
         $input = Request::all();
+        return $input;
     }
 
     /**
