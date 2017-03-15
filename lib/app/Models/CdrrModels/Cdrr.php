@@ -14,7 +14,7 @@ class Cdrr extends Model
                             'comments', 'reports_expected', 'reports_actual', 
                             'services', 'is_non_arv', 'facility_id', 'supporter_id' ];
     protected $dates = ['deleted_at'];
-    protected $hidden = [ 'created_at', 'updated_at', 'deleted_at', 'facility_id', 'supporter_id', 'supporter', 'facility'];
+    protected $hidden = [ 'created_at', 'updated_at', 'deleted_at', 'facility_id', 'supporter_id', 'supporter'];
     protected $appends = array('facility_name', 'supporter_name');
 
     public function facility(){
