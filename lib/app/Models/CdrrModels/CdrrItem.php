@@ -16,4 +16,23 @@ class CdrrItem extends Model
                             'drug_id', 'cdrr_id', 'created_at', 'updated_at', 'deleted_at'
                            ];
     protected $dates = ['deleted_at'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'cdrr_id', 'drug'];
+    protected $appends = array('drug_name', 'drug_unit');
+
+    public function drug(){
+        return $this->belongsTo('App\Models\DrugModels\Drug', 'drug_id');
+    }
+
+
+    public function getDrugNameAttribute(){
+        $drug_name = null;
+        if($this->drug){ $drug_name = $this->drug->name; }
+        return $drug_name;
+    }
+
+    public function getDrugUnitAttribute(){
+        $drug_unit = null;
+        if($this->drug){ $drug_unit = $this->drug->unit->name; }
+        return $drug_unit;
+    }
 }

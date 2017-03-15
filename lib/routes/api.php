@@ -419,19 +419,19 @@ $api->version('v1', function ($api) {
         });
         $api->group(['prefix'=> 'cdrr'], function($api){
             // cdrr logs
-            $api->get('/{cdrrId}/log', 'App\Http\Controllers\cdrrApi@cdrrItemget');
-            $api->post('/{cdrrId}/log', 'App\Http\Controllers\cdrrApi@cdrrItempost');
+            $api->get('/{cdrrId}/log', 'App\Http\Controllers\CdrrApi@cdrrItemget');
+            $api->post('/{cdrrId}/log', 'App\Http\Controllers\CdrrApi@cdrrItempost');
 
-            $api->get('/{cdrrId}/log/{logId}', 'App\Http\Controllers\cdrrApi@cdrrItemByIdget');
-            $api->put('/{cdrrId}/log/{logId}', 'App\Http\Controllers\cdrrApi@cdrrItemput');
-            $api->delete('/{cdrrId}/log/{logId}', 'App\Http\Controllers\cdrrApi@cdrrItemdelete');
+            $api->get('/{cdrrId}/log/{logId}', 'App\Http\Controllers\CdrrApi@cdrrItemByIdget');
+            $api->put('/{cdrrId}/log/{logId}', 'App\Http\Controllers\CdrrApi@cdrrItemput');
+            $api->delete('/{cdrrId}/log/{logId}', 'App\Http\Controllers\CdrrApi@cdrrItemdelete');
             // cdrr item
-            $api->get('/{cdrrId}/item', 'App\Http\Controllers\cdrrApi@cdrrItemget');
-            $api->post('/{cdrrId}/item', 'App\Http\Controllers\cdrrApi@cdrrItempost');
+            $api->get('/{cdrrId}/item', 'App\Http\Controllers\CdrrApi@cdrrItemget');
+            $api->post('/{cdrrId}/item', 'App\Http\Controllers\CdrrApi@cdrrItempost');
 
-            $api->get('/{cdrrId}/item/{itemId}', 'App\Http\Controllers\cdrrApi@cdrrItemByIdget');
-            $api->put('/{cdrrId}/item/{itemId}', 'App\Http\Controllers\cdrrApi@cdrrItemput');
-            $api->delete('/{cdrrId}/item/{itemId}', 'App\Http\Controllers\cdrrApi@cdrrItemdelete');
+            $api->get('/{cdrrId}/item/{itemId}', 'App\Http\Controllers\CdrrApi@cdrrItemByIdget');
+            $api->put('/{cdrrId}/item/{itemId}', 'App\Http\Controllers\CdrrApi@cdrrItemput');
+            $api->delete('/{cdrrId}/item/{itemId}', 'App\Http\Controllers\CdrrApi@cdrrItemdelete');
             // cdrr
             $api->get('/', 'App\Http\Controllers\CdrrApi@cdrrget');
             $api->post('/', 'App\Http\Controllers\CdrrApi@cdrrpost');
