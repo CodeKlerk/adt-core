@@ -425,7 +425,7 @@ class VisitApi extends Controller
     public function dispensepost($patient_id)
     {
         $input = Request::all();
-        // return $input;
+        // return $input['dispense_point'];
         $patient['patient_id'] = $patient_id;
         $ref_number['ref_number'] = date('Y-m-d');
         $transaction_qty_type = 'out';
