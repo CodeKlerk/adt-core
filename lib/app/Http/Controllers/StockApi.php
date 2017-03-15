@@ -83,6 +83,7 @@ class StockApi extends Controller
         if(array_key_exists('transaction_type_id', $input)){
             $transaction_type_id = $input['transaction_type_id'];
             $transaction_type = TransactionType::findOrFail($transaction_type_id);
+            $kind_of_transaction = 'plain';
             if(!$transaction_type['effect'] == ''){
                 $transaction_qty_type =  'in';
             }else{
@@ -90,7 +91,7 @@ class StockApi extends Controller
             }
         } 
         // return $input;
-        event(new StockTransactionEvent($input, $transaction_qty_type, $store_id));
+        event(new StockTransactionEvent($input, $transaction_qty_type, $store_id, $kind_of_transaction));
         return response()->json(['msg'=> 'Transaction complite', 'response'=> $input], 201);
     }
 
@@ -449,6 +450,7 @@ class StockApi extends Controller
         $input = Request::all();
         
         $transaction_qty_type = '';
+        $kind_of_transaction = 'plain';
 
         if(array_key_exists('transaction_type_id', $input)){
             $transaction_type_id = $input['transaction_type_id'];
@@ -460,7 +462,7 @@ class StockApi extends Controller
             }
         }
         // return $input;
-        event(new StockTransactionEvent($input, $transaction_qty_type, $store_id));
+        event(new StockTransactionEvent($input, $transaction_qty_type, $store_id, $kind_of_transaction));
         return response()->json(['msg'=> 'Transaction complite', 'response'=> $input], 201);
     }
 

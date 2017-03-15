@@ -15,6 +15,8 @@ use App\Models\VisitModels\VisitItem;
 use App\Models\DrugModels\Drug;
 use App\Models\InventoryModels\StockItem;
 
+use App\Events\StockTransactionEvent;
+
 class VisitApi extends Controller
 {
     public function __construct(){}
@@ -423,10 +425,19 @@ class VisitApi extends Controller
     public function dispensepost($patient_id)
     {
         $input = Request::all();
-        return $input;
+        // return $input;
         $patient['patient_id'] = $patient_id;
-        $visit_information = array_merge($input, $patient);
-        event(new DispensePatientEvent($visit_information));
+        $ref_number['ref_number'] = date('Y-m-d');
+        $transaction_qty_type = 'out';
+        $transaction_date['transaction_date'] = date('Y-m-d');
+        $transaction_type_id['transaction_type_id'] = '5';
+        $store['store'] = 'current';
+        $visit_information = array_merge($input, $patient, $transaction_date, $transaction_type_id, $ref_number, $store);
+        $store_id = '1';
+        
+        $kind_of_transaction = 'dispense';
+        return $visit_information;
+        event(new StockTransactionEvent($visit_information, $transaction_qty_type, $store_id, $kind_of_transaction));
     }
 
     /**

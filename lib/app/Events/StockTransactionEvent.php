@@ -5,6 +5,8 @@ namespace App\Events;
 use App\Models\InventoryModels\Stock;
 use App\Models\InventoryModels\StockItem;
 
+use App\Events\DispensePatientEvent;
+
 class StockTransactionEvent extends Event
 {
     protected $transaction_data;
@@ -15,16 +17,15 @@ class StockTransactionEvent extends Event
      *
      * @return void
      */
-    public function __construct($data, $type, $store_id)
+    public function __construct($data, $type, $store_id, $kind_of_transaction)
     {
         $this->transaction_data = $data;
         $this->transaction_qty_type = $type;
         $this->store_id = $store_id;
-        $this->handle();
+        $this->handle($kind_of_transaction);
     }
 
-    public function handle(){
-        // $new_stock = Stock::create($this->transaction_data);
+    public function handle($kind_of_transaction){
         $new_stock = new Stock;
         $new_stock->transaction_time = $this->transaction_data['transaction_date'];
         $new_stock->ref_number = $this->transaction_data['ref_number'];
@@ -73,6 +74,10 @@ class StockTransactionEvent extends Event
                     $new_item->save();
                 }
             }
+        }
+
+        if($kind_of_transaction == 'dispense'){
+            event(new DispensePatientEvent($this->transaction_data));
         }
     }
 }
