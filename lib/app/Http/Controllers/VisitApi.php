@@ -423,8 +423,9 @@ class VisitApi extends Controller
     public function dispensepost($patient_id)
     {
         $input = Request::all();
+        return $input;
         $patient['patient_id'] = $patient_id;
-    $visit_information = array_merge($input, $patient);
+        $visit_information = array_merge($input, $patient);
         event(new DispensePatientEvent($visit_information));
     }
 
