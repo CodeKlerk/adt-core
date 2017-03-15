@@ -426,17 +426,17 @@ class StockApi extends Controller
     // store stock 
 
     public function storeStockget($store_id){
-        $response = DB::table('tbl_stock_item')
-                          ->join('tbl_stock', 'tbl_stock_item.stock_id', 'tbl_stock.id')
-                          ->join('tbl_store', 'tbl_stock.store_id', 'tbl_store.id')
-                          ->join('tbl_drug', 'tbl_stock_item.drug_id', 'tbl_drug.id')
-                          ->where('tbl_store.id', $store_id)
-                          ->join('tbl_unit', 'tbl_drug.unit_id', 'tbl_unit.id')
-                          ->join('tbl_dose', 'tbl_drug.dose_id', 'tbl_dose.id')
-                          ->join('tbl_generic', 'tbl_drug.generic_id', 'tbl_generic.id')
-                          ->select('tbl_unit.name as unit', 'pack_size', 'tbl_generic.name as generic', 'tbl_dose.name as dose', 'batch_number', 'expiry_date', 'balance_before', 'balance_after', 'unit_cost', 'comment', 'store', 'drug_id as id', 'tbl_drug.name')
-                          ->get()->groupBy('name');
-        
+        $response = DB::table('tbl_store')
+                       ->join('tbl_stock', 'tbl_store.id', 'tbl_stock.store_id')
+                       ->join('tbl_stock_item', 'tbl_stock.id', 'tbl_stock_item.stock_id')
+                       ->join('tbl_drug', 'tbl_stock_item.drug_id', 'tbl_drug.id')
+                       ->join('tbl_unit', 'tbl_drug.unit_id', 'tbl_unit.id')
+                       ->join('tbl_dose', 'tbl_drug.dose_id', 'tbl_dose.id')
+                       ->join('tbl_generic', 'tbl_drug.generic_id', 'tbl_generic.id')
+                       ->where('tbl_store.id', $store_id)   
+                       ->select('tbl_unit.name as unit', 'pack_size', 'tbl_generic.name as generic', 'tbl_dose.name as dose', 'batch_number', 'expiry_date', 'balance_before', 'balance_after', 'unit_cost', 'comment', 'store', 'drug_id as id', 'tbl_drug.name')
+                       ->get()->unique('name')->values();
+
         return response()->json($response,200);
     }
  

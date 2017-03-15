@@ -206,7 +206,7 @@ $api->version('v1', function ($api) {
             $api->post('/patients/{patientId}', 'App\Http\Controllers\VisitApi@dispensepost');
             $api->put('/patients/{patientId}', 'App\Http\Controllers\VisitApi@dispenseput');
             // available drugs
-            $api->get('/drug/{drugId}', 'App\Http\Controllers\VisitApi@dispenseGetDrug');
+            $api->get('/drugs/{drugId}', 'App\Http\Controllers\VisitApi@dispenseGetDrug');
         });
         $api->group(['prefix' => 'drugs'], function($api){
             $api->get('/', 'App\Http\Controllers\DrugsApi@drugsget');
