@@ -447,6 +447,7 @@ class StockApi extends Controller
     public function storeStockpost($store_id)
     {
         $input = Request::all();
+        
         $transaction_qty_type = '';
 
         if(array_key_exists('transaction_type_id', $input)){
@@ -542,7 +543,7 @@ class StockApi extends Controller
     // stock transacions
     public function stockTransactionpost(){
         $input = Request::all();
-        return $input;
+        return response()->json($input);
 
         event(new StockTransactionEvent($input));
         return response()->json(['msg'=> 'Transaction complite', 'response'=> $input], 201);

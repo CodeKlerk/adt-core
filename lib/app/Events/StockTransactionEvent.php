@@ -59,7 +59,12 @@ class StockTransactionEvent extends Event
                     // $new_item->pack_size = $si['pack_size'];
                     $new_item->expiry_date = $si['expiry_date'];
                     $new_item->quantity_packs = $si['quantity_packs'];
-                    $new_item->balance_before = $si['balance_before'];
+                    if($si['balance_before'] > 0){
+                        $balance_before = $si['balance_before'];
+                    }else{
+                        $balance_before = 0;
+                    }
+                    $new_item->balance_before = $balance_before;
                     if($this->transaction_qty_type == 'in'){
                         $new_item->quantity_in = $si['quantity'];
                     }else{
