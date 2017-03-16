@@ -21,7 +21,7 @@ class Visit extends Model
     }
     
     public function current_regimen(){
-        return $this->belongsTo('App\Models\RegimenModels\Regimen', 'current_regimen_id');
+        return $this->belongsTo('App\Models\RegimenModels\Regimen', 'current_regimen_id');
     }
     public function appointment(){
         return $this->belongsTo('App\Models\VisitModels\Appointment', 'appointment_id');
