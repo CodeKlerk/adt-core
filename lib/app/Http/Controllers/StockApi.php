@@ -42,7 +42,7 @@ class StockApi extends Controller
         $response = Stock::get();
         if(!$response){  
             return response()->json(['msg' => 'could not find stock'], 204);
-        }else{
+        }else{  
             return response()->json($response, 200);
         }
     }

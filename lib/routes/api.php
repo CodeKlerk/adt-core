@@ -233,6 +233,7 @@ $api->version('v1', function ($api) {
             $api->get('/{regimenId}/drugs/{drugId}', 'App\Http\Controllers\DrugsApi@regimenDrugByIdget');
             $api->put('/{regimenId}/drugs/{drugId}', 'App\Http\Controllers\DrugsApi@regimenDrugput');
             $api->delete('/{regimenId}/drugs/{drugId}', 'App\Http\Controllers\DrugsApi@regimenDrugdelete');
+
         });
         $api->group(['prefix' => 'facilities'], function($api){
             $api->get('/', 'App\Http\Controllers\FacilityApi@facilityget');

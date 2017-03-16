@@ -14,7 +14,7 @@ class Visit extends Model
                             ];
     protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'facility', 'purpose'];
 
-    protected $appends = array('facility_name', 'purpose_name');
+    protected $appends = array('facility_name', 'purpose_name', 'current_regimen_name');
 
     public function visit_item(){
         return $this->hasMany('App\Models\VisitModels\VisitItem');
@@ -50,5 +50,11 @@ class Visit extends Model
         $purpose_name = null;
         if($this->purpose){ $purpose_name = $this->purpose->name; }
         return $purpose_name;
+    }
+
+    public function getCurrentRegimenNameAttribute(){
+        $current_regimen_name = null;
+        if($this->current_regimen){ $current_regimen_name = $this->current_regimen->name; }
+        return $current_regimen_name;
     }
 }
