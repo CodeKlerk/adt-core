@@ -29,8 +29,8 @@ class CreatePatientEvent extends Event
         if($created_patient){
             $new_patient_id['patient_id'] = $created_patient->id;
             $merged_request_and_new_id = array_merge($this->patient, $new_patient_id);
-            $this->multi_model_insert(['PatientAllergies','PatientDrugAllergyOther', 'PatientDrugOther', 'PatientStatus', 'PatientTb'], $merged_request_and_new_id);
-            
+            $this->multi_model_insert(['PatientDrugAllergyOther', 'PatientDrugOther', 'PatientStatus', 'PatientTb'], $merged_request_and_new_id);
+            // add 'PatientAllergies',
             //check if illnesses exists in the array
             if(array_key_exists('illnesses', $this->patient)){
                 // Looping through illness
