@@ -13,7 +13,7 @@ class Maps extends Model
     protected $fillable = ['status', 'code', 'period_begin', 'period_end', 'reports_expected', 
                             'reports_actual', 'services', 'comments', 'facility_id', 'supporter_id'];
     protected $dates = ['deleted_at'];
-    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'facility_id', 'supporter_id', 'facility', 'supporter'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'facility_id', 'supporter_id', 'supporter'];
     protected $appends = array('facility_name', 'supporter_name');
 
     public function facility(){

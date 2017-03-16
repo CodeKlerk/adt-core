@@ -493,7 +493,7 @@ class StockApi extends Controller
                                  'tbl_stock.transaction_detail', 'tbl_stock.transaction_type_id', 'tbl_transaction_type.name as transaction_name',
                                  'tbl_stock_item.expiry_date', 'tbl_stock_item.quantity_packs', 'tbl_stock_item.total_cost'
                                )
-                       ->get();
+                       ->get()->unique('batch_number');
         return response()->json($response,200);
     }
 

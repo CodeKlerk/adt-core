@@ -8,6 +8,6 @@ class PatientDrugOther extends Model
 {
     protected $table = 'tbl_patient_drug_other';
     protected $dates = ['deleted_at'];
-    protected $fillable = ['patient_id', 'name'];
+    protected $fillable = ['patient_id', 'drug_name'];
     public $timestamps = false;
 }
