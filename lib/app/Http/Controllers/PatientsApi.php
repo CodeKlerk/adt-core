@@ -90,7 +90,7 @@ class PatientsApi extends Controller
     public function addPatient(Request $request)
     {
         $input = $request::all();
-        // return $input;
+        // return response()->json($input);
         $new_patient = event(new CreatePatientEvent($input)); 
         return response()->json(['msg' => 'created patient', 'new patient' => $input],200); 
         
