@@ -72,12 +72,17 @@ class StockTransactionEvent extends Event
                         $new_item->quantity_out = $si['quantity'];
                     }
                     $new_item->save();
+                    if($new_item->save()){
+                        $new_stock_item_id['stock_item_id'] = $new_item->id;
+                        if($kind_of_transaction == 'dispense'){
+                            event(new DispensePatientEvent($this->transaction_data, $new_stock_item_id));
+                        }
+                        return response()->json(['msg' => 'transacton done.']);
+                    }
                 }
             }
         }
 
-        if($kind_of_transaction == 'dispense'){
-            event(new DispensePatientEvent($this->transaction_data));
-        }
+        
     }
 }

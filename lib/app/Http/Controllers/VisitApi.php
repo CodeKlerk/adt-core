@@ -425,7 +425,6 @@ class VisitApi extends Controller
     public function dispensepost($patient_id)
     {
         $input = Request::all();
-        // return $input['dispense_point'];
         $patient['patient_id'] = $patient_id;
         $ref_number['ref_number'] = date('Y-m-d');
         $transaction_qty_type = 'out';
@@ -433,10 +432,10 @@ class VisitApi extends Controller
         $transaction_type_id['transaction_type_id'] = '5';
         $store['store'] = 'current';
         $visit_information = array_merge($input, $patient, $transaction_date, $transaction_type_id, $ref_number, $store);
-        $store_id = '1';
+        $store_id = $input['dispense_point'];
         
         $kind_of_transaction = 'dispense';
-        return $visit_information;
+        // return $visit_information;
         event(new StockTransactionEvent($visit_information, $transaction_qty_type, $store_id, $kind_of_transaction));
     }
 

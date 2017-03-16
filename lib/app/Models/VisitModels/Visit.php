@@ -9,7 +9,7 @@ class Visit extends Model
     protected $table = 'tbl_visit';
     protected $fillable = [ 'current_height', 'current_weight', 'visit_date', 
                             'appointment_adherence', 'patient_id', 'facility_id', 'user_id', 'purpose_id', 
-                            'last_regimen_id', 'current_regimen_id', 'change_reason_id', 'non_adherence_reason_id', 
+                            'last_regimen_id', 'current_regimen_id', 'non_adherence_reason_id', 
                             'appointment_id'
                             ];
     protected $hidden = ['created_at', 'updated_at', 'deleted_at', 'facility', 'purpose'];
