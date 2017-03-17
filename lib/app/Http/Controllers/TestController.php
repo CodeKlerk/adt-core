@@ -16,6 +16,10 @@ use App\Models\VisitModels\Visit;
 
 use App\Models\InventoryModels\TransactionType;
 use App\Models\ListsModels\Status;
+
+use App\Models\DrugModels\Drug;
+use App\Models\DrugModels\Regimen;
+
 class TestController extends Controller
 {
     /**
@@ -48,22 +52,51 @@ class TestController extends Controller
         // return response()->json($stocks_by_store,200);
     }
 
-    public function get_test($store_id){
-        $stock_items = DB::table('tbl_stock_item')
-                          ->join('tbl_stock', 'tbl_stock_item.stock_id', 'tbl_stock.id')
-                          ->join('tbl_store', 'tbl_stock.store_id', 'tbl_store.id')
-                          ->join('tbl_drug', 'tbl_stock_item.drug_id', 'tbl_drug.id')
-                          ->where('tbl_store.id', $store_id)
-                          ->join('tbl_unit', 'tbl_drug.unit_id', 'tbl_unit.id')
-                          ->join('tbl_dose', 'tbl_drug.dose_id', 'tbl_dose.id')
-                          ->join('tbl_generic', 'tbl_drug.generic_id', 'tbl_generic.id')
-                          ->select('tbl_unit.name as unit', 'pack_size', 'tbl_generic.name as generic', 'tbl_dose.name as dose', 'batch_number', 'expiry_date', 'balance_before', 'balance_after', 'unit_cost', 'comment', 'store', 'drug_id as id', 'tbl_drug.name')
-                          ->get()->groupBy('name');
 
-        // return $stock_items['name']
-        return response()->json($stock_items, 200);
-        // $drug = Drug::findOrFail($stock_items);
+    public function get_test(){
+        $response = DB::table('tbl_drug')
+                      ->join('tbl_regimen_drug', 'tbl_drug.id', 'tbl_regimen_drug.drug_id')
+                      ->join('tbl_regimen', 'tbl_regimen_drug.regimen_id', 'tbl_regimen.id')
+                      ->join('tbl_category', 'tbl_regimen.category_id', 'tbl_category.id')
+                      ->select('tbl_drug.name as drug_name', 'tbl_drug.pack_size', 'quantity', 'tbl_category.id as category_id', 'tbl_category.name as category_name')
+                      ->get()
+                      ->groupBy('category_name');
+        return response()->json($response, 200);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public function get_test($store_id){
+    //     $stock_items = DB::table('tbl_stock_item')
+    //                       ->join('tbl_stock', 'tbl_stock_item.stock_id', 'tbl_stock.id')
+    //                       ->join('tbl_store', 'tbl_stock.store_id', 'tbl_store.id')
+    //                       ->join('tbl_drug', 'tbl_stock_item.drug_id', 'tbl_drug.id')
+    //                       ->where('tbl_store.id', $store_id)
+    //                       ->join('tbl_unit', 'tbl_drug.unit_id', 'tbl_unit.id')
+    //                       ->join('tbl_dose', 'tbl_drug.dose_id', 'tbl_dose.id')
+    //                       ->join('tbl_generic', 'tbl_drug.generic_id', 'tbl_generic.id')
+    //                       ->select('tbl_unit.name as unit', 'pack_size', 'tbl_generic.name as generic', 'tbl_dose.name as dose', 'batch_number', 'expiry_date', 'balance_before', 'balance_after', 'unit_cost', 'comment', 'store', 'drug_id as id', 'tbl_drug.name')
+    //                       ->get()->groupBy('name');
+
+    //     // return $stock_items['name']
+    //     return response()->json($stock_items, 200);
+    //     // $drug = Drug::findOrFail($stock_items);
+    // }
 
 
 

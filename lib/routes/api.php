@@ -22,7 +22,7 @@ $api->version('v1', function ($api) {
         $api->get('/auth/user', [ 'uses' => 'App\Http\Controllers\Auth\AuthController@getUser', 'as' => 'api.auth.user' ]);
         $api->patch('/auth/refresh', [ 'uses' => 'App\Http\Controllers\Auth\AuthController@patchRefresh', 'as' => 'api.auth.refresh' ]);
         $api->delete('/auth/invalidate', [ 'uses' => 'App\Http\Controllers\Auth\AuthController@deleteInvalidate', 'as' => 'api.auth.invalidate' ]);
-        $api->get('test/{storeId}', 'App\Http\Controllers\TestController@get_test');
+        $api->get('test', 'App\Http\Controllers\TestController@get_test');
         // $api->get('test/{id}', 'App\Http\Controllers\TestController@get_test_with_id');
 
         
@@ -419,6 +419,8 @@ $api->version('v1', function ($api) {
             
         });
         $api->group(['prefix'=> 'cdrr'], function($api){
+            // group by categpry
+            $api->get('/categories/drugs', 'App\Http\Controllers\CdrrApi@cdrrItemOrderedByCategory');
             // cdrr logs
             $api->get('/{cdrrId}/log', 'App\Http\Controllers\CdrrApi@cdrrItemget');
             $api->post('/{cdrrId}/log', 'App\Http\Controllers\CdrrApi@cdrrItempost');

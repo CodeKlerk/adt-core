@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+
+use Illuminate\Support\Facades\DB;
+
 use App\Models\CdrrModels\Cdrr;
 use App\Models\CdrrModels\CdrrItem;
 use App\Models\CdrrModels\CdrrLog;
@@ -297,5 +300,17 @@ class CdrrApi extends Controller
             return response('Failed to update cdrr log');
         }
     }   
+
+    // drug list for cdrr by category
+    public function cdrrItemOrderedByCategory(){
+        $response = DB::table('tbl_drug')
+                      ->join('tbl_regimen_drug', 'tbl_drug.id', 'tbl_regimen_drug.drug_id')
+                      ->join('tbl_regimen', 'tbl_regimen_drug.regimen_id', 'tbl_regimen.id')
+                      ->join('tbl_category', 'tbl_regimen.category_id', 'tbl_category.id')
+                      ->select('tbl_drug.name as drug_name', 'tbl_drug.pack_size', 'quantity', 'tbl_category.id as category_id', 'tbl_category.name as category_name')
+                      ->get()
+                      ->groupBy('category_name');
+        return response()->json($response, 200);
+    }
 
 }
