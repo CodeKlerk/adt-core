@@ -429,12 +429,12 @@ $api->version('v1', function ($api) {
             $api->put('/{cdrrId}/log/{logId}', 'App\Http\Controllers\CdrrApi@cdrrItemput');
             $api->delete('/{cdrrId}/log/{logId}', 'App\Http\Controllers\CdrrApi@cdrrItemdelete');
             // cdrr item
-            $api->get('/{cdrrId}/item', 'App\Http\Controllers\CdrrApi@cdrrItemget');
-            $api->post('/{cdrrId}/item', 'App\Http\Controllers\CdrrApi@cdrrItempost');
+            $api->get('/{cdrrId}/items', 'App\Http\Controllers\CdrrApi@cdrrItemget');
+            $api->post('/{cdrrId}/items', 'App\Http\Controllers\CdrrApi@cdrrItempost');
 
-            $api->get('/{cdrrId}/item/{itemId}', 'App\Http\Controllers\CdrrApi@cdrrItemByIdget');
-            $api->put('/{cdrrId}/item/{itemId}', 'App\Http\Controllers\CdrrApi@cdrrItemput');
-            $api->delete('/{cdrrId}/item/{itemId}', 'App\Http\Controllers\CdrrApi@cdrrItemdelete');
+            $api->get('/{cdrrId}/items/{itemId}', 'App\Http\Controllers\CdrrApi@cdrrItemByIdget');
+            $api->put('/{cdrrId}/items/{itemId}', 'App\Http\Controllers\CdrrApi@cdrrItemput');
+            $api->delete('/{cdrrId}/items/{itemId}', 'App\Http\Controllers\CdrrApi@cdrrItemdelete');
             // cdrr
             $api->get('/', 'App\Http\Controllers\CdrrApi@cdrrget');
             $api->post('/', 'App\Http\Controllers\CdrrApi@cdrrpost');

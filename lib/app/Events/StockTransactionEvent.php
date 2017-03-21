@@ -51,11 +51,10 @@ class StockTransactionEvent extends Event
                 foreach($stock_items as $stock_item){
                     // add patient_id to drug
                     
-                    $si = array_merge($stock_item, $new_stock_id);
                     $new_item = new StockItem;
-                    $new_item->stock_id = $si['stock_id'];
-                    $new_item->batch_number = $si['batch_number'];
-                    $new_item->drug_id = $si['drug_id'];
+                    $new_item->stock_id = $new_stock_id['stock_id'];
+                    $new_item->batch_number = $stock_item['batch_number'];
+                    $new_item->drug_id = $stock_item['drug_id'];
                     $new_item->store = $store;
                     if($kind_of_transaction == 'dispense'){
 
@@ -67,15 +66,15 @@ class StockTransactionEvent extends Event
                         $quantity = 10;
 
                     }else if($kind_of_transaction == 'plain'){
-                        $new_item->unit_cost = $si['unit_cost'];
-                        $new_item->expiry_date = $si['expiry_date'];
-                        $new_item->quantity_packs = $si['quantity_packs'];
-                        if($si['balance_before'] > 0){
-                            $balance_before = $si['balance_before'];
+                        $new_item->unit_cost = $stock_item['unit_cost'];
+                        $new_item->expiry_date = $stock_item['expiry_date'];
+                        $new_item->quantity_packs = $stock_item['quantity_packs'];
+                        if($stock_item['balance_before'] > 0){
+                            $balance_before = $stock_item['balance_before'];
                         }else{
                             $balance_before = 0;
                         }
-                        $quantity = $si['quantity'];
+                        $quantity = $stock_item['quantity'];
                     }
                     
                     if($this->transaction_qty_type == 'in'){

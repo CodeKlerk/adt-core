@@ -453,7 +453,8 @@ class StockApi extends Controller
         $kind_of_transaction = 'plain';
 
         if(array_key_exists('transaction_type_id', $input)){
-            // return response()->json($input, 200);
+            // return response()->json($input['drugs'], 200);
+
             $transaction_type_id = $input['transaction_type_id'];
             $transaction_type = TransactionType::findOrFail($transaction_type_id);
             if(!$transaction_type['effect'] == ''){
@@ -488,7 +489,7 @@ class StockApi extends Controller
                                  'tbl_stock.transaction_detail', 'tbl_stock.transaction_type_id', 'tbl_transaction_type.name as transaction_name',
                                  'tbl_stock_item.expiry_date', 'tbl_stock_item.quantity_packs', 'tbl_stock_item.total_cost'
                                )
-                       ->get()->unique('batch_number')->values();
+                       ->get()->unique('batch_number')->sortBy('expiry_date')->values();
         }else if($date == 'all'){
             $current_date = '0000:00:00';
             $response = DB::table('tbl_store')

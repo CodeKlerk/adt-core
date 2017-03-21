@@ -134,9 +134,9 @@ class CdrrApi extends Controller
      *
      * @return Http response
      */
-    public function cdrrItemByIdget($cdrrItem_id)
+    public function cdrrItemByIdget($cdrr_id,$cdrrItem_id)
     {
-        $response = CdrrItem::findOrFail($cdrrItem_id);
+        $response = CdrrItem::where('id', $cdrrItem_id)->where('cdrr_id', $cdrr_id)->get();
         return response()->json($response, 200);
     }
     /**
