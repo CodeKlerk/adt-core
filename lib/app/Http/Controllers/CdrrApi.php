@@ -43,7 +43,7 @@ class CdrrApi extends Controller
      */
     public function cdrrByIdget($cdrr_id)
     {
-        $response = Cdrr::findOrFail($cdrr_id);
+        $response = Cdrr::with('facility')->where('id', $cdrr_id)->get();
         return response()->json($response, 200);
     }
     /**
@@ -120,9 +120,9 @@ class CdrrApi extends Controller
      *
      * @return Http response
      */
-    public function cdrrItemget()
+    public function cdrrItemget($cdrr_id)
     {
-        $response = CdrrItem::all();
+        $response = CdrrItem::where('cdrr_id', $cdrr_id)->get();
         return response()->json($response, 200);
     }
     /**
