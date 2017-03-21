@@ -5,7 +5,7 @@ namespace App\Events;
 use App\Models\VisitModels\Appointment;
 use App\Models\VisitModels\Visit;
 use App\Models\VisitModels\VisitItem;
-// use App\Models\VisitModels\
+use App\Models\InventoryModels\StockItem;
 
 class DispensePatientEvent extends Event
 {
@@ -38,7 +38,8 @@ class DispensePatientEvent extends Event
 
                 foreach($drugs as $drug){
                     // add patient_id to drug
-                    $visit_item = array_merge($drug, $new_visit_id, $stock_item_id, $indication);
+                    $unit_cost['unit_cost'] = 10;
+                    $visit_item = array_merge($unit_cost,$drug, $new_visit_id, $stock_item_id, $indication);
                     // add visit item
                     VisitItem::create($visit_item);
                 }

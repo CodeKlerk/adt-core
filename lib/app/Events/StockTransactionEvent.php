@@ -50,26 +50,39 @@ class StockTransactionEvent extends Event
                 
                 foreach($stock_items as $stock_item){
                     // add patient_id to drug
+                    
                     $si = array_merge($stock_item, $new_stock_id);
                     $new_item = new StockItem;
                     $new_item->stock_id = $si['stock_id'];
                     $new_item->batch_number = $si['batch_number'];
                     $new_item->drug_id = $si['drug_id'];
-                    $new_item->unit_cost = $si['unit_cost'];
-                    $new_item->store = $store; 
-                    // $new_item->pack_size = $si['pack_size'];
-                    $new_item->expiry_date = $si['expiry_date'];
-                    $new_item->quantity_packs = $si['quantity_packs'];
-                    if($si['balance_before'] > 0){
-                        $balance_before = $si['balance_before'];
+                    $new_item->store = $store;
+                    if($kind_of_transaction == 'dispense'){
+
+                        $new_item->unit_cost = 10; //temp only used to test dispense
+                        $new_item->expiry_date = '00:00:0000'; // temp only used because of dispense
+                        $new_item->quantity_packs = 10; //temp only used because of dispense
+                        $balance_before = 100;  //temp
+                        $new_item->balance_before = $balance_before;
+                        $quantity = 10;
+
                     }else{
-                        $balance_before = 0;
+                        $new_item->unit_cost = $si['unit_cost'];
+                        $new_item->pack_size = $si['pack_size'];
+                        $new_item->expiry_date = $si['expiry_date'];
+                        $new_item->quantity_packs = $si['quantity_packs'];
+                        if($si['balance_before'] > 0){
+                            $balance_before = $si['balance_before'];
+                        }else{
+                            $balance_before = 0;
+                        }
+                        $quantity = $si['quantity'];
                     }
-                    $new_item->balance_before = $balance_before;
+                    
                     if($this->transaction_qty_type == 'in'){
-                        $new_item->quantity_in = $si['quantity'];
+                        $new_item->quantity_in = $quantity;
                     }else{
-                        $new_item->quantity_out = $si['quantity'];
+                        $new_item->quantity_out = $quantity;
                     }
                     $new_item->save();
                     if($new_item->save()){

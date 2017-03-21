@@ -42,6 +42,8 @@ class TestController extends Controller
     }
 
     public function get_test_with_id($id){
+        $drug_information = StockItem::where('drug_id', $id)->get();
+        return $drug_information->unit_cost;
         // $stocks_by_store = DB::table('tbl_store')
         //                       ->join('tbl_stock', 'tbl_store.id', 'tbl_stock.store_id')
         //                       ->join('tbl_stock_item', 'tbl_stock.id', 'tbl_stock_item.stock_id')

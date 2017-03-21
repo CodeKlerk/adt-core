@@ -23,7 +23,7 @@ $api->version('v1', function ($api) {
         $api->patch('/auth/refresh', [ 'uses' => 'App\Http\Controllers\Auth\AuthController@patchRefresh', 'as' => 'api.auth.refresh' ]);
         $api->delete('/auth/invalidate', [ 'uses' => 'App\Http\Controllers\Auth\AuthController@deleteInvalidate', 'as' => 'api.auth.invalidate' ]);
         $api->get('test', 'App\Http\Controllers\TestController@get_test');
-        // $api->get('test/{id}', 'App\Http\Controllers\TestController@get_test_with_id');
+        $api->get('test/{id}', 'App\Http\Controllers\TestController@get_test_with_id');
 
         
         $api->group(['prefix' => 'users'], function($api){

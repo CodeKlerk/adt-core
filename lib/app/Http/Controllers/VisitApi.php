@@ -437,6 +437,7 @@ class VisitApi extends Controller
         $kind_of_transaction = 'dispense';
         // return $visit_information;
         event(new StockTransactionEvent($visit_information, $transaction_qty_type, $store_id, $kind_of_transaction));
+        return response()->json(['msg' => 'dispensed drugs to patient'], 200);
     }
 
     /**
