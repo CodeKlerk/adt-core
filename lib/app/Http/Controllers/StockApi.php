@@ -453,6 +453,7 @@ class StockApi extends Controller
         $kind_of_transaction = 'plain';
 
         if(array_key_exists('transaction_type_id', $input)){
+            // return response()->json($input, 200);
             $transaction_type_id = $input['transaction_type_id'];
             $transaction_type = TransactionType::findOrFail($transaction_type_id);
             if(!$transaction_type['effect'] == ''){

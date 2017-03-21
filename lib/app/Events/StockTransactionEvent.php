@@ -66,9 +66,8 @@ class StockTransactionEvent extends Event
                         $new_item->balance_before = $balance_before;
                         $quantity = 10;
 
-                    }else{
+                    }else if($kind_of_transaction == 'plain'){
                         $new_item->unit_cost = $si['unit_cost'];
-                        $new_item->pack_size = $si['pack_size'];
                         $new_item->expiry_date = $si['expiry_date'];
                         $new_item->quantity_packs = $si['quantity_packs'];
                         if($si['balance_before'] > 0){
